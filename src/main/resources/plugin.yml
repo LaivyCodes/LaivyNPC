@@ -1,0 +1,7 @@
+name: LaivyNPC
+version: 1.0
+main: codes.laivy.npc.LaivyNPC
+author: DanielZinh#7616
+api-version: 1.13
+
+website: "https://github.com/ItsLaivy/LaivyNPC"
