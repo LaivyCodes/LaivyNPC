@@ -413,7 +413,7 @@
   "PLAYERCONNECTION":"net.minecraft.server.network.PlayerConnection",
 
   "ENTITY_PLAYER":"net.minecraft.server.level.EntityPlayer",
-  "ENTITY_PLAYER_PlayerInteractManager":null,
+  "ENTITY_PLAYER_PlayerInteractManager":"NÃO É NECESSÁRIO NESSA VERSÃO",
   "ENTITY_PLAYER_getPlayerConnection":"b",
   "ENTITY_PLAYER_getNetworkManagerChannel":"m",
 
