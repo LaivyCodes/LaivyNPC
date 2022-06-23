@@ -293,7 +293,7 @@
   "ENTITY_AXOLOTL_VARIANT_CYAN":"CYAN",
   "ENTITY_AXOLOTL_VARIANT_BLUE":"BLUE",
 
-  "ENTITY_HORSE_ZOMBIE":"net.minecraft.world.entity.monster.EntityHorseZombie",
+  "ENTITY_HORSE_ZOMBIE":"net.minecraft.world.entity.animal.horse.EntityHorseZombie",
   "ENTITY_HORSE_ZOMBIE_TYPES_FIELD":"bk",
   "ENTITY_HORSE_DONKEY":"net.minecraft.world.entity.animal.horse.EntityHorseDonkey",
   "ENTITY_HORSE_DONKEY_TYPES_FIELD":"s",
