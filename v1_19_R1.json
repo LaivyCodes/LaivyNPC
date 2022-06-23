@@ -85,9 +85,9 @@
   "ENTITY_MINECART_RIDEABLE":"net.minecraft.world.entity.vehicle.EntityMinecartRideable",
   "ENTITY_MINECART_RIDEABLE_TYPES_FIELD":"ac",
   "ENTITY_MINECART_CHEST":"net.minecraft.world.entity.vehicle.EntityMinecartChest",
-  "ENTITY_MINECART_CHEST_TYPES_FIELD":"AD",
+  "ENTITY_MINECART_CHEST_TYPES_FIELD":"ad",
   "ENTITY_MINECART_COMMAND_BLOCK":"net.minecraft.world.entity.vehicle.EntityMinecartCommandBlock",
-  "ENTITY_MINECART_COMMAND_BLOCK_TYPES_FIELD":"AE",
+  "ENTITY_MINECART_COMMAND_BLOCK_TYPES_FIELD":"ae",
   "ENTITY_MINECART_FURNACE":"net.minecraft.world.entity.vehicle.EntityMinecartFurnace",
   "ENTITY_MINECART_FURNACE_TYPES_FIELD":"af",
   "ENTITY_MINECART_HOPPER":"net.minecraft.world.entity.vehicle.EntityMinecartHopper",
@@ -116,7 +116,7 @@
   "ENTITY_PIGLIN_TYPES_FIELD":"ar",
 
   "ENTITY_PIGLIN_BRUTE":"net.minecraft.world.entity.monster.piglin.EntityPiglinBrute",
-  "ENTITY_PIGLIN_BRUTE_TYPES_FIELD":"AS",
+  "ENTITY_PIGLIN_BRUTE_TYPES_FIELD":"as",
 
   "ENTITY_PILLAGER":"net.minecraft.world.entity.monster.EntityPillager",
   "ENTITY_PILLAGER_TYPES_FIELD":"at",
