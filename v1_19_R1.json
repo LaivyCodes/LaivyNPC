@@ -440,7 +440,7 @@
   "DATAWATCHERREGISTRY":"net.minecraft.network.syncher.DataWatcherRegistry",
   "DATAWATCHER":"net.minecraft.network.syncher.DataWatcher",
   "DATAWATCHER_itemsById":"f",
-  "DATAWATCHER_itemsById_alternative":null,
+  "DATAWATCHER_itemsById_alternative":"NÃO É NECESSÁRIO NESSA VERSÃO",
   "DATAWATCHER_Item":"net.minecraft.network.syncher.DataWatcher$Item",
   "DATAWATCHERREGISTRY_BYTE":"a",
   "DATAWATCHERSERIALIZER_write":"a",
