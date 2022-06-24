@@ -415,7 +415,7 @@
   "ENTITY_PLAYER":"net.minecraft.server.level.EntityPlayer",
   "ENTITY_PLAYER_PlayerInteractManager":"NÃO É NECESSÁRIO NESSA VERSÃO",
   "ENTITY_PLAYER_getPlayerConnection":"b",
-  "PLAYERCONNECTION_networkManager":"a",
+  "PLAYERCONNECTION_networkManager":"b",
   "NETWORKMANAGER_channel":"m",
 
   "PLAYERCONNECTION_sendPacket":"a",
