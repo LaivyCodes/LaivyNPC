@@ -381,7 +381,8 @@
   "PACKETPLAYOUTSCOREBOARDTEAM":"net.minecraft.network.protocol.game.PacketPlayOutScoreboardTeam",
   "PACKETPLAYOUTNAMEDENTITYSPAWN":"net.minecraft.network.protocol.game.PacketPlayOutNamedEntitySpawn",
   "PACKETPLAYOUTENTITYDESTROY":"net.minecraft.network.protocol.game.PacketPlayOutEntityDestroy",
-
+  "PACKETPLAYOUTENTITYTELEPORT":"net.minecraft.network.protocol.game.PacketPlayOutEntityTeleport",
+  
   "PACKETPLAYINUSEENTITY":"net.minecraft.network.protocol.game.PacketPlayInUseEntity",
   "PACKETPLAYINUSEENTITY_getEntityId":"a",
   "PACKETPLAYINUSEENTITY_getClickAction":"b",
