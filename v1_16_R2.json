@@ -1,0 +1,491 @@
+{
+  "VERSION_NAME":"v1_16_R2",
+  "VERSION_CODE":16.2,
+
+  "PROFILE_PUBLIC_KEY":"net.minecraft.server.v1_16_R2.ProfilePublicKey",
+
+  "ENTITY_CREEPER":"net.minecraft.server.v1_16_R2.EntityCreeper",
+  "ENTITY_CREEPER_TYPES_FIELD":"CREEPER",
+
+  "ENTITY_COW":"net.minecraft.server.v1_16_R2.EntityCow",
+  "ENTITY_COW_TYPES_FIELD":"COW",
+  "ENTITY_MUSHROOM_COW":"net.minecraft.server.v1_16_R2.EntityMushroomCow",
+  "ENTITY_MUSHROOM_COW_TYPES_FIELD":"MUSHROOM_COW",
+
+  "ENTITY_DOLPHIN":"net.minecraft.server.v1_16_R2.EntityDolphin",
+  "ENTITY_DOLPHIN_TYPES_FIELD":"DOLPHIN",
+
+  "ENTITY_ENDER_SIGNAL":"net.minecraft.server.v1_16_R2.EntityEnderSignal",
+  "ENTITY_ENDER_SIGNAL_TYPES_FIELD":"EYE_OF_ENDER",
+  "ENTITY_ENDER_CRYSTAL":"net.minecraft.server.v1_16_R2.EntityEnderCrystal",
+  "ENTITY_ENDER_CRYSTAL_TYPES_FIELD":"ENDER_CRYSTAL",
+  "ENTITY_ENDER_DRAGON":"net.minecraft.server.v1_16_R2.EntityEnderDragon",
+  "ENTITY_ENDER_DRAGON_TYPES_FIELD":"ENDER_DRAGON",
+
+  "ENTITY_ENDERMAN":"net.minecraft.server.v1_16_R2.EntityEnderman",
+  "ENTITY_ENDERMAN_TYPES_FIELD":"ENDERMAN",
+  "ENTITY_ENDERMITE":"net.minecraft.server.v1_16_R2.EntityEndermite",
+  "ENTITY_ENDERMITE_TYPES_FIELD":"ENDERMITE",
+
+  "ENTITY_EVOKER":"net.minecraft.server.v1_16_R2.EntityEvoker",
+  "ENTITY_EVOKER_TYPES_FIELD":"EVOKER",
+
+  "ENTITY_EVOKER_FANGS":"net.minecraft.server.v1_16_R2.EntityEvokerFangs",
+  "ENTITY_EVOKER_FANGS_TYPES_FIELD":"EVOKER_FANGS",
+
+  "ENTITY_EXPERIENCE_ORB":"net.minecraft.server.v1_16_R2.EntityExperienceOrb",
+  "ENTITY_EXPERIENCE_ORB_TYPES_FIELD":"EXPERIENCE_ORB",
+
+  "ENTITY_FALLING_BLOCK":"net.minecraft.server.v1_16_R2.EntityFallingBlock",
+  "ENTITY_FALLING_BLOCK_TYPES_FIELD":"FALLING_BLOCK",
+
+  "ENTITY_FIREWORKS":"net.minecraft.server.v1_16_R2.EntityFireworks",
+  "ENTITY_FIREWORKS_TYPES_FIELD":"FIREWORK_ROCKET",
+
+  "ENTITY_FOX":"net.minecraft.server.v1_16_R2.EntityFox",
+  "ENTITY_FOX_TYPES_FIELD":"FOX",
+
+  "ENTITY_FROG":"NÃO É NECESSÁRIO NESSA VERSÃO",
+  "ENTITY_FROG_TYPES_FIELD":"NÃO É NECESSÁRIO NESSA VERSÃO",
+
+  "ENTITY_GHAST":"net.minecraft.server.v1_16_R2.EntityGhast",
+  "ENTITY_GHAST_TYPES_FIELD":"GHAST",
+
+  "ENTITY_GOAT":"NÃO É NECESSÁRIO NESSA VERSÃO",
+  "ENTITY_GOAT_TYPES_FIELD":"NÃO É NECESSÁRIO NESSA VERSÃO",
+
+  "ENTITY_GUARDIAN":"net.minecraft.server.v1_16_R2.EntityGuardian",
+  "ENTITY_GUARDIAN_TYPES_FIELD":"GUARDIAN",
+  "ENTITY_GUARDIAN_ELDER":"net.minecraft.server.v1_16_R2.EntityGuardianElder",
+  "ENTITY_GUARDIAN_ELDER_TYPES_FIELD":"ELDER_GUARDIAN",
+
+  "ENTITY_HOGLIN":"net.minecraft.server.v1_16_R2.EntityHoglin",
+  "ENTITY_HOGLIN_TYPES_FIELD":"HOGLIN",
+
+  "ENTITY_ILLAGER_ILLUSIONER":"net.minecraft.server.v1_16_R2.EntityIllagerIllusioner",
+  "ENTITY_ILLAGER_ILLUSIONER_TYPES_FIELD":"ILLUSIONER",
+
+  "ENTITY_IRON_GOLEM":"net.minecraft.server.v1_16_R2.EntityIronGolem",
+  "ENTITY_IRON_GOLEM_TYPES_FIELD":"IRON_GOLEM",
+
+  "ENTITY_ITEM":"net.minecraft.server.v1_16_R2.EntityItem",
+  "ENTITY_ITEM_TYPES_FIELD":"ITEM",
+
+  "ENTITY_ITEM_FRAME":"net.minecraft.server.v1_16_R2.EntityItemFrame",
+  "ENTITY_ITEM_FRAME_TYPES_FIELD":"ITEM_FRAME",
+  "ENTITY_GLOW_ITEM_FRAME":"NÃO É NECESSÁRIO NESSA VERSÃO",
+  "ENTITY_GLOW_ITEM_FRAME_TYPES_FIELD":"NÃO É NECESSÁRIO NESSA VERSÃO",
+
+  "ENTITY_LEASH":"net.minecraft.server.v1_16_R2.EntityLeash",
+  "ENTITY_LEASH_TYPES_FIELD":"LEASH_KNOT",
+
+  "ENTITY_LIGHTNING":"net.minecraft.server.v1_16_R2.EntityLightning",
+  "ENTITY_LIGHTNING_TYPES_FIELD":"LIGHTNING_BOLT",
+
+  "ENTITY_MINECART_RIDEABLE":"net.minecraft.server.v1_16_R2.EntityMinecartRideable",
+  "ENTITY_MINECART_RIDEABLE_TYPES_FIELD":"MINECART",
+  "ENTITY_MINECART_CHEST":"net.minecraft.server.v1_16_R2.EntityMinecartChest",
+  "ENTITY_MINECART_CHEST_TYPES_FIELD":"CHEST_MINECART",
+  "ENTITY_MINECART_COMMAND_BLOCK":"net.minecraft.server.v1_16_R2.EntityMinecartCommandBlock",
+  "ENTITY_MINECART_COMMAND_BLOCK_TYPES_FIELD":"COMMAND_BLOCK_MINECART",
+  "ENTITY_MINECART_FURNACE":"net.minecraft.server.v1_16_R2.EntityMinecartFurnace",
+  "ENTITY_MINECART_FURNACE_TYPES_FIELD":"FURNACE_MINECART",
+  "ENTITY_MINECART_HOPPER":"net.minecraft.server.v1_16_R2.EntityMinecartHopper",
+  "ENTITY_MINECART_HOPPER_TYPES_FIELD":"HOPPER_MINECART",
+  "ENTITY_MINECART_MOB_SPAWNER":"net.minecraft.server.v1_16_R2.EntityMinecartMobSpawner",
+  "ENTITY_MINECART_MOB_SPAWNER_TYPES_FIELD":"SPAWNER_MINECART",
+  "ENTITY_MINECART_TNT":"net.minecraft.server.v1_16_R2.EntityMinecartTNT",
+  "ENTITY_MINECART_TNT_TYPES_FIELD":"TNT_MINECART",
+
+  "ENTITY_OCELOT":"net.minecraft.server.v1_16_R2.EntityOcelot",
+  "ENTITY_OCELOT_TYPES_FIELD":"OCELOT",
+
+  "ENTITY_PAINTING":"net.minecraft.server.v1_16_R2.EntityPainting",
+  "ENTITY_PAINTING_TYPES_FIELD":"PAINTING",
+
+  "ENTITY_PANDA":"net.minecraft.server.v1_16_R2.EntityPanda",
+  "ENTITY_PANDA_TYPES_FIELD":"PANDA",
+
+  "ENTITY_PHANTOM":"net.minecraft.server.v1_16_R2.EntityPhantom",
+  "ENTITY_PHANTOM_TYPES_FIELD":"PHANTOM",
+
+  "ENTITY_PIG":"net.minecraft.server.v1_16_R2.EntityPig",
+  "ENTITY_PIG_TYPES_FIELD":"PIG",
+
+  "ENTITY_PIGLIN":"net.minecraft.server.v1_16_R2.EntityPiglin",
+  "ENTITY_PIGLIN_TYPES_FIELD":"PIGLIN",
+
+  "ENTITY_PIGLIN_BRUTE":"net.minecraft.server.v1_16_R2.EntityPiglinBrute",
+  "ENTITY_PIGLIN_BRUTE_TYPES_FIELD":"PIGLIN_BRUTE",
+
+  "ENTITY_PILLAGER":"net.minecraft.server.v1_16_R2.EntityPillager",
+  "ENTITY_PILLAGER_TYPES_FIELD":"PILLAGER",
+
+  "ENTITY_POLAR_BEAR":"net.minecraft.server.v1_16_R2.EntityPolarBear",
+  "ENTITY_POLAR_BEAR_TYPES_FIELD":"POLAR_BEAR",
+
+  "ENTITY_TNT_PRIMED":"net.minecraft.server.v1_16_R2.EntityTNTPrimed",
+  "ENTITY_TNT_PRIMED_TYPES_FIELD":"TNT",
+
+  "ENTITY_RABBIT":"net.minecraft.server.v1_16_R2.EntityRabbit",
+  "ENTITY_RABBIT_TYPES_FIELD":"RABBIT",
+
+  "ENTITY_RAVAGER":"net.minecraft.server.v1_16_R2.EntityRavager",
+  "ENTITY_RAVAGER_TYPES_FIELD":"RAVAGER",
+
+  "ENTITY_SHEEP":"net.minecraft.server.v1_16_R2.EntitySheep",
+  "ENTITY_SHEEP_TYPES_FIELD":"SHEEP",
+
+  "ENTITY_SHULKER":"net.minecraft.server.v1_16_R2.EntityShulker",
+  "ENTITY_SHULKER_TYPES_FIELD":"SHULKER",
+  "ENTITY_SHULKER_BULLET":"net.minecraft.server.v1_16_R2.EntityShulkerBullet",
+  "ENTITY_SHULKER_BULLET_TYPES_FIELD":"SHULKER_BULLET",
+
+  "ENTITY_SILVERFISH":"net.minecraft.server.v1_16_R2.EntitySilverfish",
+  "ENTITY_SILVERFISH_TYPES_FIELD":"SILVERFISH",
+
+  "ENTITY_SALMON_FISH":"net.minecraft.server.v1_16_R2.EntitySalmon",
+  "ENTITY_SALMON_FISH_TYPES_FIELD":"SALMON",
+  "ENTITY_PUFFER_FISH":"net.minecraft.server.v1_16_R2.EntityPufferFish",
+  "ENTITY_PUFFER_FISH_TYPES_FIELD":"PUFFERFISH",
+  "ENTITY_TROPICAL_FISH":"net.minecraft.server.v1_16_R2.EntityTropicalFish",
+  "ENTITY_TROPICAL_FISH_TYPES_FIELD":"TROPICAL_FISH",
+  "ENTITY_COD_FISH":"net.minecraft.server.v1_16_R2.EntityCod",
+  "ENTITY_COD_FISH_TYPES_FIELD":"COD",
+  "ENTITY_FISHING_HOOK":"net.minecraft.server.v1_16_R2.EntityFishingHook",
+  "ENTITY_FISHING_HOOK_TYPES_FIELD":"FISHING_BOBBER",
+
+  "ENTITY_SLIME":"net.minecraft.server.v1_16_R2.EntitySlime",
+  "ENTITY_SLIME_TYPES_FIELD":"SLIME",
+  "ENTITY_MAGMA_CUBE":"net.minecraft.server.v1_16_R2.EntityMagmaCube",
+  "ENTITY_MAGMA_CUBE_TYPES_FIELD":"MAGMA_CUBE",
+
+  "ENTITY_SMALL_FIREBALL":"net.minecraft.server.v1_16_R2.EntitySmallFireball",
+  "ENTITY_SMALL_FIREBALL_TYPES_FIELD":"SMALL_FIREBALL",
+  "ENTITY_SNOWBALL":"net.minecraft.server.v1_16_R2.EntitySnowball",
+  "ENTITY_SNOWBALL_TYPES_FIELD":"SNOWBALL",
+  "ENTITY_SPECTRAL_ARROW":"net.minecraft.server.v1_16_R2.EntitySpectralArrow",
+  "ENTITY_SPECTRAL_ARROW_TYPES_FIELD":"SPECTRAL_ARROW",
+  "ENTITY_LARGE_FIREBALL":"net.minecraft.server.v1_16_R2.EntityLargeFireball",
+  "ENTITY_LARGE_FIREBALL_TYPES_FIELD":"FIREBALL",
+  "ENTITY_DRAGON_FIREBALL":"net.minecraft.server.v1_16_R2.EntityDragonFireball",
+  "ENTITY_DRAGON_FIREBALL_TYPES_FIELD":"DRAGON_FIREBALL",
+
+  "ENTITY_SNOWMAN":"net.minecraft.server.v1_16_R2.EntitySnowman",
+  "ENTITY_SNOWMAN_TYPES_FIELD":"SNOW_GOLEM",
+
+  "ENTITY_SPIDER":"net.minecraft.server.v1_16_R2.EntitySpider",
+  "ENTITY_SPIDER_TYPES_FIELD":"SPIDER",
+  "ENTITY_CAVE_SPIDER":"net.minecraft.server.v1_16_R2.EntityCaveSpider",
+  "ENTITY_CAVE_SPIDER_TYPES_FIELD":"CAVE_SPIDER",
+
+  "ENTITY_SQUID":"net.minecraft.server.v1_16_R2.EntitySquid",
+  "ENTITY_SQUID_TYPES_FIELD":"SQUID",
+  "ENTITY_GLOW_SQUID":"NÃO É NECESSÁRIO NESSA VERSÃO",
+  "ENTITY_GLOW_SQUID_TYPES_FIELD":"NÃO É NECESSÁRIO NESSA VERSÃO",
+
+  "ENTITY_STRIDER":"net.minecraft.server.v1_16_R2.EntityStrider",
+  "ENTITY_STRIDER_TYPES_FIELD":"STRIDER",
+
+  "ENTITY_TADPOLE":"NÃO É NECESSÁRIO NESSA VERSÃO",
+  "ENTITY_TADPOLE_TYPES_FIELD":"NÃO É NECESSÁRIO NESSA VERSÃO",
+
+  "ENTITY_EGG":"net.minecraft.server.v1_16_R2.EntityEgg",
+  "ENTITY_EGG_TYPES_FIELD":"EGG",
+
+  "ENTITY_ENDER_PEARL":"net.minecraft.server.v1_16_R2.EntityEnderPearl",
+  "ENTITY_ENDER_PEARL_TYPES_FIELD":"ENDER_PEARL",
+
+  "ENTITY_THROWN_EXPERIENCE_BOTTLE":"net.minecraft.server.v1_16_R2.EntityThrownExpBottle",
+  "ENTITY_THROWN_EXPERIENCE_BOTTLE_TYPES_FIELD":"EXPERIENCE_BOTTLE",
+
+  "ENTITY_POTION":"net.minecraft.server.v1_16_R2.EntityPotion",
+  "ENTITY_POTION_TYPES_FIELD":"POTION",
+
+  "ENTITY_THROWN_TRIDENT":"net.minecraft.server.v1_16_R2.EntityThrownTrident",
+  "ENTITY_THROWN_TRIDENT_TYPES_FIELD":"TRIDENT",
+
+  "ENTITY_TURTLE":"net.minecraft.server.v1_16_R2.EntityTurtle",
+  "ENTITY_TURTLE_TYPES_FIELD":"TURTLE",
+
+  "ENTITY_VEX":"net.minecraft.server.v1_16_R2.EntityVex",
+  "ENTITY_VEX_TYPES_FIELD":"VEX",
+
+  "ENTITY_VILLAGER":"net.minecraft.server.v1_16_R2.EntityVillager",
+  "ENTITY_VILLAGER_TYPES_FIELD":"VILLAGER",
+  "ENTITY_VILLAGER_TRADER":"net.minecraft.server.v1_16_R2.EntityVillagerTrader",
+  "ENTITY_VILLAGER_TRADER_TYPES_FIELD":"WANDERING_TRADER",
+
+  "ENTITY_VINDICATOR":"net.minecraft.server.v1_16_R2.EntityVindicator",
+  "ENTITY_VINDICATOR_TYPES_FIELD":"VINDICATOR",
+
+  "ENTITY_WARDEN":"NÃO É NECESSÁRIO NESSA VERSÃO",
+  "ENTITY_WARDEN_TYPES_FIELD":"NÃO É NECESSÁRIO NESSA VERSÃO",
+
+  "ENTITY_WITCH":"net.minecraft.server.v1_16_R2.EntityWitch",
+  "ENTITY_WITCH_TYPES_FIELD":"WITCH",
+
+  "ENTITY_WITHER":"net.minecraft.server.v1_16_R2.EntityWither",
+  "ENTITY_WITHER_TYPES_FIELD":"WITHER",
+  "ENTITY_WITHER_SKULL":"net.minecraft.server.v1_16_R2.EntityWitherSkull",
+  "ENTITY_WITHER_SKULL_TYPES_FIELD":"WITHER_SKULL",
+
+  "ENTITY_WOLF":"net.minecraft.server.v1_16_R2.EntityWolf",
+  "ENTITY_WOLF_TYPES_FIELD":"WOLF",
+
+  "ENTITY_ZOGLIN":"net.minecraft.server.v1_16_R2.EntityZoglin",
+  "ENTITY_ZOGLIN_TYPES_FIELD":"ZOGLIN",
+
+  "ENTITY_CHICKEN":"net.minecraft.server.v1_16_R2.EntityChicken",
+  "ENTITY_CHICKEN_TYPES_FIELD":"CHICKEN",
+
+  "ENTITY_CAT":"net.minecraft.server.v1_16_R2.EntityCat",
+  "ENTITY_CAT_TYPES_FIELD":"CAT",
+  "ENTITY_CAT_setCatVariant":"setCatType",
+  "ENTITY_CAT_getCatVariant":"getCatType",
+  "ENTITY_CAT_setLying":"x",
+  "ENTITY_CAT_isLying":"eW",
+  "ENTITY_CAT_setRelaxStateOne":"y",
+  "ENTITY_CAT_isRelaxStateOne":"eX",
+  "ENTITY_CAT_setCollarColor":"setCollarColor",
+  "ENTITY_CAT_getCollarColor":"getCollarColor",
+  "ENTITY_CAT_CATVARIANT":"NÃO É NECESSÁRIO NESSA VERSÃO",
+  "ENTITY_CAT_CATVARIANT_TABBY":"0",
+  "ENTITY_CAT_CATVARIANT_BLACK":"1",
+  "ENTITY_CAT_CATVARIANT_RED":"2",
+  "ENTITY_CAT_CATVARIANT_SIAMESE":"3",
+  "ENTITY_CAT_CATVARIANT_BRITISH_SHORTHAIR":"4",
+  "ENTITY_CAT_CATVARIANT_CALICO":"5",
+  "ENTITY_CAT_CATVARIANT_PERSIAN":"6",
+  "ENTITY_CAT_CATVARIANT_RAGDOLL":"7",
+  "ENTITY_CAT_CATVARIANT_WHITE":"8",
+  "ENTITY_CAT_CATVARIANT_JELLIE":"9",
+  "ENTITY_CAT_CATVARIANT_ALL_BLACK":"10",
+
+  "ENTITY_BLAZE":"net.minecraft.server.v1_16_R2.EntityBlaze",
+  "ENTITY_BLAZE_TYPES_FIELD":"BLAZE",
+
+  "ENTITY_BEE":"net.minecraft.server.v1_16_R2.EntityBee",
+  "ENTITY_BEE_TYPES_FIELD":"BEE",
+  "ENTITY_BEE_setHasNectar":"setHasNectar",
+  "ENTITY_BEE_setHasStung":"setHasStung",
+  "ENTITY_BEE_setPersistentAngerTarget":"setAngerTarget",
+  "ENTITY_BEE_setRemainingPersistentAngerTime":"setAnger",
+  "ENTITY_BEE_setSavedFlowerPos":"getFlowerPos",
+  "ENTITY_BEE_hasNectar":"hasNectar",
+  "ENTITY_BEE_hasStung":"hasStung",
+  "ENTITY_BEE_getPersistentAngerTarget":"getAngerTarget",
+  "ENTITY_BEE_getRemainingPersistentAngerTime":"getAnger",
+  "ENTITY_BEE_getSavedFlowerPos":"setFlowerPos",
+
+  "ENTITY_BAT":"net.minecraft.server.v1_16_R2.EntityBat",
+  "ENTITY_BAT_TYPES_FIELD":"BAT",
+  "ENTITY_BAT_setResting":"setAsleep",
+  "ENTITY_BAT_isResting":"isAsleep",
+
+  "ENTITY_AXOLOTL":"NÃO É NECESSÁRIO NESSA VERSÃO",
+  "ENTITY_AXOLOTL_TYPES_FIELD":"NÃO É NECESSÁRIO NESSA VERSÃO",
+  "ENTITY_AXOLOTL_setVariant":"NÃO É NECESSÁRIO NESSA VERSÃO",
+  "ENTITY_AXOLOTL_VARIANT":"NÃO É NECESSÁRIO NESSA VERSÃO",
+  "ENTITY_AXOLOTL_VARIANT_LUCY":"NÃO É NECESSÁRIO NESSA VERSÃO",
+  "ENTITY_AXOLOTL_VARIANT_WILD":"NÃO É NECESSÁRIO NESSA VERSÃO",
+  "ENTITY_AXOLOTL_VARIANT_GOLD":"NÃO É NECESSÁRIO NESSA VERSÃO",
+  "ENTITY_AXOLOTL_VARIANT_CYAN":"NÃO É NECESSÁRIO NESSA VERSÃO",
+  "ENTITY_AXOLOTL_VARIANT_BLUE":"NÃO É NECESSÁRIO NESSA VERSÃO",
+
+  "ENTITY_HORSE_ZOMBIE":"net.minecraft.server.v1_16_R2.EntityHorseZombie",
+  "ENTITY_HORSE_ZOMBIE_TYPES_FIELD":"ZOMBIE_HORSE",
+  "ENTITY_HORSE_DONKEY":"net.minecraft.server.v1_16_R2.EntityHorseDonkey",
+  "ENTITY_HORSE_DONKEY_TYPES_FIELD":"DONKEY",
+  "ENTITY_HORSE_SKELETON":"net.minecraft.server.v1_16_R2.EntityHorseSkeleton",
+  "ENTITY_HORSE_SKELETON_TYPES_FIELD":"SKELETON_HORSE",
+  "ENTITY_HORSE_MULE":"net.minecraft.server.v1_16_R2.EntityHorseMule",
+  "ENTITY_HORSE_MULE_TYPES_FIELD":"MULE",
+  "ENTITY_HORSE":"net.minecraft.server.v1_16_R2.EntityHorse",
+  "ENTITY_HORSE_TYPES_FIELD":"HORSE",
+
+  "ENTITY_LLAMA":"net.minecraft.server.v1_16_R2.EntityLlama",
+  "ENTITY_LLAMA_TYPES_FIELD":"LLAMA",
+  "ENTITY_LLAMA_TRADER":"net.minecraft.server.v1_16_R2.EntityLlamaTrader",
+  "ENTITY_LLAMA_TRADER_TYPES_FIELD":"TRADER_LLAMA",
+  "ENTITY_LLAMA_SPIT":"net.minecraft.server.v1_16_R2.EntityLlamaSpit",
+  "ENTITY_LLAMA_SPIT_TYPES_FIELD":"LLAMA_SPIT",
+
+  "ENTITY_ZOMBIE_VILLAGER":"net.minecraft.server.v1_16_R2.EntityZombieVillager",
+  "ENTITY_ZOMBIE_VILLAGER_TYPES_FIELD":"ZOMBIE_VILLAGER",
+  "ENTITY_ZOMBIE_PIG":"net.minecraft.server.v1_16_R2.EntityPigZombie",
+  "ENTITY_ZOMBIE_PIG_TYPES_FIELD":"ZOMBIFIED_PIGLIN",
+  "ENTITY_ZOMBIE_HUSK":"net.minecraft.server.v1_16_R2.EntityZombieHusk",
+  "ENTITY_ZOMBIE_HUSK_TYPES_FIELD":"HUSK",
+  "ENTITY_ZOMBIE":"net.minecraft.server.v1_16_R2.EntityZombie",
+  "ENTITY_ZOMBIE_TYPES_FIELD":"ZOMBIE",
+  "ENTITY_ZOMBIE_GIANT":"net.minecraft.server.v1_16_R2.EntityGiantZombie",
+  "ENTITY_ZOMBIE_GIANT_TYPES_FIELD":"GIANT",
+  "ENTITY_DROWNED":"net.minecraft.server.v1_16_R2.EntityDrowned",
+  "ENTITY_DROWNED_TYPES_FIELD":"DROWNED",
+
+  "ENTITY_SKELETON":"net.minecraft.server.v1_16_R2.EntitySkeleton",
+  "ENTITY_SKELETON_TYPES_FIELD":"SKELETON",
+  "ENTITY_SKELETON_WITHER":"net.minecraft.server.v1_16_R2.EntitySkeletonWither",
+  "ENTITY_SKELETON_WITHER_TYPES_FIELD":"WITHER_SKELETON",
+  "ENTITY_SKELETON_STRAY":"net.minecraft.server.v1_16_R2.EntitySkeletonStray",
+  "ENTITY_SKELETON_STRAY_TYPES_FIELD":"STRAY",
+
+  "ENTITY_ARMOR_STAND":"net.minecraft.server.v1_16_R2.EntityArmorStand",
+  "ENTITY_ARMOR_STAND_TYPES_FIELD":"ARMOR_STAND",
+  "ENTITY_ARMOR_STAND_setSmall":"setSmall",
+  "ENTITY_ARMOR_STAND_setHeadPose":"setHeadPose",
+  "ENTITY_ARMOR_STAND_setBodyPose":"setBodyPose",
+  "ENTITY_ARMOR_STAND_setLeftArmPose":"setLeftArmPose",
+  "ENTITY_ARMOR_STAND_setRightArmPose":"setRightArmPose",
+  "ENTITY_ARMOR_STAND_setLeftLegPose":"setLeftLegPose",
+  "ENTITY_ARMOR_STAND_setRightLegPose":"setRightLegPose",
+
+  "ENTITY_PARROT":"net.minecraft.server.v1_16_R2.EntityParrot",
+  "ENTITY_PARROT_TYPES_FIELD":"PARROT",
+  "ENTITY_PARROT_setVariant":"setVariant",
+
+  "ENTITY_TYPES":"net.minecraft.server.v1_16_R2.EntityTypes",
+  "BLOCK_POS":"net.minecraft.server.v1_16_R2.BlockPos",
+  "VECTOR3F":"net.minecraft.server.v1_16_R2.Vector3f",
+
+  "ENTITY_PLAYER_getProfile":"getProfile",
+  "ENTITY_PLAYER_METADATA_SkinParts":17,
+  "ENTITY_PLAYER_METADATA_LeftShoulderEntityData":18,
+  "ENTITY_PLAYER_METADATA_RightShoulderEntityData":19,
+
+  "NBTTAGCOMPOUND":"net.minecraft.server.v1_16_R2.NBTTagCompound",
+
+  "ENTITY_POSE":"net.minecraft.server.v1_16_R2.EntityPose",
+  "ENTITY_POSE_STANDING":"STANDING",
+  "ENTITY_POSE_FALL_FLYING":"FALL_FLYING",
+  "ENTITY_POSE_SLEEPING":"SLEEPING",
+  "ENTITY_POSE_SWIMMING":"SWIMMING",
+  "ENTITY_POSE_CROUCHING":"CROUCHING",
+
+  "PROPERTYMAP":"com.mojang.authlib.properties.PropertyMap",
+  "PROPERTYMAP_PUT":"put",
+
+  "ENUMITEMSLOT":"net.minecraft.server.v1_16_R2.EnumItemSlot",
+  "ENUMITEMSLOT_MAINHAND":"MAINHAND",
+  "ENUMITEMSLOT_OFFHAND":"OFFHAND",
+  "ENUMITEMSLOT_FEET":"FEET",
+  "ENUMITEMSLOT_LEGS":"LEGS",
+  "ENUMITEMSLOT_CHEST":"CHEST",
+  "ENUMITEMSLOT_HEAD":"HEAD",
+
+  "ITEMSTACK":"net.minecraft.server.v1_16_R2.ItemStack",
+  "CRAFTITEMSTACK":"org.bukkit.craftbukkit.v1_16_R2.inventory.CraftItemStack",
+
+  "PACKET":"net.minecraft.server.v1_16_R2.Packet",
+  "PACKETPLAYOUTSCOREBOARDTEAM":"net.minecraft.server.v1_16_R2.PacketPlayOutScoreboardTeam",
+  "PACKETPLAYOUTNAMEDENTITYSPAWN":"net.minecraft.server.v1_16_R2.PacketPlayOutNamedEntitySpawn",
+  "PACKETPLAYOUTENTITYDESTROY":"net.minecraft.server.v1_16_R2.PacketPlayOutEntityDestroy",
+  "PACKETPLAYOUTENTITYTELEPORT":"net.minecraft.server.v1_16_R2.PacketPlayOutEntityTeleport",
+
+  "PACKETPLAYINUSEENTITY":"net.minecraft.server.v1_16_R2.PacketPlayInUseEntity",
+  "PACKETPLAYINUSEENTITY_getEntityId":"a",
+  "PACKETPLAYINUSEENTITY_getClickAction":"action",
+  "PACKETPLAYINUSEENTITY_getClickAction_name":"a",
+
+  "PACKETPLAYOUTSPAWNENTITY":"net.minecraft.server.v1_16_R2.PacketPlayOutSpawnEntity",
+  "PACKETPLAYOUTENTITYEQUIPMENT":"net.minecraft.server.v1_16_R2.PacketPlayOutEntityEquipment",
+
+  "SCOREBOARDTEAMBASE_ENUMTEAMPUSH":"net.minecraft.server.v1_16_R2.ScoreboardTeamBase$EnumTeamPush",
+  "SCOREBOARDTEAMBASE_ENUMTEAMPUSH_ALWAYS":"ALWAYS",
+  "SCOREBOARDTEAMBASE_ENUMTEAMPUSH_NEVER":"NEVER",
+
+  "PACKETPLAYOUTENTITY_PACKETPLAYOUTENTITYLOOK":"net.minecraft.server.v1_16_R2.PacketPlayOutEntity$PacketPlayOutEntityLook",
+  "PACKETPLAYOUTENTITYHEADROTATION":"net.minecraft.server.v1_16_R2.PacketPlayOutEntityHeadRotation",
+  "PACKETPLAYOUTENTITYMETADATA":"net.minecraft.server.v1_16_R2.PacketPlayOutEntityMetadata",
+  "PACKETPLAYOUTPLAYERINFO":"net.minecraft.server.v1_16_R2.PacketPlayOutPlayerInfo",
+  "PACKETPLAYOUTPLAYERINFO_ENUMPLAYERINFOACTION":"net.minecraft.server.v1_16_R2.PacketPlayOutPlayerInfo$EnumPlayerInfoAction",
+  "PACKETPLAYOUTPLAYERINFO_ENUMPLAYERINFOACTION_ADD_PLAYER":"ADD_PLAYER",
+  "PACKETPLAYOUTPLAYERINFO_ENUMPLAYERINFOACTION_REMOVE_PLAYER":"REMOVE_PLAYER",
+
+  "PAIR":"com.mojang.datafixers.util.Pair",
+
+  "ICHATBASECOMPONENT":"net.minecraft.server.v1_16_R2.IChatBaseComponent",
+  "ICHATBASECOMPONENT_nullToEmpty":"a",
+
+  "PLAYERCONNECTION":"net.minecraft.server.v1_16_R2.PlayerConnection",
+
+  "ENTITY_PLAYER":"net.minecraft.server.v1_16_R2.EntityPlayer",
+  "ENTITY_PLAYER_PlayerInteractManager":"net.minecraft.server.v1_16_R2.PlayerInteractManager",
+  "ENTITY_PLAYER_getPlayerConnection":"playerConnection",
+  "PLAYERCONNECTION_networkManager":"networkManager",
+  "NETWORKMANAGER_channel":"channel",
+
+  "PLAYERCONNECTION_sendPacket":"sendPacket",
+
+  "ENTITY_HUMAN":"net.minecraft.server.v1_16_R2.EntityHuman",
+  "ENTITY":"net.minecraft.server.v1_16_R2.Entity",
+  "ENTITY_save":"save",
+  "ENTITY_setGlowingTag":"i",
+  "ENTITY_getEntityData":"getDataWatcher",
+  "ENTITY_getEntityId":"getId",
+  "ENTITY_absMoveTo":"setLocation",
+  "ENTITY_getPose":"getPose",
+  "ENTITY_setPose":"setPose",
+  "ENTITY_setInvisible":"setInvisible",
+  "ENTITY_setCustomName":"setCustomName",
+  "ENTITY_setCustomNameVisible":"setCustomNameVisible",
+
+  "ENTITY_METADATA_ENTITY_FLAGS":0,
+
+  "DATAWATCHERSERIALIZER":"net.minecraft.server.v1_16_R2.DataWatcherSerializer",
+  "PROPERTY":"com.mojang.authlib.properties.Property",
+  "DATAWATCHEROBJECT":"net.minecraft.server.v1_16_R2.DataWatcherObject",
+  "DATAWATCHERREGISTRY":"net.minecraft.server.v1_16_R2.DataWatcherRegistry",
+  "DATAWATCHER":"net.minecraft.server.v1_16_R2.DataWatcher",
+  "DATAWATCHER_itemsById":"entries",
+  "DATAWATCHER_itemsById_alternative":"NÃO É NECESSÁRIO NESSA VERSÃO",
+  "DATAWATCHER_Item":"net.minecraft.server.v1_16_R2.DataWatcher$Item",
+  "DATAWATCHERREGISTRY_BYTE":"a",
+  "DATAWATCHERSERIALIZER_write":"a",
+  "DATAWATCHER_set":"set",
+
+  "CRAFTSERVER":"org.bukkit.craftbukkit.v1_16_R2.CraftServer",
+  "MINECRAFTSERVER":"net.minecraft.server.v1_16_R2.MinecraftServer",
+  "WORLDSERVER":"net.minecraft.server.v1_16_R2.WorldServer",
+  "WORLD":"net.minecraft.server.v1_16_R2.World",
+  "CRAFTWORLD":"org.bukkit.craftbukkit.v1_16_R2.CraftWorld",
+  "CRAFTPLAYER":"org.bukkit.craftbukkit.v1_16_R2.entity.CraftPlayer",
+  "GAMEPROFILE":"com.mojang.authlib.GameProfile",
+  "GAMEPROFILE_getProperties":"getProperties",
+  "SCOREBOARD":"net.minecraft.server.v1_16_R2.Scoreboard",
+  "SCOREBOARDTEAM":"net.minecraft.server.v1_16_R2.ScoreboardTeam",
+  "CRAFTSCOREBOARD":"org.bukkit.craftbukkit.v1_16_R2.scoreboard.CraftScoreboard",
+  "SCOREBOARDTEAMBASE_ENUMNAMETAGVISIBILITY":"net.minecraft.server.v1_16_R2.ScoreboardTeamBase$EnumNameTagVisibility",
+
+  "SCOREBOARD_addPlayerToTeam":"addPlayerToTeam",
+  "SCOREBOARD_getTeam":"getTeam",
+
+  "SCOREBOARDTEAM_getPlayerNameSet":"getPlayerNameSet",
+  "SCOREBOARDTEAM_setNameTagVisibity":"setNameTagVisibility",
+  "SCOREBOARDTEAM_setColor":"setColor",
+  "SCOREBOARDTEAM_setCollisionRule":"setCollisionRule",
+  "SCOREBOARDTEAM_setPlayerPrefix":"setPrefix",
+
+  "SCOREBOARDTEAMBASE_ENUMNAMETAGVISIBILITY_NEVER":"NEVER",
+
+  "ENUMCHATFORMAT":"net.minecraft.server.v1_16_R2.EnumChatFormat",
+  "ENUMCHATFORMAT_BLACK":"BLACK",
+  "ENUMCHATFORMAT_DARK_BLUE":"DARK_BLUE",
+  "ENUMCHATFORMAT_DARK_GREEN":"DARK_GREEN",
+  "ENUMCHATFORMAT_DARK_AQUA":"DARK_AQUA",
+  "ENUMCHATFORMAT_DARK_RED":"DARK_RED",
+  "ENUMCHATFORMAT_DARK_PURPLE":"DARK_PURPLE",
+  "ENUMCHATFORMAT_GOLD":"GOLD",
+  "ENUMCHATFORMAT_GRAY":"GRAY",
+  "ENUMCHATFORMAT_DARK_GRAY":"DARK_GRAY",
+  "ENUMCHATFORMAT_BLUE":"BLUE",
+  "ENUMCHATFORMAT_GREEN":"GREEN",
+  "ENUMCHATFORMAT_AQUA":"AQUA",
+  "ENUMCHATFORMAT_RED":"RED",
+  "ENUMCHATFORMAT_LIGHT_PURPLE":"LIGHT_PURPLE",
+  "ENUMCHATFORMAT_YELLOW":"YELLOW",
+  "ENUMCHATFORMAT_WHITE":"WHITE",
+
+  "ENUMCOLOR":"net.minecraft.server.v1_16_R2.EnumColor"
+}
