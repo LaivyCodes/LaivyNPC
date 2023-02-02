@@ -1,7 +1,25 @@
-name: LaivyNPC
-version: 1.0
+name: "LaivyNPC"
+version: ${project.version}
 main: codes.laivy.npc.LaivyNPC
-author: DanielZinh#7616
+author: "ItsLaivy (DanielZinh#7616)"
 api-version: 1.13
 
+softdepend:
+  - LvMultiplesLanguages
+  - Skript
+
 website: "https://github.com/ItsLaivy/LaivyNPC"
+
+commands:
+  laivynpc:
+    aliases:
+      - npc
+    description: "General plug-in's command"
+
+permissions:
+  laivynpc.user.*:
+    description: "General plug-in's users permissions"
+    default: not op
+  laivynpc.admin.*:
+    description: "General plug-in's admin permissions"
+    default: op

@@ -1,75 +1,197 @@
 package codes.laivy.npc;
 
-import codes.laivy.npc.api.GlowingStatus;
-import codes.laivy.npc.api.player.PlayerNPC;
-import codes.laivy.npc.api.player.PlayerNPCSkin;
-import codes.laivy.npc.api.workers.NPCAnimation;
-import codes.laivy.npc.reflection.ReflectionUtils;
+import codes.laivy.npc.commands.NPCCommands;
+import codes.laivy.npc.listeners.InjectionListener;
+import codes.laivy.npc.listeners.NPCListener;
+import codes.laivy.npc.mappings.Version;
+import codes.laivy.npc.mappings.utils.classes.packets.listeners.InjectionUtils;
+import codes.laivy.npc.metrics.Metrics;
+import codes.laivy.npc.types.NPC;
+import codes.laivy.npc.utils.LaivyNPCUpdater;
+import codes.laivy.npc.utils.ReflectionUtils;
 import org.bukkit.Bukkit;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
-import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.NotNull;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.logging.Level;
+import java.io.File;
+import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.util.*;
 
-public class LaivyNPC extends JavaPlugin implements Listener {
+import static codes.laivy.npc.config.Translate.translate;
 
-    public static LaivyNPC plugin() {
+public class LaivyNPC extends JavaPlugin {
+
+    public static void main(String[] args) {
+        System.out.println();
+    }
+
+    public static @NotNull LaivyNPC laivynpc() {
         return getPlugin(LaivyNPC.class);
     }
 
+    public boolean hasSkript() {
+        return Bukkit.getPluginManager().isPluginEnabled("Skript");
+    }
+    public boolean hasLvML() {
+        return Bukkit.getPluginManager().isPluginEnabled("LvMultiplesLanguages");
+    }
+
+    private final @NotNull File databaseFile;
+
+    private boolean successfullyLoaded = true;
+
+    public LaivyNPC() {
+        //noinspection ResultOfMethodCallIgnored
+        getDataFolder().mkdirs();
+
+        try {
+            this.databaseFile = new File(getDataFolder(), "data.yml");
+            //noinspection ResultOfMethodCallIgnored
+            this.databaseFile.getParentFile().createNewFile();
+        } catch (IOException e) {
+            throw new RuntimeException("Database file exception", e);
+        }
+    }
+
+    public @NotNull File getDatabaseFile() {
+        return databaseFile;
+    }
+
+    //
+    // Plugin Area
     @Override
     public void onEnable() {
-        Bukkit.getPluginManager().registerEvents(this, this);
-        getLogger().log(Level.INFO, "Esse plugin é compatível com sua versão " + ReflectionUtils.getVersion() + ". Bom uso :)");
+        saveDefaultConfig();
+
+        try {
+            //noinspection unchecked
+            Class<Version> clazz = (Class<Version>) ReflectionUtils.getNullableClass("codes.laivy.npc.mappings.versions." + ReflectionUtils.getVersionName().toUpperCase());
+            if (clazz == null) {
+                throw new NullPointerException("Couldn't find your version properties (" + ReflectionUtils.getVersionName() + ")");
+            }
+
+            Constructor<Version> constructor = clazz.getDeclaredConstructor();
+            constructor.setAccessible(true);
+
+            Version version = constructor.newInstance();
+
+            Version.LOADED_VERSIONS.put(ReflectionUtils.getVersionName(), version);
+        } catch (Throwable e) {
+            throw new RuntimeException("Version loading", e);
+        }
+
+        // Check if the version is compatible
+        if (!ReflectionUtils.isCompatible()) {
+            log(translate(null, "plugin.incompatible'", ReflectionUtils.getVersionName()));
+            setEnabled(false);
+            return;
+        } else {
+            log(translate(null, "plugin.compatible", ReflectionUtils.getVersionName()));
+        }
+        //
+
+        getCommand("laivynpc").setExecutor(new NPCCommands());
+
+        Bukkit.getPluginManager().registerEvents(new InjectionListener(), this);
+        Bukkit.getPluginManager().registerEvents(new NPCListener(), this);
+
+        new Metrics(this, 17155);
+        new Thread(new LaivyNPCUpdater()).start();
+
+        // Injection
+        Bukkit.getScheduler().runTaskLater(this, () -> {
+            for (Player player : Bukkit.getOnlinePlayers()) {
+                try {
+                    InjectionUtils.injectPlayer(player);
+                } catch (Throwable e) {
+                    if (e instanceof IllegalArgumentException) {
+                        if (e.getMessage().contains("Duplicate handler name")) {
+                            Bukkit.getScheduler().runTaskLater(this, () -> {
+                                try {
+                                    InjectionUtils.injectPlayer(player);
+                                } catch (Throwable e2) {
+                                    throw new RuntimeException("Player's packet_handler injection", e2);
+                                }
+                            }, 100);
+                            return;
+                        }
+                    }
+                    throw new RuntimeException("Player's packet_handler injection", e);
+                }
+            }
+        }, 40);
+
+        // Load the NPCs
+        YamlConfiguration config = YamlConfiguration.loadConfiguration(getDatabaseFile());
+        if (config.contains("npcs")) {
+            for (String key : config.getConfigurationSection("npcs").getKeys(false)) {
+                try {
+                    NPC.loadFromConfig(config.getConfigurationSection("npcs." + key));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    log(translate(null, "npc.cannot_load", key));
+                }
+            }
+        }
+        //
+
+        successfullyLoaded = true;
     }
 
     @Override
     public void onDisable() {
-        for (Map.Entry<Player, List<PlayerNPC>> map : PlayerNPC.getPlayerNPCs().entrySet()) {
-            for (PlayerNPC npc : map.getValue()) {
-                npc.getController().despawn();
+        try {
+            for (Player player : Bukkit.getOnlinePlayers()) {
+                InjectionUtils.removePlayer(player);
             }
+            if (!successfullyLoaded) return;
+
+            for (Map.Entry<@NotNull Integer, @NotNull NPC> map : NPC.NPCS_ID.entrySet()) {
+                map.getValue().despawn();
+            }
+
+            YamlConfiguration config = YamlConfiguration.loadConfiguration(getDatabaseFile());
+            config.set("npcs", null);
+            int amount = 0;
+            boolean error = false;
+            for (NPC npc : NPC.PUBLIC_NPCS) {
+                if (npc.isSaveable()) {
+                    try {
+                        config.set("npcs." + amount, npc.serialize());
+                    } catch (Exception e) {
+                        error = true;
+                        e.printStackTrace();
+                        log(translate(null, "npc.cannot_save", npc.getId(), npc.getClass().getSimpleName()));
+                    }
+                    amount++;
+                }
+            }
+            if (!error) {
+                config.save(getDatabaseFile());
+            } else {
+                log(translate(null, "npc.data_not_saved"));
+            }
+        } catch (Throwable e) {
+            throw new RuntimeException(e);
         }
     }
 
-    private final Map<Player, PlayerNPC> npcMap = new HashMap<>();
+    @NotNull
+    public Version getVersion() {
+        if (ReflectionUtils.isCompatible()) {
+            return Version.LOADED_VERSIONS.get(ReflectionUtils.getVersionName());
+        } else {
+            throw new IllegalStateException("The plugin isn't compatible with that version '" + ReflectionUtils.getVersionName() + "' yet!");
+        }
+    }
 
-    @EventHandler
-    private void chat(AsyncPlayerChatEvent e) {
-        Bukkit.getScheduler().runTask(this, () -> {
-            if (!npcMap.containsKey(e.getPlayer())) {
-                npcMap.put(e.getPlayer(), new PlayerNPC(e.getPlayer(), "", null, e.getPlayer().getLocation()));
-            }
-            PlayerNPC npc = npcMap.get(e.getPlayer());
+    // Plugin Area
 
-            npc.getController().setViewDistance(10);
-
-            npc.getController().spawn();
-            npc.getAppearance().setSkin(new PlayerNPCSkin("ewogICJ0aW1lc3RhbXAiIDogMTY0OTYwNzU3MTcyNSwKICAicHJvZmlsZUlkIiA6ICJhYzM2YmVkZGQxNGQ0YjVmYmQyYzc5OThlMWMwOTg3ZCIsCiAgInByb2ZpbGVOYW1lIiA6ICJtYWlzYWthIiwKICAic2lnbmF0dXJlUmVxdWlyZWQiIDogdHJ1ZSwKICAidGV4dHVyZXMiIDogewogICAgIlNLSU4iIDogewogICAgICAidXJsIiA6ICJodHRwOi8vdGV4dHVyZXMubWluZWNyYWZ0Lm5ldC90ZXh0dXJlL2RjZGNiOTFlN2RjYTdlNTM3NzFjZGZhMDJmN2E3ZThiMmJmMTdhOTJmMmNhMDI4ZGYyYzgxNmJiOGUwNzE2MTYiCiAgICB9CiAgfQp9", "CAWXCOoWGbqkt5f3w7nPfPi9EvMn+FSXqw87bWfO/RXkXSh6LCN1H6HJym77x/adS8HhPq9dqmT281CDPOdh80Uynp2w8phsKFQny7YxufvC6Hqmi7LkEaSGrYbjCHs7UQ/3AP5z2u6QqH9zd8ZdRhEXf+0IU/OZ4ePRoRr0mi0ZYpS1l/iNK49BNOXwXqAqJXqqqHnhzXso0M3y/XpG4RuTSsiiF96cX68DdaMnCfP4rFuAozNllPVC6HU8ygAXhr3WgSmcZvsfS4nLYiCpT8X6cRhd/CAayvlZenVFN3F7HexQc67Ls8cA32j15nuwwwX+5irv7uFkVB9i+eASqxFVq1hY+ab15fpHxMR7passuE6MO0aPmGQIq5ak1WIBxDYta+ES/jlM+8YINN/2X9w/kmoWLq1lCL5V18RbURSHfk2JCFCuBjBZcZcNbuZTSRp9itx7VC07k0xBfPDVTwiHQLWkT1PQgek1KSiAiIC3e5F1pyeJqR05hpWTW9/7v7mvWQSt1I5Pf6L5HcHT4Qy7wPGD2KVSii9h4Gp7xNoK/Eaw8elgEq7RZIxjJM58UhShR857CfvnIQJA02Cr3WhIMSA5yeLeboLAYoT+REyUMEQuCps3dB6LBiJT8RzuiARaYghrhPivTEM1LkOl5gpT81Jb0/Gae/hW04fQ7w0="));
-
-            npc.getAppearance().setOnFire(true);
-
-            npc.getAnimation().setHeadRotationType(NPCAnimation.HeadRotationType.FOLLOW_NEAREST_ENTITY, 1);
-
-            Bukkit.getScheduler().runTaskTimer(plugin(), () -> {
-                npc.getAppearance().setGlowingStatus(new GlowingStatus(GlowingStatus.GlowingColor.values()[new Random().nextInt(GlowingStatus.GlowingColor.values().length)], true));
-            }, 1, 1);
-
-            Bukkit.getScheduler().runTaskLater(plugin(), () -> {
-                npc.getAppearance().setSkin(PlayerNPCSkin.DEFAULT_SKIN);
-            }, 100);
-
-            Bukkit.getScheduler().runTaskLater(plugin(), () -> {
-                npc.getAppearance().setSkin(new PlayerNPCSkin("ewogICJ0aW1lc3RhbXAiIDogMTY0OTI5NzYwNTA1NywKICAicHJvZmlsZUlkIiA6ICJjYmFkZmRmNTRkZTM0N2UwODQ3MjUyMDIyYTFkNGRkZCIsCiAgInByb2ZpbGVOYW1lIiA6ICJNeHJuaW5nIiwKICAic2lnbmF0dXJlUmVxdWlyZWQiIDogdHJ1ZSwKICAidGV4dHVyZXMiIDogewogICAgIlNLSU4iIDogewogICAgICAidXJsIiA6ICJodHRwOi8vdGV4dHVyZXMubWluZWNyYWZ0Lm5ldC90ZXh0dXJlL2I3OTY4MTllZTY2YzQ1Njg2ZmJmZGI3OGQ1N2U3ZDliMGE4YzQwYzY1ZTI3NTE4ZGY0ZGViMTJhMjA1OWVkYjQiCiAgICB9CiAgfQp9", "QVBXp7w5PvhSCK3P7cSQIa5WFTPhxVJewixw9O6Z52z0obsy8pYsjQ4Tc162yIi6brT+X0rwqqn9mOhcxp8HjeZ8fSV/eCyjoZR3WBY4uILCXRy3WM6+ShomRNujiZ399i/CwEuUKE2lF74/yM1eR/N069ryELTeKwRW3chV4fEyHY+8qDgcy2FWsjA8jusli+8lTQFl4HLu1+ArX6ltJag7VNmjpMP56KHs/wT/lhgZBOteNzxbFpRPxgaW7hXdT8rt5+Uog0YiyodagJ6zeePsD8d8GTsU802KkHW90lzGyn0yukEm+4WeKJ21v+23MWGvjEZKTkQKCpYOwMN4xsc5AXhMvqyJdNnrDI2AQcDQtMm37BCvyQwEJmJrzEFT1ibl7oNeO/RpBti8qCDNFlb8Wx6g6guGiDeay2i76BfK2rttzGpWcroFxgVOLA+SW7mUGBx0S0ZeCrCZwBVSJ+VqMiUeAXxDUGIWHyR0ERBiqDIsOYcrO97b6smva71CQ/+eTJe3U0MOTNRIt3HGRONaQWqm8WUH/ONkffC6LNuuX31G62klHeEWLVN5btktArwaWdZycaEwYQjGasKhfd3J9ShmsGOMxtJQriVn4jC5Tura/v+DCt9njcAlJ52CohXwUSjl8G7t0Rw++fGprtHC82VGPt++9JfCh+RHjKE="));
-            }, 150);
-        });
+    public void log(@NotNull Object message) {
+        getServer().getConsoleSender().sendMessage("§8[§6" + getDescription().getName() + "§8]§7" + " " + message);
     }
 
 }
