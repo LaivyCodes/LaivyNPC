@@ -165,23 +165,35 @@ public class Debug {
         StringBuilder message = new StringBuilder("§8-----\n§7Debugging NPCs:\n");
 
         try {
-            for (Class<? extends NPC> npc : DEBUG_NPCS) {
-                message.append("§7Trying to debug ").append(npc.getSimpleName()).append("...\n");
+            new Thread(() -> {
+                for (Class<? extends NPC> npc : DEBUG_NPCS) {
+                    message.append("§7Trying to debug ").append(npc.getSimpleName()).append("...\n");
+                    Bukkit.broadcastMessage("Debugging '" + npc.getSimpleName() + "'");
 
-                if (MethodExecutor.hasMethodWithReturn(npc, "debug", void.class, Location.class)) {
-                    MethodExecutor method = new MethodExecutor(new ClassExecutor(npc), ClassExecutor.VOID, "debug", "Gets the debug method from a NPC class", new ClassExecutor(Location.class));
-                    method.load();
+                    Bukkit.getScheduler().runTask(laivynpc(), () -> {
+                        if (MethodExecutor.hasMethodWithReturn(npc, "debug", void.class, Location.class)) {
+                            MethodExecutor method = new MethodExecutor(new ClassExecutor(npc), ClassExecutor.VOID, "debug", "Gets the debug method from a NPC class", new ClassExecutor(Location.class));
+                            method.load();
 
-                    method.invokeStatic(new ObjectExecutor(player.getLocation()) {
-                        @Override
-                        public @NotNull ClassExecutor getClassExecutor() {
-                            return new ClassExecutor(Location.class);
+                            method.invokeStatic(new ObjectExecutor(player.getLocation()) {
+                                @Override
+                                public @NotNull ClassExecutor getClassExecutor() {
+                                    return new ClassExecutor(Location.class);
+                                }
+                            });
+                        } else {
+                            message.append("§cCannot debug ").append(npc.getSimpleName()).append(" because this NPC class doesn't have a debug method");
                         }
                     });
-                } else {
-                    message.append("§cCannot debug ").append(npc.getSimpleName()).append(" because this NPC class doesn't have a debug method");
+
+                    try {
+                        Bukkit.broadcastMessage("Sleeping...");
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
-            }
+            }).start();
             message.append("§aSuccess!\n");
         } catch (Throwable e) {
             throw new RuntimeException(e);

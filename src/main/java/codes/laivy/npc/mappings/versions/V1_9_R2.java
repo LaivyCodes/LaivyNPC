@@ -3,6 +3,7 @@ package codes.laivy.npc.mappings.versions;
 import codes.laivy.npc.mappings.Version;
 import codes.laivy.npc.mappings.instances.EnumExecutor;
 import codes.laivy.npc.mappings.instances.Executor;
+import codes.laivy.npc.mappings.instances.FieldExecutor;
 import codes.laivy.npc.mappings.instances.MethodExecutor;
 import codes.laivy.npc.mappings.instances.classes.ClassExecutor;
 import codes.laivy.npc.mappings.utils.classes.datawatcher.DataWatcher;
@@ -62,6 +63,14 @@ public class V1_9_R2 extends V1_9_R1 {
                         return false;
                     case "ScoreboardTeam:setCollision":
                         load(V1_9_R2.class, key, new MethodExecutor(getClassExec("ScoreboardTeam"), ClassExecutor.VOID, "setCollisionRule", "Sets the collision state of the ScoreboardTeam", getClassExec("ScoreboardTeam:EnumTeamPush")));
+                        return false;
+                    default:
+                        break;
+                }
+            } else if (executor instanceof FieldExecutor) {
+                switch (key) {
+                    case "Entity:Enderman:DataWatcher:screaming":
+                        load(V1_9_R2.class, key, new FieldExecutor(getClassExec("Entity:Enderman"), getClassExec("DataWatcherObject"), "bx", "Gets the enderman's screaming datawatcher object"));
                         return false;
                     default:
                         break;

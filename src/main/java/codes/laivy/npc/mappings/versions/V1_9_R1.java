@@ -116,6 +116,10 @@ public class V1_9_R1 extends V1_8_R3 {
         //noinspection DataFlowIssue
         return (boolean) creeper.getDataWatcher().get((int) laivynpc().getVersion().getObject("Metadata:Creeper:Ignited"));
     }
+    @Override
+    public void setEntityCreeperIgnited(@NotNull Creeper creeper, boolean flag) {
+        creeper.getDataWatcher().set((int) laivynpc().getVersion().getObject("Metadata:Creeper:Ignited"), flag);
+    }
 
     @Override
     public void setEntityHorseType(@NotNull Horse horse, Horse.@NotNull Type type) {
@@ -152,6 +156,10 @@ public class V1_9_R1 extends V1_8_R3 {
     public boolean isEntityGhastAttacking(@NotNull Ghast ghast) {
         //noinspection DataFlowIssue
         return (boolean) ghast.getDataWatcher().get((int) laivynpc().getVersion().getObject("Metadata:Ghast:Attacking"));
+    }
+    @Override
+    public void setEntityGhastAttacking(@NotNull Ghast ghast, boolean flag) {
+        ghast.getDataWatcher().set((int) laivynpc().getVersion().getObject("Metadata:Ghast:Attacking"), flag);
     }
 
     @Override
