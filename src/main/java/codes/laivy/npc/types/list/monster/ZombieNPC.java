@@ -2,9 +2,12 @@ package codes.laivy.npc.types.list.monster;
 
 import codes.laivy.npc.mappings.utils.classes.entity.Entity;
 import codes.laivy.npc.mappings.utils.classes.entity.monster.Zombie;
+import codes.laivy.npc.mappings.utils.classes.entity.monster.Zombie.VillagerType;
+import codes.laivy.npc.mappings.versions.V1_9_R1;
 import codes.laivy.npc.types.EntityLivingNPC;
 import codes.laivy.npc.types.NPC;
 import codes.laivy.npc.types.commands.NPCConfiguration;
+import codes.laivy.npc.utils.ReflectionUtils;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.ConfigurationSection;
@@ -12,10 +15,7 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static codes.laivy.npc.config.Translate.translate;
 
@@ -45,7 +45,15 @@ public class ZombieNPC extends EntityLivingNPC {
         return getEntity().isVillager();
     }
     public void setVillager(boolean flag) {
-        getEntity().setVillager(flag);
+        getEntity().setVillagerType(flag ? VillagerType.values()[new Random().nextInt(VillagerType.values().length)] : null);
+        sendUpdatePackets(getSpawnedPlayers(), false, false, true, false, false, false);
+    }
+
+    public @Nullable VillagerType getVillagerType() {
+        return getEntity().getVillagerType();
+    }
+    public void setVillagerType(@Nullable VillagerType type) {
+        getEntity().setVillagerType(type);
         sendUpdatePackets(getSpawnedPlayers(), false, false, true, false, false, false);
     }
 
@@ -57,30 +65,61 @@ public class ZombieNPC extends EntityLivingNPC {
     @Override
     public List<NPCConfiguration> getByCommandConfigurations() {
         List<NPCConfiguration> list = super.getByCommandConfigurations();
-        list.add(new NPCConfiguration("villager", "/laivynpc config villager (flag)") {
-            @Override
-            public void execute(@NotNull NPC npc, @NotNull Player sender, @NotNull String[] args) {
-                ZombieNPC zombieNPC = (ZombieNPC) npc;
+        if (ReflectionUtils.isCompatible(V1_9_R1.class)) {
+            list.add(new NPCConfiguration("villager", "/laivynpc config villager (type)") {
+                @Override
+                public void execute(@NotNull NPC npc, @NotNull Player sender, @NotNull String[] args) {
+                    ZombieNPC zombieNPC = (ZombieNPC) npc;
 
-                if (args.length > 0) {
-                    boolean flag;
-                    if (args[0].equalsIgnoreCase("false")) {
-                        flag = false;
-                    } else if (args[0].equalsIgnoreCase("true")) {
-                        flag = true;
-                    } else {
-                        sender.performCommand("laivynpc config " + getName());
+                    if (args.length > 0) {
+                        VillagerType type;
+                        try {
+                            type = VillagerType.valueOf(args[0].toUpperCase());
+                            zombieNPC.setVillagerType(type);
+                            sender.sendMessage(translate(sender, "npc.commands.general.flag_changed"));
+                            return;
+                        } catch (IllegalArgumentException ignore) {
+                        }
+                    }
+
+                    StringBuilder builder = new StringBuilder();
+                    int row = 0;
+                    for (VillagerType type : VillagerType.values()) {
+                        if (row != 0) builder.append("§7, ");
+                        builder.append("§f").append(type.name());
+                        row++;
+                    }
+
+                    sender.sendMessage("§cUse " + getSyntax());
+                    sender.sendMessage(translate(sender, "npc.commands.general.available_options", builder));
+                }
+            });
+        } else {
+            list.add(new NPCConfiguration("villager", "/laivynpc config villager (flag)") {
+                @Override
+                public void execute(@NotNull NPC npc, @NotNull Player sender, @NotNull String[] args) {
+                    ZombieNPC zombieNPC = (ZombieNPC) npc;
+
+                    if (args.length > 0) {
+                        boolean flag;
+                        if (args[0].equalsIgnoreCase("false")) {
+                            flag = false;
+                        } else if (args[0].equalsIgnoreCase("true")) {
+                            flag = true;
+                        } else {
+                            sender.performCommand("laivynpc config " + getName());
+                            return;
+                        }
+
+                        zombieNPC.setVillager(flag);
+                        sender.sendMessage(translate(sender, "npc.commands.general.flag_changed"));
                         return;
                     }
 
-                    zombieNPC.setVillager(flag);
-                    sender.sendMessage(translate(sender, "npc.commands.general.flag_changed"));
-                    return;
+                    sender.sendMessage("§cUse " + getSyntax());
                 }
-
-                sender.sendMessage("§cUse " + getSyntax());
-            }
-        });
+            });
+        }
         return list;
     }
 

@@ -1,7 +1,6 @@
 package codes.laivy.npc.mappings.utils.classes.entity.monster;
 
 import codes.laivy.npc.mappings.utils.classes.entity.EntityLiving;
-import codes.laivy.npc.mappings.utils.classes.java.BooleanObjExec;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -16,8 +15,12 @@ public class Zombie extends EntityLiving {
         //noinspection DataFlowIssue
         return (boolean) laivynpc().getVersion().getMethodExec("Entity:Zombie:isVillager").invokeInstance(this);
     }
-    public void setVillager(boolean flag) {
-        laivynpc().getVersion().getMethodExec("Entity:Zombie:setVillager").invokeInstance(this, new BooleanObjExec(flag));
+
+    public @Nullable Zombie.VillagerType getVillagerType() {
+        return laivynpc().getVersion().getEntityZombieVillagerType(this);
+    }
+    public void setVillagerType(@Nullable Zombie.VillagerType type) {
+        laivynpc().getVersion().setEntityZombieVillagerType(this, type);
     }
 
     @Override
@@ -30,4 +33,36 @@ public class Zombie extends EntityLiving {
             super(className);
         }
     }
+
+    public enum VillagerType {
+        NORMAL(-1),
+        DESERT(0),
+        JUNGLE(1),
+        PLAINS(2),
+        SAVANNA(3),
+        SNOWY(4),
+        SWAMP(5),
+        TAIGA(6),
+        ;
+
+        private final int id;
+
+        VillagerType(int id) {
+            this.id = id;
+        }
+
+        public int getId() {
+            return id;
+        }
+
+        public static @NotNull VillagerType getById(int id) {
+            for (VillagerType type : VillagerType.values()) {
+                if (type.getId() == id) {
+                    return type;
+                }
+            }
+            throw new NullPointerException("Couldn't find a villager type with id '" + id + "'");
+        }
+    }
+
 }

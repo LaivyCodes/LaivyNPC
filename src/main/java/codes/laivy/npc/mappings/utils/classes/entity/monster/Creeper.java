@@ -21,10 +21,16 @@ public class Creeper extends EntityLiving {
     }
 
     public boolean isIgnited() {
-        return ((byte) getDataWatcher().get((int) laivynpc().getVersion().getObject("Metadata:Creeper:Ignited"))) != 0;
+//      Gets the ignited metadata index debug
+//        @NotNull DataWatcherObject object = new DataWatcherObject(new FieldExecutor(getClassExecutor(), laivynpc().getVersion().getClassExec("DataWatcherObject"), "c", "Gets a entity's datawatcher object") {{
+//            load();
+//        }}.invokeStatic());
+//        Bukkit.broadcastMessage("Id: '" + object.getId() + "'");
+
+        return laivynpc().getVersion().isEntityCreeperIgnited(this);
     }
     public void setIgnited(boolean flag) {
-        getDataWatcher().set((int) laivynpc().getVersion().getObject("Metadata:Creeper:Ignited"), (byte) (flag ? 1 : 0));
+        laivynpc().getVersion().setEntityCreeperIgnited(this, flag);
     }
 
     @Override

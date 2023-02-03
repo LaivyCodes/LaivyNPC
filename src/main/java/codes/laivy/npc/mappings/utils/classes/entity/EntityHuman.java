@@ -11,7 +11,7 @@ public class EntityHuman extends EntityLiving {
 
     @Override
     public @NotNull EntityHumanClass getClassExecutor() {
-        return (EntityHumanClass) LaivyNPC.laivynpc().getVersion().getClassExec("EntityHuman");
+        return (EntityHumanClass) LaivyNPC.laivynpc().getVersion().getClassExec("Entity:Human");
     }
 
     public static class EntityHumanClass extends EntityLivingClass {

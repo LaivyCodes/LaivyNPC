@@ -6,8 +6,7 @@ import codes.laivy.npc.mappings.instances.Executor;
 import codes.laivy.npc.mappings.instances.FieldExecutor;
 import codes.laivy.npc.mappings.instances.MethodExecutor;
 import codes.laivy.npc.mappings.instances.classes.ClassExecutor;
-import codes.laivy.npc.mappings.utils.classes.datawatcher.DataWatcher;
-import codes.laivy.npc.mappings.utils.classes.datawatcher.WatchableObject;
+import codes.laivy.npc.mappings.utils.classes.datawatcher.*;
 import codes.laivy.npc.mappings.utils.classes.entity.*;
 import codes.laivy.npc.mappings.utils.classes.entity.ambient.Bat;
 import codes.laivy.npc.mappings.utils.classes.entity.ambient.Egg;
@@ -28,6 +27,8 @@ import codes.laivy.npc.mappings.utils.classes.enums.*;
 import codes.laivy.npc.mappings.utils.classes.gameprofile.GameProfile;
 import codes.laivy.npc.mappings.utils.classes.gameprofile.Property;
 import codes.laivy.npc.mappings.utils.classes.gameprofile.PropertyMap;
+import codes.laivy.npc.mappings.utils.classes.java.BooleanObjExec;
+import codes.laivy.npc.mappings.utils.classes.java.IntegerObjExec;
 import codes.laivy.npc.mappings.utils.classes.nbt.NBTBase;
 import codes.laivy.npc.mappings.utils.classes.nbt.tags.*;
 import codes.laivy.npc.mappings.utils.classes.others.chat.IChatBaseComponent;
@@ -41,8 +42,13 @@ import codes.laivy.npc.mappings.utils.classes.scoreboard.CraftScoreboard;
 import codes.laivy.npc.mappings.utils.classes.scoreboard.Scoreboard;
 import codes.laivy.npc.mappings.utils.classes.scoreboard.ScoreboardTeam;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
+import java.util.HashMap;
 import java.util.Map;
+
+import static codes.laivy.npc.LaivyNPC.laivynpc;
+import static codes.laivy.npc.mappings.utils.classes.others.objects.ItemStack.getNMSItemStack;
 
 public class V1_9_R1 extends V1_8_R3 {
 
@@ -51,8 +57,6 @@ public class V1_9_R1 extends V1_8_R3 {
         if (version == V1_8_R3.class) {
             if (executor instanceof ClassExecutor && !(executor instanceof EnumExecutor)) {
                 return false;
-            } else if (executor instanceof MethodExecutor) {
-            } else if (executor instanceof FieldExecutor) {
             }
         } else if (version == V1_8_R1.class) {
             if (executor instanceof MethodExecutor) {
@@ -64,7 +68,29 @@ public class V1_9_R1 extends V1_8_R3 {
                         load(V1_9_R1.class, key, new MethodExecutor(getClassExec("Entity:Enderman"), ClassExecutor.BOOLEAN, "dc", "Gets the screaming state of a Enderman"));
                         return false;
                     case "Entity:Enderman:setScreaming":
-                        load(V1_9_R1.class, key, new MethodExecutor(getClassExec("Entity:Enderman"), ClassExecutor.VOID, "a", "Sets the screaming state of a Enderman", ClassExecutor.BOOLEAN));
+                    case "Entity:Zombie:setVillager":
+                    case "WatchableObject:getValue":
+                    case "WatchableObject:setValue":
+                        return false;
+                    case "Entity:Horse:setType":
+                        load(V1_9_R1.class, key, new MethodExecutor(getClassExec("Entity:Horse"), ClassExecutor.VOID, "setType", "Gets the horse type", getClassExec("EnumHorseType")));
+                        return false;
+                    case "Entity:Horse:getType":
+                        load(V1_9_R1.class, key, new MethodExecutor(getClassExec("Entity:Horse"), getClassExec("EnumHorseType"), "getType", "Gets the horse type"));
+                        return false;
+                    case "Entity:Spider:isClimbing":
+                        load(V1_9_R1.class, key, new MethodExecutor(getClassExec("Entity:Spider"), ClassExecutor.BOOLEAN, "o", "Gets the spider climbing state"));
+                        return false;
+                    case "World:getEntityById":
+                        load(V1_9_R1.class, key, new MethodExecutor(getClassExec("World"), getClassExec("Entity"), "getEntity", "Gets a entity by its ID", ClassExecutor.INT));
+                        return false;
+                    default:
+                        break;
+                }
+            } else if (executor instanceof FieldExecutor) {
+                switch (key) {
+                    case "DataWatcher:map":
+                        load(V1_9_R1.class, key, new FieldExecutor(getClassExec("DataWatcher"), new ClassExecutor(Map.class), "c", "Gets the values of the data"));
                         return false;
                     default:
                         break;
@@ -73,6 +99,79 @@ public class V1_9_R1 extends V1_8_R3 {
         }
 
         return super.onLoad(version, key, executor);
+    }
+
+    @Override
+    public @Nullable Zombie.VillagerType getEntityZombieVillagerType(@NotNull Zombie zombie) {
+        if (zombie.isVillager()) {
+            //noinspection DataFlowIssue
+            return Zombie.VillagerType.getById((int) getMethodExec("Entity:Zombie:getVillagerType").invokeInstance(zombie));
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public boolean isEntityCreeperIgnited(@NotNull Creeper creeper) {
+        //noinspection DataFlowIssue
+        return (boolean) creeper.getDataWatcher().get((int) laivynpc().getVersion().getObject("Metadata:Creeper:Ignited"));
+    }
+
+    @Override
+    public void setEntityHorseType(@NotNull Horse horse, Horse.@NotNull Type type) {
+        EnumHorseTypeEnum.EnumHorseType horseType;
+        if (type == Horse.Type.HORSE) {
+            horseType = EnumHorseTypeEnum.HORSE();
+        } else if (type == Horse.Type.DONKEY) {
+            horseType = EnumHorseTypeEnum.DONKEY();
+        } else if (type == Horse.Type.MULE) {
+            horseType = EnumHorseTypeEnum.MULE();
+        } else if (type == Horse.Type.ZOMBIE) {
+            horseType = EnumHorseTypeEnum.ZOMBIE();
+        } else if (type == Horse.Type.SKELETON) {
+            horseType = EnumHorseTypeEnum.SKELETON();
+        } else {
+            throw new IllegalArgumentException("Couldn't find this horse type '" + type.name() + "'");
+        }
+
+        getMethodExec("Entity:Horse:setType").invokeInstance(horse, horseType);
+    }
+
+    @Override
+    public @NotNull Horse.Type getEntityHorseType(@NotNull Horse horse) {
+        return Horse.Type.valueOf(new EnumHorseTypeEnum.EnumHorseType((Enum<?>) getMethodExec("Entity:Horse:getType").invokeInstance(horse)).name());
+    }
+
+    @Override
+    public void setEntityEndermanScreaming(@NotNull Enderman enderman, boolean screaming) {
+        DataWatcherObject object = new DataWatcherObject(getFieldExec("Entity:Enderman:DataWatcher:screaming").invokeStatic());
+        enderman.getDataWatcher().set(object, new BooleanObjExec(screaming));
+    }
+
+    @Override
+    public boolean isEntityGhastAttacking(@NotNull Ghast ghast) {
+        //noinspection DataFlowIssue
+        return (boolean) ghast.getDataWatcher().get((int) laivynpc().getVersion().getObject("Metadata:Ghast:Attacking"));
+    }
+
+    @Override
+    public @NotNull EntityEquipmentPacket createEquipmentPacket(@NotNull Entity entity, @NotNull EnumItemSlotEnum.EnumItemSlot slot, @NotNull org.bukkit.inventory.ItemStack item) {
+        Object packet = getClassExec("PacketPlayOutEntityEquipment").getConstructor(ClassExecutor.INT, getClassExec("EnumItemSlot"), getClassExec("ItemStack")).newInstance(new IntegerObjExec(entity.getId()), slot, getNMSItemStack(item));
+        return new EntityEquipmentPacket(packet);
+    }
+
+    @Override
+    public @NotNull Map<@NotNull Integer, @NotNull VersionedDataWatcherObject> dataWatcherGetValues(@NotNull DataWatcher dataWatcher) {
+        //noinspection unchecked
+        Map<Integer, ?> fMap = (Map<Integer, ?>) getFieldExec("DataWatcher:map").invokeInstance(dataWatcher);
+        Map<Integer, VersionedDataWatcherObject> map = new HashMap<>();
+        assert fMap != null;
+
+        for (Map.Entry<Integer, ?> e : fMap.entrySet()) {
+            map.put(e.getKey(), new DataWatcherItem(e.getValue()));
+        }
+
+        return map;
     }
 
     @Override
@@ -122,7 +221,7 @@ public class V1_9_R1 extends V1_8_R3 {
             // Entity
             load(V1_9_R1.class, "Entity", new Entity.EntityClass("net.minecraft.server.v1_9_R1.Entity"));
             load(V1_9_R1.class, "EntityLiving", new EntityLiving.EntityLivingClass("net.minecraft.server.v1_9_R1.EntityLiving"));
-            load(V1_9_R1.class, "EntityHuman", new Entity.EntityClass("net.minecraft.server.v1_9_R1.EntityHuman"));
+            load(V1_9_R1.class, "Entity:Human", new Entity.EntityClass("net.minecraft.server.v1_9_R1.EntityHuman"));
             load(V1_9_R1.class, "CraftPlayer", new CraftPlayer.CraftPlayerClass("org.bukkit.craftbukkit.v1_9_R1.entity.CraftPlayer"));
             load(V1_9_R1.class, "EntityPlayer", new EntityPlayer.EntityPlayerClass("net.minecraft.server.v1_9_R1.EntityPlayer"));
 
@@ -216,6 +315,14 @@ public class V1_9_R1 extends V1_8_R3 {
             //
 
             load(V1_9_R1.class, "ScoreboardTeam:EnumTeamPush", new EnumTeamPushEnum.EnumTeamPushClass("net.minecraft.server.v1_9_R1.ScoreboardTeamBase$EnumTeamPush"));
+
+            load(V1_9_R1.class, "DataWatcherObject", new DataWatcherObject.DataWatcherObjectClass("net.minecraft.server.v1_9_R1.DataWatcherObject"));
+
+            load(V1_9_R1.class, "EnumHorseType", new EnumHorseTypeEnum.EnumHorseTypeClass("net.minecraft.server.v1_9_R1.EnumHorseType"));
+
+            load(V1_9_R1.class, "EnumItemSlot", new EnumItemSlotEnum.EnumItemSlotClass("net.minecraft.server.v1_9_R1.EnumItemSlot"));
+
+            load(V1_9_R1.class, "DataWatcher:Item", new DataWatcherItem.DataWatcherItemClass("net.minecraft.server.v1_9_R1.DataWatcher$Item"));
         }
         
         return super.getClasses();
@@ -227,23 +334,74 @@ public class V1_9_R1 extends V1_8_R3 {
             load(V1_9_R1.class, "Entity:isGlowing", new MethodExecutor(getClassExec("Entity"), ClassExecutor.BOOLEAN, "aM", "Gets the glowing state of a Entity"));
             load(V1_9_R1.class, "Entity:setGlowing", new MethodExecutor(getClassExec("Entity"), ClassExecutor.VOID, "f", "Sets the glowing state of a Entity", ClassExecutor.BOOLEAN));
 
-            load(V1_9_R1.class, "ScoreboardTeam:getCollision", new MethodExecutor(getClassExec("ScoreboardTeam"), getClassExec("EnumTeamPush"), "k", "Gets the collision state of the ScoreboardTeam"));
-            load(V1_9_R1.class, "ScoreboardTeam:setCollision", new MethodExecutor(getClassExec("ScoreboardTeam"), ClassExecutor.VOID, "a", "Sets the collision state of the ScoreboardTeam", getClassExec("EnumTeamPush")));
+            load(V1_9_R1.class, "ScoreboardTeam:getCollision", new MethodExecutor(getClassExec("ScoreboardTeam"), getClassExec("ScoreboardTeam:EnumTeamPush"), "k", "Gets the collision state of the ScoreboardTeam"));
+            load(V1_9_R1.class, "ScoreboardTeam:setCollision", new MethodExecutor(getClassExec("ScoreboardTeam"), ClassExecutor.VOID, "a", "Sets the collision state of the ScoreboardTeam", getClassExec("ScoreboardTeam:EnumTeamPush")));
 
             load(V1_9_R1.class, "Entity:Snowman:hasPumpkinHat", new MethodExecutor(getClassExec("Entity:Snowman"), ClassExecutor.BOOLEAN, "o", "Gets the pumpkin hat state of a Snowman"));
             load(V1_9_R1.class, "Entity:Snowman:setPumpkinHat", new MethodExecutor(getClassExec("Entity:Snowman"), ClassExecutor.VOID, "a", "Sets the pumpkin hat state of a Snowman", ClassExecutor.BOOLEAN));
+
+            load(V1_9_R1.class, "DataWatcher:get:DataWatcherObject", new MethodExecutor(getClassExec("DataWatcher"), ClassExecutor.OBJECT, "get", "Gets a datawatcher value by it object", getClassExec("DataWatcherObject")));
+            load(V1_9_R1.class, "DataWatcher:set:DataWatcherObject", new MethodExecutor(getClassExec("DataWatcher"), ClassExecutor.VOID, "set", "Sets a datawatcher value of a object", getClassExec("DataWatcherObject"), ClassExecutor.OBJECT));
+
+            load(V1_9_R1.class, "Entity:Zombie:getVillagerType", new MethodExecutor(getClassExec("Entity:Zombie"), ClassExecutor.INT, "getVillagerType", "Gets the villager type of a zombie"));
+
+            load(V1_9_R1.class, "DataWatcher:Item:get", new MethodExecutor(getClassExec("DataWatcher:Item"), ClassExecutor.OBJECT, "b", "Gets the value of a datawatcher item"));
+            load(V1_9_R1.class, "DataWatcher:Item:set", new MethodExecutor(getClassExec("DataWatcher:Item"), ClassExecutor.VOID, "a", "Sets the value of a datawatcher item", ClassExecutor.OBJECT));
         }
 
         return super.getMethods();
     }
 
     @Override
+    public @NotNull Map<String, FieldExecutor> getFields() {
+        if (!super.getFields().containsKey("Entity:Enderman:DataWatcher:screaming")) {
+            load(V1_9_R1.class, "Entity:Enderman:DataWatcher:screaming", new FieldExecutor(getClassExec("Entity:Enderman"), getClassExec("DataWatcherObject"), "bw", "Gets the enderman's screaming datawatcher object"));
+        }
+
+        return super.getFields();
+    }
+
+    @Override
     public @NotNull Map<String, EnumExecutor> getEnums() {
         if (!super.getEnums().containsKey("ScoreboardTeam:EnumTeamPush")) {
             load(V1_9_R1.class, "ScoreboardTeam:EnumTeamPush", new EnumTeamPushEnum(getClassExec("ScoreboardTeam:EnumTeamPush")));
+
+            load(V1_9_R1.class, "EnumHorseType", new EnumHorseTypeEnum(getClassExec("EnumHorseType")));
+
+            load(V1_9_R1.class, "EnumItemSlot", new EnumItemSlotEnum(getClassExec("EnumItemSlot")));
         }
 
         return super.getEnums();
+    }
+
+    @Override
+    public @NotNull Map<String, String> getTexts() {
+        if (!super.getTexts().containsKey("EnumHorseType:HORSE")) {
+            super.getTexts().put("EnumHorseType:HORSE", "HORSE");
+            super.getTexts().put("EnumHorseType:DONKEY", "DONKEY");
+            super.getTexts().put("EnumHorseType:MULE", "MULE");
+            super.getTexts().put("EnumHorseType:ZOMBIE", "ZOMBIE");
+            super.getTexts().put("EnumHorseType:SKELETON", "SKELETON");
+
+            super.getTexts().put("EnumItemSlot:MAINHAND", "MAINHAND");
+            super.getTexts().put("EnumItemSlot:OFFHAND", "OFFHAND");
+            super.getTexts().put("EnumItemSlot:HEAD", "HEAD");
+            super.getTexts().put("EnumItemSlot:CHEST", "CHEST");
+            super.getTexts().put("EnumItemSlot:LEGS", "LEGS");
+            super.getTexts().put("EnumItemSlot:FEET", "FEET");
+        }
+
+        return super.getTexts();
+    }
+
+    @Override
+    public @NotNull Map<String, Object> getObjects() {
+        super.getObjects().put("Metadata:Ghast:Attacking", 11);
+        super.getObjects().put("Metadata:Guardian:Target", 12);
+        super.getObjects().put("Metadata:Creeper:Ignited", 13);
+        super.getObjects().put("Metadata:Player:SkinParts", 13);
+
+        return super.getObjects();
     }
 
     @Override

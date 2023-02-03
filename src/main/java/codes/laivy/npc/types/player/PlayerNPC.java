@@ -1,7 +1,9 @@
 package codes.laivy.npc.types.player;
 
 import codes.laivy.npc.exceptions.NPCIllegalSkinException;
+import codes.laivy.npc.mappings.instances.FieldExecutor;
 import codes.laivy.npc.mappings.utils.classes.datawatcher.DataWatcher;
+import codes.laivy.npc.mappings.utils.classes.datawatcher.DataWatcherObject;
 import codes.laivy.npc.mappings.utils.classes.entity.EntityPlayer;
 import codes.laivy.npc.mappings.utils.classes.enums.*;
 import codes.laivy.npc.mappings.utils.classes.gameprofile.GameProfile;
@@ -82,9 +84,8 @@ public class PlayerNPC extends NPC {
             try {
                 String[] strings = SkinUtils.getSkinFromName(name);
                 setSkin(new PlayerNPCSkin(strings[0], strings[1], name));
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            } catch (NPCIllegalSkinException ignore) { }
+            } catch (NPCIllegalSkinException ignore) {
+            }
         }).start();
     }
     public void setSkin(@NotNull PlayerNPCSkin skin) {
@@ -215,6 +216,7 @@ public class PlayerNPC extends NPC {
         try {
             DataWatcher data = getEntity().getDataWatcher();
 
+            //noinspection DataFlowIssue
             byte b = (byte) data.get(0);
 
             if (isOnFire()) b = (byte) (b | 1);
@@ -317,7 +319,7 @@ public class PlayerNPC extends NPC {
     public @NotNull List<@NotNull Packet> getEquipmentsUpdatePackets(@NotNull Player player) {
         List<@NotNull Packet> packets = new LinkedList<>();
 
-        for (Map.Entry<@NotNull EnumItemSlot, @NotNull ItemStack> map : getEquipments().entrySet()) {
+        for (Map.Entry<EnumItemSlotEnum.@NotNull EnumItemSlot, @NotNull ItemStack> map : getEquipments().entrySet()) {
             packets.add(laivynpc().getVersion().createEquipmentPacket(getEntity(), map.getKey(), map.getValue()));
         }
 

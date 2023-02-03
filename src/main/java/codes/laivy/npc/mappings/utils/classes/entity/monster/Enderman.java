@@ -34,11 +34,10 @@ public class Enderman extends EntityLiving {
     }
 
     public boolean isScreaming() {
-        //noinspection DataFlowIssue
-        return (boolean) laivynpc().getVersion().getMethodExec("Entity:Enderman:isScreaming").invokeInstance(this);
+        return laivynpc().getVersion().isEntityEndermanScreaming(this);
     }
     public void setScreaming(boolean flag) {
-        laivynpc().getVersion().getMethodExec("Entity:Enderman:setScreaming").invokeInstance(this, new BooleanObjExec(flag));
+        laivynpc().getVersion().setEntityEndermanScreaming(this, flag);
     }
 
     @Override

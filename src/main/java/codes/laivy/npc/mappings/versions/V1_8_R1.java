@@ -7,6 +7,7 @@ import codes.laivy.npc.mappings.instances.EnumExecutor;
 import codes.laivy.npc.mappings.instances.FieldExecutor;
 import codes.laivy.npc.mappings.instances.MethodExecutor;
 import codes.laivy.npc.mappings.utils.VersionCompound;
+import codes.laivy.npc.mappings.utils.classes.datawatcher.VersionedDataWatcherObject;
 import codes.laivy.npc.mappings.utils.classes.entity.animal.*;
 import codes.laivy.npc.mappings.utils.classes.entity.animal.horse.Horse;
 import codes.laivy.npc.mappings.utils.classes.entity.boss.dragon.EnderDragon;
@@ -116,7 +117,7 @@ public class V1_8_R1 extends Version {
             // Entity
             load(V1_8_R1.class, "Entity", new Entity.EntityClass("net.minecraft.server.v1_8_R1.Entity"));
             load(V1_8_R1.class, "EntityLiving", new EntityLiving.EntityLivingClass("net.minecraft.server.v1_8_R1.EntityLiving"));
-            load(V1_8_R1.class, "EntityHuman", new Entity.EntityClass("net.minecraft.server.v1_8_R1.EntityHuman"));
+            load(V1_8_R1.class, "Entity:Human", new Entity.EntityClass("net.minecraft.server.v1_8_R1.EntityHuman"));
             load(V1_8_R1.class, "CraftPlayer", new CraftPlayer.CraftPlayerClass("org.bukkit.craftbukkit.v1_8_R1.entity.CraftPlayer"));
             load(V1_8_R1.class, "EntityPlayer", new EntityPlayer.EntityPlayerClass("net.minecraft.server.v1_8_R1.EntityPlayer"));
 
@@ -360,7 +361,8 @@ public class V1_8_R1 extends Version {
             //
 
             // DataWatcher
-            load(V1_8_R1.class, "WatchableObject:getValue", new MethodExecutor(getClassExec("WatchableObject"), ClassExecutor.OBJECT, "b", "gets the object from a WatchableObject"));
+            load(V1_8_R1.class, "WatchableObject:getValue", new MethodExecutor(getClassExec("WatchableObject"), ClassExecutor.OBJECT, "b", "Gets the object from a WatchableObject"));
+            load(V1_8_R1.class, "WatchableObject:setValue", new MethodExecutor(getClassExec("WatchableObject"), ClassExecutor.VOID, "a", "Sets the object from a WatchableObject", ClassExecutor.OBJECT));
             //
 
             // Objects
@@ -386,6 +388,8 @@ public class V1_8_R1 extends Version {
             load(V1_8_R1.class, "BlockPosition:getY", new MethodExecutor(getClassExec("BlockPosition"), ClassExecutor.INT, "getY", "Gets the Y position of a BlockPosition"));
             load(V1_8_R1.class, "BlockPosition:getZ", new MethodExecutor(getClassExec("BlockPosition"), ClassExecutor.INT, "getZ", "Gets the Z position of a BlockPosition"));
             //
+
+            load(V1_9_R1.class, "DataWatcherObject:getId", new MethodExecutor(getClassExec("DataWatcherObject"), ClassExecutor.INT, "a", "Gets the DataWatcher object's id"));
         }
 
         return super.getMethods();
@@ -424,6 +428,10 @@ public class V1_8_R1 extends Version {
             load(V1_8_R1.class, "Entity:locY", new FieldExecutor(getClassExec("Entity"), ClassExecutor.DOUBLE, "locY", "Gets the X position of a Entity"));
             load(V1_8_R1.class, "Entity:locZ", new FieldExecutor(getClassExec("Entity"), ClassExecutor.DOUBLE, "locZ", "Gets the X position of a Entity"));
             //
+
+            // DataWatcher
+            load(V1_8_R1.class, "DataWatcher:map", new FieldExecutor(getClassExec("DataWatcher"), new ClassExecutor(Map.class), "d", "Gets the values of the data"));
+            //
         }
 
         return super.getFields();
@@ -444,6 +452,8 @@ public class V1_8_R1 extends Version {
             //
 
             load(V1_8_R1.class, "EnumColor", new EnumColorEnum(getClassExec("EnumColor")));
+
+            load(V1_8_R1.class, "EnumChatFormat", new EnumChatFormatEnum(getClassExec("EnumChatFormat")));
         }
 
         return super.getEnums();
@@ -465,6 +475,11 @@ public class V1_8_R1 extends Version {
             super.getTexts().put("PacketPlayInUseEntity:EnumEntityUseAction:ATTACK", "ATTACK");
             super.getTexts().put("PacketPlayInUseEntity:EnumEntityUseAction:INTERACT_AT", "INTERACT_AT");
             //
+
+            // EnumTeamPush
+            super.getTexts().put("ScoreboardTeam:EnumTeamPush:NEVER", "NEVER");
+            super.getTexts().put("ScoreboardTeam:EnumTeamPush:ALWAYS", "ALWAYS");
+            //
         }
 
         return super.getTexts();
@@ -473,9 +488,9 @@ public class V1_8_R1 extends Version {
     public @NotNull Map<String, Object> getObjects() {
         if (super.getObjects().isEmpty()) {
             super.getObjects().put("Metadata:Player:SkinParts", 10);
-            super.getObjects().put("Metadata:Creeper:Ignited", 18);
             super.getObjects().put("Metadata:Ghast:Attacking", 16);
             super.getObjects().put("Metadata:Guardian:Target", 17);
+            super.getObjects().put("Metadata:Creeper:Ignited", 18);
         }
 
         return super.getObjects();
@@ -1029,6 +1044,49 @@ public class V1_8_R1 extends Version {
     }
 
     @Override
+    public boolean isEntityEndermanScreaming(@NotNull Enderman enderman) {
+        //noinspection DataFlowIssue
+        return (boolean) getMethodExec("Entity:Enderman:isScreaming").invokeInstance(enderman);
+    }
+
+    @Override
+    public void setEntityEndermanScreaming(@NotNull Enderman enderman, boolean screaming) {
+        getMethodExec("Entity:Enderman:setScreaming").invokeInstance(enderman, new BooleanObjExec(screaming));
+    }
+
+    @Override
+    public @Nullable Zombie.VillagerType getEntityZombieVillagerType(@NotNull Zombie zombie) {
+        throw new IllegalArgumentException("This method is only compatible with 1.9+");
+    }
+
+    @Override
+    public void setEntityZombieVillagerType(@NotNull Zombie zombie, Zombie.@Nullable VillagerType type) {
+        laivynpc().getVersion().getMethodExec("Entity:Zombie:setVillager").invokeInstance(zombie, new BooleanObjExec(type != null));
+    }
+
+    @Override
+    public boolean isEntityCreeperIgnited(@NotNull Creeper creeper) {
+        //noinspection DataFlowIssue
+        return (boolean) creeper.getDataWatcher().get((int) laivynpc().getVersion().getObject("Metadata:Creeper:Ignited"));
+    }
+
+    @Override
+    public void setEntityCreeperIgnited(@NotNull Creeper creeper, boolean ignited) {
+        creeper.getDataWatcher().set((int) laivynpc().getVersion().getObject("Metadata:Creeper:Ignited"), ignited);
+    }
+
+    @Override
+    public boolean isEntityGhastAttacking(@NotNull Ghast ghast) {
+        //noinspection DataFlowIssue
+        return (boolean) ghast.getDataWatcher().get((int) laivynpc().getVersion().getObject("Metadata:Ghast:Attacking"));
+    }
+
+    @Override
+    public void setEntityGhastAttacking(@NotNull Ghast ghast, boolean attacking) {
+        ghast.getDataWatcher().set((int) laivynpc().getVersion().getObject("Metadata:Ghast:Attacking"), attacking);
+    }
+
+    @Override
     public @NotNull EntityPlayer createPlayer(@NotNull GameProfile profile, @NotNull Location location) {
         if (location.getWorld() == null) {
             throw new NullPointerException("This location's world is null!");
@@ -1159,7 +1217,7 @@ public class V1_8_R1 extends Version {
 
     @Override
     public @NotNull EntityNamedSpawnPacket createSpawnNamedPacket(@NotNull EntityHuman entity) {
-        Object packet = getClassExec("PacketPlayOutNamedEntitySpawn").getConstructor(getClassExec("EntityHuman")).newInstance(entity);
+        Object packet = getClassExec("PacketPlayOutNamedEntitySpawn").getConstructor(getClassExec("Entity:Human")).newInstance(entity);
         return new EntityNamedSpawnPacket(packet);
     }
 
@@ -1180,7 +1238,7 @@ public class V1_8_R1 extends Version {
     }
 
     @Override
-    public @NotNull EntityEquipmentPacket createEquipmentPacket(@NotNull Entity entity, @NotNull EnumItemSlot slot, @NotNull ItemStack item) {
+    public @NotNull EntityEquipmentPacket createEquipmentPacket(@NotNull Entity entity, @NotNull EnumItemSlotEnum.EnumItemSlot slot, @NotNull ItemStack item) {
         Object packet = getClassExec("PacketPlayOutEntityEquipment").getConstructor(ClassExecutor.INT, ClassExecutor.INT, getClassExec("ItemStack")).newInstance(new IntegerObjExec(entity.getId()), new IntegerObjExec(slot.getSlot()), getNMSItemStack(item));
         return new EntityEquipmentPacket(packet);
     }
@@ -1230,21 +1288,10 @@ public class V1_8_R1 extends Version {
     }
 
     @Override
-    public void dataWatcherSet(@NotNull DataWatcher dataWatcher, int index, @NotNull Object object) {
-        MethodExecutor method = new MethodExecutor(getClassExec("DataWatcher"), ClassExecutor.VOID, "watch", "Sets a index to a DataWatcher", ClassExecutor.INT, ClassExecutor.OBJECT);
-        method.load();
-
-        method.invokeInstance(dataWatcher, new IntegerObjExec(index), new ObjectObjExec(object));
-    }
-
-    @Override
-    public @NotNull Map<@NotNull Integer, @NotNull WatchableObject> dataWatcherGetValues(@NotNull DataWatcher dataWatcher) {
-        FieldExecutor field = new FieldExecutor(dataWatcher.getClassExecutor(), new ClassExecutor(Map.class), "d", "Gets the values of the data");
-        field.load();
-
+    public @NotNull Map<@NotNull Integer, @NotNull VersionedDataWatcherObject> dataWatcherGetValues(@NotNull DataWatcher dataWatcher) {
         //noinspection unchecked
-        Map<Integer, ?> fMap = (Map<Integer, ?>) field.invokeInstance(dataWatcher);
-        Map<Integer, WatchableObject> map = new HashMap<>();
+        Map<Integer, ?> fMap = (Map<Integer, ?>) getFieldExec("DataWatcher:map").invokeInstance(dataWatcher);
+        Map<Integer, VersionedDataWatcherObject> map = new HashMap<>();
         assert fMap != null;
 
         for (Map.Entry<Integer, ?> e : fMap.entrySet()) {

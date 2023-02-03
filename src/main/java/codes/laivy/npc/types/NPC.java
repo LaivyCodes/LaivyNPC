@@ -10,8 +10,8 @@ import codes.laivy.npc.mappings.utils.classes.entity.decoration.ArmorStand;
 import codes.laivy.npc.mappings.utils.classes.enums.EntityPose;
 import codes.laivy.npc.mappings.utils.classes.enums.EnumChatFormatEnum;
 import codes.laivy.npc.mappings.utils.classes.enums.EnumChatFormatEnum.EnumChatFormat;
-import codes.laivy.npc.mappings.utils.classes.enums.EnumItemSlot;
-import codes.laivy.npc.mappings.utils.classes.java.EnumObjExec;
+import codes.laivy.npc.mappings.utils.classes.enums.EnumItemSlotEnum;
+import codes.laivy.npc.mappings.utils.classes.enums.EnumItemSlotEnum.EnumItemSlot;
 import codes.laivy.npc.mappings.utils.classes.packets.EntityMetadataPacket;
 import codes.laivy.npc.mappings.utils.classes.packets.Packet;
 import codes.laivy.npc.mappings.versions.V1_9_R1;
@@ -283,22 +283,22 @@ public abstract class NPC {
     }
 
     protected void debug() {
+        setSaveable(false);
+
         setHeadRotation(new NPCHeadRotation(this, 5, Player.class));
         setOnFire(true);
         setLocation(getLocation().add(0, 1, 0));
         setLocation(getLocation().add(0, -1, 0));
-        setItem(EnumItemSlot.HEAD, new ItemStack(Material.DIAMOND_HELMET));
-        setItem(EnumItemSlot.CHEST, new ItemStack(Material.DIAMOND_CHESTPLATE));
-        setItem(EnumItemSlot.LEGS, new ItemStack(Material.DIAMOND_LEGGINGS));
-        setItem(EnumItemSlot.FEET, new ItemStack(Material.DIAMOND_BOOTS));
-        setItem(EnumItemSlot.MAINHAND, new ItemStack(Material.DIAMOND_SWORD));
-        setItem(EnumItemSlot.OFFHAND, new ItemStack(Material.DIAMOND_PICKAXE));
+        setItem(EnumItemSlotEnum.HEAD(), new ItemStack(Material.DIAMOND_HELMET));
+        setItem(EnumItemSlotEnum.CHEST(), new ItemStack(Material.DIAMOND_CHESTPLATE));
+        setItem(EnumItemSlotEnum.LEGS(), new ItemStack(Material.DIAMOND_LEGGINGS));
+        setItem(EnumItemSlotEnum.FEET(), new ItemStack(Material.DIAMOND_BOOTS));
+        setItem(EnumItemSlotEnum.MAINHAND(), new ItemStack(Material.DIAMOND_SWORD));
+        setItem(EnumItemSlotEnum.OFFHAND(), new ItemStack(Material.DIAMOND_PICKAXE));
         getHolograms().setLine(3, new NPCHologramText("§7LaivyNPC", this));
         getHolograms().setLine(2, new NPCHologramText("§eThe best NPCs plugin :)", this));
         getHolograms().setLine(0, new NPCHologramText("§0Lets goo", this));
         spawn();
-
-        setSaveable(false);
     }
 
     public @NotNull ClickAction getClickAction() {
@@ -1348,12 +1348,12 @@ public abstract class NPC {
             //
 
             ItemStack item;
-            if ((item = getItem(EnumItemSlot.HEAD)) != null) equipments.put("Head", item.serialize());
-            if ((item = getItem(EnumItemSlot.CHEST)) != null) equipments.put("Chest", item.serialize());
-            if ((item = getItem(EnumItemSlot.LEGS)) != null) equipments.put("Legs", item.serialize());
-            if ((item = getItem(EnumItemSlot.FEET)) != null) equipments.put("Feet", item.serialize());
-            if ((item = getItem(EnumItemSlot.MAINHAND)) != null) equipments.put("Main Hand", item.serialize());
-            if ((item = getItem(EnumItemSlot.OFFHAND)) != null) equipments.put("Off Hand", item.serialize());
+            if ((item = getItem(EnumItemSlotEnum.HEAD())) != null) equipments.put("Head", item.serialize());
+            if ((item = getItem(EnumItemSlotEnum.CHEST())) != null) equipments.put("Chest", item.serialize());
+            if ((item = getItem(EnumItemSlotEnum.LEGS())) != null) equipments.put("Legs", item.serialize());
+            if ((item = getItem(EnumItemSlotEnum.FEET())) != null) equipments.put("Feet", item.serialize());
+            if ((item = getItem(EnumItemSlotEnum.MAINHAND())) != null) equipments.put("Main Hand", item.serialize());
+            if ((item = getItem(EnumItemSlotEnum.OFFHAND())) != null) equipments.put("Off Hand", item.serialize());
 
             map.put("Equipments", equipments);
 
@@ -1567,12 +1567,12 @@ public abstract class NPC {
         try {
             ConfigurationSection equipments = map.getConfigurationSection("Equipments");
 
-            if (equipments.contains("Head")) setItem(EnumItemSlot.HEAD, ItemStack.deserialize(equipments.getConfigurationSection("Head").getValues(true)));
-            if (equipments.contains("Chest")) setItem(EnumItemSlot.CHEST, ItemStack.deserialize(equipments.getConfigurationSection("Chest").getValues(true)));
-            if (equipments.contains("Legs")) setItem(EnumItemSlot.LEGS, ItemStack.deserialize(equipments.getConfigurationSection("Legs").getValues(true)));
-            if (equipments.contains("Feet")) setItem(EnumItemSlot.FEET, ItemStack.deserialize(equipments.getConfigurationSection("Feet").getValues(true)));
-            if (equipments.contains("Main Hand")) setItem(EnumItemSlot.MAINHAND, ItemStack.deserialize(equipments.getConfigurationSection("Main Hand").getValues(true)));
-            if (equipments.contains("Off Hand")) setItem(EnumItemSlot.OFFHAND, ItemStack.deserialize(equipments.getConfigurationSection("Off Hand").getValues(true)));
+            if (equipments.contains("Head")) setItem(EnumItemSlotEnum.HEAD(), ItemStack.deserialize(equipments.getConfigurationSection("Head").getValues(true)));
+            if (equipments.contains("Chest")) setItem(EnumItemSlotEnum.CHEST(), ItemStack.deserialize(equipments.getConfigurationSection("Chest").getValues(true)));
+            if (equipments.contains("Legs")) setItem(EnumItemSlotEnum.LEGS(), ItemStack.deserialize(equipments.getConfigurationSection("Legs").getValues(true)));
+            if (equipments.contains("Feet")) setItem(EnumItemSlotEnum.FEET(), ItemStack.deserialize(equipments.getConfigurationSection("Feet").getValues(true)));
+            if (equipments.contains("Main Hand")) setItem(EnumItemSlotEnum.MAINHAND(), ItemStack.deserialize(equipments.getConfigurationSection("Main Hand").getValues(true)));
+            if (equipments.contains("Off Hand")) setItem(EnumItemSlotEnum.OFFHAND(), ItemStack.deserialize(equipments.getConfigurationSection("Off Hand").getValues(true)));
         } catch (Exception e) {
             e.printStackTrace();
             laivynpc().log("§cCouldn't load the items of the NPC '" + getId() + "'!");

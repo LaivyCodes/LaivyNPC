@@ -3,10 +3,13 @@ package codes.laivy.npc.mappings.utils.classes.datawatcher;
 import codes.laivy.npc.LaivyNPC;
 import codes.laivy.npc.mappings.instances.classes.ClassExecutor;
 import codes.laivy.npc.mappings.instances.ObjectExecutor;
+import codes.laivy.npc.mappings.versions.V1_9_R1;
+import codes.laivy.npc.utils.ReflectionUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
+import java.util.Objects;
 
 import static codes.laivy.npc.LaivyNPC.laivynpc;
 
@@ -16,13 +19,33 @@ public class DataWatcher extends ObjectExecutor {
     }
 
     public void set(int index, @NotNull Object object) {
-        laivynpc().getVersion().dataWatcherSet(this, index, object);
+        for (Map.Entry<@NotNull Integer, @NotNull VersionedDataWatcherObject> map : values().entrySet()) {
+            if (map.getKey() == index) {
+                map.getValue().set(object);
+                return;
+            }
+        }
+        throw new IllegalStateException("Couldn't find this index '" + index + "'");
     }
-    public @NotNull Object get(int index) {
+    public @Nullable Object get(int index) {
         return values().get(index).get();
     }
+    public @Nullable Object get(@NotNull DataWatcherObject object) {
+        if (!ReflectionUtils.isCompatible(V1_9_R1.class)) {
+            throw new IllegalStateException("This method is compatible only with 1.9+");
+        }
 
-    public @NotNull Map<@NotNull Integer, @NotNull WatchableObject> values() {
+        return laivynpc().getVersion().getMethodExec("DataWatcher:get:DataWatcherObject").invokeInstance(this, object);
+    }
+    public void set(@NotNull DataWatcherObject object, @NotNull ObjectExecutor value) {
+        if (!ReflectionUtils.isCompatible(V1_9_R1.class)) {
+            throw new IllegalStateException("This method is compatible only with 1.9+");
+        }
+
+        laivynpc().getVersion().getMethodExec("DataWatcher:set:DataWatcherObject").invokeInstance(this, object, value);
+    }
+
+    public @NotNull Map<@NotNull Integer, @NotNull VersionedDataWatcherObject> values() {
         return laivynpc().getVersion().dataWatcherGetValues(this);
     }
 

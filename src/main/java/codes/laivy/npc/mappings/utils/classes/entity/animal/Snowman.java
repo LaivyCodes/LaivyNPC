@@ -15,7 +15,7 @@ public class Snowman extends EntityLiving {
     }
 
     public boolean hasPumpkinHat() {
-        if (ReflectionUtils.isCompatible(V1_9_R1.class)) {
+        if (!ReflectionUtils.isCompatible(V1_9_R1.class)) {
             throw new IllegalStateException("The pumpkin hat of a snowman is only available at 1.9+");
         }
 
@@ -23,7 +23,7 @@ public class Snowman extends EntityLiving {
         return (boolean) laivynpc().getVersion().getMethodExec("Entity:Snowman:hasPumpkinHat").invokeInstance(this);
     }
     public void setPumpkinHat(boolean flag) {
-        if (ReflectionUtils.isCompatible(V1_9_R1.class)) {
+        if (!ReflectionUtils.isCompatible(V1_9_R1.class)) {
             throw new IllegalStateException("The pumpkin hat of a snowman is only available at 1.9+");
         }
 

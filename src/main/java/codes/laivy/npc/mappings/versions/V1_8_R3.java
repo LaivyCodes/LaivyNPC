@@ -117,7 +117,7 @@ public class V1_8_R3 extends V1_8_R2 {
             // Entity
             load(V1_8_R3.class, "Entity", new Entity.EntityClass("net.minecraft.server.v1_8_R3.Entity"));
             load(V1_8_R3.class, "EntityLiving", new EntityLiving.EntityLivingClass("net.minecraft.server.v1_8_R3.EntityLiving"));
-            load(V1_8_R3.class, "EntityHuman", new Entity.EntityClass("net.minecraft.server.v1_8_R3.EntityHuman"));
+            load(V1_8_R3.class, "Entity:Human", new Entity.EntityClass("net.minecraft.server.v1_8_R3.EntityHuman"));
             load(V1_8_R3.class, "CraftPlayer", new CraftPlayer.CraftPlayerClass("org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer"));
             load(V1_8_R3.class, "EntityPlayer", new EntityPlayer.EntityPlayerClass("net.minecraft.server.v1_8_R3.EntityPlayer"));
 

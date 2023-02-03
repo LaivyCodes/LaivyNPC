@@ -7,7 +7,7 @@ import codes.laivy.npc.mappings.utils.classes.entity.Entity;
 import codes.laivy.npc.mappings.utils.classes.entity.EntityPlayer;
 import codes.laivy.npc.mappings.utils.classes.entity.animal.Pig;
 import codes.laivy.npc.mappings.utils.classes.entity.decoration.ArmorStand;
-import codes.laivy.npc.mappings.utils.classes.enums.EnumItemSlot;
+import codes.laivy.npc.mappings.utils.classes.enums.EnumItemSlotEnum;
 import codes.laivy.npc.mappings.utils.classes.enums.EnumPlayerInfoActionEnum;
 import codes.laivy.npc.mappings.utils.classes.nbt.tags.*;
 import codes.laivy.npc.mappings.utils.classes.packets.*;
@@ -112,7 +112,7 @@ public class Debug {
             entityMetadataPacket.send(player);
 
             message.append("§7Trying to debug EntityEquipmentPacket...\n");
-            EntityEquipmentPacket entityEquipmentPacket = laivynpc().getVersion().createEquipmentPacket(stand, EnumItemSlot.HEAD, new ItemStack(Material.DIAMOND_HELMET));
+            EntityEquipmentPacket entityEquipmentPacket = laivynpc().getVersion().createEquipmentPacket(stand, EnumItemSlotEnum.HEAD(), new ItemStack(Material.DIAMOND_HELMET));
             entityEquipmentPacket.send(player);
 
             message.append("§7Trying to debug EntityLivingSpawnPacket...\n");

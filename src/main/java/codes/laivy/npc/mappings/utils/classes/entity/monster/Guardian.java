@@ -18,6 +18,12 @@ public class Guardian extends EntityLiving {
         return target;
     }
     public void setTarget(@Nullable EntityLiving living) {
+        //      Gets the attacking metadata index debug
+//        @NotNull DataWatcherObject object = new DataWatcherObject(new FieldExecutor(getClassExecutor(), laivynpc().getVersion().getClassExec("DataWatcherObject"), "b", "Gets a entity's datawatcher object") {{
+//            load();
+//        }}.invokeStatic());
+//        Bukkit.broadcastMessage("Id: '" + object.getId() + "'");
+
         int id = 0;
         if (living != null) {
             id = living.getId();

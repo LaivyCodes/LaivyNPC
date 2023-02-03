@@ -6,7 +6,7 @@ import codes.laivy.npc.mappings.instances.ObjectExecutor;
 import codes.laivy.npc.mappings.utils.classes.datawatcher.DataWatcher;
 import codes.laivy.npc.mappings.utils.classes.entity.Entity;
 import codes.laivy.npc.mappings.utils.classes.enums.EnumChatFormatEnum;
-import codes.laivy.npc.mappings.utils.classes.enums.EnumItemSlot;
+import codes.laivy.npc.mappings.utils.classes.enums.EnumItemSlotEnum;
 import codes.laivy.npc.mappings.utils.classes.enums.EnumNameTagVisibilityEnum;
 import codes.laivy.npc.mappings.utils.classes.enums.EnumTeamPushEnum;
 import codes.laivy.npc.mappings.utils.classes.java.ObjectObjExec;
@@ -77,6 +77,7 @@ public abstract class EntityNPC extends NPC {
         try {
             DataWatcher data = getEntity().getDataWatcher();
 
+            //noinspection DataFlowIssue
             byte b = (byte) data.get(0);
 
             if (isOnFire()) b = (byte) (b | 1);
@@ -142,7 +143,7 @@ public abstract class EntityNPC extends NPC {
     public @NotNull List<@NotNull Packet> getEquipmentsUpdatePackets(@NotNull Player player) {
         List<@NotNull Packet> packets = new LinkedList<>();
 
-        for (Map.Entry<@NotNull EnumItemSlot, @NotNull ItemStack> map : getEquipments().entrySet()) {
+        for (Map.Entry<EnumItemSlotEnum.@NotNull EnumItemSlot, @NotNull ItemStack> map : getEquipments().entrySet()) {
             packets.add(laivynpc().getVersion().createEquipmentPacket(getEntity(), map.getKey(), map.getValue()));
         }
 
