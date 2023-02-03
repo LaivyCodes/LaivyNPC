@@ -16,7 +16,7 @@ public class Ghast extends EntityLiving {
 //        @NotNull DataWatcherObject object = new DataWatcherObject(new FieldExecutor(getClassExecutor(), laivynpc().getVersion().getClassExec("DataWatcherObject"), "a", "Gets a entity's datawatcher object") {{
 //            load();
 //        }}.invokeStatic());
-//        Bukkit.broadcastMessage("Id: '" + object.getId() + "'");
+//        Bukkit.broadcastMessage("Ghast Id: '" + object.getId() + "'");
 
         return laivynpc().getVersion().isEntityGhastAttacking(this);
     }

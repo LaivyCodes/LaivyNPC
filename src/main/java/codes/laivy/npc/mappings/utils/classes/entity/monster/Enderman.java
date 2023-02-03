@@ -3,7 +3,6 @@ package codes.laivy.npc.mappings.utils.classes.entity.monster;
 import codes.laivy.npc.mappings.instances.classes.ClassExecutor;
 import codes.laivy.npc.mappings.instances.ObjectExecutor;
 import codes.laivy.npc.mappings.utils.classes.entity.EntityLiving;
-import codes.laivy.npc.mappings.utils.classes.java.BooleanObjExec;
 import codes.laivy.npc.mappings.utils.classes.others.objects.Block;
 import codes.laivy.npc.mappings.utils.classes.others.objects.IBlockData;
 import org.bukkit.Material;

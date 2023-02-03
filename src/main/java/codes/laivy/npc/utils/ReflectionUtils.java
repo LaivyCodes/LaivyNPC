@@ -15,7 +15,7 @@ import static org.bukkit.Bukkit.getServer;
 public class ReflectionUtils {
 
     public static boolean isCompatible(@NotNull Class<? extends Version> version) {
-        return ClassUtils.isInstanceOf(laivynpc().getVersion().getClass(), version);
+        return version.isAssignableFrom(laivynpc().getVersion().getClass());
     }
 
     @NotNull

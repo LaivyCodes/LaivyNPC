@@ -22,7 +22,7 @@ public class Guardian extends EntityLiving {
 //        @NotNull DataWatcherObject object = new DataWatcherObject(new FieldExecutor(getClassExecutor(), laivynpc().getVersion().getClassExec("DataWatcherObject"), "b", "Gets a entity's datawatcher object") {{
 //            load();
 //        }}.invokeStatic());
-//        Bukkit.broadcastMessage("Id: '" + object.getId() + "'");
+//        Bukkit.broadcastMessage("Guardian Id: '" + object.getId() + "'");
 
         int id = 0;
         if (living != null) {

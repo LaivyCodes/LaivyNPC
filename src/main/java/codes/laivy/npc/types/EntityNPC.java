@@ -123,6 +123,7 @@ public abstract class EntityNPC extends NPC {
 
             // Collisions
             if (ReflectionUtils.isCompatible(V1_9_R1.class)) {
+                System.out.println("Compatible with 1.9");
                 team.setCollision(isCollidable() ? EnumTeamPushEnum.ALWAYS() : EnumTeamPushEnum.NEVER());
             }
             //

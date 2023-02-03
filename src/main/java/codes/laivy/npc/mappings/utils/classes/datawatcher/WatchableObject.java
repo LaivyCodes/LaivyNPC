@@ -21,7 +21,7 @@ public class WatchableObject extends ObjectExecutor implements VersionedDataWatc
 
     @Override
     public void set(@Nullable Object object) {
-        Objects.requireNonNull(laivynpc().getVersion().getMethodExec("WatchableObject:setValue").invokeInstance(this, new ObjectObjExec(object)));
+        laivynpc().getVersion().getMethodExec("WatchableObject:setValue").invokeInstance(this, new ObjectObjExec(object));
     }
 
     @Override

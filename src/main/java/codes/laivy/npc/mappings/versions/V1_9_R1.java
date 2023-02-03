@@ -347,6 +347,8 @@ public class V1_9_R1 extends V1_8_R3 {
 
             load(V1_9_R1.class, "DataWatcher:Item:get", new MethodExecutor(getClassExec("DataWatcher:Item"), ClassExecutor.OBJECT, "b", "Gets the value of a datawatcher item"));
             load(V1_9_R1.class, "DataWatcher:Item:set", new MethodExecutor(getClassExec("DataWatcher:Item"), ClassExecutor.VOID, "a", "Sets the value of a datawatcher item", ClassExecutor.OBJECT));
+
+            load(V1_9_R1.class, "DataWatcherObject:getId", new MethodExecutor(getClassExec("DataWatcherObject"), ClassExecutor.INT, "a", "Gets the DataWatcher object's id"));
         }
 
         return super.getMethods();

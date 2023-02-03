@@ -43,6 +43,8 @@ public class LaivyNPC extends JavaPlugin {
 
     private boolean successfullyLoaded = true;
 
+    private boolean debug = true;
+
     public LaivyNPC() {
         //noinspection ResultOfMethodCallIgnored
         getDataFolder().mkdirs();
@@ -54,6 +56,10 @@ public class LaivyNPC extends JavaPlugin {
         } catch (IOException e) {
             throw new RuntimeException("Database file exception", e);
         }
+    }
+
+    public boolean isDebug() {
+        return debug;
     }
 
     public @NotNull File getDatabaseFile() {
@@ -70,7 +76,7 @@ public class LaivyNPC extends JavaPlugin {
             //noinspection unchecked
             Class<Version> clazz = (Class<Version>) ReflectionUtils.getNullableClass("codes.laivy.npc.mappings.versions." + ReflectionUtils.getVersionName().toUpperCase());
             if (clazz == null) {
-                throw new NullPointerException("Couldn't find your version properties (" + ReflectionUtils.getVersionName() + ")");
+                throw new NullPointerException("Couldn't find this server version's properties (" + ReflectionUtils.getVersionName() + ")");
             }
 
             Constructor<Version> constructor = clazz.getDeclaredConstructor();

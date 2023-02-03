@@ -388,8 +388,6 @@ public class V1_8_R1 extends Version {
             load(V1_8_R1.class, "BlockPosition:getY", new MethodExecutor(getClassExec("BlockPosition"), ClassExecutor.INT, "getY", "Gets the Y position of a BlockPosition"));
             load(V1_8_R1.class, "BlockPosition:getZ", new MethodExecutor(getClassExec("BlockPosition"), ClassExecutor.INT, "getZ", "Gets the Z position of a BlockPosition"));
             //
-
-            load(V1_9_R1.class, "DataWatcherObject:getId", new MethodExecutor(getClassExec("DataWatcherObject"), ClassExecutor.INT, "a", "Gets the DataWatcher object's id"));
         }
 
         return super.getMethods();
@@ -1067,23 +1065,23 @@ public class V1_8_R1 extends Version {
     @Override
     public boolean isEntityCreeperIgnited(@NotNull Creeper creeper) {
         //noinspection DataFlowIssue
-        return (boolean) creeper.getDataWatcher().get((int) laivynpc().getVersion().getObject("Metadata:Creeper:Ignited"));
+        return ((byte) creeper.getDataWatcher().get((int) laivynpc().getVersion().getObject("Metadata:Creeper:Ignited"))) == 1;
     }
 
     @Override
-    public void setEntityCreeperIgnited(@NotNull Creeper creeper, boolean ignited) {
-        creeper.getDataWatcher().set((int) laivynpc().getVersion().getObject("Metadata:Creeper:Ignited"), ignited);
+    public void setEntityCreeperIgnited(@NotNull Creeper creeper, boolean flag) {
+        creeper.getDataWatcher().set((int) laivynpc().getVersion().getObject("Metadata:Creeper:Ignited"), (byte) (flag ? 1 : 0));
     }
 
     @Override
     public boolean isEntityGhastAttacking(@NotNull Ghast ghast) {
         //noinspection DataFlowIssue
-        return (boolean) ghast.getDataWatcher().get((int) laivynpc().getVersion().getObject("Metadata:Ghast:Attacking"));
+        return ((byte) ghast.getDataWatcher().get((int) laivynpc().getVersion().getObject("Metadata:Ghast:Attacking"))) == 1;
     }
 
     @Override
-    public void setEntityGhastAttacking(@NotNull Ghast ghast, boolean attacking) {
-        ghast.getDataWatcher().set((int) laivynpc().getVersion().getObject("Metadata:Ghast:Attacking"), attacking);
+    public void setEntityGhastAttacking(@NotNull Ghast ghast, boolean flag) {
+        ghast.getDataWatcher().set((int) laivynpc().getVersion().getObject("Metadata:Ghast:Attacking"), (byte) (flag ? 1 : 0));
     }
 
     @Override

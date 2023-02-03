@@ -263,7 +263,8 @@ public class NPCCommands implements CommandExecutor, Listener {
                     } else {
                         Debug debug = new Debug(player);
                         for (DebugLog log : debug.getResult().getLogs()) {
-                            player.sendMessage(log.getMessage());
+                            // TODO: 03/02/2023 Better debug system
+                            Bukkit.broadcastMessage(log.getMessage());
                         }
                     }
                 } else {
