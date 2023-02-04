@@ -29,7 +29,6 @@ import codes.laivy.npc.mappings.utils.classes.enums.*;
 import codes.laivy.npc.mappings.utils.classes.gameprofile.GameProfile;
 import codes.laivy.npc.mappings.utils.classes.gameprofile.Property;
 import codes.laivy.npc.mappings.utils.classes.gameprofile.PropertyMap;
-import codes.laivy.npc.mappings.utils.classes.java.BooleanObjExec;
 import codes.laivy.npc.mappings.utils.classes.nbt.NBTBase;
 import codes.laivy.npc.mappings.utils.classes.nbt.tags.*;
 import codes.laivy.npc.mappings.utils.classes.others.chat.IChatBaseComponent;
@@ -56,6 +55,14 @@ public class V1_10_R1 extends V1_9_R2 {
         if (version == V1_9_R2.class) {
             if (executor instanceof ClassExecutor && !(executor instanceof EnumExecutor)) {
                 return false;
+            } else if (executor instanceof FieldExecutor) {
+                switch (key) {
+                    case "Entity:Enderman:DataWatcher:screaming":
+                        load(V1_10_R1.class, key, new FieldExecutor(getClassExec("Entity:Enderman"), getClassExec("DataWatcherObject"), "by", "Gets the enderman's screaming datawatcher object"));
+                        return false;
+                    default:
+                        break;
+                }
             }
         } else if (version == V1_9_R1.class) {
             if (executor instanceof MethodExecutor) {
@@ -141,11 +148,11 @@ public class V1_10_R1 extends V1_9_R2 {
     @Override
     public boolean isEntityGhastAttacking(@NotNull Ghast ghast) {
         //noinspection DataFlowIssue
-        return ((byte) ghast.getDataWatcher().get((int) laivynpc().getVersion().getObject("Metadata:Ghast:Attacking"))) == 1;
+        return (boolean) ghast.getDataWatcher().get((int) laivynpc().getVersion().getObject("Metadata:Ghast:Attacking"));
     }
     @Override
     public void setEntityGhastAttacking(@NotNull Ghast ghast, boolean flag) {
-        ghast.getDataWatcher().set((int) laivynpc().getVersion().getObject("Metadata:Ghast:Attacking"), (byte) (flag ? 1 : 0));
+        ghast.getDataWatcher().set((int) laivynpc().getVersion().getObject("Metadata:Ghast:Attacking"), flag);
     }
 
     @Override
@@ -318,26 +325,30 @@ public class V1_10_R1 extends V1_9_R2 {
 
     @Override
     public @NotNull Map<String, Object> getObjects() {
-        super.getObjects().put("Metadata:Ghast:Attacking", 12);
-        super.getObjects().put("Metadata:Guardian:Target", 12);
-        super.getObjects().put("Metadata:Creeper:Ignited", 14);
+        Map<String, Object> map = super.getObjects();
 
-        return super.getObjects();
+        map.put("Metadata:Ghast:Attacking", 12);
+        map.put("Metadata:Guardian:Target", 13);
+        map.put("Metadata:Creeper:Ignited", 14);
+
+        return map;
     }
 
     @Override
     public @NotNull Map<String, String> getTexts() {
-        super.getTexts().put("EnumSkeletonType:NORMAL", "NORMAL");
-        super.getTexts().put("EnumSkeletonType:WITHER", "WITHER");
-        super.getTexts().put("EnumSkeletonType:STRAY", "STRAY");
+        Map<String, String> map = super.getTexts();
 
-        super.getTexts().put("EnumZombieType:NORMAL", "NORMAL");
-        super.getTexts().put("EnumZombieType:VILLAGER_LIBRARIAN", "VILLAGER_LIBRARIAN");
-        super.getTexts().put("EnumZombieType:VILLAGER_PRIEST", "VILLAGER_PRIEST");
-        super.getTexts().put("EnumZombieType:VILLAGER_SMITH", "VILLAGER_SMITH");
-        super.getTexts().put("EnumZombieType:VILLAGER_BUTCHER", "VILLAGER_BUTCHER");
+        map.put("EnumSkeletonType:NORMAL", "NORMAL");
+        map.put("EnumSkeletonType:WITHER", "WITHER");
+        map.put("EnumSkeletonType:STRAY", "STRAY");
 
-        return super.getTexts();
+        map.put("EnumZombieType:NORMAL", "NORMAL");
+        map.put("EnumZombieType:VILLAGER_LIBRARIAN", "VILLAGER_LIBRARIAN");
+        map.put("EnumZombieType:VILLAGER_PRIEST", "VILLAGER_PRIEST");
+        map.put("EnumZombieType:VILLAGER_SMITH", "VILLAGER_SMITH");
+        map.put("EnumZombieType:VILLAGER_BUTCHER", "VILLAGER_BUTCHER");
+
+        return map;
     }
 
     @Override

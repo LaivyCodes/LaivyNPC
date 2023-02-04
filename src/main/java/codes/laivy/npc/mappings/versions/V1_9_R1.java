@@ -406,12 +406,14 @@ public class V1_9_R1 extends V1_8_R3 {
 
     @Override
     public @NotNull Map<String, Object> getObjects() {
+        Map<String, Object> map = super.getObjects();
+
         super.getObjects().put("Metadata:Ghast:Attacking", 11);
         super.getObjects().put("Metadata:Guardian:Target", 12);
         super.getObjects().put("Metadata:Creeper:Ignited", 13);
         super.getObjects().put("Metadata:Player:SkinParts", 13);
 
-        return super.getObjects();
+        return map;
     }
 
     @Override
