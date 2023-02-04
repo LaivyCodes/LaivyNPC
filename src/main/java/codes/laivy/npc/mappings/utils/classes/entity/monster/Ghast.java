@@ -1,6 +1,9 @@
 package codes.laivy.npc.mappings.utils.classes.entity.monster;
 
+import codes.laivy.npc.mappings.instances.FieldExecutor;
+import codes.laivy.npc.mappings.utils.classes.datawatcher.DataWatcherObject;
 import codes.laivy.npc.mappings.utils.classes.entity.EntityLiving;
+import org.bukkit.Bukkit;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -13,10 +16,10 @@ public class Ghast extends EntityLiving {
 
     public boolean isAttacking() {
         //      Gets the attacking metadata index debug
-//        @NotNull DataWatcherObject object = new DataWatcherObject(new FieldExecutor(getClassExecutor(), laivynpc().getVersion().getClassExec("DataWatcherObject"), "a", "Gets a entity's datawatcher object") {{
-//            load();
-//        }}.invokeStatic());
-//        Bukkit.broadcastMessage("Ghast Id: '" + object.getId() + "'");
+        @NotNull DataWatcherObject object = new DataWatcherObject(new FieldExecutor(getClassExecutor(), laivynpc().getVersion().getClassExec("DataWatcherObject"), "a", "Gets a entity's datawatcher object") {{
+            load();
+        }}.invokeStatic());
+        Bukkit.broadcastMessage("Ghast Id: '" + object.getId() + "'");
 
         return laivynpc().getVersion().isEntityGhastAttacking(this);
     }

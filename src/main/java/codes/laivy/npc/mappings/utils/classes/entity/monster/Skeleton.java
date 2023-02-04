@@ -17,10 +17,10 @@ public class Skeleton extends EntityLiving {
         super(value);
     }
 
-    public @NotNull SkeletonType getType() {
+    public @NotNull Skeleton.Type getType() {
         return laivynpc().getVersion().getEntitySkeletonType(this);
     }
-    public void setType(@NotNull SkeletonType type) {
+    public void setType(@NotNull Skeleton.Type type) {
         laivynpc().getVersion().setEntitySkeletonType(this, type);
     }
 
@@ -35,7 +35,7 @@ public class Skeleton extends EntityLiving {
         }
     }
 
-    public enum SkeletonType {
+    public enum Type {
         NORMAL(V1_8_R1.class),
         WITHER(V1_8_R1.class),
         STRAY(V1_10_R1.class),
@@ -43,7 +43,7 @@ public class Skeleton extends EntityLiving {
 
         private final @NotNull Class<? extends Version> since;
 
-        SkeletonType(@NotNull Class<? extends Version> since) {
+        Type(@NotNull Class<? extends Version> since) {
             this.since = since;
         }
 
@@ -54,6 +54,27 @@ public class Skeleton extends EntityLiving {
         public @NotNull EnumSkeletonTypeEnum.EnumSkeletonType getEnum() {
             if (!ReflectionUtils.isCompatible(V1_9_R1.class)) {
                 throw new IllegalArgumentException("This method is only available at 1.9+");
+            }
+
+            if (this == NORMAL) {
+                return EnumSkeletonTypeEnum.NORMAL();
+            } else if (this == WITHER) {
+                return EnumSkeletonTypeEnum.WITHER();
+            } else if (this == STRAY) {
+                return EnumSkeletonTypeEnum.STRAY();
+            } else {
+                throw new IllegalStateException("Couldn't find this skeleton type enum '" + name() + "'");
+            }
+        }
+        public static @NotNull Skeleton.Type fromEnum(@NotNull EnumSkeletonTypeEnum.EnumSkeletonType enumSkeletonType) {
+            if (enumSkeletonType.name().equals("NORMAL")) {
+                return NORMAL;
+            } else if (enumSkeletonType.name().equals("WITHER")) {
+                return WITHER;
+            } else if (enumSkeletonType.name().equals("STRAY")) {
+                return STRAY;
+            } else {
+                throw new IllegalStateException("Couldn't find this skeleton type from enum '" + enumSkeletonType.name() + "'");
             }
         }
 

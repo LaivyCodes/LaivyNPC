@@ -68,7 +68,7 @@ public class V1_9_R1 extends V1_8_R3 {
                         load(V1_9_R1.class, key, new MethodExecutor(getClassExec("Entity:Enderman"), ClassExecutor.BOOLEAN, "dc", "Gets the screaming state of a Enderman"));
                         return false;
                     case "Entity:Enderman:setScreaming":
-                    case "Entity:Zombie:setVillager":
+                    case "Entity:Zombie:setVillagerType":
                     case "WatchableObject:getValue":
                     case "WatchableObject:setValue":
                         return false;
@@ -102,10 +102,10 @@ public class V1_9_R1 extends V1_8_R3 {
     }
 
     @Override
-    public @Nullable Zombie.VillagerType getEntityZombieVillagerType(@NotNull Zombie zombie) {
+    public @Nullable Zombie.Type getEntityZombieType(@NotNull Zombie zombie) {
         if (zombie.isVillager()) {
             //noinspection DataFlowIssue
-            return Zombie.VillagerType.getById((int) getMethodExec("Entity:Zombie:getVillagerType").invokeInstance(zombie));
+            return Zombie.Type.getById((int) getMethodExec("Entity:Zombie:getVillagerType").invokeInstance(zombie));
         } else {
             return null;
         }
@@ -185,6 +185,8 @@ public class V1_9_R1 extends V1_8_R3 {
     @Override
     public @NotNull Map<String, ClassExecutor> getClasses() {
         if (super.getClasses().isEmpty()) {
+            load(V1_9_R1.class, "WatchableObject", new ClassExecutor.BrokenClassExecutor());
+
             load(V1_9_R1.class, "NBTBase", new NBTBase.NBTBaseClass("net.minecraft.server.v1_9_R1.NBTBase"));
 
             load(V1_9_R1.class, "NBTBase:NBTTagByte", new NBTTagByte.NBTTagByteClass("net.minecraft.server.v1_9_R1.NBTTagByte"));

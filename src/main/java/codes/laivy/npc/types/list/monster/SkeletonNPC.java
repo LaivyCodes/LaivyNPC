@@ -22,11 +22,11 @@ import static codes.laivy.npc.config.Translate.translate;
 public class SkeletonNPC extends EntityLivingNPC {
 
     public static @NotNull SkeletonNPC fastInstance(@NotNull List<OfflinePlayer> player, @NotNull Location location, @Nullable Object object) {
-        return new SkeletonNPC(player, Skeleton.SkeletonType.NORMAL, location);
+        return new SkeletonNPC(player, Skeleton.Type.NORMAL, location);
     }
 
     public static void debug(@NotNull Location location) {
-        SkeletonNPC skeletonNPC = new SkeletonNPC(new ArrayList<>(), Skeleton.SkeletonType.NORMAL, location);
+        SkeletonNPC skeletonNPC = new SkeletonNPC(new ArrayList<>(), Skeleton.Type.NORMAL, location);
         skeletonNPC.debug();
         skeletonNPC.destroy();
     }
@@ -37,15 +37,15 @@ public class SkeletonNPC extends EntityLivingNPC {
         setSkeletonType(getSkeletonType());
     }
 
-    public SkeletonNPC(@NotNull List<OfflinePlayer> players, Skeleton.SkeletonType type, @NotNull Location location) {
+    public SkeletonNPC(@NotNull List<OfflinePlayer> players, Skeleton.Type type, @NotNull Location location) {
         super(players, Entity.EntityType.SKELETON, location);
         setSkeletonType(type);
     }
 
-    public @NotNull Skeleton.SkeletonType getSkeletonType() {
+    public @NotNull Skeleton.Type getSkeletonType() {
         return getEntity().getType();
     }
-    public void setSkeletonType(@NotNull Skeleton.SkeletonType type) {
+    public void setSkeletonType(@NotNull Skeleton.Type type) {
         getEntity().setType(type);
         sendUpdatePackets(getSpawnedPlayers(), false, false, true, false, false, false);
     }
@@ -66,7 +66,7 @@ public class SkeletonNPC extends EntityLivingNPC {
 
                 if (args.length > 0) {
                     try {
-                        Skeleton.SkeletonType type = Skeleton.SkeletonType.valueOf(args[0].toUpperCase());
+                        Skeleton.Type type = Skeleton.Type.valueOf(args[0].toUpperCase());
                         skeletonNPC.setSkeletonType(type);
                         sender.sendMessage(translate(sender, "npc.commands.general.flag_changed"));
                     } catch (IllegalArgumentException ignore) {
@@ -78,7 +78,7 @@ public class SkeletonNPC extends EntityLivingNPC {
 
                 StringBuilder builder = new StringBuilder();
                 int row = 0;
-                for (Skeleton.SkeletonType type : Skeleton.SkeletonType.values()) {
+                for (Skeleton.Type type : Skeleton.Type.values()) {
                     if (!type.isCompatible()) continue;
 
                     if (row != 0) builder.append("§7, ");
@@ -110,7 +110,7 @@ public class SkeletonNPC extends EntityLivingNPC {
         SkeletonNPC npc = (SkeletonNPC) EntityLivingNPC.deserialize(section);
 
         section = section.getConfigurationSection("SkeletonNPC Configuration");
-        npc.setSkeletonType(Skeleton.SkeletonType.valueOf(section.getString("Type")));
+        npc.setSkeletonType(Skeleton.Type.valueOf(section.getString("Type")));
 
         return npc;
     }

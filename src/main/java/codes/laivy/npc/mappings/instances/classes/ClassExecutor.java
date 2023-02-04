@@ -271,4 +271,15 @@ public class ClassExecutor implements Executor {
     public boolean isLoaded() {
         return reflectionClass != null;
     }
+
+    public static final class BrokenClassExecutor extends ClassExecutor {
+        public BrokenClassExecutor() {
+            super("");
+        }
+
+        @Override
+        public void load() {
+        }
+    }
+
 }

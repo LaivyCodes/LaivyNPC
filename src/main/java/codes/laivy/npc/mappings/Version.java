@@ -200,8 +200,8 @@ public abstract class Version implements VersionCompound, VersionPacket, Version
     public abstract @NotNull EnumColorEnum.EnumColor getEntitySheepColor(@NotNull Sheep sheep);
     public abstract void setEntitySheepColor(@NotNull Sheep sheep, @NotNull EnumColorEnum.EnumColor color);
     // ENTITY SKELETON
-    public abstract @NotNull Skeleton.SkeletonType getEntitySkeletonType(@NotNull Skeleton skeleton);
-    public abstract void setEntitySkeletonType(@NotNull Skeleton skeleton, @NotNull Skeleton.SkeletonType type);
+    public abstract @NotNull Skeleton.Type getEntitySkeletonType(@NotNull Skeleton skeleton);
+    public abstract void setEntitySkeletonType(@NotNull Skeleton skeleton, @NotNull Skeleton.Type type);
     // ENTITY VILLAGER
     public abstract @NotNull VillagerProfession getEntityVillagerProfession(@NotNull Villager villager);
     public abstract void setEntityVillagerProfession(@NotNull Villager villager, @NotNull VillagerProfession profession);
@@ -209,8 +209,8 @@ public abstract class Version implements VersionCompound, VersionPacket, Version
     public abstract boolean isEntityEndermanScreaming(@NotNull Enderman enderman);
     public abstract void setEntityEndermanScreaming(@NotNull Enderman enderman, boolean screaming);
     // ENTITY ZOMBIE
-    public abstract @Nullable Zombie.VillagerType getEntityZombieVillagerType(@NotNull Zombie zombie);
-    public abstract void setEntityZombieVillagerType(@NotNull Zombie zombie, @Nullable Zombie.VillagerType type);
+    public abstract @Nullable Zombie.Type getEntityZombieType(@NotNull Zombie zombie);
+    public abstract void setEntityZombieType(@NotNull Zombie zombie, @Nullable Zombie.Type type);
     // ENTITY CREEPER
     public abstract boolean isEntityCreeperIgnited(@NotNull Creeper creeper);
     public abstract void setEntityCreeperIgnited(@NotNull Creeper creeper, boolean ignited);

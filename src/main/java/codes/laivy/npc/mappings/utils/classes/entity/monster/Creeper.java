@@ -1,7 +1,10 @@
 package codes.laivy.npc.mappings.utils.classes.entity.monster;
 
+import codes.laivy.npc.mappings.instances.FieldExecutor;
+import codes.laivy.npc.mappings.utils.classes.datawatcher.DataWatcherObject;
 import codes.laivy.npc.mappings.utils.classes.entity.EntityLiving;
 import codes.laivy.npc.mappings.utils.classes.java.BooleanObjExec;
+import org.bukkit.Bukkit;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -22,10 +25,10 @@ public class Creeper extends EntityLiving {
 
     public boolean isIgnited() {
 //          Gets the ignited metadata index debug
-//        @NotNull DataWatcherObject object = new DataWatcherObject(new FieldExecutor(getClassExecutor(), laivynpc().getVersion().getClassExec("DataWatcherObject"), "c", "Gets a entity's datawatcher object") {{
-//            load();
-//        }}.invokeStatic());
-//        Bukkit.broadcastMessage("Creeper Id: '" + object.getId() + "'");
+        @NotNull DataWatcherObject object = new DataWatcherObject(new FieldExecutor(getClassExecutor(), laivynpc().getVersion().getClassExec("DataWatcherObject"), "c", "Gets a entity's datawatcher object") {{
+            load();
+        }}.invokeStatic());
+        Bukkit.broadcastMessage("Creeper Id: '" + object.getId() + "'");
 
         return laivynpc().getVersion().isEntityCreeperIgnited(this);
     }

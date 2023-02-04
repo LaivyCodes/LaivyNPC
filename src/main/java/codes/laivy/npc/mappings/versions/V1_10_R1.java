@@ -3,6 +3,7 @@ package codes.laivy.npc.mappings.versions;
 import codes.laivy.npc.mappings.Version;
 import codes.laivy.npc.mappings.instances.EnumExecutor;
 import codes.laivy.npc.mappings.instances.Executor;
+import codes.laivy.npc.mappings.instances.FieldExecutor;
 import codes.laivy.npc.mappings.instances.MethodExecutor;
 import codes.laivy.npc.mappings.instances.classes.ClassExecutor;
 import codes.laivy.npc.mappings.utils.classes.datawatcher.DataWatcher;
@@ -28,7 +29,7 @@ import codes.laivy.npc.mappings.utils.classes.enums.*;
 import codes.laivy.npc.mappings.utils.classes.gameprofile.GameProfile;
 import codes.laivy.npc.mappings.utils.classes.gameprofile.Property;
 import codes.laivy.npc.mappings.utils.classes.gameprofile.PropertyMap;
-import codes.laivy.npc.mappings.utils.classes.java.IntegerObjExec;
+import codes.laivy.npc.mappings.utils.classes.java.BooleanObjExec;
 import codes.laivy.npc.mappings.utils.classes.nbt.NBTBase;
 import codes.laivy.npc.mappings.utils.classes.nbt.tags.*;
 import codes.laivy.npc.mappings.utils.classes.others.chat.IChatBaseComponent;
@@ -42,8 +43,11 @@ import codes.laivy.npc.mappings.utils.classes.scoreboard.CraftScoreboard;
 import codes.laivy.npc.mappings.utils.classes.scoreboard.Scoreboard;
 import codes.laivy.npc.mappings.utils.classes.scoreboard.ScoreboardTeam;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
+
+import static codes.laivy.npc.LaivyNPC.laivynpc;
 
 public class V1_10_R1 extends V1_9_R2 {
 
@@ -53,9 +57,36 @@ public class V1_10_R1 extends V1_9_R2 {
             if (executor instanceof ClassExecutor && !(executor instanceof EnumExecutor)) {
                 return false;
             }
-
-            load(V1_8_R1.class, "Entity:Skeleton:getSkeletonType", new MethodExecutor(getClassExec("Entity:Skeleton"), ClassExecutor.INT, "getSkeletonType", "Gets the skeleton type of the Skeleton"));
-            load(V1_8_R1.class, "Entity:Skeleton:setSkeletonType", new MethodExecutor(getClassExec("Entity:Skeleton"), ClassExecutor.VOID, "setSkeletonType", "Sets the skeleton type of a Skeleton", ClassExecutor.INT));
+        } else if (version == V1_9_R1.class) {
+            if (executor instanceof MethodExecutor) {
+                switch (key) {
+                    case "Entity:isGlowing":
+                        load(V1_10_R1.class, key, new MethodExecutor(getClassExec("Entity"), ClassExecutor.BOOLEAN, "aO", "Gets the glowing state of a Entity"));
+                        return false;
+                    case "Entity:setGlowing":
+                        load(V1_10_R1.class, key, new MethodExecutor(getClassExec("Entity"), ClassExecutor.VOID, "g", "Sets the glowing state of a Entity", ClassExecutor.BOOLEAN));
+                        return false;
+                    case "Entity:Snowman:hasPumpkinHat":
+                        load(V1_10_R1.class, key, new MethodExecutor(getClassExec("Entity:Snowman"), ClassExecutor.BOOLEAN, "isDerp", "Gets the pumpkin hat state of a Snowman"));
+                        return false;
+                    case "Entity:Snowman:setPumpkinHat":
+                        load(V1_10_R1.class, key, new MethodExecutor(getClassExec("Entity:Snowman"), ClassExecutor.VOID, "setDerp", "Sets the pumpkin hat state of a Snowman", ClassExecutor.BOOLEAN));
+                        return false;
+                    case "Entity:Zombie:getVillagerType":
+                        load(V1_10_R1.class, key, new MethodExecutor(getClassExec("Entity:Zombie"), getClassExec("EnumZombieType"), "getVillagerType", "Gets the villager state of a Zombie"));
+                        return false;
+                    default:
+                        break;
+                }
+            } else if (executor instanceof FieldExecutor) {
+                switch (key) {
+                    case "DataWatcher:map":
+                        load(V1_10_R1.class, key, new FieldExecutor(getClassExec("DataWatcher"), new ClassExecutor(Map.class), "d", "Gets the values of the data"));
+                        return false;
+                    default:
+                        break;
+                }
+            }
         } else if (version == V1_8_R1.class) {
             if (executor instanceof MethodExecutor) {
                 switch (key) {
@@ -64,6 +95,9 @@ public class V1_10_R1 extends V1_9_R2 {
                         return false;
                     case "Entity:Skeleton:setSkeletonType":
                         load(V1_10_R1.class, key, new MethodExecutor(getClassExec("Entity:Skeleton"), ClassExecutor.VOID, "setSkeletonType", "Sets the skeleton type of a Skeleton", getClassExec("EnumSkeletonType")));
+                        return false;
+                    case "Entity:Zombie:setVillagerType":
+                        load(V1_10_R1.class, key, new MethodExecutor(getClassExec("Entity:Zombie"), ClassExecutor.VOID, "setVillagerType", "Sets the villager state of a Zombie", getClassExec("EnumZombieType")));
                         return false;
                     default:
                         break;
@@ -75,31 +109,50 @@ public class V1_10_R1 extends V1_9_R2 {
     }
 
     @Override
-    public @NotNull Skeleton.SkeletonType getEntitySkeletonType(@NotNull Skeleton skeleton) {
-        //noinspection DataFlowIssue
-        int value = (int) getMethodExec("Entity:Skeleton:getSkeletonType").invokeInstance(skeleton);
-
-        if (value == 0) {
-            return Skeleton.SkeletonType.NORMAL;
-        } else if (value == 1) {
-            return Skeleton.SkeletonType.WITHER;
-        } else {
-            throw new IllegalStateException("Couldn't find this skeleton type '" + value + "'");
-        }
+    public @NotNull Skeleton.Type getEntitySkeletonType(@NotNull Skeleton skeleton) {
+        return Skeleton.Type.fromEnum(new EnumSkeletonTypeEnum.EnumSkeletonType((Enum<?>) getMethodExec("Entity:Skeleton:getSkeletonType").invokeInstance(skeleton)));
     }
 
     @Override
-    public void setEntitySkeletonType(@NotNull Skeleton skeleton, Skeleton.@NotNull SkeletonType type) {
+    public void setEntitySkeletonType(@NotNull Skeleton skeleton, Skeleton.@NotNull Type type) {
         if (!type.isCompatible()) {
             throw new IllegalArgumentException("This skeleton type '" + type.name() + "' isn't compatible with that version!");
         }
 
-        getMethodExec("Entity:Skeleton:setSkeletonType").invokeInstance(skeleton, new IntegerObjExec(value));
+        getMethodExec("Entity:Skeleton:setSkeletonType").invokeInstance(skeleton, type.getEnum());
+    }
+
+    @Override
+    public @NotNull Zombie.Type getEntityZombieType(@NotNull Zombie zombie) {
+        return Zombie.Type.fromEnum(new EnumZombieTypeEnum.EnumZombieType((Enum<?>) laivynpc().getVersion().getMethodExec("Entity:Zombie:getVillagerType").invokeInstance(zombie)));
+    }
+
+    @Override
+    public void setEntityZombieType(@NotNull Zombie zombie, Zombie.@Nullable Type type) {
+        if (type != null && !type.isCompatible()) {
+            throw new IllegalArgumentException("This zombie type '" + type.name() + "' isn't compatible with that version!");
+        }
+
+        if (type == null) type = Zombie.Type.NORMAL;
+
+        laivynpc().getVersion().getMethodExec("Entity:Zombie:setVillagerType").invokeInstance(zombie, type.getEnum());
+    }
+
+    @Override
+    public boolean isEntityGhastAttacking(@NotNull Ghast ghast) {
+        //noinspection DataFlowIssue
+        return ((byte) ghast.getDataWatcher().get((int) laivynpc().getVersion().getObject("Metadata:Ghast:Attacking"))) == 1;
+    }
+    @Override
+    public void setEntityGhastAttacking(@NotNull Ghast ghast, boolean flag) {
+        ghast.getDataWatcher().set((int) laivynpc().getVersion().getObject("Metadata:Ghast:Attacking"), (byte) (flag ? 1 : 0));
     }
 
     @Override
     public @NotNull Map<String, ClassExecutor> getClasses() {
         if (super.getClasses().isEmpty()) {
+            load(V1_10_R1.class, "WatchableObject", new ClassExecutor.BrokenClassExecutor());
+
             load(V1_10_R1.class, "NBTBase", new NBTBase.NBTBaseClass("net.minecraft.server.v1_10_R1.NBTBase"));
 
             load(V1_10_R1.class, "NBTBase:NBTTagByte", new NBTTagByte.NBTTagByteClass("net.minecraft.server.v1_10_R1.NBTTagByte"));
@@ -245,6 +298,8 @@ public class V1_10_R1 extends V1_9_R2 {
             load(V1_10_R1.class, "EnumHorseType", new EnumHorseTypeEnum.EnumHorseTypeClass("net.minecraft.server.v1_10_R1.EnumHorseType"));
             // Entity skeleton
             load(V1_10_R1.class, "EnumSkeletonType", new EnumSkeletonTypeEnum.EnumSkeletonTypeClass("net.minecraft.server.v1_10_R1.EnumSkeletonType"));
+            // Entity zombie
+            load(V1_10_R1.class, "EnumZombieType", new EnumZombieTypeEnum.EnumZombieTypeClass("net.minecraft.server.v1_10_R1.EnumZombieType"));
             //
         }
         
@@ -255,6 +310,7 @@ public class V1_10_R1 extends V1_9_R2 {
     public @NotNull Map<String, EnumExecutor> getEnums() {
         if (!super.getEnums().containsKey("EnumSkeletonType")) {
             load(V1_10_R1.class, "EnumSkeletonType", new EnumSkeletonTypeEnum(getClassExec("EnumSkeletonType")));
+            load(V1_10_R1.class, "EnumZombieType", new EnumZombieTypeEnum(getClassExec("EnumZombieType")));
         }
 
         return super.getEnums();
@@ -262,7 +318,9 @@ public class V1_10_R1 extends V1_9_R2 {
 
     @Override
     public @NotNull Map<String, Object> getObjects() {
-        super.getObjects().put("Metadata:Player:SkinParts", 13);
+        super.getObjects().put("Metadata:Ghast:Attacking", 12);
+        super.getObjects().put("Metadata:Guardian:Target", 12);
+        super.getObjects().put("Metadata:Creeper:Ignited", 14);
 
         return super.getObjects();
     }
@@ -272,6 +330,12 @@ public class V1_10_R1 extends V1_9_R2 {
         super.getTexts().put("EnumSkeletonType:NORMAL", "NORMAL");
         super.getTexts().put("EnumSkeletonType:WITHER", "WITHER");
         super.getTexts().put("EnumSkeletonType:STRAY", "STRAY");
+
+        super.getTexts().put("EnumZombieType:NORMAL", "NORMAL");
+        super.getTexts().put("EnumZombieType:VILLAGER_LIBRARIAN", "VILLAGER_LIBRARIAN");
+        super.getTexts().put("EnumZombieType:VILLAGER_PRIEST", "VILLAGER_PRIEST");
+        super.getTexts().put("EnumZombieType:VILLAGER_SMITH", "VILLAGER_SMITH");
+        super.getTexts().put("EnumZombieType:VILLAGER_BUTCHER", "VILLAGER_BUTCHER");
 
         return super.getTexts();
     }

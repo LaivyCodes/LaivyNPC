@@ -3,6 +3,8 @@ package codes.laivy.npc.mappings.utils.classes.enums;
 import codes.laivy.npc.mappings.instances.EnumExecutor;
 import codes.laivy.npc.mappings.instances.classes.ClassExecutor;
 import codes.laivy.npc.mappings.utils.classes.java.EnumObjExec;
+import codes.laivy.npc.mappings.versions.V1_10_R1;
+import codes.laivy.npc.utils.ReflectionUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

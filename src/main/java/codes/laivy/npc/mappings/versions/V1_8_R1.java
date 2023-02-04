@@ -323,7 +323,7 @@ public class V1_8_R1 extends Version {
             load(V1_8_R1.class, "Entity:Spider:setClimbing", new MethodExecutor(getClassExec("Entity:Spider"), ClassExecutor.VOID, "a", "Sets the spider climbing state", ClassExecutor.BOOLEAN));
             // Zombie
             load(V1_8_R1.class, "Entity:Zombie:isVillager", new MethodExecutor(getClassExec("Entity:Zombie"), ClassExecutor.BOOLEAN, "isVillager", "Gets the villager state of a Zombie"));
-            load(V1_8_R1.class, "Entity:Zombie:setVillager", new MethodExecutor(getClassExec("Entity:Zombie"), ClassExecutor.VOID, "setVillager", "Sets the villager state of a Zombie", ClassExecutor.BOOLEAN));
+            load(V1_8_R1.class, "Entity:Zombie:setVillagerType", new MethodExecutor(getClassExec("Entity:Zombie"), ClassExecutor.VOID, "setVillager", "Sets the villager state of a Zombie", ClassExecutor.BOOLEAN));
             // Villager
             load(V1_8_R1.class, "Entity:Villager:getProfession", new MethodExecutor(getClassExec("Entity:Villager"), ClassExecutor.INT, "getProfession", "Gets the profession of a Villager"));
             load(V1_8_R1.class, "Entity:Villager:setProfession", new MethodExecutor(getClassExec("Entity:Villager"), ClassExecutor.VOID, "setProfession", "Sets the profession of a Villager", ClassExecutor.INT));
@@ -999,29 +999,29 @@ public class V1_8_R1 extends Version {
     }
 
     @Override
-    public @NotNull Skeleton.SkeletonType getEntitySkeletonType(@NotNull Skeleton skeleton) {
+    public @NotNull Skeleton.Type getEntitySkeletonType(@NotNull Skeleton skeleton) {
         //noinspection DataFlowIssue
         int value = (int) getMethodExec("Entity:Skeleton:getSkeletonType").invokeInstance(skeleton);
 
         if (value == 0) {
-            return Skeleton.SkeletonType.NORMAL;
+            return Skeleton.Type.NORMAL;
         } else if (value == 1) {
-            return Skeleton.SkeletonType.WITHER;
+            return Skeleton.Type.WITHER;
         } else {
             throw new IllegalStateException("Couldn't find this skeleton type '" + value + "'");
         }
     }
 
     @Override
-    public void setEntitySkeletonType(@NotNull Skeleton skeleton, Skeleton.@NotNull SkeletonType type) {
+    public void setEntitySkeletonType(@NotNull Skeleton skeleton, Skeleton.@NotNull Type type) {
         if (!type.isCompatible()) {
             throw new IllegalArgumentException("This skeleton type '" + type.name() + "' isn't compatible with that version!");
         }
 
         int value;
-        if (type == Skeleton.SkeletonType.NORMAL) {
+        if (type == Skeleton.Type.NORMAL) {
             value = 0;
-        } else if (type == Skeleton.SkeletonType.WITHER) {
+        } else if (type == Skeleton.Type.WITHER) {
             value = 1;
         } else {
             throw new IllegalArgumentException("Couldn't find this skeleton type properties '" + type.name() + "'. Is it compatible with that version?");
@@ -1053,13 +1053,17 @@ public class V1_8_R1 extends Version {
     }
 
     @Override
-    public @Nullable Zombie.VillagerType getEntityZombieVillagerType(@NotNull Zombie zombie) {
+    public @Nullable Zombie.Type getEntityZombieType(@NotNull Zombie zombie) {
         throw new IllegalArgumentException("This method is only compatible with 1.9+");
     }
 
     @Override
-    public void setEntityZombieVillagerType(@NotNull Zombie zombie, Zombie.@Nullable VillagerType type) {
-        laivynpc().getVersion().getMethodExec("Entity:Zombie:setVillager").invokeInstance(zombie, new BooleanObjExec(type != null));
+    public void setEntityZombieType(@NotNull Zombie zombie, Zombie.@Nullable Type type) {
+        if (type != null && !type.isCompatible()) {
+            throw new IllegalArgumentException("This type isn't compatible with that version.");
+        }
+
+        laivynpc().getVersion().getMethodExec("Entity:Zombie:setVillagerType").invokeInstance(zombie, new BooleanObjExec(type != null));
     }
 
     @Override

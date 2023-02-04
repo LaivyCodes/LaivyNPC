@@ -84,6 +84,8 @@ public class V1_9_R2 extends V1_9_R1 {
     @Override
     public @NotNull Map<String, ClassExecutor> getClasses() {
         if (super.getClasses().isEmpty()) {
+            load(V1_9_R2.class, "WatchableObject", new ClassExecutor.BrokenClassExecutor());
+
             load(V1_9_R2.class, "NBTBase", new NBTBase.NBTBaseClass("net.minecraft.server.v1_9_R2.NBTBase"));
 
             load(V1_9_R2.class, "NBTBase:NBTTagByte", new NBTTagByte.NBTTagByteClass("net.minecraft.server.v1_9_R2.NBTTagByte"));
