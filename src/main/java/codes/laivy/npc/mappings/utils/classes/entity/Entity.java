@@ -25,6 +25,7 @@ import codes.laivy.npc.mappings.utils.classes.java.DoubleObjExec;
 import codes.laivy.npc.mappings.utils.classes.java.FloatObjExec;
 import codes.laivy.npc.mappings.utils.classes.java.StringObjExec;
 import codes.laivy.npc.mappings.utils.classes.others.location.World;
+import codes.laivy.npc.mappings.versions.V1_10_R1;
 import codes.laivy.npc.mappings.versions.V1_8_R1;
 import codes.laivy.npc.mappings.versions.V1_9_R1;
 import codes.laivy.npc.types.EntityNPC;
@@ -199,6 +200,7 @@ public class Entity extends ObjectExecutor {
         ZOMBIE(Zombie.class, ZombieNPC.class, V1_8_R1.class),
         VILLAGER(Villager.class, VillagerNPC.class, V1_8_R1.class),
         SHULKER(Shulker.class, ShulkerNPC.class, V1_9_R1.class),
+        POLAR_BEAR(PolarBear.class, PolarBearNPC.class, V1_10_R1.class),
         ;
 
         private final @NotNull Class<? extends Entity> entityClass;

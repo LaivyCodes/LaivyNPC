@@ -45,14 +45,14 @@ public class ZombieNPC extends EntityLivingNPC {
         return getEntity().isVillager();
     }
     public void setVillager(boolean flag) {
-        getEntity().setType(flag ? Type.values()[new Random().nextInt(Type.values().length)] : null);
+        getEntity().setType(Type.VILLAGER_SMITH);
         sendUpdatePackets(getSpawnedPlayers(), false, false, true, false, false, false);
     }
 
-    public @Nullable Zombie.Type getVillagerType() {
+    public @Nullable Zombie.Type getType() {
         return getEntity().getType();
     }
-    public void setVillagerType(@Nullable Zombie.Type type) {
+    public void setType(@Nullable Zombie.Type type) {
         getEntity().setType(type);
         sendUpdatePackets(getSpawnedPlayers(), false, false, true, false, false, false);
     }
@@ -66,7 +66,7 @@ public class ZombieNPC extends EntityLivingNPC {
     public List<NPCConfiguration> getByCommandConfigurations() {
         List<NPCConfiguration> list = super.getByCommandConfigurations();
         if (ReflectionUtils.isCompatible(V1_9_R1.class)) {
-            list.add(new NPCConfiguration("villager", "/laivynpc config villager (type)") {
+            list.add(new NPCConfiguration("type", "/laivynpc config type (type)") {
                 @Override
                 public void execute(@NotNull NPC npc, @NotNull Player sender, @NotNull String[] args) {
                     ZombieNPC zombieNPC = (ZombieNPC) npc;
@@ -75,7 +75,7 @@ public class ZombieNPC extends EntityLivingNPC {
                         Type type;
                         try {
                             type = Type.valueOf(args[0].toUpperCase());
-                            zombieNPC.setVillagerType(type);
+                            zombieNPC.setType(type);
                             sender.sendMessage(translate(sender, "npc.commands.general.flag_changed"));
                             return;
                         } catch (IllegalArgumentException ignore) {
@@ -130,8 +130,8 @@ public class ZombieNPC extends EntityLivingNPC {
     public @NotNull Map<@NotNull String, @NotNull Object> serialize() {
         Map<String, Object> map = super.serialize();
         map.put("ZombieNPC Configuration", new HashMap<String, Object>() {{
-            if (getVillagerType() != null) {
-                put("Villager", getVillagerType().name());
+            if (getType() != null) {
+                put("Villager", getType().name());
             }
         }});
 
@@ -143,7 +143,7 @@ public class ZombieNPC extends EntityLivingNPC {
 
         section = section.getConfigurationSection("ZombieNPC Configuration");
         if (section.contains("Villager")) {
-            npc.setVillagerType(Type.valueOf(section.getString("Villager").toUpperCase()));
+            npc.setType(Type.valueOf(section.getString("Villager").toUpperCase()));
         }
 
         return npc;

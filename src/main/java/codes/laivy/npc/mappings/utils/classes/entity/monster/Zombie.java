@@ -3,6 +3,7 @@ package codes.laivy.npc.mappings.utils.classes.entity.monster;
 import codes.laivy.npc.mappings.Version;
 import codes.laivy.npc.mappings.utils.classes.entity.EntityLiving;
 import codes.laivy.npc.mappings.utils.classes.enums.EnumZombieTypeEnum;
+import codes.laivy.npc.mappings.versions.V1_10_R1;
 import codes.laivy.npc.mappings.versions.V1_8_R1;
 import codes.laivy.npc.mappings.versions.V1_9_R1;
 import codes.laivy.npc.utils.ReflectionUtils;
@@ -46,6 +47,7 @@ public class Zombie extends EntityLiving {
         VILLAGER_PRIEST(V1_8_R1.class, 2, true),
         VILLAGER_SMITH(V1_8_R1.class, 3, true),
         VILLAGER_BUTCHER(V1_8_R1.class, 4, true),
+        HUSK(V1_10_R1.class, 5, false),
         ;
 
         private final @NotNull Class<? extends Version> since;
@@ -93,6 +95,8 @@ public class Zombie extends EntityLiving {
                 return EnumZombieTypeEnum.VILLAGER_SMITH();
             } else if (this == VILLAGER_BUTCHER) {
                 return EnumZombieTypeEnum.VILLAGER_BUTCHER();
+            } else if (this == HUSK) {
+                return EnumZombieTypeEnum.HUSK();
             } else {
                 throw new IllegalStateException("Couldn't find this skeleton type enum '" + name() + "'");
             }
@@ -110,6 +114,8 @@ public class Zombie extends EntityLiving {
                 return VILLAGER_SMITH;
             } else if (enumZombieType.name().equals("VILLAGER_BUTCHER")) {
                 return VILLAGER_BUTCHER;
+            } else if (enumZombieType.name().equals("HUSK")) {
+                return HUSK;
             } else {
                 throw new IllegalStateException("Couldn't find this skeleton type from enum '" + enumZombieType.name() + "'");
             }

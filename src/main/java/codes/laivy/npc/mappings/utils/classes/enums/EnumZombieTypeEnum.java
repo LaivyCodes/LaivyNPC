@@ -46,6 +46,12 @@ public class EnumZombieTypeEnum extends EnumExecutor {
 
         return new EnumZombieType(enumExec.valueOf(name).getValue());
     }
+    public static @NotNull EnumZombieType HUSK() {
+        EnumExecutor enumExec = laivynpc().getVersion().getEnumExec("EnumZombieType");
+        String name = laivynpc().getVersion().getText("EnumZombieType:HUSK");
+
+        return new EnumZombieType(enumExec.valueOf(name).getValue());
+    }
 
     public EnumZombieTypeEnum(@NotNull ClassExecutor classExecutor) {
         super(classExecutor);

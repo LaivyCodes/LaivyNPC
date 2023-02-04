@@ -156,6 +156,21 @@ public class V1_10_R1 extends V1_9_R2 {
     }
 
     @Override
+    public @Nullable Entity getEntityInstance(Entity.@NotNull EntityType type, @NotNull org.bukkit.Location location) {
+        if (location.getWorld() == null) {
+            throw new NullPointerException("This location's world is null!");
+        }
+
+        Entity entity = super.getEntityInstance(type, location);
+        if (type == Entity.EntityType.POLAR_BEAR) {
+            Object object = getClassExec("Entity:PolarBear").getConstructor(getClassExec("World")).newInstance(CraftWorld.getCraftWorld(location.getWorld()).getHandle());
+            entity = new PolarBear(object);
+        }
+
+        return entity;
+    }
+
+    @Override
     public @NotNull Map<String, ClassExecutor> getClasses() {
         if (super.getClasses().isEmpty()) {
             load(V1_10_R1.class, "WatchableObject", new ClassExecutor.BrokenClassExecutor());
@@ -243,6 +258,7 @@ public class V1_10_R1 extends V1_9_R2 {
             load(V1_10_R1.class, "Entity:Zombie", new Zombie.ZombieClass("net.minecraft.server.v1_10_R1.EntityZombie"));
             load(V1_10_R1.class, "Entity:Villager", new Villager.VillagerClass("net.minecraft.server.v1_10_R1.EntityVillager"));
             load(V1_10_R1.class, "Entity:Shulker", new Shulker.ShulkerClass("net.minecraft.server.v1_10_R1.EntityShulker"));
+            load(V1_10_R1.class, "Entity:PolarBear", new PolarBear.PolarBearClass("net.minecraft.server.v1_10_R1.EntityPolarBear"));
 
             load(V1_10_R1.class, "Entity:Ageable", new AgeableLivingEntity.AgeableLivingEntityClass("net.minecraft.server.v1_10_R1.EntityAgeable"));
             load(V1_10_R1.class, "Entity:Tameable", new TameableLivingEntity.TameableLivingEntityClass("net.minecraft.server.v1_10_R1.EntityTameableAnimal"));
@@ -316,6 +332,16 @@ public class V1_10_R1 extends V1_9_R2 {
     }
 
     @Override
+    public @NotNull Map<String, MethodExecutor> getMethods() {
+        if (!super.getMethods().containsKey("Entity:PolarBear:isStanding")) {
+            load(V1_10_R1.class, "Entity:PolarBear:isStanding", new MethodExecutor(getClassExec("Entity:PolarBear"), ClassExecutor.BOOLEAN, "df", "Checks if a polar bear is standing up"));
+            load(V1_10_R1.class, "Entity:PolarBear:setStanding", new MethodExecutor(getClassExec("Entity:PolarBear"), ClassExecutor.VOID, "p", "Sets the standing up state of a polar bear", ClassExecutor.BOOLEAN));
+        }
+
+        return super.getMethods();
+    }
+
+    @Override
     public @NotNull Map<String, EnumExecutor> getEnums() {
         if (!super.getEnums().containsKey("EnumSkeletonType")) {
             load(V1_10_R1.class, "EnumSkeletonType", new EnumSkeletonTypeEnum(getClassExec("EnumSkeletonType")));
@@ -349,6 +375,7 @@ public class V1_10_R1 extends V1_9_R2 {
         map.put("EnumZombieType:VILLAGER_PRIEST", "VILLAGER_PRIEST");
         map.put("EnumZombieType:VILLAGER_SMITH", "VILLAGER_SMITH");
         map.put("EnumZombieType:VILLAGER_BUTCHER", "VILLAGER_BUTCHER");
+        map.put("EnumZombieType:HUSK", "HUSK");
 
         return map;
     }

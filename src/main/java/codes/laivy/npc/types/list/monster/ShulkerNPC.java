@@ -125,7 +125,7 @@ public class ShulkerNPC extends EntityLivingNPC {
     @Override
     public @NotNull Map<@NotNull String, @NotNull Object> serialize() {
         Map<String, Object> map = super.serialize();
-        map.put("GhastNPC Configuration", new HashMap<String, Object>() {{
+        map.put("ShulkerNPC Configuration", new HashMap<String, Object>() {{
             put("Peek", getPeek());
             put("Direction", getDirection().name());
         }});
@@ -136,7 +136,7 @@ public class ShulkerNPC extends EntityLivingNPC {
     public static @NotNull ShulkerNPC deserialize(@NotNull ConfigurationSection section) {
         ShulkerNPC npc = (ShulkerNPC) EntityLivingNPC.deserialize(section);
 
-        section = section.getConfigurationSection("GhastNPC Configuration");
+        section = section.getConfigurationSection("ShulkerNPC Configuration");
         npc.setPeek(section.getInt("Peek"));
         npc.setDirection(new EnumDirectionEnum.EnumDirection(laivynpc().getVersion().getEnumExec("EnumDirection").valueOf(section.getString("Direction").toUpperCase()).getValue()));
 

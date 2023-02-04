@@ -1161,6 +1161,7 @@ public abstract class NPC {
         put("Witch", WitchNPC.class);
         put("Villager", VillagerNPC.class);
         put("Shulker", ShulkerNPC.class);
+        put("PolarBear", PolarBearNPC.class);
     }};
 
     @SuppressWarnings("unchecked")
