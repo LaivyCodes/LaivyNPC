@@ -173,7 +173,16 @@ public abstract class Version implements VersionCompound, VersionPacket, Version
 
     // ENTITY
     //
-    public abstract @NotNull Entity createEntity(@NotNull Entity.EntityType type, @NotNull Location location);
+    public final @NotNull Entity createEntity(@NotNull Entity.EntityType type, @NotNull Location location) {
+        Entity entity = getEntityInstance(type, location);
+        if (entity == null) {
+            throw new IllegalArgumentException("Cannot get this entity type '" + type.name() + "' for this version!");
+        }
+        entity.setLocation(location);
+        return entity;
+    }
+
+    protected abstract @Nullable Entity getEntityInstance(@NotNull Entity.EntityType type, @NotNull Location location);
     public abstract @NotNull FallingBlock createFallingBlockEntity(@NotNull Location location, @NotNull Material material);
 
     public abstract @NotNull EntityPose getPose(@NotNull Entity entity);

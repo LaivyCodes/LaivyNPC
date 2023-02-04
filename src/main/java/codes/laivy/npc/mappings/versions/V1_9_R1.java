@@ -28,6 +28,7 @@ import codes.laivy.npc.mappings.utils.classes.gameprofile.GameProfile;
 import codes.laivy.npc.mappings.utils.classes.gameprofile.Property;
 import codes.laivy.npc.mappings.utils.classes.gameprofile.PropertyMap;
 import codes.laivy.npc.mappings.utils.classes.java.BooleanObjExec;
+import codes.laivy.npc.mappings.utils.classes.java.DoubleObjExec;
 import codes.laivy.npc.mappings.utils.classes.java.IntegerObjExec;
 import codes.laivy.npc.mappings.utils.classes.nbt.NBTBase;
 import codes.laivy.npc.mappings.utils.classes.nbt.tags.*;
@@ -183,6 +184,21 @@ public class V1_9_R1 extends V1_8_R3 {
     }
 
     @Override
+    public @Nullable Entity getEntityInstance(Entity.@NotNull EntityType type, @NotNull org.bukkit.Location location) {
+        if (location.getWorld() == null) {
+            throw new NullPointerException("This location's world is null!");
+        }
+
+        Entity entity = super.getEntityInstance(type, location);
+        if (type == Entity.EntityType.SHULKER) {
+            Object object = getClassExec("Entity:Shulker").getConstructor(getClassExec("World")).newInstance(CraftWorld.getCraftWorld(location.getWorld()).getHandle());
+            entity = new Shulker(object);
+        }
+
+        return entity;
+    }
+
+    @Override
     public @NotNull Map<String, ClassExecutor> getClasses() {
         if (super.getClasses().isEmpty()) {
             load(V1_9_R1.class, "WatchableObject", new ClassExecutor.BrokenClassExecutor());
@@ -269,6 +285,7 @@ public class V1_9_R1 extends V1_8_R3 {
             load(V1_9_R1.class, "Entity:Witch", new Witch.WitchClass("net.minecraft.server.v1_9_R1.EntityWitch"));
             load(V1_9_R1.class, "Entity:Zombie", new Zombie.ZombieClass("net.minecraft.server.v1_9_R1.EntityZombie"));
             load(V1_9_R1.class, "Entity:Villager", new Villager.VillagerClass("net.minecraft.server.v1_9_R1.EntityVillager"));
+            load(V1_9_R1.class, "Entity:Shulker", new Shulker.ShulkerClass("net.minecraft.server.v1_9_R1.EntityShulker"));
 
             load(V1_9_R1.class, "Entity:Ageable", new AgeableLivingEntity.AgeableLivingEntityClass("net.minecraft.server.v1_9_R1.EntityAgeable"));
             load(V1_9_R1.class, "Entity:Tameable", new TameableLivingEntity.TameableLivingEntityClass("net.minecraft.server.v1_9_R1.EntityTameableAnimal"));
@@ -305,6 +322,7 @@ public class V1_9_R1 extends V1_8_R3 {
             load(V1_9_R1.class, "EnumChatFormat", new EnumChatFormatEnum.EnumChatFormatClass("net.minecraft.server.v1_9_R1.EnumChatFormat"));
             load(V1_9_R1.class, "EnumColor", new EnumColorEnum.EnumColorClass("net.minecraft.server.v1_9_R1.EnumColor"));
             load(V1_9_R1.class, "EnumItemSlot", new EnumItemSlotEnum.EnumItemSlotClass("net.minecraft.server.v1_9_R1.EnumItemSlot"));
+            load(V1_9_R1.class, "EnumDirection", new EnumDirectionEnum.EnumDirectionClass("net.minecraft.server.v1_9_R1.EnumDirection"));
             //
 
             // Chat
@@ -365,7 +383,10 @@ public class V1_9_R1 extends V1_8_R3 {
     @Override
     public @NotNull Map<String, FieldExecutor> getFields() {
         if (!super.getFields().containsKey("Entity:Enderman:DataWatcher:screaming")) {
-            load(V1_9_R1.class, "Entity:Enderman:DataWatcher:screaming", new FieldExecutor(getClassExec("Entity:Enderman"), getClassExec("DataWatcherObject"), "bw", "Gets the enderman's screaming datawatcher object"));
+            load(V1_9_R1.class, "Entity:Enderman:DataWatcher:screaming", new FieldExecutor(getClassExec("Entity:Enderman"), getClassExec("DataWatcherObject"), "bw", "Gets the enderman's screaming DataWatcher's object"));
+
+            load(V1_9_R1.class, "Entity:Shulker:DataWatcherObject:Direction", new FieldExecutor(getClassExec("Entity:Shulker"), getClassExec("DataWatcherObject"), "a", "Get shulker's direction DataWatcher's object"));
+            load(V1_9_R1.class, "Entity:Shulker:DataWatcherObject:Peek", new FieldExecutor(getClassExec("Entity:Shulker"), getClassExec("DataWatcherObject"), "c", "Get shulker's color DataWatcher's object"));
         }
 
         return super.getFields();
@@ -374,11 +395,14 @@ public class V1_9_R1 extends V1_8_R3 {
     @Override
     public @NotNull Map<String, EnumExecutor> getEnums() {
         if (!super.getEnums().containsKey("ScoreboardTeam:EnumTeamPush")) {
-            load(V1_9_R1.class, "ScoreboardTeam:EnumTeamPush", new EnumTeamPushEnum(getClassExec("ScoreboardTeam:EnumTeamPush")));
-
-            load(V1_9_R1.class, "EnumHorseType", new EnumHorseTypeEnum(getClassExec("EnumHorseType")));
-
+            // Others
             load(V1_9_R1.class, "EnumItemSlot", new EnumItemSlotEnum(getClassExec("EnumItemSlot")));
+            load(V1_9_R1.class, "EnumDirection", new EnumDirectionEnum(getClassExec("EnumDirection")));
+            // Scoreboard
+            load(V1_9_R1.class, "ScoreboardTeam:EnumTeamPush", new EnumTeamPushEnum(getClassExec("ScoreboardTeam:EnumTeamPush")));
+            // Entity horse
+            load(V1_9_R1.class, "EnumHorseType", new EnumHorseTypeEnum(getClassExec("EnumHorseType")));
+            //
         }
 
         return super.getEnums();

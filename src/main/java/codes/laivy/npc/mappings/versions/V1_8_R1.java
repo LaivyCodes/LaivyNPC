@@ -775,7 +775,7 @@ public class V1_8_R1 extends Version {
     }
 
     @Override
-    public @NotNull Entity createEntity(Entity.@NotNull EntityType type, @NotNull Location location) {
+    public @Nullable Entity getEntityInstance(Entity.@NotNull EntityType type, @NotNull Location location) {
         if (location.getWorld() == null) {
             throw new NullPointerException("This location's world is null!");
         }
@@ -898,10 +898,9 @@ public class V1_8_R1 extends Version {
             Object object = getClassExec("Entity:Villager").getConstructor(getClassExec("World")).newInstance(CraftWorld.getCraftWorld(location.getWorld()).getHandle());
             entity = new Villager(object);
         } else {
-            throw new IllegalArgumentException("Cannot get this entity type '" + type.name() + "' for this version!");
+            return null;
         }
 
-        entity.setLocation(location);
         return entity;
     }
 

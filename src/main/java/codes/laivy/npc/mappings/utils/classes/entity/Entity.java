@@ -198,6 +198,7 @@ public class Entity extends ObjectExecutor {
         WITCH(Witch.class, WitchNPC.class, V1_8_R1.class),
         ZOMBIE(Zombie.class, ZombieNPC.class, V1_8_R1.class),
         VILLAGER(Villager.class, VillagerNPC.class, V1_8_R1.class),
+        SHULKER(Shulker.class, ShulkerNPC.class, V1_9_R1.class),
         ;
 
         private final @NotNull Class<? extends Entity> entityClass;

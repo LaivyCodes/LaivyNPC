@@ -32,7 +32,6 @@ public class Guardian extends EntityLiving {
             id = living.getId();
         }
 
-        System.out.println("IDD: '" + laivynpc().getVersion().getObject("Metadata:Guardian:Target") + "'");
         getDataWatcher().set((int) laivynpc().getVersion().getObject("Metadata:Guardian:Target"), id);
         target = living;
     }

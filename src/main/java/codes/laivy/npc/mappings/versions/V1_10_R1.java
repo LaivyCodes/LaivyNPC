@@ -242,6 +242,7 @@ public class V1_10_R1 extends V1_9_R2 {
             load(V1_10_R1.class, "Entity:Witch", new Witch.WitchClass("net.minecraft.server.v1_10_R1.EntityWitch"));
             load(V1_10_R1.class, "Entity:Zombie", new Zombie.ZombieClass("net.minecraft.server.v1_10_R1.EntityZombie"));
             load(V1_10_R1.class, "Entity:Villager", new Villager.VillagerClass("net.minecraft.server.v1_10_R1.EntityVillager"));
+            load(V1_10_R1.class, "Entity:Shulker", new Shulker.ShulkerClass("net.minecraft.server.v1_10_R1.EntityShulker"));
 
             load(V1_10_R1.class, "Entity:Ageable", new AgeableLivingEntity.AgeableLivingEntityClass("net.minecraft.server.v1_10_R1.EntityAgeable"));
             load(V1_10_R1.class, "Entity:Tameable", new TameableLivingEntity.TameableLivingEntityClass("net.minecraft.server.v1_10_R1.EntityTameableAnimal"));
@@ -278,6 +279,7 @@ public class V1_10_R1 extends V1_9_R2 {
             load(V1_10_R1.class, "EnumChatFormat", new EnumChatFormatEnum.EnumChatFormatClass("net.minecraft.server.v1_10_R1.EnumChatFormat"));
             load(V1_10_R1.class, "EnumColor", new EnumColorEnum.EnumColorClass("net.minecraft.server.v1_10_R1.EnumColor"));
             load(V1_10_R1.class, "EnumItemSlot", new EnumItemSlotEnum.EnumItemSlotClass("net.minecraft.server.v1_10_R1.EnumItemSlot"));
+            load(V1_10_R1.class, "EnumDirection", new EnumDirectionEnum.EnumDirectionClass("net.minecraft.server.v1_10_R1.EnumDirection"));
             //
 
             // Chat
