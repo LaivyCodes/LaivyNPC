@@ -79,6 +79,8 @@ public class SkeletonNPC extends EntityLivingNPC {
                 StringBuilder builder = new StringBuilder();
                 int row = 0;
                 for (Skeleton.SkeletonType type : Skeleton.SkeletonType.values()) {
+                    if (!type.isCompatible()) continue;
+
                     if (row != 0) builder.append("§7, ");
                     builder.append("§f").append(type.name());
                     row++;

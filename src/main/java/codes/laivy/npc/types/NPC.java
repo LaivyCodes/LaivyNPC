@@ -1126,43 +1126,41 @@ public abstract class NPC {
      * Exemplo ¹: Key: PlayerNPC.class, Value: Player
      * Exemplo ²: Key: AxolotlNPC.class, Value: Axolotl
      */
-    public static final Map<@NotNull String, @NotNull Class<? extends NPC>> REGISTERED_NPCS_CLASSES = new LinkedHashMap<>();
-
-    static {
-        NPC.REGISTERED_NPCS_CLASSES.put("Player", PlayerNPC.class);
-        NPC.REGISTERED_NPCS_CLASSES.put("Bat", BatNPC.class);
-        NPC.REGISTERED_NPCS_CLASSES.put("Egg", EggNPC.class);
-        NPC.REGISTERED_NPCS_CLASSES.put("Chicken", ChickenNPC.class);
-        NPC.REGISTERED_NPCS_CLASSES.put("Pig", PigNPC.class);
-        NPC.REGISTERED_NPCS_CLASSES.put("ArmorStand", ArmorStandNPC.class);
-        NPC.REGISTERED_NPCS_CLASSES.put("Horse", HorseNPC.class);
-        NPC.REGISTERED_NPCS_CLASSES.put("Cow", CowNPC.class);
-        NPC.REGISTERED_NPCS_CLASSES.put("IronGolem", IronGolemNPC.class);
-        NPC.REGISTERED_NPCS_CLASSES.put("Rabbit", RabbitNPC.class);
-        NPC.REGISTERED_NPCS_CLASSES.put("Sheep", SheepNPC.class);
-        NPC.REGISTERED_NPCS_CLASSES.put("Snowman", SnowmanNPC.class);
-        NPC.REGISTERED_NPCS_CLASSES.put("Squid", SquidNPC.class);
-        NPC.REGISTERED_NPCS_CLASSES.put("Wolf", WolfNPC.class);
-        NPC.REGISTERED_NPCS_CLASSES.put("ItemFrame", ItemFrameNPC.class);
-        NPC.REGISTERED_NPCS_CLASSES.put("LeashKnot", LeashKnotNPC.class);
-        NPC.REGISTERED_NPCS_CLASSES.put("FallingBlock", FallingBlockNPC.class);
-        NPC.REGISTERED_NPCS_CLASSES.put("Item", ItemNPC.class);
-        NPC.REGISTERED_NPCS_CLASSES.put("EnderDragon", EnderDragonNPC.class);
-        NPC.REGISTERED_NPCS_CLASSES.put("EnderSignal", EnderSignalNPC.class);
-        NPC.REGISTERED_NPCS_CLASSES.put("Wither", WitherNPC.class);
-        NPC.REGISTERED_NPCS_CLASSES.put("WitherSkull", WitherSkullNPC.class);
-        NPC.REGISTERED_NPCS_CLASSES.put("Blaze", BlazeNPC.class);
-        NPC.REGISTERED_NPCS_CLASSES.put("Creeper", CreeperNPC.class);
-        NPC.REGISTERED_NPCS_CLASSES.put("Enderman", EndermanNPC.class);
-        NPC.REGISTERED_NPCS_CLASSES.put("Ghast", GhastNPC.class);
-        NPC.REGISTERED_NPCS_CLASSES.put("Guardian", GuardianNPC.class);
-        NPC.REGISTERED_NPCS_CLASSES.put("Silverfish", SilverfishNPC.class);
-        NPC.REGISTERED_NPCS_CLASSES.put("Skeleton", SkeletonNPC.class);
-        NPC.REGISTERED_NPCS_CLASSES.put("Slime", SlimeNPC.class);
-        NPC.REGISTERED_NPCS_CLASSES.put("Spider", SpiderNPC.class);
-        NPC.REGISTERED_NPCS_CLASSES.put("Witch", WitchNPC.class);
-        NPC.REGISTERED_NPCS_CLASSES.put("Villager", VillagerNPC.class);
-    }
+    public static final Map<@NotNull String, @NotNull Class<? extends NPC>> REGISTERED_NPCS_CLASSES = new LinkedHashMap<@NotNull String, @NotNull Class<? extends NPC>>() {{
+        put("Player", PlayerNPC.class);
+        put("Bat", BatNPC.class);
+        put("Egg", EggNPC.class);
+        put("Chicken", ChickenNPC.class);
+        put("Pig", PigNPC.class);
+        put("ArmorStand", ArmorStandNPC.class);
+        put("Horse", HorseNPC.class);
+        put("Cow", CowNPC.class);
+        put("IronGolem", IronGolemNPC.class);
+        put("Rabbit", RabbitNPC.class);
+        put("Sheep", SheepNPC.class);
+        put("Snowman", SnowmanNPC.class);
+        put("Squid", SquidNPC.class);
+        put("Wolf", WolfNPC.class);
+        put("ItemFrame", ItemFrameNPC.class);
+        put("LeashKnot", LeashKnotNPC.class);
+        put("FallingBlock", FallingBlockNPC.class);
+        put("Item", ItemNPC.class);
+        put("EnderDragon", EnderDragonNPC.class);
+        put("EnderSignal", EnderSignalNPC.class);
+        put("Wither", WitherNPC.class);
+        put("WitherSkull", WitherSkullNPC.class);
+        put("Blaze", BlazeNPC.class);
+        put("Creeper", CreeperNPC.class);
+        put("Enderman", EndermanNPC.class);
+        put("Ghast", GhastNPC.class);
+        put("Guardian", GuardianNPC.class);
+        put("Silverfish", SilverfishNPC.class);
+        put("Skeleton", SkeletonNPC.class);
+        put("Slime", SlimeNPC.class);
+        put("Spider", SpiderNPC.class);
+        put("Witch", WitchNPC.class);
+        put("Villager", VillagerNPC.class);
+    }};
 
     @SuppressWarnings("unchecked")
     @ApiStatus.Internal

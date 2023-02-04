@@ -181,13 +181,16 @@ public class V1_9_R2 extends V1_9_R1 {
 
             // DataWatcher
             load(V1_9_R2.class, "DataWatcher", new DataWatcher.DataWatcherClass("net.minecraft.server.v1_9_R2.DataWatcher"));
-            load(V1_9_R2.class, "WatchableObject", new WatchableObject.WatchableObjectClass("net.minecraft.server.v1_9_R2.DataWatcherObject"));
+            load(V1_9_R2.class, "DataWatcherObject", new DataWatcherObject.DataWatcherObjectClass("net.minecraft.server.v1_9_R2.DataWatcherObject"));
+            load(V1_9_R2.class, "DataWatcher:Item", new DataWatcherItem.DataWatcherItemClass("net.minecraft.server.v1_9_R2.DataWatcher$Item"));
             //
 
             // Scoreboard
             load(V1_9_R2.class, "CraftScoreboard", new CraftScoreboard.CraftScoreboardClass("org.bukkit.craftbukkit.v1_9_R2.scoreboard.CraftScoreboard"));
             load(V1_9_R2.class, "Scoreboard", new Scoreboard.ScoreboardClass("net.minecraft.server.v1_9_R2.Scoreboard"));
+
             load(V1_9_R2.class, "ScoreboardTeam", new ScoreboardTeam.ScoreboardTeamClass("net.minecraft.server.v1_9_R2.ScoreboardTeam"));
+            load(V1_9_R2.class, "ScoreboardTeam:EnumTeamPush", new EnumTeamPushEnum.EnumTeamPushClass("net.minecraft.server.v1_9_R2.ScoreboardTeamBase$EnumTeamPush"));
 
             load(V1_9_R2.class, "ScoreboardTeamBase:EnumNameTagVisibility", new EnumNameTagVisibilityEnum.EnumNameTagVisibilityClass("net.minecraft.server.v1_9_R2.ScoreboardTeamBase$EnumNameTagVisibility"));
             //
@@ -198,6 +201,7 @@ public class V1_9_R2 extends V1_9_R1 {
 
             load(V1_9_R2.class, "EnumChatFormat", new EnumChatFormatEnum.EnumChatFormatClass("net.minecraft.server.v1_9_R2.EnumChatFormat"));
             load(V1_9_R2.class, "EnumColor", new EnumColorEnum.EnumColorClass("net.minecraft.server.v1_9_R2.EnumColor"));
+            load(V1_9_R2.class, "EnumItemSlot", new EnumItemSlotEnum.EnumItemSlotClass("net.minecraft.server.v1_9_R2.EnumItemSlot"));
             //
 
             // Chat
@@ -221,15 +225,9 @@ public class V1_9_R2 extends V1_9_R1 {
             load(V1_9_R2.class, "CraftItemStack", new CraftItemStack.CraftItemStackClass("org.bukkit.craftbukkit.v1_9_R2.inventory.CraftItemStack"));
             //
 
-            load(V1_9_R2.class, "ScoreboardTeam:EnumTeamPush", new EnumTeamPushEnum.EnumTeamPushClass("net.minecraft.server.v1_9_R2.ScoreboardTeamBase$EnumTeamPush"));
-
-            load(V1_9_R2.class, "DataWatcherObject", new DataWatcherObject.DataWatcherObjectClass("net.minecraft.server.v1_9_R2.DataWatcherObject"));
-
+            // Entity horse
             load(V1_9_R2.class, "EnumHorseType", new EnumHorseTypeEnum.EnumHorseTypeClass("net.minecraft.server.v1_9_R2.EnumHorseType"));
-
-            load(V1_9_R2.class, "EnumItemSlot", new EnumItemSlotEnum.EnumItemSlotClass("net.minecraft.server.v1_9_R2.EnumItemSlot"));
-
-            load(V1_9_R2.class, "DataWatcher:Item", new DataWatcherItem.DataWatcherItemClass("net.minecraft.server.v1_9_R2.DataWatcher$Item"));
+            //
         }
         
         return super.getClasses();
@@ -237,7 +235,7 @@ public class V1_9_R2 extends V1_9_R1 {
 
     @Override
     public @NotNull Map<String, Object> getObjects() {
-        super.getObjects().put("Metadata:Player:SkinParts", 14);
+        super.getObjects().put("Metadata:Player:SkinParts", 13);
 
         return super.getObjects();
     }
