@@ -67,8 +67,10 @@ public class V1_9_R1 extends V1_8_R3 {
                     case "Entity:Enderman:isScreaming":
                         load(V1_9_R1.class, key, new MethodExecutor(getClassExec("Entity:Enderman"), ClassExecutor.BOOLEAN, "dc", "Gets the screaming state of a Enderman"));
                         return false;
-                    case "Entity:Enderman:setScreaming":
                     case "Entity:Zombie:setVillagerType":
+                        load(V1_9_R1.class, key, new MethodExecutor(getClassExec("Entity:Zombie"), ClassExecutor.VOID, "setVillagerType", "Sets the villager type of a Zombie", ClassExecutor.INT));
+                        return false;
+                    case "Entity:Enderman:setScreaming":
                     case "WatchableObject:getValue":
                     case "WatchableObject:setValue":
                         return false;
@@ -103,22 +105,33 @@ public class V1_9_R1 extends V1_8_R3 {
 
     @Override
     public @Nullable Zombie.Type getEntityZombieType(@NotNull Zombie zombie) {
-        if (zombie.isVillager()) {
-            //noinspection DataFlowIssue
-            return Zombie.Type.getById((int) getMethodExec("Entity:Zombie:getVillagerType").invokeInstance(zombie));
-        } else {
-            return null;
+        //noinspection DataFlowIssue
+        return Zombie.Type.getById((int) getMethodExec("Entity:Zombie:getVillagerType").invokeInstance(zombie));
+    }
+    @Override
+    public void setEntityZombieType(@NotNull Zombie zombie, Zombie.@Nullable Type type) {
+        if (type != null && !type.isCompatible()) {
+            throw new IllegalArgumentException("This zombie type '" + type.name() + "' isn't compatible with that version!");
         }
+
+        if (type == null) type = Zombie.Type.NORMAL;
+
+        laivynpc().getVersion().getMethodExec("Entity:Zombie:setVillagerType").invokeInstance(zombie, new IntegerObjExec(type.getId()));
     }
 
     @Override
     public boolean isEntityCreeperIgnited(@NotNull Creeper creeper) {
         //noinspection DataFlowIssue
-        return (boolean) creeper.getDataWatcher().get((int) laivynpc().getVersion().getObject("Metadata:Creeper:Ignited"));
+        return (boolean) creeper.getDataWatcher().get(Creeper.IGNITED_METADATA());
     }
     @Override
     public void setEntityCreeperIgnited(@NotNull Creeper creeper, boolean flag) {
-        creeper.getDataWatcher().set((int) laivynpc().getVersion().getObject("Metadata:Creeper:Ignited"), flag);
+        creeper.getDataWatcher().set(Creeper.IGNITED_METADATA(), new BooleanObjExec(flag));
+    }
+
+    @Override
+    public void setEntityGuardianTarget(@NotNull Guardian guardian, @Nullable EntityLiving entity) {
+        guardian.getDataWatcher().set(Guardian.TARGET_METADATA(), new IntegerObjExec(entity == null ? 0 : entity.getId()));
     }
 
     @Override
@@ -155,11 +168,11 @@ public class V1_9_R1 extends V1_8_R3 {
     @Override
     public boolean isEntityGhastAttacking(@NotNull Ghast ghast) {
         //noinspection DataFlowIssue
-        return (boolean) ghast.getDataWatcher().get((int) laivynpc().getVersion().getObject("Metadata:Ghast:Attacking"));
+        return (boolean) ghast.getDataWatcher().get(Ghast.ATTACKING_METADATA());
     }
     @Override
     public void setEntityGhastAttacking(@NotNull Ghast ghast, boolean flag) {
-        ghast.getDataWatcher().set((int) laivynpc().getVersion().getObject("Metadata:Ghast:Attacking"), flag);
+        ghast.getDataWatcher().set(Ghast.ATTACKING_METADATA(), new BooleanObjExec(flag));
     }
 
     @Override
@@ -386,6 +399,10 @@ public class V1_9_R1 extends V1_8_R3 {
 
             load(V1_9_R1.class, "Entity:Shulker:DataWatcherObject:Direction", new FieldExecutor(getClassExec("Entity:Shulker"), getClassExec("DataWatcherObject"), "a", "Get shulker's direction DataWatcher's object"));
             load(V1_9_R1.class, "Entity:Shulker:DataWatcherObject:Peek", new FieldExecutor(getClassExec("Entity:Shulker"), getClassExec("DataWatcherObject"), "c", "Get shulker's color DataWatcher's object"));
+
+            load(V1_9_R1.class, "Metadata:Ghast:Attacking", new FieldExecutor(getClassExec("Entity:Ghast"), getClassExec("DataWatcherObject"), "a", "Gets the Ghast attacking DataWatcherObject"));
+            load(V1_9_R1.class, "Metadata:Guardian:Target", new FieldExecutor(getClassExec("Entity:Guardian"), getClassExec("DataWatcherObject"), "b", "Gets the Guardian target DataWatcherObject"));
+            load(V1_9_R1.class, "Metadata:Creeper:Ignited", new FieldExecutor(getClassExec("Entity:Creeper"), getClassExec("DataWatcherObject"), "c", "Gets the Creeper ignited DataWatcherObject"));
         }
 
         return super.getFields();
@@ -431,9 +448,6 @@ public class V1_9_R1 extends V1_8_R3 {
     public @NotNull Map<String, Object> getObjects() {
         Map<String, Object> map = super.getObjects();
 
-        super.getObjects().put("Metadata:Ghast:Attacking", 11);
-        super.getObjects().put("Metadata:Guardian:Target", 12);
-        super.getObjects().put("Metadata:Creeper:Ignited", 13);
         super.getObjects().put("Metadata:Player:SkinParts", 13);
 
         return map;

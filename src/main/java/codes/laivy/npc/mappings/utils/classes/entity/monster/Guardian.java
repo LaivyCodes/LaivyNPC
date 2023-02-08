@@ -1,15 +1,23 @@
 package codes.laivy.npc.mappings.utils.classes.entity.monster;
 
-import codes.laivy.npc.mappings.instances.FieldExecutor;
 import codes.laivy.npc.mappings.utils.classes.datawatcher.DataWatcherObject;
 import codes.laivy.npc.mappings.utils.classes.entity.EntityLiving;
-import org.bukkit.Bukkit;
+import codes.laivy.npc.mappings.versions.V1_9_R1;
+import codes.laivy.npc.utils.ReflectionUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import static codes.laivy.npc.LaivyNPC.laivynpc;
 
 public class Guardian extends EntityLiving {
+
+    public static @NotNull DataWatcherObject TARGET_METADATA() {
+        if (ReflectionUtils.isCompatible(V1_9_R1.class)) {
+            return new DataWatcherObject(laivynpc().getVersion().getFieldExec("Metadata:Guardian:Target").invokeStatic());
+        } else {
+            throw new IllegalStateException("Metadata objects is compatible only at 1.9+");
+        }
+    }
 
     private @Nullable EntityLiving target;
 
@@ -27,12 +35,7 @@ public class Guardian extends EntityLiving {
 //        }}.invokeStatic());
 //        Bukkit.broadcastMessage("Guardian Id: '" + object.getId() + "'");
 
-        int id = 0;
-        if (living != null) {
-            id = living.getId();
-        }
-
-        getDataWatcher().set((int) laivynpc().getVersion().getObject("Metadata:Guardian:Target"), id);
+        laivynpc().getVersion().setEntityGuardianTarget(this, living);
         target = living;
     }
 

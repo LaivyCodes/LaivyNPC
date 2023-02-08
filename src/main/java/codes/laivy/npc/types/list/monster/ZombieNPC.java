@@ -42,7 +42,7 @@ public class ZombieNPC extends EntityLivingNPC {
     }
 
     public boolean isVillager() {
-        return getEntity().isVillager();
+        return getEntity().getType() != null && getEntity().getType().isVillager();
     }
     public void setVillager(boolean flag) {
         getEntity().setType(Type.VILLAGER_SMITH);

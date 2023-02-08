@@ -293,7 +293,9 @@ public abstract class NPC {
         setItem(EnumItemSlotEnum.EnumItemSlot.LEGS, new ItemStack(Material.DIAMOND_LEGGINGS));
         setItem(EnumItemSlotEnum.EnumItemSlot.FEET, new ItemStack(Material.DIAMOND_BOOTS));
         setItem(EnumItemSlotEnum.EnumItemSlot.MAINHAND, new ItemStack(Material.DIAMOND_SWORD));
-        setItem(EnumItemSlotEnum.EnumItemSlot.OFFHAND, new ItemStack(Material.DIAMOND_PICKAXE));
+        if (ReflectionUtils.isCompatible(V1_9_R1.class)) {
+            setItem(EnumItemSlotEnum.EnumItemSlot.OFFHAND, new ItemStack(Material.DIAMOND_PICKAXE));
+        }
         getHolograms().setLine(3, new NPCHologramText("§7LaivyNPC", this));
         getHolograms().setLine(2, new NPCHologramText("§eThe best NPCs plugin :)", this));
         getHolograms().setLine(0, new NPCHologramText("§0Lets goo", this));
@@ -1152,6 +1154,7 @@ public abstract class NPC {
         put("Creeper", CreeperNPC.class);
         put("Enderman", EndermanNPC.class);
         put("Ghast", GhastNPC.class);
+        put("Zombie", ZombieNPC.class);
         put("Guardian", GuardianNPC.class);
         put("Silverfish", SilverfishNPC.class);
         put("Skeleton", SkeletonNPC.class);

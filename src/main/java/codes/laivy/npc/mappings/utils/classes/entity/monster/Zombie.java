@@ -17,11 +17,6 @@ public class Zombie extends EntityLiving {
         super(value);
     }
 
-    public boolean isVillager() {
-        //noinspection DataFlowIssue
-        return (boolean) laivynpc().getVersion().getMethodExec("Entity:Zombie:isVillager").invokeInstance(this);
-    }
-
     public @Nullable Zombie.Type getType() {
         if (ReflectionUtils.isCompatible(V1_9_R1.class)) {
             return laivynpc().getVersion().getEntityZombieType(this);
@@ -125,13 +120,13 @@ public class Zombie extends EntityLiving {
             }
         }
 
-        public static @NotNull Zombie.Type getById(int id) {
+        public static @Nullable Zombie.Type getById(int id) {
             for (Type type : Type.values()) {
                 if (type.isCompatible() && type.getId() == id) {
                     return type;
                 }
             }
-            throw new NullPointerException("Couldn't find a zombie type with id '" + id + "'");
+            return null;
         }
     }
 

@@ -11,6 +11,7 @@ import codes.laivy.npc.mappings.utils.VersionVector3f;
 import codes.laivy.npc.mappings.utils.classes.datawatcher.DataWatcher;
 import codes.laivy.npc.mappings.utils.classes.datawatcher.VersionedDataWatcherObject;
 import codes.laivy.npc.mappings.utils.classes.entity.Entity;
+import codes.laivy.npc.mappings.utils.classes.entity.EntityLiving;
 import codes.laivy.npc.mappings.utils.classes.entity.EntityPlayer;
 import codes.laivy.npc.mappings.utils.classes.entity.animal.Ocelot;
 import codes.laivy.npc.mappings.utils.classes.entity.animal.Rabbit;
@@ -226,6 +227,8 @@ public abstract class Version implements VersionCompound, VersionPacket, Version
     // ENTITY GHAST
     public abstract boolean isEntityGhastAttacking(@NotNull Ghast ghast);
     public abstract void setEntityGhastAttacking(@NotNull Ghast ghast, boolean attacking);
+    // ENTITY GUARDIAN
+    public abstract void setEntityGuardianTarget(@NotNull Guardian guardian, @Nullable EntityLiving entity);
     //
 
     // ENTITY PLAYER

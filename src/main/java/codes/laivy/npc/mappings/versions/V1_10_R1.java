@@ -146,16 +146,6 @@ public class V1_10_R1 extends V1_9_R2 {
     }
 
     @Override
-    public boolean isEntityGhastAttacking(@NotNull Ghast ghast) {
-        //noinspection DataFlowIssue
-        return (boolean) ghast.getDataWatcher().get((int) laivynpc().getVersion().getObject("Metadata:Ghast:Attacking"));
-    }
-    @Override
-    public void setEntityGhastAttacking(@NotNull Ghast ghast, boolean flag) {
-        ghast.getDataWatcher().set((int) laivynpc().getVersion().getObject("Metadata:Ghast:Attacking"), flag);
-    }
-
-    @Override
     public @Nullable Entity getEntityInstance(Entity.@NotNull EntityType type, @NotNull org.bukkit.Location location) {
         if (location.getWorld() == null) {
             throw new NullPointerException("This location's world is null!");
@@ -349,17 +339,6 @@ public class V1_10_R1 extends V1_9_R2 {
         }
 
         return super.getEnums();
-    }
-
-    @Override
-    public @NotNull Map<String, Object> getObjects() {
-        Map<String, Object> map = super.getObjects();
-
-        map.put("Metadata:Ghast:Attacking", 12);
-        map.put("Metadata:Guardian:Target", 13);
-        map.put("Metadata:Creeper:Ignited", 14);
-
-        return map;
     }
 
     @Override

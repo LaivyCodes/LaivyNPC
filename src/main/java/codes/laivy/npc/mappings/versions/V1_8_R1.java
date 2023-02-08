@@ -322,7 +322,6 @@ public class V1_8_R1 extends Version {
             load(V1_8_R1.class, "Entity:Spider:isClimbing", new MethodExecutor(getClassExec("Entity:Spider"), ClassExecutor.BOOLEAN, "n", "Gets the spider climbing state"));
             load(V1_8_R1.class, "Entity:Spider:setClimbing", new MethodExecutor(getClassExec("Entity:Spider"), ClassExecutor.VOID, "a", "Sets the spider climbing state", ClassExecutor.BOOLEAN));
             // Zombie
-            load(V1_8_R1.class, "Entity:Zombie:isVillager", new MethodExecutor(getClassExec("Entity:Zombie"), ClassExecutor.BOOLEAN, "isVillager", "Gets the villager state of a Zombie"));
             load(V1_8_R1.class, "Entity:Zombie:setVillagerType", new MethodExecutor(getClassExec("Entity:Zombie"), ClassExecutor.VOID, "setVillager", "Sets the villager state of a Zombie", ClassExecutor.BOOLEAN));
             // Villager
             load(V1_8_R1.class, "Entity:Villager:getProfession", new MethodExecutor(getClassExec("Entity:Villager"), ClassExecutor.INT, "getProfession", "Gets the profession of a Villager"));
@@ -1085,6 +1084,15 @@ public class V1_8_R1 extends Version {
     @Override
     public void setEntityGhastAttacking(@NotNull Ghast ghast, boolean flag) {
         ghast.getDataWatcher().set((int) laivynpc().getVersion().getObject("Metadata:Ghast:Attacking"), (byte) (flag ? 1 : 0));
+    }
+
+    @Override
+    public void setEntityGuardianTarget(@NotNull Guardian guardian, @Nullable EntityLiving entity) {
+        int id = 0;
+        if (entity != null) {
+            id = entity.getId();
+        }
+        guardian.getDataWatcher().set((int) laivynpc().getVersion().getObject("Metadata:Guardian:Target"), id);
     }
 
     @Override
