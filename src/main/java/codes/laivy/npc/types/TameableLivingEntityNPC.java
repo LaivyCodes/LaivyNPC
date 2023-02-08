@@ -1,7 +1,7 @@
 package codes.laivy.npc.types;
 
-import codes.laivy.npc.mappings.utils.classes.entity.Entity;
-import codes.laivy.npc.mappings.utils.classes.entity.TameableLivingEntity;
+import codes.laivy.npc.mappings.defaults.classes.entity.Entity;
+import codes.laivy.npc.mappings.defaults.classes.entity.TameableLivingEntity;
 import codes.laivy.npc.types.commands.NPCConfiguration;
 import codes.laivy.npc.utils.Validation;
 import org.bukkit.Location;

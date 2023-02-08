@@ -1,8 +1,8 @@
 package codes.laivy.npc.types.list.decoration;
 
-import codes.laivy.npc.mappings.utils.classes.entity.Entity;
-import codes.laivy.npc.mappings.utils.classes.entity.decoration.ArmorStand;
-import codes.laivy.npc.mappings.utils.classes.others.location.Vector3f;
+import codes.laivy.npc.mappings.defaults.classes.entity.Entity;
+import codes.laivy.npc.mappings.defaults.classes.entity.decoration.ArmorStand;
+import codes.laivy.npc.mappings.defaults.classes.others.location.Vector3f;
 import codes.laivy.npc.types.EntityNPC;
 import codes.laivy.npc.types.NPC;
 import codes.laivy.npc.types.commands.NPCConfiguration;
@@ -20,8 +20,8 @@ import static codes.laivy.npc.config.Translate.translate;
 
 public class ArmorStandNPC extends EntityNPC {
 
-    public static @NotNull ArmorStandNPC fastInstance(@NotNull List<OfflinePlayer> player, @NotNull Location location, @Nullable Object object) {
-        return new ArmorStandNPC(player, location);
+    public static @NotNull ArmorStandNPC fastInstance(@NotNull List<OfflinePlayer> players, @NotNull Location location, @Nullable Object object) {
+        return new ArmorStandNPC(players, location);
     }
 
     public static void debug(@NotNull Location location) {

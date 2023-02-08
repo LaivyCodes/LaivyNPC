@@ -1,7 +1,7 @@
 package codes.laivy.npc.types.list.boss.wither;
 
-import codes.laivy.npc.mappings.utils.classes.entity.Entity;
-import codes.laivy.npc.mappings.utils.classes.entity.boss.wither.WitherSkull;
+import codes.laivy.npc.mappings.defaults.classes.entity.Entity;
+import codes.laivy.npc.mappings.defaults.classes.entity.boss.wither.WitherSkull;
 import codes.laivy.npc.types.EntityNPC;
 import codes.laivy.npc.types.NPC;
 import codes.laivy.npc.types.commands.NPCConfiguration;
@@ -21,8 +21,8 @@ import static codes.laivy.npc.config.Translate.translate;
 
 public class WitherSkullNPC extends EntityNPC {
 
-    public static @NotNull WitherSkullNPC fastInstance(@NotNull List<OfflinePlayer> player, @NotNull Location location, @Nullable Object object) {
-        return new WitherSkullNPC(player, location);
+    public static @NotNull WitherSkullNPC fastInstance(@NotNull List<OfflinePlayer> players, @NotNull Location location, @Nullable Object object) {
+        return new WitherSkullNPC(players, location);
     }
 
     public static void debug(@NotNull Location location) {

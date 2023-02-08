@@ -1,6 +1,6 @@
 package codes.laivy.npc.listeners;
 
-import codes.laivy.npc.mappings.utils.classes.packets.listeners.InjectionUtils;
+import codes.laivy.npc.mappings.defaults.classes.packets.listeners.InjectionUtils;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;

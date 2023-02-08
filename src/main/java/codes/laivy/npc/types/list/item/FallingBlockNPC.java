@@ -1,6 +1,6 @@
 package codes.laivy.npc.types.list.item;
 
-import codes.laivy.npc.mappings.utils.classes.entity.Entity;
+import codes.laivy.npc.mappings.defaults.classes.entity.Entity;
 import codes.laivy.npc.types.EntityNPC;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -15,8 +15,8 @@ import static codes.laivy.npc.LaivyNPC.laivynpc;
 
 public class FallingBlockNPC extends EntityNPC {
 
-    public static @NotNull FallingBlockNPC fastInstance(@NotNull List<OfflinePlayer> player, @NotNull Location location, @NotNull Object object) {
-        return new FallingBlockNPC(player, Material.valueOf(object.toString()), location);
+    public static @NotNull FallingBlockNPC fastInstance(@NotNull List<OfflinePlayer> players, @NotNull Location location, @NotNull Object object) {
+        return new FallingBlockNPC(players, Material.valueOf(object.toString()), location);
     }
 
     public static void debug(@NotNull Location location) {

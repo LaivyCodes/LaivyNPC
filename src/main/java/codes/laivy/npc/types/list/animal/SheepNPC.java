@@ -1,9 +1,9 @@
 package codes.laivy.npc.types.list.animal;
 
-import codes.laivy.npc.mappings.utils.classes.entity.Entity;
-import codes.laivy.npc.mappings.utils.classes.entity.animal.Sheep;
-import codes.laivy.npc.mappings.utils.classes.enums.EnumColorEnum;
-import codes.laivy.npc.mappings.utils.classes.java.EnumObjExec;
+import codes.laivy.npc.mappings.defaults.classes.entity.Entity;
+import codes.laivy.npc.mappings.defaults.classes.entity.animal.Sheep;
+import codes.laivy.npc.mappings.defaults.classes.enums.EnumColorEnum;
+import codes.laivy.npc.mappings.defaults.classes.java.EnumObjExec;
 import codes.laivy.npc.types.AgeableEntityLivingNPC;
 import codes.laivy.npc.types.NPC;
 import codes.laivy.npc.types.commands.NPCConfiguration;
@@ -19,13 +19,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static codes.laivy.npc.LaivyNPC.laivynpc;
 import static codes.laivy.npc.config.Translate.translate;
 
 public class SheepNPC extends AgeableEntityLivingNPC {
 
-    public static @NotNull SheepNPC fastInstance(@NotNull List<OfflinePlayer> player, @NotNull Location location, @Nullable Object object) {
-        return new SheepNPC(player, location);
+    public static @NotNull SheepNPC fastInstance(@NotNull List<OfflinePlayer> players, @NotNull Location location, @Nullable Object object) {
+        return new SheepNPC(players, location);
     }
 
     public static void debug(@NotNull Location location) {

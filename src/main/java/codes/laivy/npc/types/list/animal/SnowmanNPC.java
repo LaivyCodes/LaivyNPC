@@ -1,8 +1,8 @@
 package codes.laivy.npc.types.list.animal;
 
 import codes.laivy.npc.config.Translate;
-import codes.laivy.npc.mappings.utils.classes.entity.Entity;
-import codes.laivy.npc.mappings.utils.classes.entity.animal.Snowman;
+import codes.laivy.npc.mappings.defaults.classes.entity.Entity;
+import codes.laivy.npc.mappings.defaults.classes.entity.animal.Snowman;
 import codes.laivy.npc.mappings.versions.V1_9_R1;
 import codes.laivy.npc.types.EntityLivingNPC;
 import codes.laivy.npc.types.NPC;
@@ -21,8 +21,8 @@ import static codes.laivy.npc.config.Translate.translate;
 
 public class SnowmanNPC extends EntityLivingNPC {
 
-    public static @NotNull SnowmanNPC fastInstance(@NotNull List<OfflinePlayer> player, @NotNull Location location, @Nullable Object object) {
-        return new SnowmanNPC(player, location);
+    public static @NotNull SnowmanNPC fastInstance(@NotNull List<OfflinePlayer> players, @NotNull Location location, @Nullable Object object) {
+        return new SnowmanNPC(players, location);
     }
 
     public static void debug(@NotNull Location location) {

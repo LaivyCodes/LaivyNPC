@@ -1,7 +1,7 @@
 package codes.laivy.npc.types.list.monster;
 
-import codes.laivy.npc.mappings.utils.classes.entity.Entity;
-import codes.laivy.npc.mappings.utils.classes.entity.monster.Ghast;
+import codes.laivy.npc.mappings.defaults.classes.entity.Entity;
+import codes.laivy.npc.mappings.defaults.classes.entity.monster.Ghast;
 import codes.laivy.npc.types.EntityLivingNPC;
 import codes.laivy.npc.types.NPC;
 import codes.laivy.npc.types.commands.NPCConfiguration;
@@ -21,8 +21,8 @@ import static codes.laivy.npc.config.Translate.translate;
 
 public class GhastNPC extends EntityLivingNPC {
 
-    public static @NotNull GhastNPC fastInstance(@NotNull List<OfflinePlayer> player, @NotNull Location location, @Nullable Object object) {
-        return new GhastNPC(player, location);
+    public static @NotNull GhastNPC fastInstance(@NotNull List<OfflinePlayer> players, @NotNull Location location, @Nullable Object object) {
+        return new GhastNPC(players, location);
     }
 
     public static void debug(@NotNull Location location) {

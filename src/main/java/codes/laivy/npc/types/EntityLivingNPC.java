@@ -1,8 +1,8 @@
 package codes.laivy.npc.types;
 
-import codes.laivy.npc.mappings.utils.classes.entity.Entity;
-import codes.laivy.npc.mappings.utils.classes.entity.EntityLiving;
-import codes.laivy.npc.mappings.utils.classes.packets.Packet;
+import codes.laivy.npc.mappings.defaults.classes.entity.Entity;
+import codes.laivy.npc.mappings.defaults.classes.entity.EntityLiving;
+import codes.laivy.npc.mappings.defaults.classes.packets.Packet;
 import codes.laivy.npc.utils.Validation;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;

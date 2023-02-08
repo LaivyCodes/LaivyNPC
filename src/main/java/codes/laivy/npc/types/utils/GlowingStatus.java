@@ -1,8 +1,8 @@
 package codes.laivy.npc.types.utils;
 
-import codes.laivy.npc.mappings.utils.classes.enums.EnumChatFormatEnum;
-import codes.laivy.npc.mappings.utils.classes.enums.EnumChatFormatEnum.EnumChatFormat;
-import codes.laivy.npc.mappings.utils.classes.java.EnumObjExec;
+import codes.laivy.npc.mappings.defaults.classes.enums.EnumChatFormatEnum;
+import codes.laivy.npc.mappings.defaults.classes.enums.EnumChatFormatEnum.EnumChatFormat;
+import codes.laivy.npc.mappings.defaults.classes.java.EnumObjExec;
 import codes.laivy.npc.types.NPC;
 import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitTask;

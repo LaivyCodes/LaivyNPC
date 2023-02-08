@@ -1,7 +1,7 @@
 package codes.laivy.npc.types.list.animal;
 
-import codes.laivy.npc.mappings.utils.classes.entity.Entity;
-import codes.laivy.npc.mappings.utils.classes.entity.animal.Pig;
+import codes.laivy.npc.mappings.defaults.classes.entity.Entity;
+import codes.laivy.npc.mappings.defaults.classes.entity.animal.Pig;
 import codes.laivy.npc.types.AgeableEntityLivingNPC;
 import codes.laivy.npc.types.NPC;
 import codes.laivy.npc.types.commands.NPCConfiguration;
@@ -21,8 +21,8 @@ import static codes.laivy.npc.config.Translate.translate;
 
 public class PigNPC extends AgeableEntityLivingNPC {
 
-    public static @NotNull PigNPC fastInstance(@NotNull List<OfflinePlayer> player, @NotNull Location location, @Nullable Object object) {
-        return new PigNPC(player, location);
+    public static @NotNull PigNPC fastInstance(@NotNull List<OfflinePlayer> players, @NotNull Location location, @Nullable Object object) {
+        return new PigNPC(players, location);
     }
 
     public static void debug(@NotNull Location location) {

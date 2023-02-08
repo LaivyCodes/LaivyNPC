@@ -1,7 +1,7 @@
 package codes.laivy.npc.types.list.boss.wither;
 
-import codes.laivy.npc.mappings.utils.classes.entity.Entity;
-import codes.laivy.npc.mappings.utils.classes.entity.boss.wither.Wither;
+import codes.laivy.npc.mappings.defaults.classes.entity.Entity;
+import codes.laivy.npc.mappings.defaults.classes.entity.boss.wither.Wither;
 import codes.laivy.npc.types.EntityLivingNPC;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
@@ -13,8 +13,8 @@ import java.util.List;
 
 public class WitherNPC extends EntityLivingNPC {
 
-    public static @NotNull WitherNPC fastInstance(@NotNull List<OfflinePlayer> player, @NotNull Location location, @Nullable Object object) {
-        return new WitherNPC(player, location);
+    public static @NotNull WitherNPC fastInstance(@NotNull List<OfflinePlayer> players, @NotNull Location location, @Nullable Object object) {
+        return new WitherNPC(players, location);
     }
 
     public static void debug(@NotNull Location location) {

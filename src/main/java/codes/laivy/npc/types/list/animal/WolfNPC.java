@@ -1,9 +1,9 @@
 package codes.laivy.npc.types.list.animal;
 
-import codes.laivy.npc.mappings.utils.classes.entity.Entity;
-import codes.laivy.npc.mappings.utils.classes.entity.animal.Wolf;
-import codes.laivy.npc.mappings.utils.classes.enums.EnumColorEnum;
-import codes.laivy.npc.mappings.utils.classes.java.EnumObjExec;
+import codes.laivy.npc.mappings.defaults.classes.entity.Entity;
+import codes.laivy.npc.mappings.defaults.classes.entity.animal.Wolf;
+import codes.laivy.npc.mappings.defaults.classes.enums.EnumColorEnum;
+import codes.laivy.npc.mappings.defaults.classes.java.EnumObjExec;
 import codes.laivy.npc.types.NPC;
 import codes.laivy.npc.types.TameableLivingEntityNPC;
 import codes.laivy.npc.types.commands.NPCConfiguration;
@@ -19,13 +19,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static codes.laivy.npc.LaivyNPC.laivynpc;
 import static codes.laivy.npc.config.Translate.translate;
 
 public class WolfNPC extends TameableLivingEntityNPC {
 
-    public static @NotNull WolfNPC fastInstance(@NotNull List<OfflinePlayer> player, @NotNull Location location, @Nullable Object object) {
-        return new WolfNPC(player, location);
+    public static @NotNull WolfNPC fastInstance(@NotNull List<OfflinePlayer> players, @NotNull Location location, @Nullable Object object) {
+        return new WolfNPC(players, location);
     }
 
     public static void debug(@NotNull Location location) {

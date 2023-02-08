@@ -1,15 +1,15 @@
 package codes.laivy.npc.types.player;
 
 import codes.laivy.npc.exceptions.NPCIllegalSkinException;
-import codes.laivy.npc.mappings.utils.classes.datawatcher.DataWatcher;
-import codes.laivy.npc.mappings.utils.classes.entity.EntityPlayer;
-import codes.laivy.npc.mappings.utils.classes.enums.*;
-import codes.laivy.npc.mappings.utils.classes.gameprofile.GameProfile;
-import codes.laivy.npc.mappings.utils.classes.gameprofile.Property;
-import codes.laivy.npc.mappings.utils.classes.gameprofile.PropertyMap;
-import codes.laivy.npc.mappings.utils.classes.packets.Packet;
-import codes.laivy.npc.mappings.utils.classes.scoreboard.Scoreboard;
-import codes.laivy.npc.mappings.utils.classes.scoreboard.ScoreboardTeam;
+import codes.laivy.npc.mappings.defaults.classes.datawatcher.DataWatcher;
+import codes.laivy.npc.mappings.defaults.classes.entity.EntityPlayer;
+import codes.laivy.npc.mappings.defaults.classes.enums.*;
+import codes.laivy.npc.mappings.defaults.classes.gameprofile.GameProfile;
+import codes.laivy.npc.mappings.defaults.classes.gameprofile.Property;
+import codes.laivy.npc.mappings.defaults.classes.gameprofile.PropertyMap;
+import codes.laivy.npc.mappings.defaults.classes.packets.Packet;
+import codes.laivy.npc.mappings.defaults.classes.scoreboard.Scoreboard;
+import codes.laivy.npc.mappings.defaults.classes.scoreboard.ScoreboardTeam;
 import codes.laivy.npc.mappings.versions.V1_9_R1;
 import codes.laivy.npc.types.NPC;
 import codes.laivy.npc.types.commands.NPCConfiguration;

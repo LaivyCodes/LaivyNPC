@@ -3,16 +3,16 @@ package codes.laivy.npc.types;
 import codes.laivy.npc.mappings.instances.classes.ClassExecutor;
 import codes.laivy.npc.mappings.instances.MethodExecutor;
 import codes.laivy.npc.mappings.instances.ObjectExecutor;
-import codes.laivy.npc.mappings.utils.classes.datawatcher.DataWatcher;
-import codes.laivy.npc.mappings.utils.classes.entity.Entity;
-import codes.laivy.npc.mappings.utils.classes.enums.EnumChatFormatEnum;
-import codes.laivy.npc.mappings.utils.classes.enums.EnumItemSlotEnum;
-import codes.laivy.npc.mappings.utils.classes.enums.EnumNameTagVisibilityEnum;
-import codes.laivy.npc.mappings.utils.classes.enums.EnumTeamPushEnum;
-import codes.laivy.npc.mappings.utils.classes.java.ObjectObjExec;
-import codes.laivy.npc.mappings.utils.classes.packets.Packet;
-import codes.laivy.npc.mappings.utils.classes.scoreboard.Scoreboard;
-import codes.laivy.npc.mappings.utils.classes.scoreboard.ScoreboardTeam;
+import codes.laivy.npc.mappings.defaults.classes.datawatcher.DataWatcher;
+import codes.laivy.npc.mappings.defaults.classes.entity.Entity;
+import codes.laivy.npc.mappings.defaults.classes.enums.EnumChatFormatEnum;
+import codes.laivy.npc.mappings.defaults.classes.enums.EnumItemSlotEnum;
+import codes.laivy.npc.mappings.defaults.classes.enums.EnumNameTagVisibilityEnum;
+import codes.laivy.npc.mappings.defaults.classes.enums.EnumTeamPushEnum;
+import codes.laivy.npc.mappings.defaults.classes.java.ObjectObjExec;
+import codes.laivy.npc.mappings.defaults.classes.packets.Packet;
+import codes.laivy.npc.mappings.defaults.classes.scoreboard.Scoreboard;
+import codes.laivy.npc.mappings.defaults.classes.scoreboard.ScoreboardTeam;
 import codes.laivy.npc.mappings.versions.V1_9_R1;
 import codes.laivy.npc.utils.ReflectionUtils;
 import codes.laivy.npc.utils.Validation;
@@ -29,7 +29,7 @@ import static codes.laivy.npc.LaivyNPC.laivynpc;
 
 public abstract class EntityNPC extends NPC {
 
-    protected final @NotNull Entity.EntityType entityType;
+    protected @NotNull Entity.EntityType entityType;
     protected @NotNull Entity entity;
 
     public EntityNPC(@NotNull List<OfflinePlayer> players, @NotNull Entity.EntityType entityType, @NotNull Location location) {

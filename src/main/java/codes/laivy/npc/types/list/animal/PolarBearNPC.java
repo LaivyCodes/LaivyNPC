@@ -1,7 +1,7 @@
 package codes.laivy.npc.types.list.animal;
 
-import codes.laivy.npc.mappings.utils.classes.entity.Entity;
-import codes.laivy.npc.mappings.utils.classes.entity.animal.PolarBear;
+import codes.laivy.npc.mappings.defaults.classes.entity.Entity;
+import codes.laivy.npc.mappings.defaults.classes.entity.animal.PolarBear;
 import codes.laivy.npc.types.AgeableEntityLivingNPC;
 import codes.laivy.npc.types.NPC;
 import codes.laivy.npc.types.commands.NPCConfiguration;
@@ -17,8 +17,8 @@ import static codes.laivy.npc.config.Translate.translate;
 
 public class PolarBearNPC extends AgeableEntityLivingNPC {
 
-    public static @NotNull PolarBearNPC fastInstance(@NotNull List<OfflinePlayer> player, @NotNull Location location, @NotNull Object object) {
-        return new PolarBearNPC(player, location);
+    public static @NotNull PolarBearNPC fastInstance(@NotNull List<OfflinePlayer> players, @NotNull Location location, @NotNull Object object) {
+        return new PolarBearNPC(players, location);
     }
 
     public static void debug(@NotNull Location location) {

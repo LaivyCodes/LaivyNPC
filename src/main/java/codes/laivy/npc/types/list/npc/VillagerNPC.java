@@ -1,8 +1,8 @@
 package codes.laivy.npc.types.list.npc;
 
-import codes.laivy.npc.mappings.utils.classes.entity.Entity;
-import codes.laivy.npc.mappings.utils.classes.entity.npc.Villager;
-import codes.laivy.npc.mappings.utils.classes.entity.npc.VillagerProfession;
+import codes.laivy.npc.mappings.defaults.classes.entity.Entity;
+import codes.laivy.npc.mappings.defaults.classes.entity.npc.Villager;
+import codes.laivy.npc.mappings.defaults.classes.entity.npc.VillagerProfession;
 import codes.laivy.npc.types.EntityLivingNPC;
 import codes.laivy.npc.types.NPC;
 import codes.laivy.npc.types.commands.NPCConfiguration;
@@ -22,8 +22,8 @@ import static codes.laivy.npc.config.Translate.translate;
 
 public class VillagerNPC extends EntityLivingNPC {
 
-    public static @NotNull VillagerNPC fastInstance(@NotNull List<OfflinePlayer> player, @NotNull Location location, @Nullable Object object) {
-        return new VillagerNPC(player, location);
+    public static @NotNull VillagerNPC fastInstance(@NotNull List<OfflinePlayer> players, @NotNull Location location, @Nullable Object object) {
+        return new VillagerNPC(players, location);
     }
 
     public static void debug(@NotNull Location location) {

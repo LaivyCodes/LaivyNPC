@@ -1,9 +1,9 @@
 package codes.laivy.npc.types.workers;
 
-import codes.laivy.npc.mappings.utils.classes.entity.Entity;
-import codes.laivy.npc.mappings.utils.classes.entity.decoration.ArmorStand;
-import codes.laivy.npc.mappings.utils.classes.packets.EntityDestroyPacket;
-import codes.laivy.npc.mappings.utils.classes.packets.Packet;
+import codes.laivy.npc.mappings.defaults.classes.entity.Entity;
+import codes.laivy.npc.mappings.defaults.classes.entity.decoration.ArmorStand;
+import codes.laivy.npc.mappings.defaults.classes.packets.EntityDestroyPacket;
+import codes.laivy.npc.mappings.defaults.classes.packets.Packet;
 import codes.laivy.npc.types.NPC;
 import codes.laivy.npc.types.utils.NPCHologramText;
 import codes.laivy.npc.utils.Validation;

@@ -1,7 +1,7 @@
 package codes.laivy.npc.mappings.instances;
 
 import codes.laivy.npc.mappings.instances.classes.ClassExecutor;
-import codes.laivy.npc.mappings.utils.classes.java.EnumObjExec;
+import codes.laivy.npc.mappings.defaults.classes.java.EnumObjExec;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.LinkedHashMap;

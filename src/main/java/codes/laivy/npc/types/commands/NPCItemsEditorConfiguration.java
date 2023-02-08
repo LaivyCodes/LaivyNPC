@@ -1,7 +1,7 @@
 package codes.laivy.npc.types.commands;
 
 import codes.laivy.npc.developers.events.NPCClickEvent;
-import codes.laivy.npc.mappings.utils.classes.enums.EnumItemSlotEnum;
+import codes.laivy.npc.mappings.defaults.classes.enums.EnumItemSlotEnum;
 import codes.laivy.npc.mappings.versions.V1_9_R1;
 import codes.laivy.npc.types.NPC;
 import codes.laivy.npc.utils.ReflectionUtils;

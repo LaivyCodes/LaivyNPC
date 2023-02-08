@@ -48,7 +48,7 @@ public class Translate {
             infos.put(str, new LangInfo(Objects.requireNonNull(packName), messages));
         }
 
-        if (laivynpc().hasLvML()) {
+        if (laivynpc().hasMultiplesLanguagesSupport()) {
             Language lang = new Language("General Messages", null, laivynpc().getName(), new LinkedHashSet<LanguagePack>() {{
                 for (Map.Entry<String, LangInfo> info : infos.entrySet()) {
                 LinkedHashSet<Locale> locales = new LinkedHashSet<>(Collections.singletonList(Locale.valueOf(info.getKey().replace(".json", ""))));
@@ -72,7 +72,7 @@ public class Translate {
     public static @NotNull String translate(@Nullable OfflinePlayer player, @NotNull String code, @NotNull Object... replaces) {
         String message = null;
 
-        if (laivynpc().hasLvML()) {
+        if (laivynpc().hasMultiplesLanguagesSupport()) {
             LocaleAPI api = LvMultiplesLanguages.getApi().getLocaleAPI();
             message = api.getNullableMessage(laivynpc().getName(), code, (player != null ? api.getLocale(player.getUniqueId()) : null));
         } else {

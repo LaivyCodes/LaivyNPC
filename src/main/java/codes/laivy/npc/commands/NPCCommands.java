@@ -4,7 +4,7 @@ import codes.laivy.npc.debug.Debug;
 import codes.laivy.npc.debug.DebugLog;
 import codes.laivy.npc.developers.events.NPCClickEvent;
 import codes.laivy.npc.developers.events.NPCSelectEvent;
-import codes.laivy.npc.mappings.utils.classes.entity.Entity;
+import codes.laivy.npc.mappings.defaults.classes.entity.Entity;
 import codes.laivy.npc.types.NPC;
 import codes.laivy.npc.types.commands.NPCConfiguration;
 import codes.laivy.npc.types.player.PlayerNPC;

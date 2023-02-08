@@ -1,6 +1,6 @@
 package codes.laivy.npc.utils;
 
-import codes.laivy.npc.mappings.utils.classes.entity.Entity;
+import codes.laivy.npc.mappings.defaults.classes.entity.Entity;
 import org.jetbrains.annotations.NotNull;
 
 import static codes.laivy.npc.LaivyNPC.laivynpc;

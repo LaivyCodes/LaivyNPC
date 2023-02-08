@@ -1,7 +1,7 @@
 package codes.laivy.npc.utils;
 
 import codes.laivy.npc.mappings.Version;
-import codes.laivy.npc.mappings.utils.classes.packets.Packet;
+import codes.laivy.npc.mappings.defaults.classes.packets.Packet;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;

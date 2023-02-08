@@ -1,49 +1,53 @@
 package codes.laivy.npc.mappings.versions;
 
 import codes.laivy.npc.mappings.Version;
+import codes.laivy.npc.mappings.defaults.classes.entity.animal.horse.*;
+import codes.laivy.npc.mappings.defaults.classes.entity.monster.skeleton.SkeletonWither;
+import codes.laivy.npc.mappings.defaults.classes.entity.monster.zombie.ZombieVillager;
 import codes.laivy.npc.mappings.instances.*;
 import codes.laivy.npc.mappings.instances.classes.ClassExecutor;
 import codes.laivy.npc.mappings.instances.EnumExecutor;
 import codes.laivy.npc.mappings.instances.FieldExecutor;
 import codes.laivy.npc.mappings.instances.MethodExecutor;
-import codes.laivy.npc.mappings.utils.VersionCompound;
-import codes.laivy.npc.mappings.utils.classes.datawatcher.VersionedDataWatcherObject;
-import codes.laivy.npc.mappings.utils.classes.entity.animal.*;
-import codes.laivy.npc.mappings.utils.classes.entity.animal.horse.Horse;
-import codes.laivy.npc.mappings.utils.classes.entity.boss.dragon.EnderDragon;
-import codes.laivy.npc.mappings.utils.classes.entity.boss.dragon.EnderSignal;
-import codes.laivy.npc.mappings.utils.classes.entity.boss.wither.Wither;
-import codes.laivy.npc.mappings.utils.classes.entity.boss.wither.WitherSkull;
-import codes.laivy.npc.mappings.utils.classes.entity.decoration.ItemFrame;
-import codes.laivy.npc.mappings.utils.classes.entity.decoration.LeashKnot;
-import codes.laivy.npc.mappings.utils.classes.entity.item.FallingBlock;
-import codes.laivy.npc.mappings.utils.classes.entity.item.Item;
-import codes.laivy.npc.mappings.utils.classes.entity.monster.*;
-import codes.laivy.npc.mappings.utils.classes.entity.npc.Villager;
-import codes.laivy.npc.mappings.utils.classes.entity.npc.VillagerProfession;
-import codes.laivy.npc.mappings.utils.classes.enums.*;
-import codes.laivy.npc.mappings.utils.classes.datawatcher.DataWatcher;
-import codes.laivy.npc.mappings.utils.classes.datawatcher.WatchableObject;
-import codes.laivy.npc.mappings.utils.classes.entity.*;
-import codes.laivy.npc.mappings.utils.classes.entity.ambient.Bat;
-import codes.laivy.npc.mappings.utils.classes.entity.ambient.Egg;
-import codes.laivy.npc.mappings.utils.classes.entity.decoration.ArmorStand;
-import codes.laivy.npc.mappings.utils.classes.gameprofile.GameProfile;
-import codes.laivy.npc.mappings.utils.classes.gameprofile.Property;
-import codes.laivy.npc.mappings.utils.classes.gameprofile.PropertyMap;
-import codes.laivy.npc.mappings.utils.classes.java.*;
-import codes.laivy.npc.mappings.utils.classes.nbt.NBTBase;
-import codes.laivy.npc.mappings.utils.classes.nbt.tags.*;
-import codes.laivy.npc.mappings.utils.classes.others.chat.IChatBaseComponent;
-import codes.laivy.npc.mappings.utils.classes.others.location.*;
-import codes.laivy.npc.mappings.utils.classes.others.managers.PlayerInteractManager;
-import codes.laivy.npc.mappings.utils.classes.others.objects.*;
-import codes.laivy.npc.mappings.utils.classes.others.server.CraftServer;
-import codes.laivy.npc.mappings.utils.classes.others.server.MinecraftServer;
-import codes.laivy.npc.mappings.utils.classes.packets.*;
-import codes.laivy.npc.mappings.utils.classes.scoreboard.CraftScoreboard;
-import codes.laivy.npc.mappings.utils.classes.scoreboard.Scoreboard;
-import codes.laivy.npc.mappings.utils.classes.scoreboard.ScoreboardTeam;
+import codes.laivy.npc.mappings.defaults.VersionCompound;
+import codes.laivy.npc.mappings.defaults.classes.datawatcher.VersionedDataWatcherObject;
+import codes.laivy.npc.mappings.defaults.classes.entity.animal.*;
+import codes.laivy.npc.mappings.defaults.classes.entity.boss.dragon.EnderDragon;
+import codes.laivy.npc.mappings.defaults.classes.entity.boss.dragon.EnderSignal;
+import codes.laivy.npc.mappings.defaults.classes.entity.boss.wither.Wither;
+import codes.laivy.npc.mappings.defaults.classes.entity.boss.wither.WitherSkull;
+import codes.laivy.npc.mappings.defaults.classes.entity.decoration.ItemFrame;
+import codes.laivy.npc.mappings.defaults.classes.entity.decoration.LeashKnot;
+import codes.laivy.npc.mappings.defaults.classes.entity.item.FallingBlock;
+import codes.laivy.npc.mappings.defaults.classes.entity.item.Item;
+import codes.laivy.npc.mappings.defaults.classes.entity.monster.*;
+import codes.laivy.npc.mappings.defaults.classes.entity.monster.skeleton.Skeleton;
+import codes.laivy.npc.mappings.defaults.classes.entity.monster.zombie.Zombie;
+import codes.laivy.npc.mappings.defaults.classes.entity.npc.Villager;
+import codes.laivy.npc.mappings.defaults.classes.entity.npc.VillagerProfession;
+import codes.laivy.npc.mappings.defaults.classes.enums.*;
+import codes.laivy.npc.mappings.defaults.classes.datawatcher.DataWatcher;
+import codes.laivy.npc.mappings.defaults.classes.datawatcher.WatchableObject;
+import codes.laivy.npc.mappings.defaults.classes.entity.*;
+import codes.laivy.npc.mappings.defaults.classes.entity.ambient.Bat;
+import codes.laivy.npc.mappings.defaults.classes.entity.ambient.Egg;
+import codes.laivy.npc.mappings.defaults.classes.entity.decoration.ArmorStand;
+import codes.laivy.npc.mappings.defaults.classes.gameprofile.GameProfile;
+import codes.laivy.npc.mappings.defaults.classes.gameprofile.Property;
+import codes.laivy.npc.mappings.defaults.classes.gameprofile.PropertyMap;
+import codes.laivy.npc.mappings.defaults.classes.java.*;
+import codes.laivy.npc.mappings.defaults.classes.nbt.NBTBase;
+import codes.laivy.npc.mappings.defaults.classes.nbt.tags.*;
+import codes.laivy.npc.mappings.defaults.classes.others.chat.IChatBaseComponent;
+import codes.laivy.npc.mappings.defaults.classes.others.location.*;
+import codes.laivy.npc.mappings.defaults.classes.others.managers.PlayerInteractManager;
+import codes.laivy.npc.mappings.defaults.classes.others.objects.*;
+import codes.laivy.npc.mappings.defaults.classes.others.server.CraftServer;
+import codes.laivy.npc.mappings.defaults.classes.others.server.MinecraftServer;
+import codes.laivy.npc.mappings.defaults.classes.packets.*;
+import codes.laivy.npc.mappings.defaults.classes.scoreboard.CraftScoreboard;
+import codes.laivy.npc.mappings.defaults.classes.scoreboard.Scoreboard;
+import codes.laivy.npc.mappings.defaults.classes.scoreboard.ScoreboardTeam;
 import codes.laivy.npc.utils.ClassUtils;
 import codes.laivy.npc.utils.NonLivingEntityType;
 import com.google.common.collect.Multimap;
@@ -60,7 +64,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
 import static codes.laivy.npc.LaivyNPC.laivynpc;
-import static codes.laivy.npc.mappings.utils.classes.others.objects.ItemStack.*;
+import static codes.laivy.npc.mappings.defaults.classes.others.objects.ItemStack.*;
 
 public class V1_8_R1 extends Version {
 
@@ -201,7 +205,7 @@ public class V1_8_R1 extends Version {
             load(V1_8_R1.class, "BlockPosition", new BlockPosition.BlockPositionClass("net.minecraft.server.v1_8_R1.BlockPosition"));
             load(V1_8_R1.class, "CraftBlock", new CraftBlock.CraftBlockClass("org.bukkit.craftbukkit.v1_8_R1.block.CraftBlock"));
             load(V1_8_R1.class, "IBlockData", new IBlockData.IBlockDataClass("net.minecraft.server.v1_8_R1.IBlockData"));
-            load(V1_8_R1.class, "Block", new codes.laivy.npc.mappings.utils.classes.others.objects.Block.BlockClass("net.minecraft.server.v1_8_R1.Block"));
+            load(V1_8_R1.class, "Block", new codes.laivy.npc.mappings.defaults.classes.others.objects.Block.BlockClass("net.minecraft.server.v1_8_R1.Block"));
             load(V1_8_R1.class, "CraftMagicNumbers", new ClassExecutor("org.bukkit.craftbukkit.v1_8_R1.util.CraftMagicNumbers"));
             //
 
@@ -801,23 +805,23 @@ public class V1_8_R1 extends Version {
         } else if (type == Entity.EntityType.HORSE) {
             Object object = getClassExec("Entity:Horse").getConstructor(getClassExec("World")).newInstance(CraftWorld.getCraftWorld(location.getWorld()).getHandle());
             entity = new Horse(object);
-            ((Horse) entity).setType(Horse.Type.HORSE);
+            laivynpc().getVersion().setEntityHorseType((AbstractHorse) entity, AbstractHorse.Type.HORSE);
         } else if (type == Entity.EntityType.HORSE_DONKEY) {
             Object object = getClassExec("Entity:Horse").getConstructor(getClassExec("World")).newInstance(CraftWorld.getCraftWorld(location.getWorld()).getHandle());
-            entity = new Horse(object);
-            ((Horse) entity).setType(Horse.Type.DONKEY);
+            entity = new HorseDonkey(object);
+            laivynpc().getVersion().setEntityHorseType((AbstractHorse) entity, AbstractHorse.Type.DONKEY);
         } else if (type == Entity.EntityType.HORSE_MULE) {
             Object object = getClassExec("Entity:Horse").getConstructor(getClassExec("World")).newInstance(CraftWorld.getCraftWorld(location.getWorld()).getHandle());
-            entity = new Horse(object);
-            ((Horse) entity).setType(Horse.Type.MULE);
+            entity = new HorseMule(object);
+            laivynpc().getVersion().setEntityHorseType((AbstractHorse) entity, AbstractHorse.Type.MULE);
         } else if (type == Entity.EntityType.HORSE_SKELETON) {
             Object object = getClassExec("Entity:Horse").getConstructor(getClassExec("World")).newInstance(CraftWorld.getCraftWorld(location.getWorld()).getHandle());
-            entity = new Horse(object);
-            ((Horse) entity).setType(Horse.Type.SKELETON);
+            entity = new HorseSkeleton(object);
+            laivynpc().getVersion().setEntityHorseType((AbstractHorse) entity, AbstractHorse.Type.SKELETON);
         } else if (type == Entity.EntityType.HORSE_ZOMBIE) {
             Object object = getClassExec("Entity:Horse").getConstructor(getClassExec("World")).newInstance(CraftWorld.getCraftWorld(location.getWorld()).getHandle());
-            entity = new Horse(object);
-            ((Horse) entity).setType(Horse.Type.ZOMBIE);
+            entity = new HorseZombie(object);
+            laivynpc().getVersion().setEntityHorseType((AbstractHorse) entity, AbstractHorse.Type.ZOMBIE);
         } else if (type == Entity.EntityType.COW) {
             Object object = getClassExec("Entity:Cow").getConstructor(getClassExec("World")).newInstance(CraftWorld.getCraftWorld(location.getWorld()).getHandle());
             entity = new Cow(object);
@@ -881,6 +885,10 @@ public class V1_8_R1 extends Version {
         } else if (type == Entity.EntityType.SKELETON) {
             Object object = getClassExec("Entity:Skeleton").getConstructor(getClassExec("World")).newInstance(CraftWorld.getCraftWorld(location.getWorld()).getHandle());
             entity = new Skeleton(object);
+        } else if (type == Entity.EntityType.SKELETON_WITHER) {
+            Object object = getClassExec("Entity:Skeleton").getConstructor(getClassExec("World")).newInstance(CraftWorld.getCraftWorld(location.getWorld()).getHandle());
+            entity = new SkeletonWither(object);
+            setEntitySkeletonType((Skeleton) entity, Skeleton.Type.WITHER);
         } else if (type == Entity.EntityType.SLIME) {
             Object object = getClassExec("Entity:Slime").getConstructor(getClassExec("World")).newInstance(CraftWorld.getCraftWorld(location.getWorld()).getHandle());
             entity = new Slime(object);
@@ -893,6 +901,10 @@ public class V1_8_R1 extends Version {
         } else if (type == Entity.EntityType.ZOMBIE) {
             Object object = getClassExec("Entity:Zombie").getConstructor(getClassExec("World")).newInstance(CraftWorld.getCraftWorld(location.getWorld()).getHandle());
             entity = new Zombie(object);
+        } else if (type == Entity.EntityType.ZOMBIE_VILLAGER) {
+            Object object = getClassExec("Entity:Zombie").getConstructor(getClassExec("World")).newInstance(CraftWorld.getCraftWorld(location.getWorld()).getHandle());
+            entity = new ZombieVillager(object);
+            setEntityZombieType((Zombie) entity, Zombie.Type.VILLAGER);
         } else if (type == Entity.EntityType.VILLAGER) {
             Object object = getClassExec("Entity:Villager").getConstructor(getClassExec("World")).newInstance(CraftWorld.getCraftWorld(location.getWorld()).getHandle());
             entity = new Villager(object);
@@ -966,12 +978,12 @@ public class V1_8_R1 extends Version {
     }
 
     @Override
-    public @NotNull Horse.Type getEntityHorseType(@NotNull Horse horse) {
+    public @NotNull Horse.Type getEntityHorseType(@NotNull AbstractHorse horse) {
         //noinspection DataFlowIssue
-        return Horse.Type.getById((int) getMethodExec("Entity:Horse:getType").invokeInstance(horse));
+        return AbstractHorse.Type.getById((int) getMethodExec("Entity:Horse:getType").invokeInstance(horse));
     }
     @Override
-    public void setEntityHorseType(@NotNull Horse horse, Horse.@NotNull Type type) {
+    public void setEntityHorseType(@NotNull AbstractHorse horse, Horse.@NotNull Type type) {
         getMethodExec("Entity:Horse:setType").invokeInstance(horse, new IntegerObjExec(type.getId()));
     }
 

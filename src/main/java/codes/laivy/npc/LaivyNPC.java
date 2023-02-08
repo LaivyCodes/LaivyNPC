@@ -4,7 +4,7 @@ import codes.laivy.npc.commands.NPCCommands;
 import codes.laivy.npc.listeners.InjectionListener;
 import codes.laivy.npc.listeners.NPCListener;
 import codes.laivy.npc.mappings.Version;
-import codes.laivy.npc.mappings.utils.classes.packets.listeners.InjectionUtils;
+import codes.laivy.npc.mappings.defaults.classes.packets.listeners.InjectionUtils;
 import codes.laivy.npc.metrics.Metrics;
 import codes.laivy.npc.types.NPC;
 import codes.laivy.npc.utils.LaivyNPCUpdater;
@@ -32,10 +32,7 @@ public class LaivyNPC extends JavaPlugin {
         return getPlugin(LaivyNPC.class);
     }
 
-    public boolean hasSkript() {
-        return Bukkit.getPluginManager().isPluginEnabled("Skript");
-    }
-    public boolean hasLvML() {
+    public boolean hasMultiplesLanguagesSupport() {
         return Bukkit.getPluginManager().isPluginEnabled("LvMultiplesLanguages");
     }
 

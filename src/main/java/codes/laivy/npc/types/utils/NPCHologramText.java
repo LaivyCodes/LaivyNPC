@@ -1,8 +1,8 @@
 package codes.laivy.npc.types.utils;
 
 import codes.laivy.npc.LaivyNPC;
-import codes.laivy.npc.mappings.utils.classes.entity.Entity;
-import codes.laivy.npc.mappings.utils.classes.entity.decoration.ArmorStand;
+import codes.laivy.npc.mappings.defaults.classes.entity.Entity;
+import codes.laivy.npc.mappings.defaults.classes.entity.decoration.ArmorStand;
 import codes.laivy.npc.types.NPC;
 import org.bukkit.ChatColor;
 import org.jetbrains.annotations.NotNull;

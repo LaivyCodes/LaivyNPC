@@ -1,7 +1,7 @@
 package codes.laivy.npc.types.list.decoration;
 
-import codes.laivy.npc.mappings.utils.classes.entity.Entity;
-import codes.laivy.npc.mappings.utils.classes.entity.decoration.ItemFrame;
+import codes.laivy.npc.mappings.defaults.classes.entity.Entity;
+import codes.laivy.npc.mappings.defaults.classes.entity.decoration.ItemFrame;
 import codes.laivy.npc.types.EntityNPC;
 import codes.laivy.npc.types.NPC;
 import codes.laivy.npc.types.commands.NPCConfiguration;
@@ -20,8 +20,8 @@ import static codes.laivy.npc.config.Translate.translate;
 
 public class ItemFrameNPC extends EntityNPC {
 
-    public static @NotNull ItemFrameNPC fastInstance(@NotNull List<OfflinePlayer> player, @NotNull Location location, @Nullable Object object) {
-        return new ItemFrameNPC(player, location);
+    public static @NotNull ItemFrameNPC fastInstance(@NotNull List<OfflinePlayer> players, @NotNull Location location, @Nullable Object object) {
+        return new ItemFrameNPC(players, location);
     }
 
     public static void debug(@NotNull Location location) {
