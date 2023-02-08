@@ -75,6 +75,10 @@ public class ZombieNPC extends EntityLivingNPC {
                         Type type;
                         try {
                             type = Type.valueOf(args[0].toUpperCase());
+                            if (!type.isCompatible()) {
+                                return;
+                            }
+
                             zombieNPC.setType(type);
                             sender.sendMessage(translate(sender, "npc.commands.general.flag_changed"));
                             return;
@@ -131,7 +135,7 @@ public class ZombieNPC extends EntityLivingNPC {
         Map<String, Object> map = super.serialize();
         map.put("ZombieNPC Configuration", new HashMap<String, Object>() {{
             if (getType() != null) {
-                put("Villager", getType().name());
+                put("Type", getType().name());
             }
         }});
 
@@ -142,8 +146,11 @@ public class ZombieNPC extends EntityLivingNPC {
         ZombieNPC npc = (ZombieNPC) EntityLivingNPC.deserialize(section);
 
         section = section.getConfigurationSection("ZombieNPC Configuration");
-        if (section.contains("Villager")) {
-            npc.setType(Type.valueOf(section.getString("Villager").toUpperCase()));
+        if (section.contains("Type")) {
+            Type type = Type.valueOf(section.getString("Type").toUpperCase());
+            if (type.isCompatible()) {
+                npc.setType(type);
+            }
         }
 
         return npc;

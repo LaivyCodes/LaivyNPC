@@ -24,4 +24,15 @@ public class EnumObjExec extends ObjectExecutor {
     public @NotNull ClassExecutor getClassExecutor() {
         return ClassExecutor.ENUM;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof EnumObjExec) {
+            EnumObjExec enumObjExec = (EnumObjExec) obj;
+            if (enumObjExec.getValue() != null && getValue() != null) {
+                return getValue().equals(enumObjExec.getValue());
+            }
+        }
+        return super.equals(obj);
+    }
 }

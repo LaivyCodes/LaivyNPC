@@ -3,6 +3,7 @@ package codes.laivy.npc.types.list.monster;
 import codes.laivy.npc.mappings.utils.classes.entity.Entity;
 import codes.laivy.npc.mappings.utils.classes.entity.monster.Shulker;
 import codes.laivy.npc.mappings.utils.classes.enums.EnumDirectionEnum;
+import codes.laivy.npc.mappings.utils.classes.enums.EnumDirectionEnum.EnumDirection;
 import codes.laivy.npc.mappings.utils.classes.java.EnumObjExec;
 import codes.laivy.npc.types.EntityLivingNPC;
 import codes.laivy.npc.types.NPC;
@@ -19,7 +20,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static codes.laivy.npc.LaivyNPC.laivynpc;
 import static codes.laivy.npc.config.Translate.translate;
 
 public class ShulkerNPC extends EntityLivingNPC {
@@ -71,12 +71,12 @@ public class ShulkerNPC extends EntityLivingNPC {
             @Override
             public void execute(@NotNull NPC npc, @NotNull Player sender, @NotNull String[] args) {
                 ShulkerNPC shulkerNPC = (ShulkerNPC) npc;
-                EnumDirectionEnum dEnum = (EnumDirectionEnum) laivynpc().getVersion().getEnumExec("EnumDirection");
+                EnumDirectionEnum dEnum = EnumDirectionEnum.getInstance();
 
                 if (args.length > 0) {
-                    EnumDirectionEnum.EnumDirection type;
+                    EnumDirection type;
                     try {
-                        type = new EnumDirectionEnum.EnumDirection(dEnum.valueOf(args[0].toUpperCase()).getValue());
+                        type = new EnumDirection(dEnum.valueOf(args[0].toUpperCase()).getValue());
                         shulkerNPC.setDirection(type);
                         sender.sendMessage(translate(sender, "npc.commands.general.flag_changed"));
                         return;
@@ -108,10 +108,10 @@ public class ShulkerNPC extends EntityLivingNPC {
         sendUpdatePackets(getSpawnedPlayers(), false, false, true, false, false, false);
     }
 
-    public @NotNull EnumDirectionEnum.EnumDirection getDirection() {
+    public @NotNull EnumDirection getDirection() {
         return getEntity().getDirection();
     }
-    public void setDirection(@NotNull EnumDirectionEnum.EnumDirection direction) {
+    public void setDirection(@NotNull EnumDirection direction) {
         getEntity().setDirection(direction);
         sendUpdatePackets(getSpawnedPlayers(), false, false, true, false, false, false);
     }
@@ -138,7 +138,7 @@ public class ShulkerNPC extends EntityLivingNPC {
 
         section = section.getConfigurationSection("ShulkerNPC Configuration");
         npc.setPeek(section.getInt("Peek"));
-        npc.setDirection(new EnumDirectionEnum.EnumDirection(laivynpc().getVersion().getEnumExec("EnumDirection").valueOf(section.getString("Direction").toUpperCase()).getValue()));
+        npc.setDirection(new EnumDirection(EnumDirectionEnum.getInstance().valueOf(section.getString("Direction").toUpperCase()).getValue()));
 
         return npc;
     }

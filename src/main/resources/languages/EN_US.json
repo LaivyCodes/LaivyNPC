@@ -70,6 +70,7 @@
   "npc.commands.items": " §8- §7Items changing mode activated\n\n §8- §7Perform a §6rightclick §7on the NPC to add\n §8- §7Perform a §6shiftclick + rightclick §7on the NPC to add to the main hand\n §8- §7Perform a §6leftclick §7on the NPC to add to the off hand\n §8- §7Click with the §cempty hands §7on the NPC to clear all items\n\n§cTo left the item changing mode, type the command again.\n",
   "npc.commands.items.left": " §8- §cYou left from the item changing mode.",
   "npc.commands.items.cleared": " §8- §cYou cleared the items from the NPC",
+  "npc.commands.items.offhand_incompatible": " §8- §cThis version doesn't supports offhand equipments.",
 
   "npc.commands.click.removed": "§8 - §7The click actions has been removed",
   "npc.commands.click.changed": "§8 - §7Action changed successfully!",

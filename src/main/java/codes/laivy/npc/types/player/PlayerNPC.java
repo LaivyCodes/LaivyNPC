@@ -1,9 +1,7 @@
 package codes.laivy.npc.types.player;
 
 import codes.laivy.npc.exceptions.NPCIllegalSkinException;
-import codes.laivy.npc.mappings.instances.FieldExecutor;
 import codes.laivy.npc.mappings.utils.classes.datawatcher.DataWatcher;
-import codes.laivy.npc.mappings.utils.classes.datawatcher.DataWatcherObject;
 import codes.laivy.npc.mappings.utils.classes.entity.EntityPlayer;
 import codes.laivy.npc.mappings.utils.classes.enums.*;
 import codes.laivy.npc.mappings.utils.classes.gameprofile.GameProfile;
@@ -27,7 +25,6 @@ import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.io.IOException;
 import java.util.*;
 
 import static codes.laivy.npc.LaivyNPC.laivynpc;
@@ -126,7 +123,7 @@ public class PlayerNPC extends NPC {
     public void spawn(@NotNull Player player) {
         setCanSpawn(true);
 
-        ReflectionUtils.sendPacketToPlayer(getNPCSpawnPackets(player), player);
+        ReflectionUtils.sendPacketToPlayer(getSpawnPackets(player), player);
         getSpawnedPlayers().add(player.getUniqueId());
 
         NPCHeadRotation current = getHeadRotation();
@@ -185,7 +182,7 @@ public class PlayerNPC extends NPC {
     }
 
     @Override
-    public @NotNull List<Packet> getNPCSpawnPackets(@NotNull Player player) {
+    public @NotNull List<Packet> getSpawnPackets(@NotNull Player player) {
         List<@NotNull Packet> packets = new LinkedList<>();
 
         packets.add(laivynpc().getVersion().createPlayerInfoPacket(EnumPlayerInfoActionEnum.ADD_PLAYER(), getEntity()));
@@ -201,7 +198,7 @@ public class PlayerNPC extends NPC {
         return packets;
     }
     @Override
-    public @NotNull List<Packet> getNPCDestroyPackets(@NotNull Player player) {
+    public @NotNull List<Packet> getDestroyPackets(@NotNull Player player) {
         List<@NotNull Packet> packets = new LinkedList<>();
 
         packets.add(laivynpc().getVersion().createDestroyPacket(getEntity()));

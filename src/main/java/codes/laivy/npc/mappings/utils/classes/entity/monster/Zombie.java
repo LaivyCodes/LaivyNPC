@@ -23,7 +23,11 @@ public class Zombie extends EntityLiving {
     }
 
     public @Nullable Zombie.Type getType() {
-        return laivynpc().getVersion().getEntityZombieType(this);
+        if (ReflectionUtils.isCompatible(V1_9_R1.class)) {
+            return laivynpc().getVersion().getEntityZombieType(this);
+        } else {
+            return null;
+        }
     }
     public void setType(@Nullable Zombie.Type type) {
         laivynpc().getVersion().setEntityZombieType(this, type);

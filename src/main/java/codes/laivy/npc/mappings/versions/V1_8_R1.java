@@ -1240,7 +1240,11 @@ public class V1_8_R1 extends Version {
 
     @Override
     public @NotNull EntityEquipmentPacket createEquipmentPacket(@NotNull Entity entity, @NotNull EnumItemSlotEnum.EnumItemSlot slot, @NotNull ItemStack item) {
-        Object packet = getClassExec("PacketPlayOutEntityEquipment").getConstructor(ClassExecutor.INT, ClassExecutor.INT, getClassExec("ItemStack")).newInstance(new IntegerObjExec(entity.getId()), new IntegerObjExec(slot.getSlot()), getNMSItemStack(item));
+        if (slot == EnumItemSlotEnum.EnumItemSlot.OFFHAND) {
+            throw new IllegalArgumentException("The offhand equipment slot is available only at 1.9+");
+        }
+
+        Object packet = getClassExec("PacketPlayOutEntityEquipment").getConstructor(ClassExecutor.INT, ClassExecutor.INT, getClassExec("ItemStack")).newInstance(new IntegerObjExec(entity.getId()), new IntegerObjExec(slot.getId()), getNMSItemStack(item));
         return new EntityEquipmentPacket(packet);
     }
 

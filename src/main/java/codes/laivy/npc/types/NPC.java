@@ -11,7 +11,6 @@ import codes.laivy.npc.mappings.utils.classes.enums.EntityPose;
 import codes.laivy.npc.mappings.utils.classes.enums.EnumChatFormatEnum;
 import codes.laivy.npc.mappings.utils.classes.enums.EnumChatFormatEnum.EnumChatFormat;
 import codes.laivy.npc.mappings.utils.classes.enums.EnumItemSlotEnum;
-import codes.laivy.npc.mappings.utils.classes.enums.EnumItemSlotEnum.EnumItemSlot;
 import codes.laivy.npc.mappings.utils.classes.packets.EntityMetadataPacket;
 import codes.laivy.npc.mappings.utils.classes.packets.Packet;
 import codes.laivy.npc.mappings.versions.V1_9_R1;
@@ -143,8 +142,8 @@ public abstract class NPC {
     private boolean saveable = true;
 
     // Packets
-    public abstract @NotNull List<@NotNull Packet> getNPCSpawnPackets(@NotNull Player player);
-    public abstract @NotNull List<@NotNull Packet> getNPCDestroyPackets(@NotNull Player player);
+    public abstract @NotNull List<@NotNull Packet> getSpawnPackets(@NotNull Player player);
+    public abstract @NotNull List<@NotNull Packet> getDestroyPackets(@NotNull Player player);
 
     public abstract @NotNull List<@NotNull Packet> getMetadataUpdatePackets(@NotNull Player player);
     public abstract @NotNull List<@NotNull Packet> getScoreboardUpdatePackets(@NotNull Player player);
@@ -165,7 +164,7 @@ public abstract class NPC {
     //
 
     // Attributes
-    private final Map<@NotNull EnumItemSlot, @NotNull ItemStack> equipments = new HashMap<>();
+    private final Map<EnumItemSlotEnum.@NotNull EnumItemSlot, @NotNull ItemStack> equipments = new HashMap<>();
     private boolean onFire = false;
     //
 
@@ -289,12 +288,12 @@ public abstract class NPC {
         setOnFire(true);
         setLocation(getLocation().add(0, 1, 0));
         setLocation(getLocation().add(0, -1, 0));
-        setItem(EnumItemSlotEnum.HEAD(), new ItemStack(Material.DIAMOND_HELMET));
-        setItem(EnumItemSlotEnum.CHEST(), new ItemStack(Material.DIAMOND_CHESTPLATE));
-        setItem(EnumItemSlotEnum.LEGS(), new ItemStack(Material.DIAMOND_LEGGINGS));
-        setItem(EnumItemSlotEnum.FEET(), new ItemStack(Material.DIAMOND_BOOTS));
-        setItem(EnumItemSlotEnum.MAINHAND(), new ItemStack(Material.DIAMOND_SWORD));
-        setItem(EnumItemSlotEnum.OFFHAND(), new ItemStack(Material.DIAMOND_PICKAXE));
+        setItem(EnumItemSlotEnum.EnumItemSlot.HEAD, new ItemStack(Material.DIAMOND_HELMET));
+        setItem(EnumItemSlotEnum.EnumItemSlot.CHEST, new ItemStack(Material.DIAMOND_CHESTPLATE));
+        setItem(EnumItemSlotEnum.EnumItemSlot.LEGS, new ItemStack(Material.DIAMOND_LEGGINGS));
+        setItem(EnumItemSlotEnum.EnumItemSlot.FEET, new ItemStack(Material.DIAMOND_BOOTS));
+        setItem(EnumItemSlotEnum.EnumItemSlot.MAINHAND, new ItemStack(Material.DIAMOND_SWORD));
+        setItem(EnumItemSlotEnum.EnumItemSlot.OFFHAND, new ItemStack(Material.DIAMOND_PICKAXE));
         getHolograms().setLine(3, new NPCHologramText("§7LaivyNPC", this));
         getHolograms().setLine(2, new NPCHologramText("§eThe best NPCs plugin :)", this));
         getHolograms().setLine(0, new NPCHologramText("§0Lets goo", this));
@@ -485,7 +484,7 @@ public abstract class NPC {
 
         setCanSpawn(true);
 
-        ReflectionUtils.sendPacketToPlayer(getNPCSpawnPackets(player), player);
+        ReflectionUtils.sendPacketToPlayer(getSpawnPackets(player), player);
 
         getSpawnedPlayers().add(player.getUniqueId());
 
@@ -496,7 +495,7 @@ public abstract class NPC {
         Validation.isTrue(isDestroyed(), new IllegalStateException("This NPC is destroyed, you need to recreate it."));
         Validation.isTrue(!Bukkit.isPrimaryThread(), new IllegalStateException("This method needs to be executed in bukkit's primary thread!"));
 
-        ReflectionUtils.sendPacketToPlayer(getNPCDestroyPackets(player), player);
+        ReflectionUtils.sendPacketToPlayer(getDestroyPackets(player), player);
         getHolograms().hideHolograms(Collections.singletonList(player));
 
         getSpawnedPlayers().remove(player.getUniqueId());
@@ -583,10 +582,10 @@ public abstract class NPC {
 
     // Attributes
     @ApiStatus.Internal
-    protected @NotNull Map<@NotNull EnumItemSlot, @NotNull ItemStack> getEquipments() {
+    protected @NotNull Map<EnumItemSlotEnum.@NotNull EnumItemSlot, @NotNull ItemStack> getEquipments() {
         return equipments;
     }
-    public void setItem(@NotNull EnumItemSlot slot, @Nullable ItemStack item) {
+    public void setItem(EnumItemSlotEnum.@NotNull EnumItemSlot slot, @Nullable ItemStack item) {
         if (item == null) {
             getEquipments().remove(slot);
             respawn();
@@ -597,7 +596,7 @@ public abstract class NPC {
 
         sendUpdatePackets(getSpawnedPlayers(), false, true, false, false, false, false);
     }
-    public @Nullable ItemStack getItem(@NotNull EnumItemSlot slot) {
+    public @Nullable ItemStack getItem(EnumItemSlotEnum.@NotNull EnumItemSlot slot) {
         if (getEquipments().containsKey(slot)) {
             return getEquipments().get(slot);
         } return null;
@@ -1348,12 +1347,12 @@ public abstract class NPC {
             //
 
             ItemStack item;
-            if ((item = getItem(EnumItemSlotEnum.HEAD())) != null) equipments.put("Head", item.serialize());
-            if ((item = getItem(EnumItemSlotEnum.CHEST())) != null) equipments.put("Chest", item.serialize());
-            if ((item = getItem(EnumItemSlotEnum.LEGS())) != null) equipments.put("Legs", item.serialize());
-            if ((item = getItem(EnumItemSlotEnum.FEET())) != null) equipments.put("Feet", item.serialize());
-            if ((item = getItem(EnumItemSlotEnum.MAINHAND())) != null) equipments.put("Main Hand", item.serialize());
-            if ((item = getItem(EnumItemSlotEnum.OFFHAND())) != null) equipments.put("Off Hand", item.serialize());
+            if ((item = getItem(EnumItemSlotEnum.EnumItemSlot.HEAD)) != null) equipments.put("Head", item.serialize());
+            if ((item = getItem(EnumItemSlotEnum.EnumItemSlot.CHEST)) != null) equipments.put("Chest", item.serialize());
+            if ((item = getItem(EnumItemSlotEnum.EnumItemSlot.LEGS)) != null) equipments.put("Legs", item.serialize());
+            if ((item = getItem(EnumItemSlotEnum.EnumItemSlot.FEET)) != null) equipments.put("Feet", item.serialize());
+            if ((item = getItem(EnumItemSlotEnum.EnumItemSlot.MAINHAND)) != null) equipments.put("Main Hand", item.serialize());
+            if ((item = getItem(EnumItemSlotEnum.EnumItemSlot.OFFHAND)) != null) equipments.put("Off Hand", item.serialize());
 
             map.put("Equipments", equipments);
 
@@ -1444,7 +1443,7 @@ public abstract class NPC {
         }
 
         //
-        // Appearence
+        // Appearance
         try {
             ConfigurationSection appearence = map.getConfigurationSection("Appearance");
 
@@ -1454,14 +1453,14 @@ public abstract class NPC {
 
                     boolean enabled = glow.getBoolean("Enabled");
 
-                    EnumChatFormatEnum enumClass = (EnumChatFormatEnum) laivynpc().getVersion().getEnumExec("EnumChatFormat");
+                    EnumChatFormatEnum enumClass = EnumChatFormatEnum.getInstance();
                     if (glow.contains("Rainbow")) {
                         int interval = glow.getInt("Interval (ticks)");
                         EnumChatFormat[] colors = new EnumChatFormat[glow.getList("Rainbow Colors").size()];
 
                         int row = 0;
                         for (Object color : glow.getList("Rainbow Colors")) {
-                            colors[row] = new EnumChatFormat(laivynpc().getVersion().getEnumExec("EnumChatFormat").valueOf(color.toString()).getValue());
+                            colors[row] = new EnumChatFormat(EnumChatFormatEnum.getInstance().valueOf(color.toString()).getValue());
                             row++;
                         }
 
@@ -1567,12 +1566,12 @@ public abstract class NPC {
         try {
             ConfigurationSection equipments = map.getConfigurationSection("Equipments");
 
-            if (equipments.contains("Head")) setItem(EnumItemSlotEnum.HEAD(), ItemStack.deserialize(equipments.getConfigurationSection("Head").getValues(true)));
-            if (equipments.contains("Chest")) setItem(EnumItemSlotEnum.CHEST(), ItemStack.deserialize(equipments.getConfigurationSection("Chest").getValues(true)));
-            if (equipments.contains("Legs")) setItem(EnumItemSlotEnum.LEGS(), ItemStack.deserialize(equipments.getConfigurationSection("Legs").getValues(true)));
-            if (equipments.contains("Feet")) setItem(EnumItemSlotEnum.FEET(), ItemStack.deserialize(equipments.getConfigurationSection("Feet").getValues(true)));
-            if (equipments.contains("Main Hand")) setItem(EnumItemSlotEnum.MAINHAND(), ItemStack.deserialize(equipments.getConfigurationSection("Main Hand").getValues(true)));
-            if (equipments.contains("Off Hand")) setItem(EnumItemSlotEnum.OFFHAND(), ItemStack.deserialize(equipments.getConfigurationSection("Off Hand").getValues(true)));
+            if (equipments.contains("Head")) setItem(EnumItemSlotEnum.EnumItemSlot.HEAD, ItemStack.deserialize(equipments.getConfigurationSection("Head").getValues(true)));
+            if (equipments.contains("Chest")) setItem(EnumItemSlotEnum.EnumItemSlot.CHEST, ItemStack.deserialize(equipments.getConfigurationSection("Chest").getValues(true)));
+            if (equipments.contains("Legs")) setItem(EnumItemSlotEnum.EnumItemSlot.LEGS, ItemStack.deserialize(equipments.getConfigurationSection("Legs").getValues(true)));
+            if (equipments.contains("Feet")) setItem(EnumItemSlotEnum.EnumItemSlot.FEET, ItemStack.deserialize(equipments.getConfigurationSection("Feet").getValues(true)));
+            if (equipments.contains("Main Hand")) setItem(EnumItemSlotEnum.EnumItemSlot.MAINHAND, ItemStack.deserialize(equipments.getConfigurationSection("Main Hand").getValues(true)));
+            if (equipments.contains("Off Hand")) setItem(EnumItemSlotEnum.EnumItemSlot.OFFHAND, ItemStack.deserialize(equipments.getConfigurationSection("Off Hand").getValues(true)));
         } catch (Exception e) {
             e.printStackTrace();
             laivynpc().log("§cCouldn't load the items of the NPC '" + getId() + "'!");

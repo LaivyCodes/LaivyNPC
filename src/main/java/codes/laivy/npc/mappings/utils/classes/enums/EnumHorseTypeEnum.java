@@ -9,39 +9,30 @@ import org.jetbrains.annotations.Nullable;
 import static codes.laivy.npc.LaivyNPC.laivynpc;
 
 public class EnumHorseTypeEnum extends EnumExecutor {
+
+    public static @NotNull EnumHorseTypeEnum getInstance() {
+        return (EnumHorseTypeEnum) laivynpc().getVersion().getEnumExec("EnumHorseType");
+    }
+
     public static @NotNull EnumHorseType HORSE() {
-        EnumExecutor enumExec = laivynpc().getVersion().getEnumExec("EnumHorseType");
         String name = laivynpc().getVersion().getText("EnumHorseType:HORSE");
-
-        return new EnumHorseType(enumExec.getEnums().get(name).getValue());
+        return new EnumHorseType(getInstance().getEnums().get(name).getValue());
     }
-
     public static @NotNull EnumHorseType DONKEY() {
-        EnumExecutor enumExec = laivynpc().getVersion().getEnumExec("EnumHorseType");
         String name = laivynpc().getVersion().getText("EnumHorseType:DONKEY");
-
-        return new EnumHorseType(enumExec.getEnums().get(name).getValue());
+        return new EnumHorseType(getInstance().getEnums().get(name).getValue());
     }
-
     public static @NotNull EnumHorseType MULE() {
-        EnumExecutor enumExec = laivynpc().getVersion().getEnumExec("EnumHorseType");
         String name = laivynpc().getVersion().getText("EnumHorseType:MULE");
-
-        return new EnumHorseType(enumExec.getEnums().get(name).getValue());
+        return new EnumHorseType(getInstance().getEnums().get(name).getValue());
     }
-
     public static @NotNull EnumHorseType ZOMBIE() {
-        EnumExecutor enumExec = laivynpc().getVersion().getEnumExec("EnumHorseType");
         String name = laivynpc().getVersion().getText("EnumHorseType:ZOMBIE");
-
-        return new EnumHorseType(enumExec.getEnums().get(name).getValue());
+        return new EnumHorseType(getInstance().getEnums().get(name).getValue());
     }
-
     public static @NotNull EnumHorseType SKELETON() {
-        EnumExecutor enumExec = laivynpc().getVersion().getEnumExec("EnumHorseType");
         String name = laivynpc().getVersion().getText("EnumHorseType:SKELETON");
-
-        return new EnumHorseType(enumExec.getEnums().get(name).getValue());
+        return new EnumHorseType(getInstance().getEnums().get(name).getValue());
     }
 
     public EnumHorseTypeEnum(@NotNull ClassExecutor classExecutor) {

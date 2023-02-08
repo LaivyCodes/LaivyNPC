@@ -3,6 +3,8 @@ package codes.laivy.npc.mappings.utils.classes.enums;
 import codes.laivy.npc.mappings.instances.EnumExecutor;
 import codes.laivy.npc.mappings.instances.classes.ClassExecutor;
 import codes.laivy.npc.mappings.utils.classes.java.EnumObjExec;
+import codes.laivy.npc.mappings.versions.V1_9_R1;
+import codes.laivy.npc.utils.ReflectionUtils;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
@@ -11,106 +13,108 @@ import static codes.laivy.npc.LaivyNPC.laivynpc;
 
 public class EnumItemSlotEnum extends EnumExecutor {
 
+    public static @NotNull EnumItemSlotEnum getInstance() {
+        return (EnumItemSlotEnum) laivynpc().getVersion().getEnumExec("EnumItemSlot");
+    }
+
+    public static @NotNull EnumItemSlotEnum.EnumItemSlotExec MAINHAND() {
+        if (!ReflectionUtils.isCompatible(V1_9_R1.class)) {
+            throw new IllegalStateException("The EnumItemSlot enums is only available at 1.9+");
+        }
+
+        String name = laivynpc().getVersion().getText("EnumItemSlot:MAINHAND");
+        return new EnumItemSlotExec(Objects.requireNonNull(getInstance().getEnums().get(name).getValue()));
+    }
+    public static @NotNull EnumItemSlotEnum.EnumItemSlotExec OFFHAND() {
+        if (!ReflectionUtils.isCompatible(V1_9_R1.class)) {
+            throw new IllegalStateException("The EnumItemSlot enums is only available at 1.9+");
+        }
+
+        String name = laivynpc().getVersion().getText("EnumItemSlot:OFFHAND");
+        return new EnumItemSlotExec(Objects.requireNonNull(getInstance().getEnums().get(name).getValue()));
+    }
+    public static @NotNull EnumItemSlotEnum.EnumItemSlotExec HEAD() {
+        if (!ReflectionUtils.isCompatible(V1_9_R1.class)) {
+            throw new IllegalStateException("The EnumItemSlot enums is only available at 1.9+");
+        }
+
+        String name = laivynpc().getVersion().getText("EnumItemSlot:HEAD");
+        return new EnumItemSlotExec(Objects.requireNonNull(getInstance().getEnums().get(name).getValue()));
+    }
+    public static @NotNull EnumItemSlotEnum.EnumItemSlotExec CHEST() {
+        if (!ReflectionUtils.isCompatible(V1_9_R1.class)) {
+            throw new IllegalStateException("The EnumItemSlot enums is only available at 1.9+");
+        }
+
+        String name = laivynpc().getVersion().getText("EnumItemSlot:CHEST");
+        return new EnumItemSlotExec(Objects.requireNonNull(getInstance().getEnums().get(name).getValue()));
+    }
+    public static @NotNull EnumItemSlotEnum.EnumItemSlotExec LEGS() {
+        if (!ReflectionUtils.isCompatible(V1_9_R1.class)) {
+            throw new IllegalStateException("The EnumItemSlot enums is only available at 1.9+");
+        }
+
+        String name = laivynpc().getVersion().getText("EnumItemSlot:LEGS");
+        return new EnumItemSlotExec(Objects.requireNonNull(getInstance().getEnums().get(name).getValue()));
+    }
+    public static @NotNull EnumItemSlotEnum.EnumItemSlotExec FEET() {
+        if (!ReflectionUtils.isCompatible(V1_9_R1.class)) {
+            throw new IllegalStateException("The EnumItemSlot enums is only available at 1.9+");
+        }
+
+        String name = laivynpc().getVersion().getText("EnumItemSlot:FEET");
+        return new EnumItemSlotExec(Objects.requireNonNull(getInstance().getEnums().get(name).getValue()));
+    }
+
     public EnumItemSlotEnum(@NotNull ClassExecutor classExecutor) {
         super(classExecutor);
     }
 
-    public static @NotNull EnumItemSlot MAINHAND() {
-        if (!laivynpc().getVersion().getEnums().containsKey("EnumItemSlot")) {
-            return new EnumItemSlot(0);
+    public enum EnumItemSlot {
+        MAINHAND(0),
+        OFFHAND(-999), // Offhand doesn't have an id.
+        FEET(1),
+        LEGS(2),
+        CHEST(3),
+        HEAD(4),
+        ;
+
+        private final int id;
+
+        EnumItemSlot(int id) {
+            this.id = id;
         }
 
-        EnumExecutor enumExec = laivynpc().getVersion().getEnumExec("EnumItemSlot");
-        String name = laivynpc().getVersion().getText("EnumItemSlot:MAINHAND");
-
-        return new EnumItemSlot(Objects.requireNonNull(enumExec.getEnums().get(name).getValue()));
-    }
-    public static @NotNull EnumItemSlot OFFHAND() {
-        if (!laivynpc().getVersion().getEnums().containsKey("EnumItemSlot")) {
-            return new EnumItemSlot(0);
+        public int getId() {
+            return id;
         }
 
-        EnumExecutor enumExec = laivynpc().getVersion().getEnumExec("EnumItemSlot");
-        String name = laivynpc().getVersion().getText("EnumItemSlot:OFFHAND");
-
-        return new EnumItemSlot(Objects.requireNonNull(enumExec.getEnums().get(name).getValue()));
-    }
-    public static @NotNull EnumItemSlot HEAD() {
-        if (!laivynpc().getVersion().getEnums().containsKey("EnumItemSlot")) {
-            return new EnumItemSlot(4);
-        }
-
-        EnumExecutor enumExec = laivynpc().getVersion().getEnumExec("EnumItemSlot");
-        String name = laivynpc().getVersion().getText("EnumItemSlot:HEAD");
-
-        return new EnumItemSlot(Objects.requireNonNull(enumExec.getEnums().get(name).getValue()));
-    }
-    public static @NotNull EnumItemSlot CHEST() {
-        if (!laivynpc().getVersion().getEnums().containsKey("EnumItemSlot")) {
-            return new EnumItemSlot(3);
-        }
-
-        EnumExecutor enumExec = laivynpc().getVersion().getEnumExec("EnumItemSlot");
-        String name = laivynpc().getVersion().getText("EnumItemSlot:CHEST");
-
-        return new EnumItemSlot(Objects.requireNonNull(enumExec.getEnums().get(name).getValue()));
-    }
-    public static @NotNull EnumItemSlot LEGS() {
-        if (!laivynpc().getVersion().getEnums().containsKey("EnumItemSlot")) {
-            return new EnumItemSlot(2);
-        }
-
-        EnumExecutor enumExec = laivynpc().getVersion().getEnumExec("EnumItemSlot");
-        String name = laivynpc().getVersion().getText("EnumItemSlot:LEGS");
-
-        return new EnumItemSlot(Objects.requireNonNull(enumExec.getEnums().get(name).getValue()));
-    }
-    public static @NotNull EnumItemSlot FEET() {
-        if (!laivynpc().getVersion().getEnums().containsKey("EnumItemSlot")) {
-            return new EnumItemSlot(1);
-        }
-
-        EnumExecutor enumExec = laivynpc().getVersion().getEnumExec("EnumItemSlot");
-        String name = laivynpc().getVersion().getText("EnumItemSlot:FEET");
-
-        return new EnumItemSlot(Objects.requireNonNull(enumExec.getEnums().get(name).getValue()));
-    }
-    
-    public static class EnumItemSlot extends EnumObjExec {
-
-        private final int slot;
-
-        public EnumItemSlot(int slot) {
-            super(null);
-            this.slot = slot;
-        }
-        public EnumItemSlot(@NotNull Enum<?> value) {
-            super(value);
-
-            switch (value.name()) {
-                case "FEET":
-                    this.slot = 1;
-                    break;
-                case "LEGS":
-                    this.slot = 2;
-                    break;
-                case "CHEST":
-                    this.slot = 3;
-                    break;
-                case "HEAD":
-                    this.slot = 4;
-                    break;
-                case "OFFHAND":
-                case "MAINHAND":
-                    this.slot = 0;
-                    break;
-                default:
-                    throw new IllegalArgumentException("Couldn't find this value name '" + value.name() + "'");
+        public @NotNull EnumItemSlotExec getEnum() {
+            if (this == MAINHAND) {
+                return MAINHAND();
+            } else if (this == OFFHAND) {
+                if (ReflectionUtils.isCompatible(V1_9_R1.class)) {
+                    return OFFHAND();
+                } else {
+                    throw new IllegalStateException("The offhand equipment slot is available only at 1.9+");
+                }
+            } else if (this == FEET) {
+                return FEET();
+            } else if (this == LEGS) {
+                return LEGS();
+            } else if (this == CHEST) {
+                return CHEST();
+            } else if (this == HEAD) {
+                return HEAD();
+            } else {
+                throw new IllegalArgumentException("Couldn't find this slot's enum '" + this.name() + "'");
             }
         }
+    }
 
-        public int getSlot() {
-            return slot;
+    public static class EnumItemSlotExec extends EnumObjExec {
+        public EnumItemSlotExec(@NotNull Enum<?> value) {
+            super(value);
         }
     }
 
@@ -119,5 +123,5 @@ public class EnumItemSlotEnum extends EnumExecutor {
             super(className);
         }
     }
-    
+
 }

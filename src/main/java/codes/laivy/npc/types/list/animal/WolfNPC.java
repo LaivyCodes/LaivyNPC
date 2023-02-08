@@ -37,7 +37,7 @@ public class WolfNPC extends TameableLivingEntityNPC {
     @Override
     public void debug() {
         super.debug();
-        for (EnumObjExec color : laivynpc().getVersion().getEnumExec("EnumColor").getEnums().values()) {
+        for (EnumObjExec color : EnumColorEnum.getInstance().getEnums().values()) {
             setCollarColor(new EnumColorEnum.EnumColor(color.getValue()));
         }
         setAngry(!isAngry());
@@ -74,7 +74,7 @@ public class WolfNPC extends TameableLivingEntityNPC {
 
                 if (args.length > 0) {
                     try {
-                        EnumColorEnum.EnumColor color = new EnumColorEnum.EnumColor(laivynpc().getVersion().getEnumExec("EnumColor").valueOf(args[0].toUpperCase()).getValue());
+                        EnumColorEnum.EnumColor color = new EnumColorEnum.EnumColor(EnumColorEnum.getInstance().valueOf(args[0].toUpperCase()).getValue());
                         wolfNPC.setCollarColor(color);
                         sender.sendMessage(translate(sender, "npc.commands.general.flag_changed"));
                     } catch (IllegalArgumentException ignore) {
@@ -86,7 +86,7 @@ public class WolfNPC extends TameableLivingEntityNPC {
 
                 StringBuilder builder = new StringBuilder();
                 int row = 0;
-                for (EnumObjExec color : laivynpc().getVersion().getEnumExec("EnumColor").getEnums().values()) {
+                for (EnumObjExec color : EnumColorEnum.getInstance().getEnums().values()) {
                     if (row != 0) builder.append("§7, ");
                     builder.append("§f").append(new EnumColorEnum.EnumColor(color.getValue()).name());
                     row++;
@@ -144,7 +144,7 @@ public class WolfNPC extends TameableLivingEntityNPC {
         WolfNPC npc = (WolfNPC) TameableLivingEntityNPC.deserialize(section);
 
         section = section.getConfigurationSection("WolfNPC Configuration");
-        npc.setCollarColor(new EnumColorEnum.EnumColor(laivynpc().getVersion().getEnumExec("EnumColor").valueOf(section.getString("Collar color")).getValue()));
+        npc.setCollarColor(new EnumColorEnum.EnumColor(EnumColorEnum.getInstance().valueOf(section.getString("Collar color")).getValue()));
         npc.setAngry(section.getBoolean("Angry"));
 
         return npc;

@@ -37,7 +37,7 @@ public class SheepNPC extends AgeableEntityLivingNPC {
     @Override
     public void debug() {
         super.debug();
-        for (EnumObjExec color : laivynpc().getVersion().getEnumExec("EnumColor").getEnums().values()) {
+        for (EnumObjExec color : EnumColorEnum.getInstance().getEnums().values()) {
             setColor(new EnumColorEnum.EnumColor(color.getValue()));
         }
         setSheared(!isSheared());
@@ -78,7 +78,7 @@ public class SheepNPC extends AgeableEntityLivingNPC {
 
                 if (args.length > 0) {
                     try {
-                        EnumColorEnum.EnumColor color = new EnumColorEnum.EnumColor(laivynpc().getVersion().getEnumExec("EnumColor").valueOf(args[0].toUpperCase()).getValue());
+                        EnumColorEnum.EnumColor color = new EnumColorEnum.EnumColor(EnumColorEnum.getInstance().valueOf(args[0].toUpperCase()).getValue());
                         sheepNPC.setColor(color);
                         sender.sendMessage(translate(sender, "npc.commands.general.flag_changed"));
                     } catch (IllegalArgumentException ignore) {
@@ -90,7 +90,7 @@ public class SheepNPC extends AgeableEntityLivingNPC {
 
                 StringBuilder builder = new StringBuilder();
                 int row = 0;
-                for (EnumObjExec color : laivynpc().getVersion().getEnumExec("EnumColor").getEnums().values()) {
+                for (EnumObjExec color : EnumColorEnum.getInstance().getEnums().values()) {
                     if (row != 0) builder.append("§7, ");
                     builder.append("§f").append(new EnumColorEnum.EnumColor(color.getValue()).name());
                     row++;
@@ -143,7 +143,7 @@ public class SheepNPC extends AgeableEntityLivingNPC {
         SheepNPC npc = (SheepNPC) AgeableEntityLivingNPC.deserialize(section);
 
         section = section.getConfigurationSection("SheepNPC Configuration");
-        npc.setColor(new EnumColorEnum.EnumColor(laivynpc().getVersion().getEnumExec("EnumColor").valueOf(section.getString("Color")).getValue()));
+        npc.setColor(new EnumColorEnum.EnumColor(EnumColorEnum.getInstance().valueOf(section.getString("Color")).getValue()));
         npc.setSheared(section.getBoolean("Sheared"));
 
         return npc;

@@ -28,7 +28,6 @@ import codes.laivy.npc.mappings.utils.classes.gameprofile.GameProfile;
 import codes.laivy.npc.mappings.utils.classes.gameprofile.Property;
 import codes.laivy.npc.mappings.utils.classes.gameprofile.PropertyMap;
 import codes.laivy.npc.mappings.utils.classes.java.BooleanObjExec;
-import codes.laivy.npc.mappings.utils.classes.java.DoubleObjExec;
 import codes.laivy.npc.mappings.utils.classes.java.IntegerObjExec;
 import codes.laivy.npc.mappings.utils.classes.nbt.NBTBase;
 import codes.laivy.npc.mappings.utils.classes.nbt.tags.*;
@@ -165,7 +164,7 @@ public class V1_9_R1 extends V1_8_R3 {
 
     @Override
     public @NotNull EntityEquipmentPacket createEquipmentPacket(@NotNull Entity entity, @NotNull EnumItemSlotEnum.EnumItemSlot slot, @NotNull org.bukkit.inventory.ItemStack item) {
-        Object packet = getClassExec("PacketPlayOutEntityEquipment").getConstructor(ClassExecutor.INT, getClassExec("EnumItemSlot"), getClassExec("ItemStack")).newInstance(new IntegerObjExec(entity.getId()), slot, getNMSItemStack(item));
+        Object packet = getClassExec("PacketPlayOutEntityEquipment").getConstructor(ClassExecutor.INT, getClassExec("EnumItemSlot"), getClassExec("ItemStack")).newInstance(new IntegerObjExec(entity.getId()), slot.getEnum(), getNMSItemStack(item));
         return new EntityEquipmentPacket(packet);
     }
 

@@ -10,69 +10,57 @@ import static codes.laivy.npc.LaivyNPC.laivynpc;
 
 public class EnumColorEnum extends EnumExecutor {
 
+    public static @NotNull EnumColorEnum getInstance() {
+        return (EnumColorEnum) laivynpc().getVersion().getEnumExec("EnumColor");
+    }
+
     public static @NotNull EnumColor WHITE() {
-        EnumExecutor enumExec = laivynpc().getVersion().getEnumExec("EnumColor");
-        return new EnumColor(enumExec.getEnums().get("WHITE").getValue());
+        return new EnumColor(getInstance().getEnums().get("WHITE").getValue());
     }
     public static @NotNull EnumColor ORANGE() {
-        EnumExecutor enumExec = laivynpc().getVersion().getEnumExec("EnumColor");
-        return new EnumColor(enumExec.getEnums().get("ORANGE").getValue());
+        return new EnumColor(getInstance().getEnums().get("ORANGE").getValue());
     }
     public static @NotNull EnumColor MAGENTA() {
-        EnumExecutor enumExec = laivynpc().getVersion().getEnumExec("EnumColor");
-        return new EnumColor(enumExec.getEnums().get("MAGENTA").getValue());
+        return new EnumColor(getInstance().getEnums().get("MAGENTA").getValue());
     }
     public static @NotNull EnumColor LIGHT_BLUE() {
-        EnumExecutor enumExec = laivynpc().getVersion().getEnumExec("EnumColor");
-        return new EnumColor(enumExec.getEnums().get("LIGHT_BLUE").getValue());
+        return new EnumColor(getInstance().getEnums().get("LIGHT_BLUE").getValue());
     }
     public static @NotNull EnumColor YELLOW() {
-        EnumExecutor enumExec = laivynpc().getVersion().getEnumExec("EnumColor");
-        return new EnumColor(enumExec.getEnums().get("YELLOW").getValue());
+        return new EnumColor(getInstance().getEnums().get("YELLOW").getValue());
     }
     public static @NotNull EnumColor LIME() {
-        EnumExecutor enumExec = laivynpc().getVersion().getEnumExec("EnumColor");
-        return new EnumColor(enumExec.getEnums().get("LIME").getValue());
+        return new EnumColor(getInstance().getEnums().get("LIME").getValue());
     }
     public static @NotNull EnumColor PINK() {
-        EnumExecutor enumExec = laivynpc().getVersion().getEnumExec("EnumColor");
-        return new EnumColor(enumExec.getEnums().get("PINK").getValue());
+        return new EnumColor(getInstance().getEnums().get("PINK").getValue());
     }
     public static @NotNull EnumColor GRAY() {
-        EnumExecutor enumExec = laivynpc().getVersion().getEnumExec("EnumColor");
-        return new EnumColor(enumExec.getEnums().get("GRAY").getValue());
+        return new EnumColor(getInstance().getEnums().get("GRAY").getValue());
     }
     public static @NotNull EnumColor SILVER() {
-        EnumExecutor enumExec = laivynpc().getVersion().getEnumExec("EnumColor");
-        return new EnumColor(enumExec.getEnums().get("SILVER").getValue());
+        return new EnumColor(getInstance().getEnums().get("SILVER").getValue());
     }
     public static @NotNull EnumColor CYAN() {
-        EnumExecutor enumExec = laivynpc().getVersion().getEnumExec("EnumColor");
-        return new EnumColor(enumExec.getEnums().get("CYAN").getValue());
+        return new EnumColor(getInstance().getEnums().get("CYAN").getValue());
     }
     public static @NotNull EnumColor PURPLE() {
-        EnumExecutor enumExec = laivynpc().getVersion().getEnumExec("EnumColor");
-        return new EnumColor(enumExec.getEnums().get("PURPLE").getValue());
+        return new EnumColor(getInstance().getEnums().get("PURPLE").getValue());
     }
     public static @NotNull EnumColor BLUE() {
-        EnumExecutor enumExec = laivynpc().getVersion().getEnumExec("EnumColor");
-        return new EnumColor(enumExec.getEnums().get("BLUE").getValue());
+        return new EnumColor(getInstance().getEnums().get("BLUE").getValue());
     }
     public static @NotNull EnumColor BROWN() {
-        EnumExecutor enumExec = laivynpc().getVersion().getEnumExec("EnumColor");
-        return new EnumColor(enumExec.getEnums().get("BROWN").getValue());
+        return new EnumColor(getInstance().getEnums().get("BROWN").getValue());
     }
     public static @NotNull EnumColor GREEN() {
-        EnumExecutor enumExec = laivynpc().getVersion().getEnumExec("EnumColor");
-        return new EnumColor(enumExec.getEnums().get("GREEN").getValue());
+        return new EnumColor(getInstance().getEnums().get("GREEN").getValue());
     }
     public static @NotNull EnumColor RED() {
-        EnumExecutor enumExec = laivynpc().getVersion().getEnumExec("EnumColor");
-        return new EnumColor(enumExec.getEnums().get("RED").getValue());
+        return new EnumColor(getInstance().getEnums().get("RED").getValue());
     }
     public static @NotNull EnumColor BLACK() {
-        EnumExecutor enumExec = laivynpc().getVersion().getEnumExec("EnumColor");
-        return new EnumColor(enumExec.getEnums().get("BLACK").getValue());
+        return new EnumColor(getInstance().getEnums().get("BLACK").getValue());
     }
 
     public EnumColorEnum(@NotNull ClassExecutor classExecutor) {

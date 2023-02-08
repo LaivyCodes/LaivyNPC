@@ -2,9 +2,9 @@ package codes.laivy.npc.types.commands;
 
 import codes.laivy.npc.developers.events.NPCClickEvent;
 import codes.laivy.npc.mappings.utils.classes.enums.EnumItemSlotEnum;
-import codes.laivy.npc.mappings.utils.classes.enums.EnumItemSlotEnum.EnumItemSlot;
-import codes.laivy.npc.mappings.utils.classes.java.EnumObjExec;
+import codes.laivy.npc.mappings.versions.V1_9_R1;
 import codes.laivy.npc.types.NPC;
+import codes.laivy.npc.utils.ReflectionUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -41,34 +41,36 @@ public class NPCItemsEditorConfiguration extends NPCConfiguration implements Lis
             ItemStack item = e.getPlayer().getItemInHand();
 
             if (item == null || item.getType() == Material.AIR) {
-                for (@NotNull EnumObjExec slot : laivynpc().getVersion().getEnumExec("EnumItemSlot").values()) {
-                    e.getNPC().setItem(new EnumItemSlot(slot.getValue()), null);
+                for (@NotNull EnumItemSlotEnum.EnumItemSlot slot : EnumItemSlotEnum.EnumItemSlot.values()) {
+                    e.getNPC().setItem(slot, null);
                 }
                 e.getPlayer().sendMessage(translate(e.getPlayer(), "npc.commands.items.cleared"));
             } else {
                 if (e.getClickType().isRightClick()) {
                     if (!e.getClickType().isShiftClick()) {
-                        for (@NotNull EnumObjExec objExec : laivynpc().getVersion().getEnumExec("EnumItemSlot").values()) {
-                            @NotNull EnumItemSlot slot = new EnumItemSlot(objExec.getValue());
-
+                        for (@NotNull EnumItemSlotEnum.EnumItemSlot slot : EnumItemSlotEnum.EnumItemSlot.values()) {
                             String contains;
 
-                            if (EnumItemSlotEnum.FEET().equals(slot)) contains = "_BOOTS";
-                            else if (EnumItemSlotEnum.LEGS().equals(slot)) contains = "_LEGGINGS";
-                            else if (EnumItemSlotEnum.CHEST().equals(slot)) contains = "_CHESTPLATE";
-                            else if (EnumItemSlotEnum.HEAD().equals(slot)) contains = "_HELMET";
+                            if (EnumItemSlotEnum.EnumItemSlot.FEET.equals(slot)) contains = "_BOOTS";
+                            else if (EnumItemSlotEnum.EnumItemSlot.LEGS.equals(slot)) contains = "_LEGGINGS";
+                            else if (EnumItemSlotEnum.EnumItemSlot.CHEST.equals(slot)) contains = "_CHESTPLATE";
+                            else if (EnumItemSlotEnum.EnumItemSlot.HEAD.equals(slot)) contains = "_HELMET";
                             else continue;
 
                             if (item.getType().name().contains(contains)) {
-                                e.getNPC().setItem(new EnumItemSlot(slot.getValue()), item);
+                                e.getNPC().setItem(slot, item);
                                 return;
                             }
                         }
                     }
 
-                    e.getNPC().setItem(EnumItemSlotEnum.MAINHAND(), item);
+                    e.getNPC().setItem(EnumItemSlotEnum.EnumItemSlot.MAINHAND, item);
                 } else {
-                    e.getNPC().setItem(EnumItemSlotEnum.OFFHAND(), item);
+                    if (ReflectionUtils.isCompatible(V1_9_R1.class)) {
+                        e.getNPC().setItem(EnumItemSlotEnum.EnumItemSlot.OFFHAND, item);
+                    } else {
+                        e.getPlayer().sendMessage(translate(e.getPlayer(), "npc.commands.items.offhand_incompatible"));
+                    }
                 }
             }
         }

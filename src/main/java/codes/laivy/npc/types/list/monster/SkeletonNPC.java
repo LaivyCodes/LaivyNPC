@@ -110,7 +110,11 @@ public class SkeletonNPC extends EntityLivingNPC {
         SkeletonNPC npc = (SkeletonNPC) EntityLivingNPC.deserialize(section);
 
         section = section.getConfigurationSection("SkeletonNPC Configuration");
-        npc.setSkeletonType(Skeleton.Type.valueOf(section.getString("Type")));
+
+        Skeleton.Type type = Skeleton.Type.valueOf(section.getString("Type"));
+        if (type.isCompatible()) {
+            npc.setSkeletonType(type);
+        }
 
         return npc;
     }

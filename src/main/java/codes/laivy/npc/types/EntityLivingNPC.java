@@ -26,7 +26,7 @@ public abstract class EntityLivingNPC extends EntityNPC {
     }
 
     @Override
-    public @NotNull List<@NotNull Packet> getNPCSpawnPackets(@NotNull Player player) {
+    public @NotNull List<@NotNull Packet> getSpawnPackets(@NotNull Player player) {
         List<@NotNull Packet> packets = new ArrayList<>();
 
         packets.add(laivynpc().getVersion().createSpawnLivingPacket(getEntity()));

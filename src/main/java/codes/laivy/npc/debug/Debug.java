@@ -113,7 +113,7 @@ public class Debug {
             entityMetadataPacket.send(player);
 
             message.append("§7Trying to debug EntityEquipmentPacket...\n");
-            EntityEquipmentPacket entityEquipmentPacket = laivynpc().getVersion().createEquipmentPacket(stand, EnumItemSlotEnum.HEAD(), new ItemStack(Material.DIAMOND_HELMET));
+            EntityEquipmentPacket entityEquipmentPacket = laivynpc().getVersion().createEquipmentPacket(stand, EnumItemSlotEnum.EnumItemSlot.HEAD, new ItemStack(Material.DIAMOND_HELMET));
             entityEquipmentPacket.send(player);
 
             message.append("§7Trying to debug EntityLivingSpawnPacket...\n");

@@ -74,7 +74,7 @@ public class GlowingStatus {
         protected @NotNull EnumChatFormat[] colors;
 
         public Rainbow(int updateTime) {
-            EnumChatFormatEnum enumClass = (EnumChatFormatEnum) laivynpc().getVersion().getEnumExec("EnumChatFormat");
+            EnumChatFormatEnum enumClass = EnumChatFormatEnum.getInstance();
             EnumChatFormat[] colors = new EnumChatFormat[enumClass.values().length];
 
             int row = 0;
