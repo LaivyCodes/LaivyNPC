@@ -376,6 +376,11 @@ public class V1_8_R1 extends Version {
             load(V1_8_R1.class, "IBlockData:getBlock", new MethodExecutor(getClassExec("IBlockData"), getClassExec("Block"), "getBlock", "Gets the block of a data"));
             //
 
+            // EnumColor
+            load(V1_8_R1.class, "EnumColor:getColorIndex", new MethodExecutor(getClassExec("EnumColor"), ClassExecutor.INT, "getColorIndex", "Gets the color index of a EnumColor"));
+            load(V1_8_R1.class, "EnumColor:fromColorIndex", new MethodExecutor(getClassExec("EnumColor"), getClassExec("EnumColor"), "fromColorIndex", "Gets the color enum from the index of a EnumColor", ClassExecutor.INT));
+            //
+
             // World
             load(V1_8_R1.class, "World:getEntityById", new MethodExecutor(getClassExec("World"), getClassExec("Entity"), "a", "Gets a entity by its ID", ClassExecutor.INT));
             //
@@ -1177,6 +1182,16 @@ public class V1_8_R1 extends Version {
     @Override
     public void setEntityParrotVariant(@NotNull Parrot parrot, Parrot.@NotNull Variant variant) {
         throw new UnsupportedOperationException("The parrot is only available at 1.12+");
+    }
+
+    @Override
+    public @NotNull EnumColorEnum.EnumColor getEntityShulkerColor(@NotNull Shulker shulker) {
+        throw new UnsupportedOperationException("The shulker color is only available at 1.11+");
+    }
+
+    @Override
+    public void setEntityShulkerColor(@NotNull Shulker shulker, EnumColorEnum.@NotNull EnumColor variant) {
+        throw new UnsupportedOperationException("The shulker color is only available at 1.11+");
     }
 
     @Override

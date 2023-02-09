@@ -257,6 +257,9 @@ public abstract class Version implements VersionCompound, VersionPacket, Version
     // ENTITY PARROT
     public abstract @NotNull Parrot.Variant getEntityParrotVariant(@NotNull Parrot parrot);
     public abstract void setEntityParrotVariant(@NotNull Parrot parrot, @NotNull Parrot.Variant variant);
+    // ENTITY SHULKER
+    public abstract @NotNull EnumColorEnum.EnumColor getEntityShulkerColor(@NotNull Shulker shulker);
+    public abstract void setEntityShulkerColor(@NotNull Shulker shulker, @NotNull EnumColorEnum.EnumColor variant);
     //
 
     // ENTITY PLAYER

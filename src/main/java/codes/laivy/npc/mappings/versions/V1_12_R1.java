@@ -81,6 +81,9 @@ public class V1_12_R1 extends V1_11_R1 {
                     case "Metadata:Guardian:DataWatcher:Target":
                         load(V1_12_R1.class, key, new FieldExecutor(getClassExec("Entity:Guardian"), getClassExec("DataWatcherObject"), "bB", "Gets the Guardian target DataWatcherObject"));
                         return false;
+                    case "Entity:Shulker:DataWatcher:Color":
+                        load(V1_12_R1.class, key, new FieldExecutor(getClassExec("Entity:Shulker"), getClassExec("DataWatcherObject"), "COLOR", "Gets the shulker's color DataWatcherObject"));
+                        return false;
                     case "Entity:IllagerWizard:DataWatcher:Spell":
                         return false;
                     default:

@@ -279,6 +279,17 @@ public class V1_11_R1 extends V1_10_R1 {
     }
 
     @Override
+    public @NotNull EnumColorEnum.EnumColor getEntityShulkerColor(@NotNull Shulker shulker) {
+        DataWatcherObject metadata = new DataWatcherObject(getFieldExec("Entity:Shulker:DataWatcher:Color").invokeStatic());
+        return EnumColorEnum.fromColorIndex(((Byte) Objects.requireNonNull(shulker.getDataWatcher().get(metadata))).intValue());
+    }
+    @Override
+    public void setEntityShulkerColor(@NotNull Shulker shulker, EnumColorEnum.@NotNull EnumColor variant) {
+        DataWatcherObject metadata = new DataWatcherObject(getFieldExec("Entity:Shulker:DataWatcher:Color").invokeStatic());
+        shulker.getDataWatcher().set(metadata, new ByteObjExec((byte) variant.getColorIndex()));
+    }
+
+    @Override
     public @NotNull Map<String, ClassExecutor> getClasses() {
         if (super.getClasses().isEmpty()) {
             load(V1_11_R1.class, "WatchableObject", new ClassExecutor.BrokenClassExecutor());
@@ -501,6 +512,7 @@ public class V1_11_R1 extends V1_10_R1 {
     public @NotNull Map<String, FieldExecutor> getFields() {
         if (!super.getFields().containsKey("Entity:IllagerWizard:DataWatcher:Spell")) {
             load(V1_11_R1.class, "Entity:IllagerWizard:DataWatcher:Spell", new FieldExecutor(getClassExec("Entity:Evoker"), getClassExec("DataWatcherObject"), "a", "Gets the illager illusioner's spell DataWatcherObject"));
+            load(V1_11_R1.class, "Entity:Shulker:DataWatcher:Color", new FieldExecutor(getClassExec("Entity:Shulker"), getClassExec("DataWatcherObject"), "bw", "Gets the shulker's color DataWatcherObject"));
         }
 
         return super.getFields();

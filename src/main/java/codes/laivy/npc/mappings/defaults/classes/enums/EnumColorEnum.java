@@ -1,9 +1,12 @@
 package codes.laivy.npc.mappings.defaults.classes.enums;
 
+import codes.laivy.npc.mappings.defaults.classes.java.IntegerObjExec;
 import codes.laivy.npc.mappings.instances.classes.ClassExecutor;
 import codes.laivy.npc.mappings.instances.EnumExecutor;
 import codes.laivy.npc.mappings.defaults.classes.java.EnumObjExec;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
 
 import static codes.laivy.npc.LaivyNPC.laivynpc;
 
@@ -70,6 +73,15 @@ public class EnumColorEnum extends EnumExecutor {
         public EnumColor(@NotNull Enum<?> value) {
             super(value);
         }
+
+        public int getColorIndex() {
+            //noinspection DataFlowIssue
+            return (int) laivynpc().getVersion().getMethodExec("EnumColor:getColorIndex").invokeInstance(this);
+        }
+    }
+
+    public static @NotNull EnumColor fromColorIndex(int index) {
+        return new EnumColor((Enum<?>) Objects.requireNonNull(laivynpc().getVersion().getMethodExec("EnumColor:fromColorIndex").invokeStatic(new IntegerObjExec(index))));
     }
 
     public static class EnumColorClass extends ClassExecutor {

@@ -2,8 +2,11 @@ package codes.laivy.npc.mappings.defaults.classes.entity.monster;
 
 import codes.laivy.npc.mappings.defaults.classes.datawatcher.DataWatcherObject;
 import codes.laivy.npc.mappings.defaults.classes.entity.EntityLiving;
+import codes.laivy.npc.mappings.defaults.classes.enums.EnumColorEnum;
 import codes.laivy.npc.mappings.defaults.classes.enums.EnumDirectionEnum;
 import codes.laivy.npc.mappings.defaults.classes.java.ByteObjExec;
+import codes.laivy.npc.mappings.versions.V1_11_R1;
+import codes.laivy.npc.utils.ReflectionUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -32,6 +35,19 @@ public class Shulker extends EntityLiving {
     }
     public void setPeek(int peek) {
         getDataWatcher().set(PEEK_WATCHER_OBJECT, new ByteObjExec((byte) peek));
+    }
+
+    public @NotNull EnumColorEnum.EnumColor getColor() {
+        if (!ReflectionUtils.isCompatible(V1_11_R1.class)) {
+            throw new UnsupportedOperationException("Shulker colors is only available at 1.11+");
+        }
+        return laivynpc().getVersion().getEntityShulkerColor(this);
+    }
+    public void setColor(@NotNull EnumColorEnum.EnumColor color) {
+        if (!ReflectionUtils.isCompatible(V1_11_R1.class)) {
+            throw new UnsupportedOperationException("Shulker colors is only available at 1.11+");
+        }
+        laivynpc().getVersion().setEntityShulkerColor(this, color);
     }
 
     @Override
