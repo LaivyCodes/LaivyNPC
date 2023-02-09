@@ -1,10 +1,13 @@
 package codes.laivy.npc.mappings.defaults.classes.entity.monster;
 
+import codes.laivy.npc.mappings.defaults.classes.datawatcher.DataWatcherObject;
 import codes.laivy.npc.mappings.instances.classes.ClassExecutor;
 import codes.laivy.npc.mappings.instances.ObjectExecutor;
 import codes.laivy.npc.mappings.defaults.classes.entity.EntityLiving;
 import codes.laivy.npc.mappings.defaults.classes.others.objects.Block;
 import codes.laivy.npc.mappings.defaults.classes.others.objects.IBlockData;
+import codes.laivy.npc.mappings.versions.V1_9_R1;
+import codes.laivy.npc.utils.ReflectionUtils;
 import org.bukkit.Material;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -12,6 +15,15 @@ import org.jetbrains.annotations.Nullable;
 import static codes.laivy.npc.LaivyNPC.laivynpc;
 
 public class Enderman extends EntityLiving {
+
+    public static @NotNull DataWatcherObject SCREAMING_METADATA() {
+        if (ReflectionUtils.isCompatible(V1_9_R1.class)) {
+            return new DataWatcherObject(laivynpc().getVersion().getFieldExec("Entity:Enderman:DataWatcher:screaming").invokeStatic());
+        } else {
+            throw new IllegalStateException("Metadata objects is compatible only at 1.9+");
+        }
+    }
+
     public Enderman(@Nullable Object value) {
         super(value);
     }

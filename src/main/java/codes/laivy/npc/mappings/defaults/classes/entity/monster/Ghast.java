@@ -13,7 +13,7 @@ public class Ghast extends EntityLiving {
 
     public static @NotNull DataWatcherObject ATTACKING_METADATA() {
         if (ReflectionUtils.isCompatible(V1_9_R1.class)) {
-            return new DataWatcherObject(laivynpc().getVersion().getFieldExec("Metadata:Ghast:Attacking").invokeStatic());
+            return new DataWatcherObject(laivynpc().getVersion().getFieldExec("Metadata:Ghast:DataWatcher:Attacking").invokeStatic());
         } else {
             throw new IllegalStateException("Metadata objects is compatible only at 1.9+");
         }

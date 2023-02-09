@@ -14,7 +14,7 @@ public class Creeper extends EntityLiving {
 
     public static @NotNull DataWatcherObject IGNITED_METADATA() {
         if (ReflectionUtils.isCompatible(V1_9_R1.class)) {
-            return new DataWatcherObject(laivynpc().getVersion().getFieldExec("Metadata:Creeper:Ignited").invokeStatic());
+            return new DataWatcherObject(laivynpc().getVersion().getFieldExec("Metadata:Creeper:DataWatcher:Ignited").invokeStatic());
         } else {
             throw new IllegalStateException("Metadata objects is compatible only at 1.9+");
         }

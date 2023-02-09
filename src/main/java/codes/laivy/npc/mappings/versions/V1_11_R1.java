@@ -135,18 +135,8 @@ public class V1_11_R1 extends V1_10_R1 {
                 }
             } else if (executor instanceof FieldExecutor) {
                 switch (key) {
-                    case "Metadata:Guardian:Target":
-                        load(V1_11_R1.class, "Metadata:Guardian:Target", new FieldExecutor(getClassExec("Entity:Guardian"), getClassExec("DataWatcherObject"), "bA", "Gets the Guardian target DataWatcherObject"));
-                        return false;
-                    default:
-                        break;
-                }
-            }
-        } else if (version == V1_9_R2.class) {
-            if (executor instanceof MethodExecutor) {
-                switch (key) {
-                    case "Entity:Enderman:isScreaming":
-                        load(V1_11_R1.class, key, new MethodExecutor(getClassExec("Entity:Enderman"), ClassExecutor.BOOLEAN, "dk", "Gets the screaming state of a Enderman"));
+                    case "Metadata:Guardian:DataWatcher:Target":
+                        load(V1_11_R1.class, key, new FieldExecutor(getClassExec("Entity:Guardian"), getClassExec("DataWatcherObject"), "bA", "Gets the Guardian target DataWatcherObject"));
                         return false;
                     default:
                         break;

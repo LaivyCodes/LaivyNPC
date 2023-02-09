@@ -488,9 +488,9 @@ public class V1_8_R1 extends Version {
     public @NotNull Map<String, Object> getObjects() {
         if (super.getObjects().isEmpty()) {
             super.getObjects().put("Metadata:Player:SkinParts", 10);
-            super.getObjects().put("Metadata:Ghast:Attacking", 16);
-            super.getObjects().put("Metadata:Guardian:Target", 17);
-            super.getObjects().put("Metadata:Creeper:Ignited", 18);
+            super.getObjects().put("Metadata:Ghast:DataWatcher:Attacking", 16);
+            super.getObjects().put("Metadata:Guardian:DataWatcher:Target", 17);
+            super.getObjects().put("Metadata:Creeper:DataWatcher:Ignited", 18);
         }
 
         return super.getObjects();
@@ -1078,23 +1078,23 @@ public class V1_8_R1 extends Version {
     @Override
     public boolean isEntityCreeperIgnited(@NotNull Creeper creeper) {
         //noinspection DataFlowIssue
-        return ((byte) creeper.getDataWatcher().get((int) getObject("Metadata:Creeper:Ignited"))) == 1;
+        return ((byte) creeper.getDataWatcher().get((int) getObject("Metadata:Creeper:DataWatcher:Ignited"))) == 1;
     }
 
     @Override
     public void setEntityCreeperIgnited(@NotNull Creeper creeper, boolean flag) {
-        creeper.getDataWatcher().set((int) getObject("Metadata:Creeper:Ignited"), (byte) (flag ? 1 : 0));
+        creeper.getDataWatcher().set((int) getObject("Metadata:Creeper:DataWatcher:Ignited"), (byte) (flag ? 1 : 0));
     }
 
     @Override
     public boolean isEntityGhastAttacking(@NotNull Ghast ghast) {
         //noinspection DataFlowIssue
-        return ((byte) ghast.getDataWatcher().get((int) getObject("Metadata:Ghast:Attacking"))) == 1;
+        return ((byte) ghast.getDataWatcher().get((int) getObject("Metadata:Ghast:DataWatcher:Attacking"))) == 1;
     }
 
     @Override
     public void setEntityGhastAttacking(@NotNull Ghast ghast, boolean flag) {
-        ghast.getDataWatcher().set((int) getObject("Metadata:Ghast:Attacking"), (byte) (flag ? 1 : 0));
+        ghast.getDataWatcher().set((int) getObject("Metadata:Ghast:DataWatcher:Attacking"), (byte) (flag ? 1 : 0));
     }
 
     @Override
@@ -1103,7 +1103,7 @@ public class V1_8_R1 extends Version {
         if (entity != null) {
             id = entity.getId();
         }
-        guardian.getDataWatcher().set((int) getObject("Metadata:Guardian:Target"), id);
+        guardian.getDataWatcher().set((int) getObject("Metadata:Guardian:DataWatcher:Target"), id);
     }
 
     @Override

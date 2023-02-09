@@ -56,9 +56,6 @@ public class V1_9_R2 extends V1_9_R1 {
                 return false;
             } else if (executor instanceof MethodExecutor) {
                 switch (key) {
-                    case "Entity:Enderman:isScreaming":
-                        load(V1_9_R2.class, key, new MethodExecutor(getClassExec("Entity:Enderman"), ClassExecutor.BOOLEAN, "dd", "Gets the screaming state of a Enderman"));
-                        return false;
                     case "ScoreboardTeam:getCollision":
                         load(V1_9_R2.class, key, new MethodExecutor(getClassExec("ScoreboardTeam"), getClassExec("ScoreboardTeam:EnumTeamPush"), "getCollisionRule", "Gets the collision state of the ScoreboardTeam"));
                         return false;

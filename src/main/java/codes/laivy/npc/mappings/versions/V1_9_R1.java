@@ -68,12 +68,10 @@ public class V1_9_R1 extends V1_8_R3 {
                     case "Entity:Blaze:isCharging":
                         load(V1_9_R1.class, key, new MethodExecutor(getClassExec("Entity:Blaze"), ClassExecutor.BOOLEAN, "isBurning", "Gets the charged state of the Blaze"));
                         return false;
-                    case "Entity:Enderman:isScreaming":
-                        load(V1_9_R1.class, key, new MethodExecutor(getClassExec("Entity:Enderman"), ClassExecutor.BOOLEAN, "dc", "Gets the screaming state of a Enderman"));
-                        return false;
                     case "Entity:Zombie:setVillagerType":
                         load(V1_9_R1.class, key, new MethodExecutor(getClassExec("Entity:Zombie"), ClassExecutor.VOID, "setVillagerType", "Sets the villager type of a Zombie", ClassExecutor.INT));
                         return false;
+                    case "Entity:Enderman:isScreaming":
                     case "Entity:Enderman:setScreaming":
                     case "WatchableObject:getValue":
                     case "WatchableObject:setValue":
@@ -168,9 +166,14 @@ public class V1_9_R1 extends V1_8_R3 {
     }
 
     @Override
+    public boolean isEntityEndermanScreaming(@NotNull Enderman enderman) {
+        //noinspection DataFlowIssue
+        return (boolean) enderman.getDataWatcher().get(Enderman.SCREAMING_METADATA());
+    }
+
+    @Override
     public void setEntityEndermanScreaming(@NotNull Enderman enderman, boolean screaming) {
-        DataWatcherObject object = new DataWatcherObject(getFieldExec("Entity:Enderman:DataWatcher:screaming").invokeStatic());
-        enderman.getDataWatcher().set(object, new BooleanObjExec(screaming));
+        enderman.getDataWatcher().set(Enderman.SCREAMING_METADATA(), new BooleanObjExec(screaming));
     }
 
     @Override
@@ -414,9 +417,9 @@ public class V1_9_R1 extends V1_8_R3 {
             load(V1_9_R1.class, "Entity:Shulker:DataWatcherObject:Direction", new FieldExecutor(getClassExec("Entity:Shulker"), getClassExec("DataWatcherObject"), "a", "Get shulker's direction DataWatcher's object"));
             load(V1_9_R1.class, "Entity:Shulker:DataWatcherObject:Peek", new FieldExecutor(getClassExec("Entity:Shulker"), getClassExec("DataWatcherObject"), "c", "Get shulker's color DataWatcher's object"));
 
-            load(V1_9_R1.class, "Metadata:Ghast:Attacking", new FieldExecutor(getClassExec("Entity:Ghast"), getClassExec("DataWatcherObject"), "a", "Gets the Ghast attacking DataWatcherObject"));
-            load(V1_9_R1.class, "Metadata:Guardian:Target", new FieldExecutor(getClassExec("Entity:Guardian"), getClassExec("DataWatcherObject"), "b", "Gets the Guardian target DataWatcherObject"));
-            load(V1_9_R1.class, "Metadata:Creeper:Ignited", new FieldExecutor(getClassExec("Entity:Creeper"), getClassExec("DataWatcherObject"), "c", "Gets the Creeper ignited DataWatcherObject"));
+            load(V1_9_R1.class, "Metadata:Ghast:DataWatcher:Attacking", new FieldExecutor(getClassExec("Entity:Ghast"), getClassExec("DataWatcherObject"), "a", "Gets the Ghast attacking DataWatcherObject"));
+            load(V1_9_R1.class, "Metadata:Guardian:DataWatcher:Target", new FieldExecutor(getClassExec("Entity:Guardian"), getClassExec("DataWatcherObject"), "b", "Gets the Guardian target DataWatcherObject"));
+            load(V1_9_R1.class, "Metadata:Creeper:DataWatcher:Ignited", new FieldExecutor(getClassExec("Entity:Creeper"), getClassExec("DataWatcherObject"), "c", "Gets the Creeper ignited DataWatcherObject"));
         }
 
         return super.getFields();

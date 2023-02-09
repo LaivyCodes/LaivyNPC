@@ -13,7 +13,7 @@ public class Guardian extends EntityLiving {
 
     public static @NotNull DataWatcherObject TARGET_METADATA() {
         if (ReflectionUtils.isCompatible(V1_9_R1.class)) {
-            return new DataWatcherObject(laivynpc().getVersion().getFieldExec("Metadata:Guardian:Target").invokeStatic());
+            return new DataWatcherObject(laivynpc().getVersion().getFieldExec("Metadata:Guardian:DataWatcher:Target").invokeStatic());
         } else {
             throw new IllegalStateException("Metadata objects is compatible only at 1.9+");
         }
