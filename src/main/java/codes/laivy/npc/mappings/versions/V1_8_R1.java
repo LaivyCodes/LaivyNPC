@@ -1170,6 +1170,16 @@ public class V1_8_R1 extends Version {
     }
 
     @Override
+    public @NotNull Parrot.Variant getEntityParrotVariant(@NotNull Parrot parrot) {
+        throw new UnsupportedOperationException("The parrot is only available at 1.12+");
+    }
+
+    @Override
+    public void setEntityParrotVariant(@NotNull Parrot parrot, Parrot.@NotNull Variant variant) {
+        throw new UnsupportedOperationException("The parrot is only available at 1.12+");
+    }
+
+    @Override
     public @NotNull EntityPlayer createPlayer(@NotNull GameProfile profile, @NotNull Location location) {
         if (location.getWorld() == null) {
             throw new NullPointerException("This location's world is null!");

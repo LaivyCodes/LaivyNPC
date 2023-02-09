@@ -1,6 +1,6 @@
 package codes.laivy.npc.mappings;
 
-import codes.laivy.npc.mappings.defaults.classes.entity.animal.Snowman;
+import codes.laivy.npc.mappings.defaults.classes.entity.animal.*;
 import codes.laivy.npc.mappings.defaults.classes.entity.animal.horse.AbstractChestedHorse;
 import codes.laivy.npc.mappings.defaults.classes.entity.animal.horse.AbstractHorse;
 import codes.laivy.npc.mappings.defaults.classes.entity.animal.horse.Llama;
@@ -19,8 +19,6 @@ import codes.laivy.npc.mappings.defaults.classes.datawatcher.VersionedDataWatche
 import codes.laivy.npc.mappings.defaults.classes.entity.Entity;
 import codes.laivy.npc.mappings.defaults.classes.entity.EntityLiving;
 import codes.laivy.npc.mappings.defaults.classes.entity.EntityPlayer;
-import codes.laivy.npc.mappings.defaults.classes.entity.animal.Ocelot;
-import codes.laivy.npc.mappings.defaults.classes.entity.animal.Rabbit;
 import codes.laivy.npc.mappings.defaults.classes.entity.animal.horse.Horse;
 import codes.laivy.npc.mappings.defaults.classes.entity.item.FallingBlock;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.*;
@@ -37,7 +35,6 @@ import codes.laivy.npc.mappings.defaults.classes.others.chat.IChatBaseComponent;
 import codes.laivy.npc.mappings.defaults.classes.others.location.BlockPosition;
 import codes.laivy.npc.mappings.defaults.classes.scoreboard.Scoreboard;
 import codes.laivy.npc.mappings.defaults.classes.scoreboard.ScoreboardTeam;
-import codes.laivy.npc.mappings.defaults.classes.entity.animal.Sheep;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.jetbrains.annotations.NotNull;
@@ -257,6 +254,9 @@ public abstract class Version implements VersionCompound, VersionPacket, Version
     // ENTITY WIZARD
     public abstract @NotNull EnumSpellEnum.Spell getEntityWizardSpell(@NotNull IllagerWizard wizard);
     public abstract void setEntityWizardSpell(@NotNull IllagerWizard wizard, @NotNull EnumSpellEnum.Spell spell);
+    // ENTITY PARROT
+    public abstract @NotNull Parrot.Variant getEntityParrotVariant(@NotNull Parrot parrot);
+    public abstract void setEntityParrotVariant(@NotNull Parrot parrot, @NotNull Parrot.Variant variant);
     //
 
     // ENTITY PLAYER

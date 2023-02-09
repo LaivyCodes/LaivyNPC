@@ -233,6 +233,7 @@ public class Entity extends ObjectExecutor {
         VEX(Vex.class, VexNPC.class, V1_11_R1.class),
 
         ILLUSIONER(Illusioner.class, IllusionerNPC.class, V1_12_R1.class),
+        PARROT(Parrot.class, ParrotNPC.class, V1_12_R1.class),
         ;
 
         private final @NotNull Class<? extends Entity> entityClass;

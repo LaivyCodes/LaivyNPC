@@ -34,6 +34,7 @@ import codes.laivy.npc.mappings.defaults.classes.enums.*;
 import codes.laivy.npc.mappings.defaults.classes.gameprofile.GameProfile;
 import codes.laivy.npc.mappings.defaults.classes.gameprofile.Property;
 import codes.laivy.npc.mappings.defaults.classes.gameprofile.PropertyMap;
+import codes.laivy.npc.mappings.defaults.classes.java.IntegerObjExec;
 import codes.laivy.npc.mappings.defaults.classes.nbt.NBTBase;
 import codes.laivy.npc.mappings.defaults.classes.nbt.tags.*;
 import codes.laivy.npc.mappings.defaults.classes.others.chat.IChatBaseComponent;
@@ -299,6 +300,8 @@ public class V1_12_R1 extends V1_11_R1 {
             // Entity illager wizard
             load(V1_12_R1.class, "Entity:IllagerWizard", new IllagerWizard.IllagerWizardClass("net.minecraft.server.v1_12_R1.EntityIllagerWizard"));
             load(V1_12_R1.class, "Entity:IllagerWizard:Spell", new EnumSpellEnum.EnumSpellClass("net.minecraft.server.v1_12_R1.EntityIllagerWizard$Spell"));
+            // Entity parrot
+            load(V1_12_R1.class, "Entity:Parrot", new Parrot.ParrotClass("net.minecraft.server.v1_12_R1.EntityParrot"));
             //
         }
         
@@ -311,6 +314,9 @@ public class V1_12_R1 extends V1_11_R1 {
         if (type == Entity.EntityType.ILLUSIONER) {
             Object object = getClassExec("Entity:Illusioner").getConstructor(getClassExec("World")).newInstance(CraftWorld.getCraftWorld(location.getWorld()).getHandle());
             entity = new Illusioner(object);
+        } else if (type == Entity.EntityType.PARROT) {
+            Object object = getClassExec("Entity:Parrot").getConstructor(getClassExec("World")).newInstance(CraftWorld.getCraftWorld(location.getWorld()).getHandle());
+            entity = new Parrot(object);
         }
 
         return entity;
@@ -323,6 +329,17 @@ public class V1_12_R1 extends V1_11_R1 {
     @Override
     public @NotNull EnumSpellEnum.Spell getEntityWizardSpell(@NotNull IllagerWizard wizard) {
         return EnumSpellEnum.Spell.fromEnum(new EnumSpellEnum.EnumSpellExec((Enum<?>) Objects.requireNonNull(getMethodExec("Entity:IllagerWizard:getSpell").invokeInstance(wizard))));
+    }
+
+    @Override
+    public void setEntityParrotVariant(@NotNull Parrot parrot, Parrot.@NotNull Variant variant) {
+        getMethodExec("Entity:Parrot:setVariant").invokeInstance(parrot, new IntegerObjExec(variant.getData()));
+    }
+
+    @Override
+    public @NotNull Parrot.Variant getEntityParrotVariant(@NotNull Parrot parrot) {
+        //noinspection DataFlowIssue
+        return Parrot.Variant.getByData((int) getMethodExec("Entity:Parrot:getVariant").invokeInstance(parrot));
     }
 
     @Override
@@ -339,6 +356,9 @@ public class V1_12_R1 extends V1_11_R1 {
         if (!super.getMethods().containsKey("Entity:IllagerWizard:setSpell")) {
             load(V1_12_R1.class, "Entity:IllagerWizard:setSpell", new MethodExecutor(getClassExec("Entity:IllagerWizard"), ClassExecutor.VOID, "setSpell", "Sets the spell of a wizard illusioner", getClassExec("Entity:IllagerWizard:Spell")));
             load(V1_12_R1.class, "Entity:IllagerWizard:getSpell", new MethodExecutor(getClassExec("Entity:IllagerWizard"), getClassExec("Entity:IllagerWizard:Spell"), "getSpell", "Gets the spell of a wizard illusioner"));
+
+            load(V1_12_R1.class, "Entity:Parrot:setVariant", new MethodExecutor(getClassExec("Entity:Parrot"), ClassExecutor.VOID, "setVariant", "Sets the variant of a parrot", ClassExecutor.INT));
+            load(V1_12_R1.class, "Entity:Parrot:getVariant", new MethodExecutor(getClassExec("Entity:Parrot"), ClassExecutor.INT, "getVariant", "Gets the variant of a parrot"));
         }
 
         return super.getMethods();

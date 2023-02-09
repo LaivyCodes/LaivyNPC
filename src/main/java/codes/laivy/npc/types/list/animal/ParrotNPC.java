@@ -1,7 +1,7 @@
 package codes.laivy.npc.types.list.animal;
 
 import codes.laivy.npc.mappings.defaults.classes.entity.Entity;
-import codes.laivy.npc.mappings.defaults.classes.entity.animal.Ocelot;
+import codes.laivy.npc.mappings.defaults.classes.entity.animal.Parrot;
 import codes.laivy.npc.types.NPC;
 import codes.laivy.npc.types.TameableLivingEntityNPC;
 import codes.laivy.npc.types.commands.NPCConfiguration;
@@ -19,16 +19,16 @@ import java.util.Map;
 
 import static codes.laivy.npc.config.Translate.translate;
 
-public class OcelotNPC extends TameableLivingEntityNPC {
+public class ParrotNPC extends TameableLivingEntityNPC {
 
-    public static @NotNull OcelotNPC fastInstance(@NotNull List<OfflinePlayer> players, @NotNull Location location, @Nullable Object object) {
-        return new OcelotNPC(players, location);
+    public static @NotNull ParrotNPC fastInstance(@NotNull List<OfflinePlayer> players, @NotNull Location location, @Nullable Object object) {
+        return new ParrotNPC(players, location);
     }
 
     public static void debug(@NotNull Location location) {
-        OcelotNPC ocelotNPC = new OcelotNPC(new ArrayList<>(), location);
-        ocelotNPC.debug();
-        ocelotNPC.destroy();
+        ParrotNPC parrotNPC = new ParrotNPC(new ArrayList<>(), location);
+        parrotNPC.debug();
+        parrotNPC.destroy();
     }
 
     @Override
@@ -37,22 +37,22 @@ public class OcelotNPC extends TameableLivingEntityNPC {
         setVariant(getVariant());
     }
 
-    public OcelotNPC(@NotNull List<OfflinePlayer> players, @NotNull Location location) {
-        super(players, Entity.EntityType.OCELOT, location);
+    public ParrotNPC(@NotNull List<OfflinePlayer> players, @NotNull Location location) {
+        super(players, Entity.EntityType.PARROT, location);
         getHolograms().setDistanceFromNPC(-1.25D);
     }
 
-    public @NotNull Ocelot.CatVariant getVariant() {
+    public @NotNull Parrot.Variant getVariant() {
         return getEntity().getVariant();
     }
-    public void setVariant(@NotNull Ocelot.CatVariant variant) {
+    public void setVariant(@NotNull Parrot.Variant variant) {
         getEntity().setVariant(variant);
         sendUpdatePackets(getSpawnedPlayers(), false, false, true, false, false, false);
     }
 
     @Override
-    public @NotNull Ocelot getEntity() {
-        return (Ocelot) super.getEntity();
+    public @NotNull Parrot getEntity() {
+        return (Parrot) super.getEntity();
     }
 
     @Override
@@ -62,15 +62,15 @@ public class OcelotNPC extends TameableLivingEntityNPC {
         list.add(new NPCConfiguration("variant", "/laivynpc config variant") {
             @Override
             public void execute(@NotNull NPC npc, @NotNull Player sender, @NotNull String[] args) {
-                OcelotNPC ocelotNPC = (OcelotNPC) npc;
+                ParrotNPC parrotNPC = (ParrotNPC) npc;
 
                 if (args.length > 0) {
                     try {
-                        Ocelot.CatVariant variant = Ocelot.CatVariant.valueOf(args[0].toUpperCase());
-                        ocelotNPC.setVariant(variant);
+                        Parrot.Variant variant = Parrot.Variant.valueOf(args[0].toUpperCase());
+                        parrotNPC.setVariant(variant);
                         sender.sendMessage(translate(sender, "npc.commands.general.flag_changed"));
                     } catch (IllegalArgumentException ignore) {
-                        sender.performCommand("laivynpc config variant");
+                        sender.performCommand("laivynpc config " + getName());
                         return;
                     }
                     return;
@@ -78,7 +78,7 @@ public class OcelotNPC extends TameableLivingEntityNPC {
 
                 StringBuilder builder = new StringBuilder();
                 int row = 0;
-                for (Ocelot.CatVariant variant : Ocelot.CatVariant.values()) {
+                for (Parrot.Variant variant : Parrot.Variant.values()) {
                     if (row != 0) builder.append("§7, ");
                     builder.append("§f").append(variant.name());
                     row++;
@@ -96,18 +96,18 @@ public class OcelotNPC extends TameableLivingEntityNPC {
     @Override
     public @NotNull Map<@NotNull String, @NotNull Object> serialize() {
         Map<String, Object> map = super.serialize();
-        map.put("OcelotNPC Configuration", new HashMap<String, Object>() {{
+        map.put("ParrotNPC Configuration", new HashMap<String, Object>() {{
             put("Variant", getVariant().name());
         }});
 
         return map;
     }
 
-    public static @NotNull OcelotNPC deserialize(@NotNull ConfigurationSection section) {
-        OcelotNPC npc = (OcelotNPC) TameableLivingEntityNPC.deserialize(section);
+    public static @NotNull ParrotNPC deserialize(@NotNull ConfigurationSection section) {
+        ParrotNPC npc = (ParrotNPC) TameableLivingEntityNPC.deserialize(section);
 
-        section = section.getConfigurationSection("OcelotNPC Configuration");
-        npc.setVariant(Ocelot.CatVariant.valueOf(section.getString("Variant").toUpperCase()));
+        section = section.getConfigurationSection("ParrotNPC Configuration");
+        npc.setVariant(Parrot.Variant.valueOf(section.getString("Variant").toUpperCase()));
 
         return npc;
     }

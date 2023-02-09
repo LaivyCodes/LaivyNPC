@@ -1179,6 +1179,7 @@ public abstract class NPC {
         put("Vex", VexNPC.class);
         put("Llama", LlamaNPC.class);
         put("Illusioner", IllusionerNPC.class);
+        put("Parrot", ParrotNPC.class);
     }};
 
     @SuppressWarnings("unchecked")
