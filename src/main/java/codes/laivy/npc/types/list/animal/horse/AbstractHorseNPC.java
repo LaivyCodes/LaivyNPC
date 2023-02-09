@@ -9,7 +9,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class AbstractHorseNPC extends AgeableEntityLivingNPC {
+public abstract class AbstractHorseNPC extends AgeableEntityLivingNPC {
     protected AbstractHorseNPC(@NotNull List<OfflinePlayer> players, @NotNull AbstractHorse.Type type, @NotNull Location location) {
         super(players, type.getEntityType(), location);
         if (!type.isCompatible()) {

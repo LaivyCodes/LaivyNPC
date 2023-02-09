@@ -17,7 +17,7 @@ import java.util.Map;
 
 import static codes.laivy.npc.config.Translate.translate;
 
-public class AbstractChestedHorseNPC extends AbstractHorseNPC {
+public abstract class AbstractChestedHorseNPC extends AbstractHorseNPC {
     @Override
     public void debug() {
         super.debug();

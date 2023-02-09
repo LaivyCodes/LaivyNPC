@@ -2,6 +2,7 @@ package codes.laivy.npc.mappings.versions;
 
 import codes.laivy.npc.mappings.Version;
 import codes.laivy.npc.mappings.defaults.classes.entity.animal.horse.*;
+import codes.laivy.npc.mappings.defaults.classes.entity.monster.illagers.IllagerWizard;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.skeleton.SkeletonWither;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.zombie.ZombieVillager;
 import codes.laivy.npc.mappings.instances.*;
@@ -1156,6 +1157,16 @@ public class V1_8_R1 extends Version {
     @Override
     public void setEntityLlamaCarpetColor(@NotNull Llama llama, EnumColorEnum.@Nullable EnumColor color) {
         throw new UnsupportedOperationException("The llamas is only available at 1.11+");
+    }
+
+    @Override
+    public @NotNull EnumSpellEnum.Spell getEntityWizardSpell(@NotNull IllagerWizard wizard) {
+        throw new UnsupportedOperationException("The wizard spells is only available at 1.11+");
+    }
+
+    @Override
+    public void setEntityWizardSpell(@NotNull IllagerWizard wizard, EnumSpellEnum.@NotNull Spell spell) {
+        throw new UnsupportedOperationException("The wizard spells is only available at 1.11+");
     }
 
     @Override

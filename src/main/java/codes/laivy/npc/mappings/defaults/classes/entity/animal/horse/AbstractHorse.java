@@ -10,7 +10,7 @@ import org.jetbrains.annotations.Nullable;
 
 import static codes.laivy.npc.LaivyNPC.laivynpc;
 
-public class AbstractHorse extends AgeableEntityLiving {
+public abstract class AbstractHorse extends AgeableEntityLiving {
     public AbstractHorse(@Nullable Object value) {
         super(value);
     }

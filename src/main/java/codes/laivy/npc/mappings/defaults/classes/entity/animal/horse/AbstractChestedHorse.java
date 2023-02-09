@@ -7,7 +7,7 @@ import org.jetbrains.annotations.Nullable;
 
 import static codes.laivy.npc.LaivyNPC.laivynpc;
 
-public class AbstractChestedHorse extends AbstractHorse {
+public abstract class AbstractChestedHorse extends AbstractHorse {
     public AbstractChestedHorse(@Nullable Object value) {
         super(value);
     }

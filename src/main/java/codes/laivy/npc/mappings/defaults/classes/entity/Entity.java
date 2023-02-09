@@ -2,6 +2,7 @@ package codes.laivy.npc.mappings.defaults.classes.entity;
 
 import codes.laivy.npc.mappings.Version;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.illagers.Evoker;
+import codes.laivy.npc.mappings.defaults.classes.entity.monster.illagers.Illusioner;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.illagers.Vindicator;
 import codes.laivy.npc.mappings.instances.classes.ClassExecutor;
 import codes.laivy.npc.mappings.instances.ObjectExecutor;
@@ -33,10 +34,7 @@ import codes.laivy.npc.mappings.defaults.classes.java.DoubleObjExec;
 import codes.laivy.npc.mappings.defaults.classes.java.FloatObjExec;
 import codes.laivy.npc.mappings.defaults.classes.java.StringObjExec;
 import codes.laivy.npc.mappings.defaults.classes.others.location.World;
-import codes.laivy.npc.mappings.versions.V1_10_R1;
-import codes.laivy.npc.mappings.versions.V1_11_R1;
-import codes.laivy.npc.mappings.versions.V1_8_R1;
-import codes.laivy.npc.mappings.versions.V1_9_R1;
+import codes.laivy.npc.mappings.versions.*;
 import codes.laivy.npc.types.EntityNPC;
 import codes.laivy.npc.types.NPC;
 import codes.laivy.npc.types.list.ambient.BatNPC;
@@ -54,6 +52,7 @@ import codes.laivy.npc.types.list.item.FallingBlockNPC;
 import codes.laivy.npc.types.list.item.ItemNPC;
 import codes.laivy.npc.types.list.monster.*;
 import codes.laivy.npc.types.list.monster.illagers.EvokerNPC;
+import codes.laivy.npc.types.list.monster.illagers.IllusionerNPC;
 import codes.laivy.npc.types.list.monster.illagers.VindicatorNPC;
 import codes.laivy.npc.types.list.monster.skeleton.SkeletonNPC;
 import codes.laivy.npc.types.list.monster.skeleton.SkeletonStrayNPC;
@@ -232,6 +231,8 @@ public class Entity extends ObjectExecutor {
         VINDICATOR(Vindicator.class, VindicatorNPC.class, V1_11_R1.class),
         EVOKER(Evoker.class, EvokerNPC.class, V1_11_R1.class),
         VEX(Vex.class, VexNPC.class, V1_11_R1.class),
+
+        ILLUSIONER(Illusioner.class, IllusionerNPC.class, V1_12_R1.class),
         ;
 
         private final @NotNull Class<? extends Entity> entityClass;

@@ -2,10 +2,11 @@ package codes.laivy.npc.mappings.versions;
 
 import codes.laivy.npc.mappings.Version;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.illagers.Evoker;
+import codes.laivy.npc.mappings.defaults.classes.entity.monster.illagers.IllagerWizard;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.illagers.Vindicator;
 import codes.laivy.npc.mappings.defaults.classes.java.BooleanObjExec;
+import codes.laivy.npc.mappings.defaults.classes.java.ByteObjExec;
 import codes.laivy.npc.mappings.defaults.classes.java.IntegerObjExec;
-import codes.laivy.npc.mappings.defaults.classes.java.ObjectObjExec;
 import codes.laivy.npc.mappings.instances.EnumExecutor;
 import codes.laivy.npc.mappings.instances.Executor;
 import codes.laivy.npc.mappings.instances.FieldExecutor;
@@ -56,6 +57,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
+import java.util.Objects;
 
 import static codes.laivy.npc.LaivyNPC.laivynpc;
 
@@ -196,6 +198,27 @@ public class V1_11_R1 extends V1_10_R1 {
         }
 
         return entity;
+    }
+
+    @Override
+    public void setEntityWizardSpell(@NotNull IllagerWizard wizard, EnumSpellEnum.@NotNull Spell spell) {
+        DataWatcherObject metadata = new DataWatcherObject(laivynpc().getVersion().getFieldExec("Entity:IllagerWizard:DataWatcher:Spell").invokeStatic());
+
+        if (wizard instanceof Evoker) {
+            wizard.getDataWatcher().set(metadata, new ByteObjExec((byte) spell.getValue()));
+        } else {
+            throw new UnsupportedOperationException("This version (1.11) only supports Evokers as wizards");
+        }
+    }
+    @Override
+    public @NotNull EnumSpellEnum.Spell getEntityWizardSpell(@NotNull IllagerWizard wizard) {
+        DataWatcherObject metadata = new DataWatcherObject(laivynpc().getVersion().getFieldExec("Entity:IllagerWizard:DataWatcher:Spell").invokeStatic());
+
+        if (wizard instanceof Evoker) {
+            return EnumSpellEnum.Spell.getByValue(((Byte) Objects.requireNonNull(wizard.getDataWatcher().get(metadata))).intValue());
+        } else {
+            throw new UnsupportedOperationException("This version (1.11) only supports Evokers as wizards");
+        }
     }
 
     @Override
@@ -472,6 +495,15 @@ public class V1_11_R1 extends V1_10_R1 {
         }
 
         return super.getMethods();
+    }
+
+    @Override
+    public @NotNull Map<String, FieldExecutor> getFields() {
+        if (!super.getFields().containsKey("Entity:IllagerWizard:DataWatcher:Spell")) {
+            load(V1_11_R1.class, "Entity:IllagerWizard:DataWatcher:Spell", new FieldExecutor(getClassExec("Entity:IllagerWizard"), getClassExec("DataWatcherObject"), "a", "Gets the illager illusioner's spell DataWatcherObject"));
+        }
+
+        return super.getFields();
     }
 
     @Override

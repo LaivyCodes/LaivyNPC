@@ -34,6 +34,7 @@ import codes.laivy.npc.types.list.item.FallingBlockNPC;
 import codes.laivy.npc.types.list.item.ItemNPC;
 import codes.laivy.npc.types.list.monster.*;
 import codes.laivy.npc.types.list.monster.illagers.EvokerNPC;
+import codes.laivy.npc.types.list.monster.illagers.IllusionerNPC;
 import codes.laivy.npc.types.list.monster.illagers.VindicatorNPC;
 import codes.laivy.npc.types.list.monster.skeleton.SkeletonNPC;
 import codes.laivy.npc.types.list.monster.zombie.ZombieNPC;
@@ -1177,6 +1178,7 @@ public abstract class NPC {
         put("Evoker", EvokerNPC.class);
         put("Vex", VexNPC.class);
         put("Llama", LlamaNPC.class);
+        put("Illusioner", IllusionerNPC.class);
     }};
 
     @SuppressWarnings("unchecked")

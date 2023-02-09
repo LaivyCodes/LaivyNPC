@@ -10,7 +10,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EvokerNPC extends EntityLivingNPC {
+public class EvokerNPC extends IllagerWizardNPC {
 
     public static @NotNull EvokerNPC fastInstance(@NotNull List<OfflinePlayer> players, @NotNull Location location, @Nullable Object object) {
         return new EvokerNPC(players, location);

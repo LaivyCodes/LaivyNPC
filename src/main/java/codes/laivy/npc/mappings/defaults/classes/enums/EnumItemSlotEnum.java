@@ -14,6 +14,10 @@ import static codes.laivy.npc.LaivyNPC.laivynpc;
 public class EnumItemSlotEnum extends EnumExecutor {
 
     public static @NotNull EnumItemSlotEnum getInstance() {
+        if (!ReflectionUtils.isCompatible(V1_9_R1.class)) {
+            throw new IllegalStateException("The EnumItemSlot enums is only available at 1.9+");
+        }
+
         return (EnumItemSlotEnum) laivynpc().getVersion().getEnumExec("EnumItemSlot");
     }
 

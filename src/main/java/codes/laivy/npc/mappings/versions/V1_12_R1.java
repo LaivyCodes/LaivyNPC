@@ -20,6 +20,8 @@ import codes.laivy.npc.mappings.defaults.classes.entity.item.FallingBlock;
 import codes.laivy.npc.mappings.defaults.classes.entity.item.Item;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.*;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.illagers.Evoker;
+import codes.laivy.npc.mappings.defaults.classes.entity.monster.illagers.IllagerWizard;
+import codes.laivy.npc.mappings.defaults.classes.entity.monster.illagers.Illusioner;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.illagers.Vindicator;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.skeleton.Skeleton;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.skeleton.SkeletonStray;
@@ -50,8 +52,10 @@ import codes.laivy.npc.mappings.instances.FieldExecutor;
 import codes.laivy.npc.mappings.instances.MethodExecutor;
 import codes.laivy.npc.mappings.instances.classes.ClassExecutor;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
+import java.util.Objects;
 
 public class V1_12_R1 extends V1_11_R1 {
 
@@ -75,6 +79,8 @@ public class V1_12_R1 extends V1_11_R1 {
                         return false;
                     case "Metadata:Guardian:DataWatcher:Target":
                         load(V1_12_R1.class, key, new FieldExecutor(getClassExec("Entity:Guardian"), getClassExec("DataWatcherObject"), "bB", "Gets the Guardian target DataWatcherObject"));
+                        return false;
+                    case "Entity:IllagerWizard:DataWatcher:Spell":
                         return false;
                     default:
                         break;
@@ -288,10 +294,54 @@ public class V1_12_R1 extends V1_11_R1 {
             load(V1_12_R1.class, "Entity:Vex", new Vex.VexClass("net.minecraft.server.v1_12_R1.EntityVex"));
             // Entity llama
             load(V1_12_R1.class, "Entity:Llama", new Llama.LlamaClass("net.minecraft.server.v1_12_R1.EntityLlama"));
+            // Entity illager illusioner
+            load(V1_12_R1.class, "Entity:Illusioner", new Illusioner.IllusionerClass("net.minecraft.server.v1_12_R1.EntityIllagerIllusioner"));
+            // Entity illager wizard
+            load(V1_12_R1.class, "Entity:IllagerWizard", new IllagerWizard.IllagerWizardClass("net.minecraft.server.v1_12_R1.EntityIllagerWizard"));
+            load(V1_12_R1.class, "Entity:IllagerWizard:Spell", new EnumSpellEnum.EnumSpellClass("net.minecraft.server.v1_12_R1.EntityIllagerWizard$Spell"));
             //
         }
         
         return super.getClasses();
+    }
+
+    @Override
+    public @Nullable Entity getEntityInstance(Entity.@NotNull EntityType type, @NotNull org.bukkit.Location location) {
+        Entity entity = super.getEntityInstance(type, location);
+        if (type == Entity.EntityType.ILLUSIONER) {
+            Object object = getClassExec("Entity:Illusioner").getConstructor(getClassExec("World")).newInstance(CraftWorld.getCraftWorld(location.getWorld()).getHandle());
+            entity = new Illusioner(object);
+        }
+
+        return entity;
+    }
+
+    @Override
+    public void setEntityWizardSpell(@NotNull IllagerWizard wizard, EnumSpellEnum.@NotNull Spell spell) {
+        getMethodExec("Entity:IllagerWizard:setSpell").invokeInstance(wizard, spell.getEnum());
+    }
+    @Override
+    public @NotNull EnumSpellEnum.Spell getEntityWizardSpell(@NotNull IllagerWizard wizard) {
+        return EnumSpellEnum.Spell.fromEnum(new EnumSpellEnum.EnumSpellExec((Enum<?>) Objects.requireNonNull(getMethodExec("Entity:IllagerWizard:getSpell").invokeInstance(wizard))));
+    }
+
+    @Override
+    public @NotNull Map<String, EnumExecutor> getEnums() {
+        if (!super.getEnums().containsKey("Entity:IllagerWizard:Spell")) {
+            load(V1_12_R1.class, "Entity:IllagerWizard:Spell", new EnumSpellEnum(getClassExec("Entity:IllagerWizard:Spell")));
+        }
+
+        return super.getEnums();
+    }
+
+    @Override
+    public @NotNull Map<String, MethodExecutor> getMethods() {
+        if (!super.getMethods().containsKey("Entity:IllagerWizard:setSpell")) {
+            load(V1_12_R1.class, "Entity:IllagerWizard:setSpell", new MethodExecutor(getClassExec("Entity:IllagerWizard"), ClassExecutor.VOID, "setSpell", "Sets the spell of a wizard illusioner", getClassExec("Entity:IllagerWizard:Spell")));
+            load(V1_12_R1.class, "Entity:IllagerWizard:getSpell", new MethodExecutor(getClassExec("Entity:IllagerWizard"), getClassExec("Entity:IllagerWizard:Spell"), "getSpell", "Gets the spell of a wizard illusioner"));
+        }
+
+        return super.getMethods();
     }
 
     @Override

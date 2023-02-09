@@ -15,7 +15,6 @@ import codes.laivy.npc.mappings.defaults.classes.scoreboard.ScoreboardTeam;
 import codes.laivy.npc.types.NPC;
 import codes.laivy.npc.types.player.PlayerNPC;
 import codes.laivy.npc.utils.ReflectionUtils;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;

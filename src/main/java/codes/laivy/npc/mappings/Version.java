@@ -4,6 +4,8 @@ import codes.laivy.npc.mappings.defaults.classes.entity.animal.Snowman;
 import codes.laivy.npc.mappings.defaults.classes.entity.animal.horse.AbstractChestedHorse;
 import codes.laivy.npc.mappings.defaults.classes.entity.animal.horse.AbstractHorse;
 import codes.laivy.npc.mappings.defaults.classes.entity.animal.horse.Llama;
+import codes.laivy.npc.mappings.defaults.classes.entity.monster.illagers.IllagerWizard;
+import codes.laivy.npc.mappings.defaults.classes.enums.EnumSpellEnum;
 import codes.laivy.npc.mappings.instances.classes.ClassExecutor;
 import codes.laivy.npc.mappings.instances.EnumExecutor;
 import codes.laivy.npc.mappings.instances.Executor;
@@ -252,6 +254,9 @@ public abstract class Version implements VersionCompound, VersionPacket, Version
     public abstract void setEntityLlamaVariant(@NotNull Llama llama, @NotNull Llama.Variant variant);
     public abstract @Nullable EnumColorEnum.EnumColor getEntityLlamaCarpetColor(@NotNull Llama llama);
     public abstract void setEntityLlamaCarpetColor(@NotNull Llama llama, @Nullable EnumColorEnum.EnumColor color);
+    // ENTITY WIZARD
+    public abstract @NotNull EnumSpellEnum.Spell getEntityWizardSpell(@NotNull IllagerWizard wizard);
+    public abstract void setEntityWizardSpell(@NotNull IllagerWizard wizard, @NotNull EnumSpellEnum.Spell spell);
     //
 
     // ENTITY PLAYER
