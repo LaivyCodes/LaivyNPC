@@ -13,11 +13,10 @@ public class Slime extends EntityLiving {
     }
 
     public int getSize() {
-        //noinspection DataFlowIssue
-        return (int) laivynpc().getVersion().getMethodExec("Entity:Slime:getSize").invokeInstance(this);
+        return laivynpc().getVersion().getEntitySlimeSize(this);
     }
     public void setSize(int size) {
-        laivynpc().getVersion().getMethodExec("Entity:Slime:setSize").invokeInstance(this, new IntegerObjExec(size));
+        laivynpc().getVersion().setEntitySlimeSize(this, size);
     }
 
     @Override

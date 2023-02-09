@@ -15,7 +15,7 @@ public class HorseZombie extends Horse {
     @Override
     public @NotNull HorseClass getClassExecutor() {
         if (ReflectionUtils.isCompatible(V1_11_R1.class)) {
-            return (HorseDonkey.HorseDonkeyClass) laivynpc().getVersion().getClassExec("Entity:Horse:Zombie");
+            return (HorseZombieClass) laivynpc().getVersion().getClassExec("Entity:Horse:Zombie");
         } else {
             return (HorseClass) laivynpc().getVersion().getClassExec("Entity:Horse");
         }

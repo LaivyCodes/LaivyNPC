@@ -1,6 +1,5 @@
 package codes.laivy.npc.mappings.defaults.classes.entity.animal.horse;
 
-import codes.laivy.npc.mappings.defaults.classes.entity.animal.horse.Horse.HorseClass;
 import codes.laivy.npc.mappings.versions.V1_11_R1;
 import codes.laivy.npc.utils.ReflectionUtils;
 import org.jetbrains.annotations.NotNull;
@@ -16,7 +15,7 @@ public class HorseSkeleton extends Horse {
     @Override
     public @NotNull HorseClass getClassExecutor() {
         if (ReflectionUtils.isCompatible(V1_11_R1.class)) {
-            return (HorseDonkey.HorseDonkeyClass) laivynpc().getVersion().getClassExec("Entity:Horse:Skeleton");
+            return (HorseSkeletonClass) laivynpc().getVersion().getClassExec("Entity:Horse:Skeleton");
         } else {
             return (HorseClass) laivynpc().getVersion().getClassExec("Entity:Horse");
         }

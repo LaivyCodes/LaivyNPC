@@ -18,7 +18,7 @@ public class SkeletonWither extends Skeleton {
     @Override
     public @NotNull SkeletonClass getClassExecutor() {
         if (ReflectionUtils.isCompatible(V1_11_R1.class)) {
-            return (SkeletonStray.SkeletonStrayClass) laivynpc().getVersion().getClassExec("Entity:Skeleton:Wither");
+            return (SkeletonWitherClass) laivynpc().getVersion().getClassExec("Entity:Skeleton:Wither");
         } else {
             return (SkeletonClass) laivynpc().getVersion().getClassExec("Entity:Skeleton");
         }

@@ -43,17 +43,6 @@ public class ZombieNPC extends EntityLivingNPC {
         return getEntity().getType() != null && getEntity().getType() == Type.VILLAGER;
     }
 
-    @Override
-    public @NotNull Zombie getNewEntity() {
-        if (!ReflectionUtils.isCompatible(V1_11_R1.class)) {
-            Zombie zombie = (Zombie) super.getNewEntity();
-            laivynpc().getVersion().setEntityZombieType(zombie, getType());
-            return zombie;
-        } else {
-            return (Zombie) super.getNewEntity();
-        }
-    }
-
     public @Nullable Zombie.Type getType() {
         return getEntity().getType();
     }
@@ -159,13 +148,15 @@ public class ZombieNPC extends EntityLivingNPC {
     public static @NotNull ZombieNPC deserialize(@NotNull ConfigurationSection section) {
         ZombieNPC npc = (ZombieNPC) EntityLivingNPC.deserialize(section);
 
-        section = section.getConfigurationSection("ZombieNPC Configuration");
-        if (section.contains("Type")) {
-            Type type = Type.valueOf(section.getString("Type").toUpperCase());
-            if (type.isCompatible()) {
-                laivynpc().getVersion().setEntityZombieType(npc.getEntity(), type);
-                npc.sendUpdatePackets(npc.getSpawnedPlayers(), false, false, true, false, false, false);
-                npc.entityType = type.getEntityType();
+        if (!ReflectionUtils.isCompatible(V1_11_R1.class)) {
+            section = section.getConfigurationSection("ZombieNPC Configuration");
+            if (section.contains("Type")) {
+                Type type = Type.valueOf(section.getString("Type").toUpperCase());
+                if (type.isCompatible()) {
+                    laivynpc().getVersion().setEntityZombieType(npc.getEntity(), type);
+                    npc.sendUpdatePackets(npc.getSpawnedPlayers(), false, false, true, false, false, false);
+                    npc.entityType = type.getEntityType();
+                }
             }
         }
 

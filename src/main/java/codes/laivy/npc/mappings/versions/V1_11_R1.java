@@ -1,6 +1,8 @@
 package codes.laivy.npc.mappings.versions;
 
 import codes.laivy.npc.mappings.Version;
+import codes.laivy.npc.mappings.defaults.classes.java.BooleanObjExec;
+import codes.laivy.npc.mappings.defaults.classes.java.IntegerObjExec;
 import codes.laivy.npc.mappings.instances.EnumExecutor;
 import codes.laivy.npc.mappings.instances.Executor;
 import codes.laivy.npc.mappings.instances.FieldExecutor;
@@ -52,6 +54,8 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
 
+import static codes.laivy.npc.LaivyNPC.laivynpc;
+
 public class V1_11_R1 extends V1_10_R1 {
 
     @Override
@@ -59,19 +63,59 @@ public class V1_11_R1 extends V1_10_R1 {
         if (version == V1_10_R1.class) {
             if (executor instanceof ClassExecutor && !(executor instanceof EnumExecutor)) {
                 return false;
+            } else if (executor instanceof EnumExecutor) {
+                switch (key) {
+                    case "EnumSkeletonType":
+                    case "EnumZombieType":
+                        return false;
+                    default:
+                        break;
+                }
             } else if (executor instanceof MethodExecutor) {
                 switch (key) {
                     case "Entity:Skeleton:getSkeletonType":
                     case "Entity:Skeleton:setSkeletonType":
+                    case "Entity:Zombie:getVillagerType":
                     case "Entity:Zombie:setVillagerType":
+                        return false;
+                    default:
+                        break;
+                }
+            } else if (executor instanceof FieldExecutor) {
+                switch (key) {
+                    case "Entity:Enderman:DataWatcher:screaming":
+                        load(V1_11_R1.class, key, new FieldExecutor(getClassExec("Entity:Enderman"), getClassExec("DataWatcherObject"), "bx", "Gets the enderman's screaming datawatcher object"));
+                        return false;
+                    default:
+                        break;
+                }
+            }
+        } else if (version == V1_8_R1.class) {
+            if (executor instanceof MethodExecutor) {
+                switch (key) {
+                    case "Entity:Slime:setSize":
+                        load(V1_11_R1.class, key, new MethodExecutor(getClassExec("Entity:Slime"), ClassExecutor.VOID, "setSize", "Sets the slime size", ClassExecutor.INT, ClassExecutor.BOOLEAN));
                         return false;
                     default:
                         break;
                 }
             }
         } else if (version == V1_9_R1.class) {
-            if (executor instanceof MethodExecutor) {
+            if (executor instanceof EnumExecutor) {
                 switch (key) {
+                    case "EnumHorseType":
+                        return false;
+                    default:
+                        break;
+                }
+            } else if (executor instanceof MethodExecutor) {
+                switch (key) {
+                    case "Entity:Snowman:hasPumpkinHat":
+                        load(V1_11_R1.class, key, new MethodExecutor(getClassExec("Entity:Snowman"), ClassExecutor.BOOLEAN, "hasPumpkin", "Gets the pumpkin hat state of a Snowman"));
+                        return false;
+                    case "Entity:Snowman:setPumpkinHat":
+                        load(V1_11_R1.class, key, new MethodExecutor(getClassExec("Entity:Snowman"), ClassExecutor.VOID, "setHasPumpkin", "Sets the pumpkin hat state of a Snowman", ClassExecutor.BOOLEAN));
+                        return false;
                     case "Entity:Horse:getType":
                     case "Entity:Horse:setType":
                         return false;
@@ -81,7 +125,7 @@ public class V1_11_R1 extends V1_10_R1 {
             } else if (executor instanceof FieldExecutor) {
                 switch (key) {
                     case "Metadata:Guardian:Target":
-                        load(V1_9_R1.class, "Metadata:Guardian:Target", new FieldExecutor(getClassExec("Entity:Guardian"), getClassExec("DataWatcherObject"), "bA", "Gets the Guardian target DataWatcherObject"));
+                        load(V1_11_R1.class, "Metadata:Guardian:Target", new FieldExecutor(getClassExec("Entity:Guardian"), getClassExec("DataWatcherObject"), "bA", "Gets the Guardian target DataWatcherObject"));
                         return false;
                     default:
                         break;
@@ -103,18 +147,47 @@ public class V1_11_R1 extends V1_10_R1 {
     }
 
     @Override
-    public @NotNull Horse.Type getEntityHorseType(@NotNull AbstractHorse horse) {
-        if (horse instanceof HorseDonkey) {
-            return AbstractHorse.Type.DONKEY;
-        } else if (horse instanceof HorseMule) {
-            return AbstractHorse.Type.MULE;
-        } else if (horse instanceof HorseZombie) {
-            return AbstractHorse.Type.ZOMBIE;
-        } else if (horse instanceof HorseSkeleton) {
-            return AbstractHorse.Type.SKELETON;
-        } else {
-            return AbstractHorse.Type.HORSE;
+    public @Nullable Entity getEntityInstance(Entity.@NotNull EntityType type, @NotNull org.bukkit.Location location) {
+        Entity entity = null;
+        if (type == Entity.EntityType.HORSE) {
+            Object object = getClassExec("Entity:Horse").getConstructor(getClassExec("World")).newInstance(CraftWorld.getCraftWorld(location.getWorld()).getHandle());
+            entity = new Horse(object);
+        } else if (type == Entity.EntityType.HORSE_DONKEY) {
+            Object object = getClassExec("Entity:Horse:Donkey").getConstructor(getClassExec("World")).newInstance(CraftWorld.getCraftWorld(location.getWorld()).getHandle());
+            entity = new HorseDonkey(object);
+        } else if (type == Entity.EntityType.HORSE_MULE) {
+            Object object = getClassExec("Entity:Horse:Mule").getConstructor(getClassExec("World")).newInstance(CraftWorld.getCraftWorld(location.getWorld()).getHandle());
+            entity = new HorseMule(object);
+        } else if (type == Entity.EntityType.HORSE_SKELETON) {
+            Object object = getClassExec("Entity:Horse:Skeleton").getConstructor(getClassExec("World")).newInstance(CraftWorld.getCraftWorld(location.getWorld()).getHandle());
+            entity = new HorseSkeleton(object);
+        } else if (type == Entity.EntityType.HORSE_ZOMBIE) {
+            Object object = getClassExec("Entity:Horse:Zombie").getConstructor(getClassExec("World")).newInstance(CraftWorld.getCraftWorld(location.getWorld()).getHandle());
+            entity = new HorseZombie(object);
+        } else if (type == Entity.EntityType.SKELETON_WITHER) {
+            Object object = getClassExec("Entity:Skeleton:Wither").getConstructor(getClassExec("World")).newInstance(CraftWorld.getCraftWorld(location.getWorld()).getHandle());
+            entity = new SkeletonWither(object);
+        } else if (type == Entity.EntityType.SKELETON_STRAY) {
+            Object object = getClassExec("Entity:Skeleton:Stray").getConstructor(getClassExec("World")).newInstance(CraftWorld.getCraftWorld(location.getWorld()).getHandle());
+            entity = new SkeletonStray(object);
+        } else if (type == Entity.EntityType.ZOMBIE_VILLAGER) {
+            Object object = getClassExec("Entity:Zombie:Villager").getConstructor(getClassExec("World")).newInstance(CraftWorld.getCraftWorld(location.getWorld()).getHandle());
+            entity = new ZombieVillager(object);
+        } else if (type == Entity.EntityType.ZOMBIE_HUSK) {
+            Object object = getClassExec("Entity:Zombie:Husk").getConstructor(getClassExec("World")).newInstance(CraftWorld.getCraftWorld(location.getWorld()).getHandle());
+            entity = new ZombieHusk(object);
         }
+
+        if (entity == null) {
+            entity = super.getEntityInstance(type, location);
+        }
+
+        return entity;
+    }
+
+    @Override
+    public void setEntitySlimeSize(@NotNull Slime slime, int size) {
+        laivynpc().getVersion().getMethodExec("Entity:Slime:setSize").invokeInstance(slime, new IntegerObjExec(size), new BooleanObjExec(false));
     }
 
     @Override
@@ -132,20 +205,48 @@ public class V1_11_R1 extends V1_10_R1 {
     public void setEntitySkeletonType(@NotNull Skeleton skeleton, Skeleton.@NotNull Type type) {
         throw new IllegalStateException("This version doesn't supports entity skeleton type changing");
     }
+
+    @Override
+    public @NotNull Horse.Type getEntityHorseType(@NotNull AbstractHorse horse) {
+        if (horse instanceof HorseDonkey) {
+            return AbstractHorse.Type.DONKEY;
+        } else if (horse instanceof HorseMule) {
+            return AbstractHorse.Type.MULE;
+        } else if (horse instanceof HorseZombie) {
+            return AbstractHorse.Type.ZOMBIE;
+        } else if (horse instanceof HorseSkeleton) {
+            return AbstractHorse.Type.SKELETON;
+        } else {
+            return AbstractHorse.Type.HORSE;
+        }
+    }
     @Override
     public void setEntityHorseType(@NotNull AbstractHorse horse, Horse.@NotNull Type type) {
         throw new IllegalStateException("This version doesn't supports entity horse type changing");
     }
 
     @Override
+    public @NotNull Zombie.Type getEntityZombieType(@NotNull Zombie zombie) {
+        if (zombie instanceof ZombieHusk) {
+            return Zombie.Type.HUSK;
+        } else if (zombie instanceof ZombieVillager) {
+            return Zombie.Type.VILLAGER;
+        } else {
+            return Zombie.Type.NORMAL;
+        }
+    }
+    @Override
     public void setEntityZombieType(@NotNull Zombie zombie, Zombie.@Nullable Type type) {
-        super.setEntityZombieType(zombie, type);
+        throw new IllegalStateException("This version doesn't supports entity horse type changing");
     }
 
     @Override
     public @NotNull Map<String, ClassExecutor> getClasses() {
         if (super.getClasses().isEmpty()) {
             load(V1_11_R1.class, "WatchableObject", new ClassExecutor.BrokenClassExecutor());
+            load(V1_11_R1.class, "EnumSkeletonType", new ClassExecutor.BrokenClassExecutor());
+            load(V1_11_R1.class, "EnumHorseType", new ClassExecutor.BrokenClassExecutor());
+            load(V1_11_R1.class, "EnumZombieType", new ClassExecutor.BrokenClassExecutor());
 
             load(V1_11_R1.class, "NBTBase", new NBTBase.NBTBaseClass("net.minecraft.server.v1_11_R1.NBTBase"));
 

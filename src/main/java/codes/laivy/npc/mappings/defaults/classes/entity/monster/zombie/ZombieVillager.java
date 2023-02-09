@@ -15,7 +15,7 @@ public class ZombieVillager extends Zombie {
     @Override
     public @NotNull ZombieClass getClassExecutor() {
         if (ReflectionUtils.isCompatible(V1_11_R1.class)) {
-            return (ZombieHusk.ZombieHuskClass) laivynpc().getVersion().getClassExec("Entity:Zombie:Villager");
+            return (ZombieVillagerClass) laivynpc().getVersion().getClassExec("Entity:Zombie:Villager");
         } else {
             return (ZombieClass) laivynpc().getVersion().getClassExec("Entity:Zombie");
         }

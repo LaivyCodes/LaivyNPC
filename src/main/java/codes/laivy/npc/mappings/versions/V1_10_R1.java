@@ -149,10 +149,6 @@ public class V1_10_R1 extends V1_9_R2 {
 
     @Override
     public @Nullable Entity getEntityInstance(Entity.@NotNull EntityType type, @NotNull org.bukkit.Location location) {
-        if (location.getWorld() == null) {
-            throw new NullPointerException("This location's world is null!");
-        }
-
         Entity entity = super.getEntityInstance(type, location);
         if (type == Entity.EntityType.POLAR_BEAR) {
             Object object = getClassExec("Entity:PolarBear").getConstructor(getClassExec("World")).newInstance(CraftWorld.getCraftWorld(location.getWorld()).getHandle());

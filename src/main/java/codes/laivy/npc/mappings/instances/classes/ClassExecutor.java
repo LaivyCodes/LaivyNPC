@@ -280,6 +280,16 @@ public class ClassExecutor implements Executor {
         @Override
         public void load() {
         }
+
+        @Override
+        public @NotNull Class<?> getReflectionClass() {
+            return getClass();
+        }
+
+        @Override
+        public boolean isLoaded() {
+            return true;
+        }
     }
 
 }

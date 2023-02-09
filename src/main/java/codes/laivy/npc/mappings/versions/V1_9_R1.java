@@ -200,10 +200,6 @@ public class V1_9_R1 extends V1_8_R3 {
 
     @Override
     public @Nullable Entity getEntityInstance(Entity.@NotNull EntityType type, @NotNull org.bukkit.Location location) {
-        if (location.getWorld() == null) {
-            throw new NullPointerException("This location's world is null!");
-        }
-
         Entity entity = super.getEntityInstance(type, location);
         if (type == Entity.EntityType.SHULKER) {
             Object object = getClassExec("Entity:Shulker").getConstructor(getClassExec("World")).newInstance(CraftWorld.getCraftWorld(location.getWorld()).getHandle());
@@ -211,6 +207,16 @@ public class V1_9_R1 extends V1_8_R3 {
         }
 
         return entity;
+    }
+
+    @Override
+    public boolean hasEntitySnowmanHat(@NotNull Snowman snowman) {
+        //noinspection DataFlowIssue
+        return (boolean) laivynpc().getVersion().getMethodExec("Entity:Snowman:hasPumpkinHat").invokeInstance(snowman);
+    }
+    @Override
+    public void setEntitySnowmanHat(@NotNull Snowman snowman, boolean hat) {
+        laivynpc().getVersion().getMethodExec("Entity:Snowman:setPumpkinHat").invokeInstance(snowman, new BooleanObjExec(hat));
     }
 
     @Override

@@ -779,10 +779,6 @@ public class V1_8_R1 extends Version {
 
     @Override
     public @Nullable Entity getEntityInstance(Entity.@NotNull EntityType type, @NotNull Location location) {
-        if (location.getWorld() == null) {
-            throw new NullPointerException("This location's world is null!");
-        }
-
         Entity entity;
         if (type == Entity.EntityType.ARMOR_STAND) {
             Object object = getClassExec("Entity:ArmorStand").getConstructor(getClassExec("World"), ClassExecutor.DOUBLE, ClassExecutor.DOUBLE, ClassExecutor.DOUBLE).newInstance(CraftWorld.getCraftWorld(location.getWorld()).getHandle(), new DoubleObjExec(location.getX()), new DoubleObjExec(location.getBlockY()), new DoubleObjExec(location.getZ()));
@@ -1105,6 +1101,27 @@ public class V1_8_R1 extends Version {
             id = entity.getId();
         }
         guardian.getDataWatcher().set((int) laivynpc().getVersion().getObject("Metadata:Guardian:Target"), id);
+    }
+
+    @Override
+    public int getEntitySlimeSize(@NotNull Slime slime) {
+        //noinspection DataFlowIssue
+        return (int) laivynpc().getVersion().getMethodExec("Entity:Slime:getSize").invokeInstance(slime);
+    }
+
+    @Override
+    public void setEntitySlimeSize(@NotNull Slime slime, int size) {
+        laivynpc().getVersion().getMethodExec("Entity:Slime:setSize").invokeInstance(slime, new IntegerObjExec(size));
+    }
+
+    @Override
+    public boolean hasEntitySnowmanHat(@NotNull Snowman snowman) {
+        throw new IllegalStateException("The pumpkin hat of a snowman is only available at 1.9+");
+    }
+
+    @Override
+    public void setEntitySnowmanHat(@NotNull Snowman snowman, boolean hat) {
+        throw new IllegalStateException("The pumpkin hat of a snowman is only available at 1.9+");
     }
 
     @Override

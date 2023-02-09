@@ -1,5 +1,6 @@
 package codes.laivy.npc.mappings;
 
+import codes.laivy.npc.mappings.defaults.classes.entity.animal.Snowman;
 import codes.laivy.npc.mappings.defaults.classes.entity.animal.horse.AbstractHorse;
 import codes.laivy.npc.mappings.instances.classes.ClassExecutor;
 import codes.laivy.npc.mappings.instances.EnumExecutor;
@@ -178,6 +179,9 @@ public abstract class Version implements VersionCompound, VersionPacket, Version
     // ENTITY
     //
     public final @NotNull Entity createEntity(@NotNull Entity.EntityType type, @NotNull Location location) {
+        if (location.getWorld() == null) {
+            throw new NullPointerException("This location's world is null!");
+        }
         Entity entity = getEntityInstance(type, location);
         if (entity == null) {
             throw new IllegalArgumentException("Cannot get this entity type '" + type.name() + "' for this version!");
@@ -232,6 +236,12 @@ public abstract class Version implements VersionCompound, VersionPacket, Version
     public abstract void setEntityGhastAttacking(@NotNull Ghast ghast, boolean attacking);
     // ENTITY GUARDIAN
     public abstract void setEntityGuardianTarget(@NotNull Guardian guardian, @Nullable EntityLiving entity);
+    // ENTITY SLIME
+    public abstract int getEntitySlimeSize(@NotNull Slime slime);
+    public abstract void setEntitySlimeSize(@NotNull Slime slime, int size);
+    // ENTITY SNOWMAN
+    public abstract boolean hasEntitySnowmanHat(@NotNull Snowman snowman);
+    public abstract void setEntitySnowmanHat(@NotNull Snowman snowman, boolean hat);
     //
 
     // ENTITY PLAYER
