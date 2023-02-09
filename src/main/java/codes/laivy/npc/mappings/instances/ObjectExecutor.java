@@ -23,11 +23,11 @@ public abstract class ObjectExecutor implements Executor {
     public void load() {
     }
 
-    public static @NotNull Object[] toObjectArray(@NotNull ObjectExecutor[] objectExecutors) {
+    public static @NotNull Object[] toObjectArray(@Nullable ObjectExecutor[] objectExecutors) {
         Object[] objects = new Object[objectExecutors.length];
         int row = 0;
         for (ObjectExecutor exec : objectExecutors) {
-            objects[row] = exec.getValue();
+            objects[row] = exec != null ? exec.getValue() : null;
             row++;
         }
         return objects;

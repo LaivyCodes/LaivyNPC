@@ -4,7 +4,6 @@ import codes.laivy.npc.mappings.instances.classes.ClassExecutor;
 import codes.laivy.npc.mappings.instances.EnumExecutor;
 import codes.laivy.npc.mappings.defaults.classes.java.EnumObjExec;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import static codes.laivy.npc.LaivyNPC.laivynpc;
 
@@ -68,7 +67,7 @@ public class EnumChatFormatEnum extends EnumExecutor {
     }
 
     public static class EnumChatFormat extends EnumObjExec {
-        public EnumChatFormat(@Nullable Enum<?> value) {
+        public EnumChatFormat(@NotNull Enum<?> value) {
             super(value);
         }
     }

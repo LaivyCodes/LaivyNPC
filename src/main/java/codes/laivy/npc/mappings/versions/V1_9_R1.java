@@ -49,6 +49,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import static codes.laivy.npc.LaivyNPC.laivynpc;
 import static codes.laivy.npc.mappings.defaults.classes.others.objects.ItemStack.getNMSItemStack;
@@ -163,7 +164,7 @@ public class V1_9_R1 extends V1_8_R3 {
 
     @Override
     public @NotNull Horse.Type getEntityHorseType(@NotNull AbstractHorse horse) {
-        return AbstractHorse.Type.valueOf(new EnumHorseTypeEnum.EnumHorseType((Enum<?>) getMethodExec("Entity:Horse:getType").invokeInstance(horse)).name());
+        return AbstractHorse.Type.valueOf(new EnumHorseTypeEnum.EnumHorseType((Enum<?>) Objects.requireNonNull(getMethodExec("Entity:Horse:getType").invokeInstance(horse))).name());
     }
 
     @Override

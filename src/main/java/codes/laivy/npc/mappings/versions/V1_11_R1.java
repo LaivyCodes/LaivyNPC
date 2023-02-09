@@ -5,6 +5,7 @@ import codes.laivy.npc.mappings.defaults.classes.entity.monster.illagers.Evoker;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.illagers.Vindicator;
 import codes.laivy.npc.mappings.defaults.classes.java.BooleanObjExec;
 import codes.laivy.npc.mappings.defaults.classes.java.IntegerObjExec;
+import codes.laivy.npc.mappings.defaults.classes.java.ObjectObjExec;
 import codes.laivy.npc.mappings.instances.EnumExecutor;
 import codes.laivy.npc.mappings.instances.Executor;
 import codes.laivy.npc.mappings.instances.FieldExecutor;
@@ -454,12 +455,12 @@ public class V1_11_R1 extends V1_10_R1 {
     @Override
     public @NotNull Llama.Variant getEntityLlamaVariant(@NotNull Llama llama) {
         //noinspection DataFlowIssue
-        return Llama.Variant.getById((int) getMethodExec("Entity:Llama:setVariant").invokeInstance(llama));
+        return Llama.Variant.getById((int) getMethodExec("Entity:Llama:getVariant").invokeInstance(llama));
     }
 
     @Override
     public void setEntityLlamaCarpetColor(@NotNull Llama llama, EnumColorEnum.@Nullable EnumColor color) {
-        getMethodExec("Entity:Llama:setCarpetColor").invokeInstance(llama, new EnumColorEnum.EnumColor(color != null ? color.getValue() : null));
+        getMethodExec("Entity:Llama:setCarpetColor").invokeInstance(llama, color);
     }
     @Override
     public EnumColorEnum.@Nullable EnumColor getEntityLlamaCarpetColor(@NotNull Llama llama) {

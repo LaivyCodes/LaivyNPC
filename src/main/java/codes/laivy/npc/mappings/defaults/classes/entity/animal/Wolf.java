@@ -6,6 +6,8 @@ import codes.laivy.npc.mappings.defaults.classes.java.BooleanObjExec;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Objects;
+
 import static codes.laivy.npc.LaivyNPC.laivynpc;
 
 public class Wolf extends TameableEntityLiving {
@@ -14,7 +16,7 @@ public class Wolf extends TameableEntityLiving {
     }
 
     public @NotNull EnumColorEnum.EnumColor getCollarColor() {
-        return new EnumColorEnum.EnumColor((Enum<?>) laivynpc().getVersion().getMethodExec("Entity:Wolf:getCollarColor").invokeInstance(this));
+        return new EnumColorEnum.EnumColor((Enum<?>) Objects.requireNonNull(laivynpc().getVersion().getMethodExec("Entity:Wolf:getCollarColor").invokeInstance(this)));
     }
     public void setCollarColor(@NotNull EnumColorEnum.EnumColor color) {
         laivynpc().getVersion().getMethodExec("Entity:Wolf:setCollarColor").invokeInstance(this, color);

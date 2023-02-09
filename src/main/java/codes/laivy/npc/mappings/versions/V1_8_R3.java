@@ -5,7 +5,6 @@ import codes.laivy.npc.mappings.defaults.classes.entity.animal.horse.AbstractHor
 import codes.laivy.npc.mappings.instances.EnumExecutor;
 import codes.laivy.npc.mappings.instances.Executor;
 import codes.laivy.npc.mappings.instances.FieldExecutor;
-import codes.laivy.npc.mappings.instances.MethodExecutor;
 import codes.laivy.npc.mappings.instances.classes.ClassExecutor;
 import codes.laivy.npc.mappings.defaults.classes.datawatcher.DataWatcher;
 import codes.laivy.npc.mappings.defaults.classes.datawatcher.WatchableObject;
@@ -57,7 +56,6 @@ public class V1_8_R3 extends V1_8_R2 {
         if (version == V1_8_R2.class) {
             if (executor instanceof ClassExecutor && !(executor instanceof EnumExecutor)) {
                 return false;
-            } else if (executor instanceof MethodExecutor) {
             } else if (executor instanceof FieldExecutor) {
                 switch (key) {
                     case "NetworkManager:channel":

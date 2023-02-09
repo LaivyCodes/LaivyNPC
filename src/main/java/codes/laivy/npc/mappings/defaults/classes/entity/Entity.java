@@ -293,10 +293,10 @@ public class Entity extends ObjectExecutor {
             }
         }
 
-        public boolean isLivingEntity() {
+        public boolean isEntityLiving() {
             return ClassUtils.isInstanceOf(getEntityClass(), EntityLiving.class);
         }
-        public boolean isAgeableLivingEntity() {
+        public boolean isAgeableEntityLiving() {
             return ClassUtils.isInstanceOf(getEntityClass(), AgeableEntityLiving.class);
         }
     }

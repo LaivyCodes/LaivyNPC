@@ -21,7 +21,7 @@ public class Shulker extends EntityLiving {
     }
 
     public @NotNull EnumDirectionEnum.EnumDirection getDirection() {
-        return new EnumDirectionEnum.EnumDirection((Enum<?>) getDataWatcher().get(DIRECTION_WATCHER_OBJECT));
+        return new EnumDirectionEnum.EnumDirection((Enum<?>) Objects.requireNonNull(getDataWatcher().get(DIRECTION_WATCHER_OBJECT)));
     }
     public void setDirection(@NotNull EnumDirectionEnum.EnumDirection direction) {
         getDataWatcher().set(DIRECTION_WATCHER_OBJECT, direction);

@@ -1,7 +1,6 @@
 package codes.laivy.npc.mappings.defaults.classes.entity.monster;
 
 import codes.laivy.npc.mappings.defaults.classes.entity.EntityLiving;
-import codes.laivy.npc.mappings.defaults.classes.java.IntegerObjExec;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

@@ -301,6 +301,9 @@ public abstract class NPC {
         setItem(EnumItemSlotEnum.EnumItemSlot.MAINHAND, new ItemStack(Material.DIAMOND_SWORD));
         if (ReflectionUtils.isCompatible(V1_9_R1.class)) {
             setItem(EnumItemSlotEnum.EnumItemSlot.OFFHAND, new ItemStack(Material.DIAMOND_PICKAXE));
+            setGlowing(new GlowingStatus(this, EnumChatFormatEnum.WHITE(), true) {{
+               setRainbow(new Rainbow(1));
+            }});
         }
         getHolograms().setLine(3, new NPCHologramText("§7LaivyNPC", this));
         getHolograms().setLine(2, new NPCHologramText("§eThe best NPCs plugin :)", this));

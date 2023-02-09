@@ -2,7 +2,6 @@ package codes.laivy.npc.types.list.animal.horse;
 
 import codes.laivy.npc.mappings.defaults.classes.entity.animal.horse.AbstractHorse;
 import codes.laivy.npc.mappings.defaults.classes.entity.animal.horse.Horse;
-import codes.laivy.npc.mappings.defaults.classes.entity.animal.horse.HorseMule;
 import codes.laivy.npc.mappings.defaults.classes.entity.animal.horse.HorseSkeleton;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;

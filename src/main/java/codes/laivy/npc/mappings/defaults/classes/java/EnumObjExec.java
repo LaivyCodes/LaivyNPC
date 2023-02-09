@@ -5,34 +5,31 @@ import codes.laivy.npc.mappings.instances.ObjectExecutor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Objects;
+
 public class EnumObjExec extends ObjectExecutor {
-    public EnumObjExec(@Nullable Enum<?> value) {
+    public EnumObjExec(@NotNull Enum<?> value) {
         super(value);
     }
 
     public @NotNull String name() {
-        if (getValue() != null) return getValue().name();
-        else throw new NullPointerException("You cannot get the name() of a null enum instance!");
+        return getValue().name();
     }
 
     @Override
-    public @Nullable Enum<?> getValue() {
-        return (Enum<?>) super.getValue();
+    public @NotNull Enum<?> getValue() {
+        return (Enum<?>) Objects.requireNonNull(super.getValue());
+    }
+    @Override
+    public void setValue(@Nullable Object value) {
+        if (value == null) {
+            throw new NullPointerException("Enum object executors couldn't have their values as null");
+        }
+        super.setValue(value);
     }
 
     @Override
     public @NotNull ClassExecutor getClassExecutor() {
         return ClassExecutor.ENUM;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj instanceof EnumObjExec) {
-            EnumObjExec enumObjExec = (EnumObjExec) obj;
-            if (enumObjExec.getValue() != null && getValue() != null) {
-                return getValue().equals(enumObjExec.getValue());
-            }
-        }
-        return super.equals(obj);
     }
 }

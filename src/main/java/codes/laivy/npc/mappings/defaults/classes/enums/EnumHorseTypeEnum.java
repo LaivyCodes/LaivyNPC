@@ -7,7 +7,6 @@ import codes.laivy.npc.mappings.versions.V1_11_R1;
 import codes.laivy.npc.mappings.versions.V1_9_R1;
 import codes.laivy.npc.utils.ReflectionUtils;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import static codes.laivy.npc.LaivyNPC.laivynpc;
 
@@ -47,7 +46,7 @@ public class EnumHorseTypeEnum extends EnumExecutor {
     }
 
     public static class EnumHorseType extends EnumObjExec {
-        public EnumHorseType(@Nullable Enum<?> value) {
+        public EnumHorseType(@NotNull Enum<?> value) {
             super(value);
         }
     }

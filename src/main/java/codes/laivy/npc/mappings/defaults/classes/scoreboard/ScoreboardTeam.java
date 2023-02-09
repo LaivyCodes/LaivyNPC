@@ -41,7 +41,7 @@ public class ScoreboardTeam extends ObjectExecutor {
     }
 
     public EnumTeamPushEnum.@NotNull EnumTeamPush getCollision() {
-        return new EnumTeamPushEnum.EnumTeamPush((Enum<?>) laivynpc().getVersion().getMethodExec("ScoreboardTeam:getCollision").invokeInstance(this));
+        return new EnumTeamPushEnum.EnumTeamPush((Enum<?>) Objects.requireNonNull(laivynpc().getVersion().getMethodExec("ScoreboardTeam:getCollision").invokeInstance(this)));
     }
     public void setCollision(EnumTeamPushEnum.@NotNull EnumTeamPush collision) {
         laivynpc().getVersion().getMethodExec("ScoreboardTeam:setCollision").invokeInstance(this, collision);

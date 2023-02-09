@@ -4,7 +4,6 @@ import codes.laivy.npc.mappings.instances.classes.ClassExecutor;
 import codes.laivy.npc.mappings.instances.EnumExecutor;
 import codes.laivy.npc.mappings.defaults.classes.java.EnumObjExec;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import static codes.laivy.npc.LaivyNPC.laivynpc;
 
@@ -22,7 +21,7 @@ public class EnumNameTagVisibilityEnum extends EnumExecutor {
     }
 
     public static class EnumNameTagVisibility extends EnumObjExec {
-        public EnumNameTagVisibility(@Nullable Enum<?> value) {
+        public EnumNameTagVisibility(@NotNull Enum<?> value) {
             super(value);
         }
     }

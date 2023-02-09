@@ -4,7 +4,6 @@ import codes.laivy.npc.mappings.instances.EnumExecutor;
 import codes.laivy.npc.mappings.instances.classes.ClassExecutor;
 import codes.laivy.npc.mappings.defaults.classes.java.EnumObjExec;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import static codes.laivy.npc.LaivyNPC.laivynpc;
 
@@ -34,7 +33,7 @@ public class EnumSkeletonTypeEnum extends EnumExecutor {
     }
 
     public static final class EnumSkeletonType extends EnumObjExec {
-        public EnumSkeletonType(@Nullable Enum<?> value) {
+        public EnumSkeletonType(@NotNull Enum<?> value) {
             super(value);
         }
     }

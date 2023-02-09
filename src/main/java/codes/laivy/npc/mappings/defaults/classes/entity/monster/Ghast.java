@@ -24,12 +24,6 @@ public class Ghast extends EntityLiving {
     }
 
     public boolean isAttacking() {
-        //      Gets the attacking metadata index debug
-//        @NotNull DataWatcherObject object = new DataWatcherObject(new FieldExecutor(getClassExecutor(), laivynpc().getVersion().getClassExec("DataWatcherObject"), "a", "Gets a entity's datawatcher object") {{
-//            load();
-//        }}.invokeStatic());
-//        Bukkit.broadcastMessage("Ghast Id: '" + object.getId() + "'");
-
         return laivynpc().getVersion().isEntityGhastAttacking(this);
     }
     public void setAttacking(boolean flag) {

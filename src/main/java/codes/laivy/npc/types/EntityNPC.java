@@ -35,7 +35,7 @@ public abstract class EntityNPC extends NPC {
     public EntityNPC(@NotNull List<OfflinePlayer> players, @NotNull Entity.EntityType entityType, @NotNull Location location) {
         super(players, location);
 
-        Validation.isTrue(entityType.isLivingEntity() && !(this instanceof EntityLivingNPC), new IllegalArgumentException("This EntityType is a LivingEntity, only Entities can be passed here."));
+        Validation.isTrue(entityType.isEntityLiving() && !(this instanceof EntityLivingNPC), new IllegalArgumentException("This EntityType is a LivingEntity, only Entities can be passed here."));
 
         this.entityType = entityType;
         this.entity = getNewEntity();

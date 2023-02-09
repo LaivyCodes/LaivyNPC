@@ -6,9 +6,6 @@ import codes.laivy.npc.mappings.defaults.classes.entity.monster.skeleton.Skeleto
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.zombie.ZombieVillager;
 import codes.laivy.npc.mappings.instances.*;
 import codes.laivy.npc.mappings.instances.classes.ClassExecutor;
-import codes.laivy.npc.mappings.instances.EnumExecutor;
-import codes.laivy.npc.mappings.instances.FieldExecutor;
-import codes.laivy.npc.mappings.instances.MethodExecutor;
 import codes.laivy.npc.mappings.defaults.VersionCompound;
 import codes.laivy.npc.mappings.defaults.classes.datawatcher.VersionedDataWatcherObject;
 import codes.laivy.npc.mappings.defaults.classes.entity.animal.*;
@@ -1002,7 +999,7 @@ public class V1_8_R1 extends Version {
 
     @Override
     public @NotNull EnumColorEnum.EnumColor getEntitySheepColor(@NotNull Sheep sheep) {
-        return new EnumColorEnum.EnumColor((Enum<?>) getMethodExec("Entity:Sheep:getColor").invokeInstance(sheep));
+        return new EnumColorEnum.EnumColor((Enum<?>) Objects.requireNonNull(getMethodExec("Entity:Sheep:getColor").invokeInstance(sheep)));
     }
 
     @Override
@@ -1345,7 +1342,7 @@ public class V1_8_R1 extends Version {
         FieldExecutor field = new FieldExecutor(getClassExec("PacketPlayInUseEntity"), getEnumExec("PacketPlayInUseEntity:EnumEntityUseAction"), "action", "Gets the action from entity in use packet");
         field.load();
 
-        return new EntityUseInPacket.ActionEnum.Action((Enum<?>) field.invokeInstance(packet));
+        return new EntityUseInPacket.ActionEnum.Action((Enum<?>) Objects.requireNonNull(field.invokeInstance(packet)));
     }
 
     @SuppressWarnings("DataFlowIssue")

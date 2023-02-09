@@ -3,7 +3,6 @@ package codes.laivy.npc.types.list.animal.horse;
 import codes.laivy.npc.mappings.defaults.classes.entity.animal.horse.AbstractChestedHorse;
 import codes.laivy.npc.mappings.defaults.classes.entity.animal.horse.AbstractHorse;
 import codes.laivy.npc.types.AgeableEntityLivingNPC;
-import codes.laivy.npc.types.EntityNPC;
 import codes.laivy.npc.types.NPC;
 import codes.laivy.npc.types.commands.NPCConfiguration;
 import org.bukkit.Location;

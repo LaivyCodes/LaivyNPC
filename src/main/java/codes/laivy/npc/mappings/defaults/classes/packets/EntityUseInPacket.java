@@ -54,7 +54,7 @@ public class EntityUseInPacket extends Packet {
         }
 
         public static class Action extends EnumObjExec {
-            public Action(@Nullable Enum<?> value) {
+            public Action(@NotNull Enum<?> value) {
                 super(value);
             }
         }

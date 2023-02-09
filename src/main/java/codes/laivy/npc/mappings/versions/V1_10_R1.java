@@ -47,6 +47,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
+import java.util.Objects;
 
 import static codes.laivy.npc.LaivyNPC.laivynpc;
 
@@ -119,7 +120,7 @@ public class V1_10_R1 extends V1_9_R2 {
 
     @Override
     public @NotNull Skeleton.Type getEntitySkeletonType(@NotNull Skeleton skeleton) {
-        return Skeleton.Type.fromEnum(new EnumSkeletonTypeEnum.EnumSkeletonType((Enum<?>) getMethodExec("Entity:Skeleton:getSkeletonType").invokeInstance(skeleton)));
+        return Skeleton.Type.fromEnum(new EnumSkeletonTypeEnum.EnumSkeletonType((Enum<?>) Objects.requireNonNull(getMethodExec("Entity:Skeleton:getSkeletonType").invokeInstance(skeleton))));
     }
 
     @Override
@@ -133,7 +134,7 @@ public class V1_10_R1 extends V1_9_R2 {
 
     @Override
     public @NotNull Zombie.Type getEntityZombieType(@NotNull Zombie zombie) {
-        return Zombie.Type.fromEnum(new EnumZombieTypeEnum.EnumZombieType((Enum<?>) laivynpc().getVersion().getMethodExec("Entity:Zombie:getVillagerType").invokeInstance(zombie)));
+        return Zombie.Type.fromEnum(new EnumZombieTypeEnum.EnumZombieType((Enum<?>) Objects.requireNonNull(laivynpc().getVersion().getMethodExec("Entity:Zombie:getVillagerType").invokeInstance(zombie))));
     }
 
     @Override
