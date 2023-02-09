@@ -11,45 +11,15 @@ public class EnumZombieTypeEnum extends EnumExecutor {
 
     public static @NotNull EnumZombieType NORMAL() {
         EnumExecutor enumExec = laivynpc().getVersion().getEnumExec("EnumZombieType");
-        String name = laivynpc().getVersion().getText("EnumZombieType:NORMAL");
-
-        return new EnumZombieType(enumExec.valueOf(name).getValue());
+        return new EnumZombieType(enumExec.valueOf("NORMAL").getValue());
     }
     public static @NotNull EnumZombieType VILLAGER_FARMER() {
         EnumExecutor enumExec = laivynpc().getVersion().getEnumExec("EnumZombieType");
-        String name = laivynpc().getVersion().getText("EnumZombieType:VILLAGER_FARMER");
-
-        return new EnumZombieType(enumExec.valueOf(name).getValue());
-    }
-    public static @NotNull EnumZombieType VILLAGER_LIBRARIAN() {
-        EnumExecutor enumExec = laivynpc().getVersion().getEnumExec("EnumZombieType");
-        String name = laivynpc().getVersion().getText("EnumZombieType:VILLAGER_LIBRARIAN");
-
-        return new EnumZombieType(enumExec.valueOf(name).getValue());
-    }
-    public static @NotNull EnumZombieType VILLAGER_PRIEST() {
-        EnumExecutor enumExec = laivynpc().getVersion().getEnumExec("EnumZombieType");
-        String name = laivynpc().getVersion().getText("EnumZombieType:VILLAGER_PRIEST");
-
-        return new EnumZombieType(enumExec.valueOf(name).getValue());
-    }
-    public static @NotNull EnumZombieType VILLAGER_SMITH() {
-        EnumExecutor enumExec = laivynpc().getVersion().getEnumExec("EnumZombieType");
-        String name = laivynpc().getVersion().getText("EnumZombieType:VILLAGER_SMITH");
-
-        return new EnumZombieType(enumExec.valueOf(name).getValue());
-    }
-    public static @NotNull EnumZombieType VILLAGER_BUTCHER() {
-        EnumExecutor enumExec = laivynpc().getVersion().getEnumExec("EnumZombieType");
-        String name = laivynpc().getVersion().getText("EnumZombieType:VILLAGER_BUTCHER");
-
-        return new EnumZombieType(enumExec.valueOf(name).getValue());
+        return new EnumZombieType(enumExec.valueOf("VILLAGER_FARMER").getValue());
     }
     public static @NotNull EnumZombieType HUSK() {
         EnumExecutor enumExec = laivynpc().getVersion().getEnumExec("EnumZombieType");
-        String name = laivynpc().getVersion().getText("EnumZombieType:HUSK");
-
-        return new EnumZombieType(enumExec.valueOf(name).getValue());
+    return new EnumZombieType(enumExec.valueOf("HUSK").getValue());
     }
 
     public EnumZombieTypeEnum(@NotNull ClassExecutor classExecutor) {

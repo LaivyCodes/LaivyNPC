@@ -2,6 +2,8 @@ package codes.laivy.npc.mappings.versions;
 
 import codes.laivy.npc.mappings.Version;
 import codes.laivy.npc.mappings.defaults.classes.entity.animal.horse.AbstractHorse;
+import codes.laivy.npc.mappings.defaults.classes.entity.monster.skeleton.SkeletonStray;
+import codes.laivy.npc.mappings.defaults.classes.entity.monster.zombie.ZombieHusk;
 import codes.laivy.npc.mappings.instances.EnumExecutor;
 import codes.laivy.npc.mappings.instances.Executor;
 import codes.laivy.npc.mappings.instances.FieldExecutor;
@@ -156,11 +158,11 @@ public class V1_10_R1 extends V1_9_R2 {
             entity = new PolarBear(object);
         } else if (type == Entity.EntityType.SKELETON_STRAY) {
             Object object = getClassExec("Entity:Skeleton").getConstructor(getClassExec("World")).newInstance(CraftWorld.getCraftWorld(location.getWorld()).getHandle());
-            entity = new Skeleton(object);
+            entity = new SkeletonStray(object);
             setEntitySkeletonType((Skeleton) entity, Skeleton.Type.STRAY);
         } else if (type == Entity.EntityType.ZOMBIE_HUSK) {
             Object object = getClassExec("Entity:Zombie").getConstructor(getClassExec("World")).newInstance(CraftWorld.getCraftWorld(location.getWorld()).getHandle());
-            entity = new Zombie(object);
+            entity = new ZombieHusk(object);
             setEntityZombieType((Zombie) entity, Zombie.Type.HUSK);
         }
 
@@ -355,13 +357,6 @@ public class V1_10_R1 extends V1_9_R2 {
         map.put("EnumSkeletonType:NORMAL", "NORMAL");
         map.put("EnumSkeletonType:WITHER", "WITHER");
         map.put("EnumSkeletonType:STRAY", "STRAY");
-
-        map.put("EnumZombieType:NORMAL", "NORMAL");
-        map.put("EnumZombieType:VILLAGER_LIBRARIAN", "VILLAGER_LIBRARIAN");
-        map.put("EnumZombieType:VILLAGER_PRIEST", "VILLAGER_PRIEST");
-        map.put("EnumZombieType:VILLAGER_SMITH", "VILLAGER_SMITH");
-        map.put("EnumZombieType:VILLAGER_BUTCHER", "VILLAGER_BUTCHER");
-        map.put("EnumZombieType:HUSK", "HUSK");
 
         return map;
     }
