@@ -500,7 +500,7 @@ public class V1_11_R1 extends V1_10_R1 {
     @Override
     public @NotNull Map<String, FieldExecutor> getFields() {
         if (!super.getFields().containsKey("Entity:IllagerWizard:DataWatcher:Spell")) {
-            load(V1_11_R1.class, "Entity:IllagerWizard:DataWatcher:Spell", new FieldExecutor(getClassExec("Entity:IllagerWizard"), getClassExec("DataWatcherObject"), "a", "Gets the illager illusioner's spell DataWatcherObject"));
+            load(V1_11_R1.class, "Entity:IllagerWizard:DataWatcher:Spell", new FieldExecutor(getClassExec("Entity:Evoker"), getClassExec("DataWatcherObject"), "a", "Gets the illager illusioner's spell DataWatcherObject"));
         }
 
         return super.getFields();
