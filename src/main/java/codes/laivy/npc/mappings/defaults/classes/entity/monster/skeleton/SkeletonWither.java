@@ -10,9 +10,6 @@ import static codes.laivy.npc.LaivyNPC.laivynpc;
 public class SkeletonWither extends Skeleton {
     public SkeletonWither(@Nullable Object value) {
         super(value);
-        if (!ReflectionUtils.isCompatible(V1_11_R1.class)) {
-            throw new IllegalStateException("This skeleton type is compatible only with 1.11+");
-        }
     }
 
     @Override
