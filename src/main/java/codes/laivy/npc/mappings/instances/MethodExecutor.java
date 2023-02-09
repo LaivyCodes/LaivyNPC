@@ -77,7 +77,7 @@ public class MethodExecutor implements Executor {
     }
 
     @Nullable
-    public Object invokeInstance(@NotNull ObjectExecutor instance, @Nullable ObjectExecutor... methodParameters) {
+    public Object invokeInstance(@NotNull ObjectExecutor instance, @NotNull ObjectExecutor... methodParameters) {
         if (!isLoaded()) {
             throw new NullPointerException("This MethodExecutor isn't loaded yet.");
         } assert this.getMethod() != null;
@@ -89,7 +89,7 @@ public class MethodExecutor implements Executor {
         }
     }
     @Nullable
-    public Object invokeStatic(@Nullable ObjectExecutor... methodParameters) {
+    public Object invokeStatic(@NotNull ObjectExecutor... methodParameters) {
         if (!isLoaded()) {
             throw new NullPointerException("This MethodExecutor isn't loaded yet.");
         } assert this.getMethod() != null;

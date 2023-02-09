@@ -459,7 +459,7 @@ public class V1_11_R1 extends V1_10_R1 {
 
     @Override
     public void setEntityLlamaCarpetColor(@NotNull Llama llama, EnumColorEnum.@Nullable EnumColor color) {
-        getMethodExec("Entity:Llama:setCarpetColor").invokeInstance(llama, color);
+        getMethodExec("Entity:Llama:setCarpetColor").invokeInstance(llama, new EnumColorEnum.EnumColor(color != null ? color.getValue() : null));
     }
     @Override
     public EnumColorEnum.@Nullable EnumColor getEntityLlamaCarpetColor(@NotNull Llama llama) {
