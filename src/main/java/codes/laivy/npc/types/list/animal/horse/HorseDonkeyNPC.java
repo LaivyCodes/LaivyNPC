@@ -9,7 +9,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
-public class HorseDonkeyNPC extends HorseNPC {
+public class HorseDonkeyNPC extends AbstractChestedHorseNPC {
 
     public static @NotNull HorseDonkeyNPC fastInstance(@NotNull List<OfflinePlayer> players, @NotNull Location location, @NotNull Object object) {
         return new HorseDonkeyNPC(players, location);
@@ -25,7 +25,7 @@ public class HorseDonkeyNPC extends HorseNPC {
         super(players, AbstractHorse.Type.DONKEY, location);
     }
 
-    public final @NotNull Horse.Type getType() {
+    public @NotNull Horse.Type getType() {
         return AbstractHorse.Type.DONKEY;
     }
 

@@ -7,21 +7,21 @@ import org.jetbrains.annotations.Nullable;
 
 import static codes.laivy.npc.LaivyNPC.laivynpc;
 
-public class HorseMule extends Horse {
+public class HorseMule extends AbstractChestedHorse {
     public HorseMule(@Nullable Object value) {
         super(value);
     }
 
     @Override
-    public @NotNull HorseClass getClassExecutor() {
+    public @NotNull AbstractHorseClass getClassExecutor() {
         if (ReflectionUtils.isCompatible(V1_11_R1.class)) {
             return (HorseMuleClass) laivynpc().getVersion().getClassExec("Entity:Horse:Mule");
         } else {
-            return (HorseClass) laivynpc().getVersion().getClassExec("Entity:Horse");
+            return (AbstractHorseClass) laivynpc().getVersion().getClassExec("Entity:Horse");
         }
     }
 
-    public static class HorseMuleClass extends HorseClass {
+    public static class HorseMuleClass extends AbstractHorseClass {
         public HorseMuleClass(@NotNull String className) {
             super(className);
         }

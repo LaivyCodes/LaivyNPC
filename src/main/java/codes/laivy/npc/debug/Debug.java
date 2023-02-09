@@ -13,6 +13,7 @@ import codes.laivy.npc.mappings.defaults.classes.nbt.tags.*;
 import codes.laivy.npc.mappings.defaults.classes.packets.*;
 import codes.laivy.npc.mappings.defaults.classes.scoreboard.ScoreboardTeam;
 import codes.laivy.npc.types.NPC;
+import codes.laivy.npc.types.player.PlayerNPC;
 import codes.laivy.npc.utils.ReflectionUtils;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -27,6 +28,7 @@ import static codes.laivy.npc.LaivyNPC.laivynpc;
 public class Debug {
 
     public static final @NotNull Collection<@NotNull Class<? extends NPC>> DEBUG_NPCS = new LinkedList<Class<? extends NPC>>() {{
+        add(PlayerNPC.class);
         for (Entity.EntityType type : Entity.EntityType.values()) {
            if (ReflectionUtils.isCompatible(type.getSince())) {
                add(type.getNPCClass());

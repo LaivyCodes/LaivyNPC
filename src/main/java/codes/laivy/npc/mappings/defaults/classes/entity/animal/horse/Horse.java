@@ -10,19 +10,4 @@ public class Horse extends AbstractHorse {
         super(value);
     }
 
-    public @NotNull Type getType() {
-        return laivynpc().getVersion().getEntityHorseType(this);
-    }
-
-    @Override
-    public @NotNull HorseClass getClassExecutor() {
-        return (HorseClass) laivynpc().getVersion().getClassExec("Entity:Horse");
-    }
-
-    public static class HorseClass extends AgeableLivingEntityClass {
-        public HorseClass(@NotNull String className) {
-            super(className);
-        }
-    }
-
 }

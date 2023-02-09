@@ -1,6 +1,7 @@
 package codes.laivy.npc.mappings;
 
 import codes.laivy.npc.mappings.defaults.classes.entity.animal.Snowman;
+import codes.laivy.npc.mappings.defaults.classes.entity.animal.horse.AbstractChestedHorse;
 import codes.laivy.npc.mappings.defaults.classes.entity.animal.horse.AbstractHorse;
 import codes.laivy.npc.mappings.instances.classes.ClassExecutor;
 import codes.laivy.npc.mappings.instances.EnumExecutor;
@@ -242,6 +243,9 @@ public abstract class Version implements VersionCompound, VersionPacket, Version
     // ENTITY SNOWMAN
     public abstract boolean hasEntitySnowmanHat(@NotNull Snowman snowman);
     public abstract void setEntitySnowmanHat(@NotNull Snowman snowman, boolean hat);
+    // ENTITY CHESTED HORSE
+    public abstract boolean hasEntityChestedHorseChest(@NotNull AbstractChestedHorse horse);
+    public abstract void setEntityChestedHorseChest(@NotNull AbstractChestedHorse horse, boolean chest);
     //
 
     // ENTITY PLAYER

@@ -1,6 +1,7 @@
 package codes.laivy.npc.mappings.versions;
 
 import codes.laivy.npc.mappings.Version;
+import codes.laivy.npc.mappings.defaults.classes.entity.animal.horse.AbstractHorse;
 import codes.laivy.npc.mappings.instances.EnumExecutor;
 import codes.laivy.npc.mappings.instances.Executor;
 import codes.laivy.npc.mappings.instances.FieldExecutor;
@@ -142,7 +143,7 @@ public class V1_9_R2 extends V1_9_R1 {
             load(V1_9_R2.class, "Entity:Bat", new Bat.BatClass("net.minecraft.server.v1_9_R2.EntityBat"));
             load(V1_9_R2.class, "Entity:Egg", new Egg.EggClass("net.minecraft.server.v1_9_R2.EntityEgg"));
             load(V1_9_R2.class, "Entity:Chicken", new Chicken.ChickenClass("net.minecraft.server.v1_9_R2.EntityChicken"));
-            load(V1_9_R2.class, "Entity:Horse", new Horse.HorseClass("net.minecraft.server.v1_9_R2.EntityHorse"));
+            load(V1_9_R2.class, "Entity:Horse", new AbstractHorse.AbstractHorseClass("net.minecraft.server.v1_9_R2.EntityHorse"));
             load(V1_9_R2.class, "Entity:IronGolem", new IronGolem.IronGolemClass("net.minecraft.server.v1_9_R2.EntityIronGolem"));
             load(V1_9_R2.class, "Entity:Rabbit", new Rabbit.RabbitClass("net.minecraft.server.v1_9_R2.EntityRabbit"));
             load(V1_9_R2.class, "Entity:Sheep", new Sheep.SheepClass("net.minecraft.server.v1_9_R2.EntitySheep"));

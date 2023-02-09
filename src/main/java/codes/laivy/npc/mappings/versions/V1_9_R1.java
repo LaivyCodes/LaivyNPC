@@ -139,6 +139,10 @@ public class V1_9_R1 extends V1_8_R3 {
 
     @Override
     public void setEntityHorseType(@NotNull AbstractHorse horse, Horse.@NotNull Type type) {
+        if (!type.isCompatible()) {
+            throw new IllegalArgumentException("This horse type '" + type.name() + "' is only compatible with '" + type.getSince().getSimpleName() + "' or higher");
+        }
+
         EnumHorseTypeEnum.EnumHorseType horseType;
         if (type == AbstractHorse.Type.HORSE) {
             horseType = EnumHorseTypeEnum.HORSE();
@@ -279,7 +283,7 @@ public class V1_9_R1 extends V1_8_R3 {
             load(V1_9_R1.class, "Entity:Bat", new Bat.BatClass("net.minecraft.server.v1_9_R1.EntityBat"));
             load(V1_9_R1.class, "Entity:Egg", new Egg.EggClass("net.minecraft.server.v1_9_R1.EntityEgg"));
             load(V1_9_R1.class, "Entity:Chicken", new Chicken.ChickenClass("net.minecraft.server.v1_9_R1.EntityChicken"));
-            load(V1_9_R1.class, "Entity:Horse", new Horse.HorseClass("net.minecraft.server.v1_9_R1.EntityHorse"));
+            load(V1_9_R1.class, "Entity:Horse", new AbstractHorse.AbstractHorseClass("net.minecraft.server.v1_9_R1.EntityHorse"));
             load(V1_9_R1.class, "Entity:IronGolem", new IronGolem.IronGolemClass("net.minecraft.server.v1_9_R1.EntityIronGolem"));
             load(V1_9_R1.class, "Entity:Rabbit", new Rabbit.RabbitClass("net.minecraft.server.v1_9_R1.EntityRabbit"));
             load(V1_9_R1.class, "Entity:Sheep", new Sheep.SheepClass("net.minecraft.server.v1_9_R1.EntitySheep"));

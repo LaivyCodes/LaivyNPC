@@ -1,6 +1,8 @@
 package codes.laivy.npc.mappings.versions;
 
 import codes.laivy.npc.mappings.Version;
+import codes.laivy.npc.mappings.defaults.classes.entity.monster.illagers.Evoker;
+import codes.laivy.npc.mappings.defaults.classes.entity.monster.illagers.Vindicator;
 import codes.laivy.npc.mappings.defaults.classes.java.BooleanObjExec;
 import codes.laivy.npc.mappings.defaults.classes.java.IntegerObjExec;
 import codes.laivy.npc.mappings.instances.EnumExecutor;
@@ -96,6 +98,12 @@ public class V1_11_R1 extends V1_10_R1 {
                     case "Entity:Slime:setSize":
                         load(V1_11_R1.class, key, new MethodExecutor(getClassExec("Entity:Slime"), ClassExecutor.VOID, "setSize", "Sets the slime size", ClassExecutor.INT, ClassExecutor.BOOLEAN));
                         return false;
+                    case "Entity:Horse:setHasChest":
+                        load(V1_11_R1.class, key, new MethodExecutor(getClassExec("Entity:Horse:Abstract:Chested"), ClassExecutor.VOID, "setCarryingChest", "Sets the chest state of a Horse", ClassExecutor.BOOLEAN));
+                        return false;
+                    case "Entity:Horse:hasChest":
+                        load(V1_11_R1.class, key, new MethodExecutor(getClassExec("Entity:Horse:Abstract:Chested"), ClassExecutor.BOOLEAN, "isCarryingChest", "Gets the chest state of a Horse"));
+                        return false;
                     default:
                         break;
                 }
@@ -103,6 +111,8 @@ public class V1_11_R1 extends V1_10_R1 {
         } else if (version == V1_9_R1.class) {
             if (executor instanceof EnumExecutor) {
                 switch (key) {
+                    case "EnumZombieType":
+                    case "EnumSkeletonType":
                     case "EnumHorseType":
                         return false;
                     default:
@@ -176,6 +186,18 @@ public class V1_11_R1 extends V1_10_R1 {
         } else if (type == Entity.EntityType.ZOMBIE_HUSK) {
             Object object = getClassExec("Entity:Zombie:Husk").getConstructor(getClassExec("World")).newInstance(CraftWorld.getCraftWorld(location.getWorld()).getHandle());
             entity = new ZombieHusk(object);
+        } else if (type == Entity.EntityType.LLAMA) {
+            Object object = getClassExec("Entity:Llama").getConstructor(getClassExec("World")).newInstance(CraftWorld.getCraftWorld(location.getWorld()).getHandle());
+            entity = new Llama(object);
+        } else if (type == Entity.EntityType.VINDICATOR) {
+            Object object = getClassExec("Entity:Vindicator").getConstructor(getClassExec("World")).newInstance(CraftWorld.getCraftWorld(location.getWorld()).getHandle());
+            entity = new Vindicator(object);
+        } else if (type == Entity.EntityType.VEX) {
+            Object object = getClassExec("Entity:Vex").getConstructor(getClassExec("World")).newInstance(CraftWorld.getCraftWorld(location.getWorld()).getHandle());
+            entity = new Vex(object);
+        } else if (type == Entity.EntityType.EVOKER) {
+            Object object = getClassExec("Entity:Evoker").getConstructor(getClassExec("World")).newInstance(CraftWorld.getCraftWorld(location.getWorld()).getHandle());
+            entity = new Evoker(object);
         }
 
         if (entity == null) {
@@ -216,6 +238,8 @@ public class V1_11_R1 extends V1_10_R1 {
             return AbstractHorse.Type.ZOMBIE;
         } else if (horse instanceof HorseSkeleton) {
             return AbstractHorse.Type.SKELETON;
+        } else if (horse instanceof Llama) {
+            return AbstractHorse.Type.LLAMA;
         } else {
             return AbstractHorse.Type.HORSE;
         }
@@ -303,7 +327,7 @@ public class V1_11_R1 extends V1_10_R1 {
             load(V1_11_R1.class, "Entity:Bat", new Bat.BatClass("net.minecraft.server.v1_11_R1.EntityBat"));
             load(V1_11_R1.class, "Entity:Egg", new Egg.EggClass("net.minecraft.server.v1_11_R1.EntityEgg"));
             load(V1_11_R1.class, "Entity:Chicken", new Chicken.ChickenClass("net.minecraft.server.v1_11_R1.EntityChicken"));
-            load(V1_11_R1.class, "Entity:Horse", new Horse.HorseClass("net.minecraft.server.v1_11_R1.EntityHorse"));
+            load(V1_11_R1.class, "Entity:Horse", new AbstractHorse.AbstractHorseClass("net.minecraft.server.v1_11_R1.EntityHorse"));
             load(V1_11_R1.class, "Entity:IronGolem", new IronGolem.IronGolemClass("net.minecraft.server.v1_11_R1.EntityIronGolem"));
             load(V1_11_R1.class, "Entity:Rabbit", new Rabbit.RabbitClass("net.minecraft.server.v1_11_R1.EntityRabbit"));
             load(V1_11_R1.class, "Entity:Sheep", new Sheep.SheepClass("net.minecraft.server.v1_11_R1.EntitySheep"));
@@ -393,6 +417,8 @@ public class V1_11_R1 extends V1_10_R1 {
             //
 
             // Entity horse
+            load(V1_11_R1.class, "Entity:Horse:Abstract", new AbstractHorse.AbstractHorseClass("net.minecraft.server.v1_11_R1.EntityHorseAbstract"));
+            load(V1_11_R1.class, "Entity:Horse:Abstract:Chested", new AbstractChestedHorse.AbstractChestedHorseClass("net.minecraft.server.v1_11_R1.EntityHorseChestedAbstract"));
             load(V1_11_R1.class, "Entity:Horse:Donkey", new HorseDonkey.HorseDonkeyClass("net.minecraft.server.v1_11_R1.EntityHorseDonkey"));
             load(V1_11_R1.class, "Entity:Horse:Mule", new HorseMule.HorseMuleClass("net.minecraft.server.v1_11_R1.EntityHorseMule"));
             load(V1_11_R1.class, "Entity:Horse:Skeleton", new HorseSkeleton.HorseSkeletonClass("net.minecraft.server.v1_11_R1.EntityHorseSkeleton"));
@@ -403,6 +429,14 @@ public class V1_11_R1 extends V1_10_R1 {
             // Entity zombie
             load(V1_11_R1.class, "Entity:Zombie:Villager", new ZombieVillager.ZombieVillagerClass("net.minecraft.server.v1_11_R1.EntityZombieVillager"));
             load(V1_11_R1.class, "Entity:Zombie:Husk", new ZombieHusk.ZombieHuskClass("net.minecraft.server.v1_11_R1.EntityZombieHusk"));
+            // Entity vindicator
+            load(V1_11_R1.class, "Entity:Vindicator", new Vindicator.VindicatorClass("net.minecraft.server.v1_11_R1.EntityVindicator"));
+            // Entity evoker
+            load(V1_11_R1.class, "Entity:Evoker", new Evoker.EvokerClass("net.minecraft.server.v1_11_R1.EntityEvoker"));
+            // Entity vex
+            load(V1_11_R1.class, "Entity:Vex", new Vex.VexClass("net.minecraft.server.v1_11_R1.EntityVex"));
+            // Entity llama
+            load(V1_11_R1.class, "Entity:Llama", new Llama.LlamaClass("net.minecraft.server.v1_11_R1.EntityLlama"));
             //
         }
         

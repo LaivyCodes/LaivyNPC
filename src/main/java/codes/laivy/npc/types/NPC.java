@@ -22,6 +22,7 @@ import codes.laivy.npc.types.list.ambient.BatNPC;
 import codes.laivy.npc.types.list.ambient.EggNPC;
 import codes.laivy.npc.types.list.animal.*;
 import codes.laivy.npc.types.list.animal.horse.HorseNPC;
+import codes.laivy.npc.types.list.animal.horse.LlamaNPC;
 import codes.laivy.npc.types.list.boss.dragon.EnderDragonNPC;
 import codes.laivy.npc.types.list.boss.dragon.EnderSignalNPC;
 import codes.laivy.npc.types.list.boss.wither.WitherNPC;
@@ -32,6 +33,8 @@ import codes.laivy.npc.types.list.decoration.LeashKnotNPC;
 import codes.laivy.npc.types.list.item.FallingBlockNPC;
 import codes.laivy.npc.types.list.item.ItemNPC;
 import codes.laivy.npc.types.list.monster.*;
+import codes.laivy.npc.types.list.monster.illagers.EvokerNPC;
+import codes.laivy.npc.types.list.monster.illagers.VindicatorNPC;
 import codes.laivy.npc.types.list.monster.skeleton.SkeletonNPC;
 import codes.laivy.npc.types.list.monster.zombie.ZombieNPC;
 import codes.laivy.npc.types.list.npc.VillagerNPC;
@@ -1167,6 +1170,10 @@ public abstract class NPC {
         put("Villager", VillagerNPC.class);
         put("Shulker", ShulkerNPC.class);
         put("PolarBear", PolarBearNPC.class);
+        put("Vindicator", VindicatorNPC.class);
+        put("Evoker", EvokerNPC.class);
+        put("Vex", VexNPC.class);
+        put("Llama", LlamaNPC.class);
     }};
 
     @SuppressWarnings("unchecked")

@@ -3,6 +3,9 @@ package codes.laivy.npc.mappings.defaults.classes.enums;
 import codes.laivy.npc.mappings.instances.EnumExecutor;
 import codes.laivy.npc.mappings.instances.classes.ClassExecutor;
 import codes.laivy.npc.mappings.defaults.classes.java.EnumObjExec;
+import codes.laivy.npc.mappings.versions.V1_11_R1;
+import codes.laivy.npc.mappings.versions.V1_9_R1;
+import codes.laivy.npc.utils.ReflectionUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -11,6 +14,10 @@ import static codes.laivy.npc.LaivyNPC.laivynpc;
 public class EnumHorseTypeEnum extends EnumExecutor {
 
     public static @NotNull EnumHorseTypeEnum getInstance() {
+        if (ReflectionUtils.isCompatible(V1_11_R1.class) || !ReflectionUtils.isCompatible(V1_9_R1.class)) {
+            throw new IllegalStateException("This enum isn't available at this version");
+        }
+
         return (EnumHorseTypeEnum) laivynpc().getVersion().getEnumExec("EnumHorseType");
     }
 

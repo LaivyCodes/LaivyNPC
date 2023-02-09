@@ -7,23 +7,31 @@ import org.jetbrains.annotations.Nullable;
 
 import static codes.laivy.npc.LaivyNPC.laivynpc;
 
-public class HorseZombie extends Horse {
-    public HorseZombie(@Nullable Object value) {
+public class AbstractChestedHorse extends AbstractHorse {
+    public AbstractChestedHorse(@Nullable Object value) {
         super(value);
+    }
+
+    public void setChest(boolean flag) {
+        laivynpc().getVersion().setEntityChestedHorseChest(this, flag);
+    }
+    public boolean hasChest() {
+        return laivynpc().getVersion().hasEntityChestedHorseChest(this);
     }
 
     @Override
     public @NotNull AbstractHorseClass getClassExecutor() {
         if (ReflectionUtils.isCompatible(V1_11_R1.class)) {
-            return (HorseZombieClass) laivynpc().getVersion().getClassExec("Entity:Horse:Zombie");
+            return (AbstractChestedHorseClass) laivynpc().getVersion().getClassExec("Entity:Horse:Abstract:Chested");
         } else {
             return (AbstractHorseClass) laivynpc().getVersion().getClassExec("Entity:Horse");
         }
     }
 
-    public static class HorseZombieClass extends AbstractHorseClass {
-        public HorseZombieClass(@NotNull String className) {
+    public static class AbstractChestedHorseClass extends AbstractHorseClass {
+        public AbstractChestedHorseClass(@NotNull String className) {
             super(className);
         }
     }
+
 }

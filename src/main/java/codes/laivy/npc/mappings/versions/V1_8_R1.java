@@ -132,7 +132,7 @@ public class V1_8_R1 extends Version {
             load(V1_8_R1.class, "Entity:Bat", new Bat.BatClass("net.minecraft.server.v1_8_R1.EntityBat"));
             load(V1_8_R1.class, "Entity:Egg", new Egg.EggClass("net.minecraft.server.v1_8_R1.EntityEgg"));
             load(V1_8_R1.class, "Entity:Chicken", new Chicken.ChickenClass("net.minecraft.server.v1_8_R1.EntityChicken"));
-            load(V1_8_R1.class, "Entity:Horse", new Horse.HorseClass("net.minecraft.server.v1_8_R1.EntityHorse"));
+            load(V1_8_R1.class, "Entity:Horse", new AbstractHorse.AbstractHorseClass("net.minecraft.server.v1_8_R1.EntityHorse"));
             load(V1_8_R1.class, "Entity:IronGolem", new IronGolem.IronGolemClass("net.minecraft.server.v1_8_R1.EntityIronGolem"));
             load(V1_8_R1.class, "Entity:Rabbit", new Rabbit.RabbitClass("net.minecraft.server.v1_8_R1.EntityRabbit"));
             load(V1_8_R1.class, "Entity:Sheep", new Sheep.SheepClass("net.minecraft.server.v1_8_R1.EntitySheep"));
@@ -319,6 +319,8 @@ public class V1_8_R1 extends Version {
             // Horse
             load(V1_8_R1.class, "Entity:Horse:getType", new MethodExecutor(getClassExec("Entity:Horse"), ClassExecutor.INT, "getType", "Gets the horse type"));
             load(V1_8_R1.class, "Entity:Horse:setType", new MethodExecutor(getClassExec("Entity:Horse"), ClassExecutor.VOID, "setType", "Sets the horse type", ClassExecutor.INT));
+            load(V1_8_R1.class, "Entity:Horse:setHasChest", new MethodExecutor(getClassExec("Entity:Horse"), ClassExecutor.VOID, "setHasChest", "Sets the chest state of a Horse", ClassExecutor.BOOLEAN));
+            load(V1_8_R1.class, "Entity:Horse:hasChest", new MethodExecutor(getClassExec("Entity:Horse"), ClassExecutor.BOOLEAN, "hasChest", "Gets the chest state of a Horse"));
             // Slime
             load(V1_8_R1.class, "Entity:Slime:getSize", new MethodExecutor(getClassExec("Entity:Slime"), ClassExecutor.INT, "getSize", "Gets the slime size"));
             load(V1_8_R1.class, "Entity:Slime:setSize", new MethodExecutor(getClassExec("Entity:Slime"), ClassExecutor.VOID, "setSize", "Sets the slime size", ClassExecutor.INT));
@@ -801,23 +803,23 @@ public class V1_8_R1 extends Version {
         } else if (type == Entity.EntityType.HORSE) {
             Object object = getClassExec("Entity:Horse").getConstructor(getClassExec("World")).newInstance(CraftWorld.getCraftWorld(location.getWorld()).getHandle());
             entity = new Horse(object);
-            laivynpc().getVersion().setEntityHorseType((AbstractHorse) entity, AbstractHorse.Type.HORSE);
+            setEntityHorseType((AbstractHorse) entity, AbstractHorse.Type.HORSE);
         } else if (type == Entity.EntityType.HORSE_DONKEY) {
             Object object = getClassExec("Entity:Horse").getConstructor(getClassExec("World")).newInstance(CraftWorld.getCraftWorld(location.getWorld()).getHandle());
             entity = new HorseDonkey(object);
-            laivynpc().getVersion().setEntityHorseType((AbstractHorse) entity, AbstractHorse.Type.DONKEY);
+            setEntityHorseType((AbstractHorse) entity, AbstractHorse.Type.DONKEY);
         } else if (type == Entity.EntityType.HORSE_MULE) {
             Object object = getClassExec("Entity:Horse").getConstructor(getClassExec("World")).newInstance(CraftWorld.getCraftWorld(location.getWorld()).getHandle());
             entity = new HorseMule(object);
-            laivynpc().getVersion().setEntityHorseType((AbstractHorse) entity, AbstractHorse.Type.MULE);
+            setEntityHorseType((AbstractHorse) entity, AbstractHorse.Type.MULE);
         } else if (type == Entity.EntityType.HORSE_SKELETON) {
             Object object = getClassExec("Entity:Horse").getConstructor(getClassExec("World")).newInstance(CraftWorld.getCraftWorld(location.getWorld()).getHandle());
             entity = new HorseSkeleton(object);
-            laivynpc().getVersion().setEntityHorseType((AbstractHorse) entity, AbstractHorse.Type.SKELETON);
+            setEntityHorseType((AbstractHorse) entity, AbstractHorse.Type.SKELETON);
         } else if (type == Entity.EntityType.HORSE_ZOMBIE) {
             Object object = getClassExec("Entity:Horse").getConstructor(getClassExec("World")).newInstance(CraftWorld.getCraftWorld(location.getWorld()).getHandle());
             entity = new HorseZombie(object);
-            laivynpc().getVersion().setEntityHorseType((AbstractHorse) entity, AbstractHorse.Type.ZOMBIE);
+            setEntityHorseType((AbstractHorse) entity, AbstractHorse.Type.ZOMBIE);
         } else if (type == Entity.EntityType.COW) {
             Object object = getClassExec("Entity:Cow").getConstructor(getClassExec("World")).newInstance(CraftWorld.getCraftWorld(location.getWorld()).getHandle());
             entity = new Cow(object);
@@ -980,18 +982,22 @@ public class V1_8_R1 extends Version {
     }
     @Override
     public void setEntityHorseType(@NotNull AbstractHorse horse, Horse.@NotNull Type type) {
+        if (!type.isCompatible()) {
+            throw new IllegalArgumentException("This horse type '" + type.name() + "' is only compatible with '" + type.getSince().getSimpleName() + "' or higher");
+        }
+
         getMethodExec("Entity:Horse:setType").invokeInstance(horse, new IntegerObjExec(type.getId()));
     }
 
     @Override
     public @NotNull Rabbit.Variant getEntityRabbitType(@NotNull Rabbit rabbit) {
         //noinspection DataFlowIssue
-        return Rabbit.Variant.getById((int) laivynpc().getVersion().getMethodExec("Entity:Rabbit:getVariant").invokeInstance(rabbit));
+        return Rabbit.Variant.getById((int) getMethodExec("Entity:Rabbit:getVariant").invokeInstance(rabbit));
     }
 
     @Override
     public void setEntityRabbitType(@NotNull Rabbit rabbit, Rabbit.@NotNull Variant type) {
-        laivynpc().getVersion().getMethodExec("Entity:Rabbit:setVariant").invokeInstance(rabbit, new IntegerObjExec(type.getId()));
+        getMethodExec("Entity:Rabbit:setVariant").invokeInstance(rabbit, new IntegerObjExec(type.getId()));
     }
 
     @Override
@@ -1039,12 +1045,12 @@ public class V1_8_R1 extends Version {
     @Override
     public @NotNull VillagerProfession getEntityVillagerProfession(@NotNull Villager villager) {
         //noinspection DataFlowIssue
-        return new VillagerProfession(VillagerProfession.Type.getById((int) laivynpc().getVersion().getMethodExec("Entity:Villager:getProfession").invokeInstance(villager)), 1);
+        return new VillagerProfession(VillagerProfession.Type.getById((int) getMethodExec("Entity:Villager:getProfession").invokeInstance(villager)), 1);
     }
 
     @Override
     public void setEntityVillagerProfession(@NotNull Villager villager, @NotNull VillagerProfession profession) {
-        laivynpc().getVersion().getMethodExec("Entity:Villager:setProfession").invokeInstance(villager, new IntegerObjExec(profession.getType().getId()));
+        getMethodExec("Entity:Villager:setProfession").invokeInstance(villager, new IntegerObjExec(profession.getType().getId()));
     }
 
     @Override
@@ -1069,29 +1075,29 @@ public class V1_8_R1 extends Version {
             throw new IllegalArgumentException("This type isn't compatible with that version.");
         }
 
-        laivynpc().getVersion().getMethodExec("Entity:Zombie:setVillagerType").invokeInstance(zombie, new BooleanObjExec(type != null));
+        getMethodExec("Entity:Zombie:setVillagerType").invokeInstance(zombie, new BooleanObjExec(type != null));
     }
 
     @Override
     public boolean isEntityCreeperIgnited(@NotNull Creeper creeper) {
         //noinspection DataFlowIssue
-        return ((byte) creeper.getDataWatcher().get((int) laivynpc().getVersion().getObject("Metadata:Creeper:Ignited"))) == 1;
+        return ((byte) creeper.getDataWatcher().get((int) getObject("Metadata:Creeper:Ignited"))) == 1;
     }
 
     @Override
     public void setEntityCreeperIgnited(@NotNull Creeper creeper, boolean flag) {
-        creeper.getDataWatcher().set((int) laivynpc().getVersion().getObject("Metadata:Creeper:Ignited"), (byte) (flag ? 1 : 0));
+        creeper.getDataWatcher().set((int) getObject("Metadata:Creeper:Ignited"), (byte) (flag ? 1 : 0));
     }
 
     @Override
     public boolean isEntityGhastAttacking(@NotNull Ghast ghast) {
         //noinspection DataFlowIssue
-        return ((byte) ghast.getDataWatcher().get((int) laivynpc().getVersion().getObject("Metadata:Ghast:Attacking"))) == 1;
+        return ((byte) ghast.getDataWatcher().get((int) getObject("Metadata:Ghast:Attacking"))) == 1;
     }
 
     @Override
     public void setEntityGhastAttacking(@NotNull Ghast ghast, boolean flag) {
-        ghast.getDataWatcher().set((int) laivynpc().getVersion().getObject("Metadata:Ghast:Attacking"), (byte) (flag ? 1 : 0));
+        ghast.getDataWatcher().set((int) getObject("Metadata:Ghast:Attacking"), (byte) (flag ? 1 : 0));
     }
 
     @Override
@@ -1100,18 +1106,18 @@ public class V1_8_R1 extends Version {
         if (entity != null) {
             id = entity.getId();
         }
-        guardian.getDataWatcher().set((int) laivynpc().getVersion().getObject("Metadata:Guardian:Target"), id);
+        guardian.getDataWatcher().set((int) getObject("Metadata:Guardian:Target"), id);
     }
 
     @Override
     public int getEntitySlimeSize(@NotNull Slime slime) {
         //noinspection DataFlowIssue
-        return (int) laivynpc().getVersion().getMethodExec("Entity:Slime:getSize").invokeInstance(slime);
+        return (int) getMethodExec("Entity:Slime:getSize").invokeInstance(slime);
     }
 
     @Override
     public void setEntitySlimeSize(@NotNull Slime slime, int size) {
-        laivynpc().getVersion().getMethodExec("Entity:Slime:setSize").invokeInstance(slime, new IntegerObjExec(size));
+        getMethodExec("Entity:Slime:setSize").invokeInstance(slime, new IntegerObjExec(size));
     }
 
     @Override
@@ -1122,6 +1128,17 @@ public class V1_8_R1 extends Version {
     @Override
     public void setEntitySnowmanHat(@NotNull Snowman snowman, boolean hat) {
         throw new IllegalStateException("The pumpkin hat of a snowman is only available at 1.9+");
+    }
+
+    @Override
+    public boolean hasEntityChestedHorseChest(@NotNull AbstractChestedHorse horse) {
+        //noinspection DataFlowIssue
+        return (boolean) getMethodExec("Entity:Horse:hasChest").invokeInstance(horse);
+    }
+
+    @Override
+    public void setEntityChestedHorseChest(@NotNull AbstractChestedHorse horse, boolean chest) {
+        getMethodExec("Entity:Horse:setHasChest").invokeInstance(horse, new BooleanObjExec(chest));
     }
 
     @Override

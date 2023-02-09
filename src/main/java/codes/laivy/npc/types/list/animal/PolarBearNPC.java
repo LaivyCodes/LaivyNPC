@@ -48,7 +48,6 @@ public class PolarBearNPC extends AgeableEntityLivingNPC {
             public void execute(@NotNull NPC npc, @NotNull Player sender, @NotNull String[] args) {
                 PolarBearNPC polarBearNPC = (PolarBearNPC) npc;
                 polarBearNPC.setStanding(!polarBearNPC.isStanding());
-                npc.sendUpdatePackets(npc.getSpawnedPlayers(), false, false, true, false, false, false);
                 sender.sendMessage(translate(sender, "npc.commands.general.flag_changed"));
             }
         });

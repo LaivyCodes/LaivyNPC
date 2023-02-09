@@ -11,7 +11,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HorseMuleNPC extends HorseNPC {
+public class HorseMuleNPC extends AbstractChestedHorseNPC {
 
     public static @NotNull HorseMuleNPC fastInstance(@NotNull List<OfflinePlayer> players, @NotNull Location location, @NotNull Object object) {
         return new HorseMuleNPC(players, location);
@@ -27,7 +27,7 @@ public class HorseMuleNPC extends HorseNPC {
         super(players, AbstractHorse.Type.MULE, location);
     }
 
-    public final @NotNull Horse.Type getType() {
+    public @NotNull Horse.Type getType() {
         return AbstractHorse.Type.MULE;
     }
 

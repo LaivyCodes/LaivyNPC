@@ -13,15 +13,15 @@ public class HorseSkeleton extends Horse {
     }
 
     @Override
-    public @NotNull HorseClass getClassExecutor() {
+    public @NotNull AbstractHorseClass getClassExecutor() {
         if (ReflectionUtils.isCompatible(V1_11_R1.class)) {
             return (HorseSkeletonClass) laivynpc().getVersion().getClassExec("Entity:Horse:Skeleton");
         } else {
-            return (HorseClass) laivynpc().getVersion().getClassExec("Entity:Horse");
+            return (AbstractHorseClass) laivynpc().getVersion().getClassExec("Entity:Horse");
         }
     }
 
-    public static class HorseSkeletonClass extends HorseClass {
+    public static class HorseSkeletonClass extends AbstractHorseClass {
         public HorseSkeletonClass(@NotNull String className) {
             super(className);
         }

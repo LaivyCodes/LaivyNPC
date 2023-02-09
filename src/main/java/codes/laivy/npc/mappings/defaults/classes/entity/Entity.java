@@ -1,6 +1,8 @@
 package codes.laivy.npc.mappings.defaults.classes.entity;
 
 import codes.laivy.npc.mappings.Version;
+import codes.laivy.npc.mappings.defaults.classes.entity.monster.illagers.Evoker;
+import codes.laivy.npc.mappings.defaults.classes.entity.monster.illagers.Vindicator;
 import codes.laivy.npc.mappings.instances.classes.ClassExecutor;
 import codes.laivy.npc.mappings.instances.ObjectExecutor;
 import codes.laivy.npc.mappings.defaults.classes.datawatcher.DataWatcher;
@@ -32,6 +34,7 @@ import codes.laivy.npc.mappings.defaults.classes.java.FloatObjExec;
 import codes.laivy.npc.mappings.defaults.classes.java.StringObjExec;
 import codes.laivy.npc.mappings.defaults.classes.others.location.World;
 import codes.laivy.npc.mappings.versions.V1_10_R1;
+import codes.laivy.npc.mappings.versions.V1_11_R1;
 import codes.laivy.npc.mappings.versions.V1_8_R1;
 import codes.laivy.npc.mappings.versions.V1_9_R1;
 import codes.laivy.npc.types.EntityNPC;
@@ -50,6 +53,8 @@ import codes.laivy.npc.types.list.decoration.LeashKnotNPC;
 import codes.laivy.npc.types.list.item.FallingBlockNPC;
 import codes.laivy.npc.types.list.item.ItemNPC;
 import codes.laivy.npc.types.list.monster.*;
+import codes.laivy.npc.types.list.monster.illagers.EvokerNPC;
+import codes.laivy.npc.types.list.monster.illagers.VindicatorNPC;
 import codes.laivy.npc.types.list.monster.skeleton.SkeletonNPC;
 import codes.laivy.npc.types.list.monster.skeleton.SkeletonStrayNPC;
 import codes.laivy.npc.types.list.monster.skeleton.SkeletonWitherNPC;
@@ -185,6 +190,7 @@ public class Entity extends ObjectExecutor {
         HORSE_MULE(HorseMule.class, HorseMuleNPC.class, V1_8_R1.class),
         HORSE_ZOMBIE(HorseZombie.class, HorseZombieNPC.class, V1_8_R1.class),
         HORSE_SKELETON(HorseSkeleton.class, HorseSkeletonNPC.class, V1_8_R1.class),
+        LLAMA(Llama.class, LlamaNPC.class, V1_11_R1.class),
 
         IRON_GOLEM(IronGolem.class, IronGolemNPC.class, V1_8_R1.class),
         RABBIT(Rabbit.class, RabbitNPC.class, V1_8_R1.class),
@@ -222,6 +228,10 @@ public class Entity extends ObjectExecutor {
         VILLAGER(Villager.class, VillagerNPC.class, V1_8_R1.class),
         SHULKER(Shulker.class, ShulkerNPC.class, V1_9_R1.class),
         POLAR_BEAR(PolarBear.class, PolarBearNPC.class, V1_10_R1.class),
+
+        VINDICATOR(Vindicator.class, VindicatorNPC.class, V1_11_R1.class),
+        EVOKER(Evoker.class, EvokerNPC.class, V1_11_R1.class),
+        VEX(Vex.class, VexNPC.class, V1_11_R1.class),
         ;
 
         private final @NotNull Class<? extends Entity> entityClass;
