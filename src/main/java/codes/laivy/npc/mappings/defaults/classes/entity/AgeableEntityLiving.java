@@ -8,8 +8,8 @@ import java.util.Objects;
 
 import static codes.laivy.npc.LaivyNPC.*;
 
-public class AgeableLivingEntity extends EntityLiving {
-    public AgeableLivingEntity(@Nullable Object value) {
+public class AgeableEntityLiving extends EntityLiving {
+    public AgeableEntityLiving(@Nullable Object value) {
         super(value);
     }
 

@@ -2,6 +2,7 @@ package codes.laivy.npc.types.list.animal.horse;
 
 import codes.laivy.npc.mappings.defaults.classes.entity.animal.horse.AbstractChestedHorse;
 import codes.laivy.npc.mappings.defaults.classes.entity.animal.horse.AbstractHorse;
+import codes.laivy.npc.types.AgeableEntityLivingNPC;
 import codes.laivy.npc.types.EntityNPC;
 import codes.laivy.npc.types.NPC;
 import codes.laivy.npc.types.commands.NPCConfiguration;
@@ -18,6 +19,12 @@ import java.util.Map;
 import static codes.laivy.npc.config.Translate.translate;
 
 public class AbstractChestedHorseNPC extends AbstractHorseNPC {
+    @Override
+    public void debug() {
+        super.debug();
+        setChest(!hasChest());
+    }
+
     protected AbstractChestedHorseNPC(@NotNull List<OfflinePlayer> players, @NotNull AbstractHorse.Type type, @NotNull Location location) {
         super(players, type, location);
     }
@@ -62,7 +69,7 @@ public class AbstractChestedHorseNPC extends AbstractHorseNPC {
     }
 
     public static @NotNull AbstractChestedHorseNPC deserialize(@NotNull ConfigurationSection section) {
-        AbstractChestedHorseNPC npc = (AbstractChestedHorseNPC) EntityNPC.deserialize(section);
+        AbstractChestedHorseNPC npc = (AbstractChestedHorseNPC) AgeableEntityLivingNPC.deserialize(section);
         npc.setChest(section.getConfigurationSection("AbstractChestedHorseNPC Configuration").getBoolean("Chest"));
         return npc;
     }

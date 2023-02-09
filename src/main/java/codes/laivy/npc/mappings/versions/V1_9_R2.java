@@ -14,7 +14,6 @@ import codes.laivy.npc.mappings.defaults.classes.entity.*;
 import codes.laivy.npc.mappings.defaults.classes.entity.ambient.Bat;
 import codes.laivy.npc.mappings.defaults.classes.entity.ambient.Egg;
 import codes.laivy.npc.mappings.defaults.classes.entity.animal.*;
-import codes.laivy.npc.mappings.defaults.classes.entity.animal.horse.Horse;
 import codes.laivy.npc.mappings.defaults.classes.entity.boss.dragon.EnderDragon;
 import codes.laivy.npc.mappings.defaults.classes.entity.boss.dragon.EnderSignal;
 import codes.laivy.npc.mappings.defaults.classes.entity.boss.wither.Wither;
@@ -172,8 +171,8 @@ public class V1_9_R2 extends V1_9_R1 {
             load(V1_9_R2.class, "Entity:Villager", new Villager.VillagerClass("net.minecraft.server.v1_9_R2.EntityVillager"));
             load(V1_9_R2.class, "Entity:Shulker", new Shulker.ShulkerClass("net.minecraft.server.v1_9_R2.EntityShulker"));
 
-            load(V1_9_R2.class, "Entity:Ageable", new AgeableLivingEntity.AgeableLivingEntityClass("net.minecraft.server.v1_9_R2.EntityAgeable"));
-            load(V1_9_R2.class, "Entity:Tameable", new TameableLivingEntity.TameableLivingEntityClass("net.minecraft.server.v1_9_R2.EntityTameableAnimal"));
+            load(V1_9_R2.class, "Entity:Ageable", new AgeableEntityLiving.AgeableLivingEntityClass("net.minecraft.server.v1_9_R2.EntityAgeable"));
+            load(V1_9_R2.class, "Entity:Tameable", new TameableEntityLiving.TameableLivingEntityClass("net.minecraft.server.v1_9_R2.EntityTameableAnimal"));
             // EntityPlayer
             load(V1_9_R2.class, "GameProfile", new GameProfile.GameProfileClass("com.mojang.authlib.GameProfile"));
             load(V1_9_R2.class, "PropertyMap", new PropertyMap.PropertyMapClass("com.mojang.authlib.properties.PropertyMap"));

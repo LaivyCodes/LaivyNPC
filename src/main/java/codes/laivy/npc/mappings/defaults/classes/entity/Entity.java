@@ -297,7 +297,7 @@ public class Entity extends ObjectExecutor {
             return ClassUtils.isInstanceOf(getEntityClass(), EntityLiving.class);
         }
         public boolean isAgeableLivingEntity() {
-            return ClassUtils.isInstanceOf(getEntityClass(), AgeableLivingEntity.class);
+            return ClassUtils.isInstanceOf(getEntityClass(), AgeableEntityLiving.class);
         }
     }
 

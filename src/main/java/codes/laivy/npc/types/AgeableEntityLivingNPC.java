@@ -1,6 +1,6 @@
 package codes.laivy.npc.types;
 
-import codes.laivy.npc.mappings.defaults.classes.entity.AgeableLivingEntity;
+import codes.laivy.npc.mappings.defaults.classes.entity.AgeableEntityLiving;
 import codes.laivy.npc.mappings.defaults.classes.entity.Entity;
 import codes.laivy.npc.types.commands.NPCConfiguration;
 import codes.laivy.npc.utils.Validation;
@@ -30,12 +30,12 @@ public abstract class AgeableEntityLivingNPC extends EntityLivingNPC {
         Validation.isTrue(!entityType.isAgeableLivingEntity(), new IllegalArgumentException("This EntityType isn't a AgeableLivingEntity."));
     }
 
-    protected @NotNull AgeableLivingEntity getNewEntity() {
-        return (AgeableLivingEntity) laivynpc().getVersion().createEntity(getEntityType(), getLocation());
+    protected @NotNull AgeableEntityLiving getNewEntity() {
+        return (AgeableEntityLiving) laivynpc().getVersion().createEntity(getEntityType(), getLocation());
     }
 
-    public @NotNull AgeableLivingEntity getEntity() {
-        return (AgeableLivingEntity) super.getEntity();
+    public @NotNull AgeableEntityLiving getEntity() {
+        return (AgeableEntityLiving) super.getEntity();
     }
 
     public boolean isBaby() {
@@ -52,7 +52,7 @@ public abstract class AgeableEntityLivingNPC extends EntityLivingNPC {
         list.add(new NPCConfiguration("baby", "/laivynpc config baby") {
             @Override
             public void execute(@NotNull NPC npc, @NotNull Player sender, @NotNull String[] args) {
-                if (npc.getEntity() instanceof AgeableLivingEntity) {
+                if (npc.getEntity() instanceof AgeableEntityLiving) {
                     AgeableEntityLivingNPC ageable = (AgeableEntityLivingNPC) npc;
                     ageable.setBaby(!ageable.isBaby());
                     sender.sendMessage(translate(sender, "npc.commands.baby.changed"));

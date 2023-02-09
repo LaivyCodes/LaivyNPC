@@ -1,7 +1,7 @@
 package codes.laivy.npc.types;
 
 import codes.laivy.npc.mappings.defaults.classes.entity.Entity;
-import codes.laivy.npc.mappings.defaults.classes.entity.TameableLivingEntity;
+import codes.laivy.npc.mappings.defaults.classes.entity.TameableEntityLiving;
 import codes.laivy.npc.types.commands.NPCConfiguration;
 import codes.laivy.npc.utils.Validation;
 import org.bukkit.Location;
@@ -31,11 +31,11 @@ public abstract class TameableLivingEntityNPC extends EntityLivingNPC {
         Validation.isTrue(!entityType.isAgeableLivingEntity(), new IllegalArgumentException("This EntityType isn't a AgeableLivingEntity."));
     }
 
-    protected @NotNull TameableLivingEntity getNewEntity() {
-        return (TameableLivingEntity) laivynpc().getVersion().createEntity(getEntityType(), getLocation());
+    protected @NotNull TameableEntityLiving getNewEntity() {
+        return (TameableEntityLiving) laivynpc().getVersion().createEntity(getEntityType(), getLocation());
     }
-    public @NotNull TameableLivingEntity getEntity() {
-        return (TameableLivingEntity) super.getEntity();
+    public @NotNull TameableEntityLiving getEntity() {
+        return (TameableEntityLiving) super.getEntity();
     }
 
     public boolean isTamed() {

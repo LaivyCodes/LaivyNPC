@@ -1,7 +1,7 @@
 package codes.laivy.npc.mappings.defaults.classes.entity.animal.horse;
 
 import codes.laivy.npc.mappings.Version;
-import codes.laivy.npc.mappings.defaults.classes.entity.AgeableLivingEntity;
+import codes.laivy.npc.mappings.defaults.classes.entity.AgeableEntityLiving;
 import codes.laivy.npc.mappings.versions.V1_11_R1;
 import codes.laivy.npc.mappings.versions.V1_8_R1;
 import codes.laivy.npc.utils.ReflectionUtils;
@@ -10,7 +10,7 @@ import org.jetbrains.annotations.Nullable;
 
 import static codes.laivy.npc.LaivyNPC.laivynpc;
 
-public class AbstractHorse extends AgeableLivingEntity {
+public class AbstractHorse extends AgeableEntityLiving {
     public AbstractHorse(@Nullable Object value) {
         super(value);
     }

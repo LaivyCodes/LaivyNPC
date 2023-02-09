@@ -1,12 +1,12 @@
 package codes.laivy.npc.mappings.defaults.classes.entity.animal;
 
-import codes.laivy.npc.mappings.defaults.classes.entity.TameableLivingEntity;
+import codes.laivy.npc.mappings.defaults.classes.entity.TameableEntityLiving;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import static codes.laivy.npc.LaivyNPC.laivynpc;
 
-public class Ocelot extends TameableLivingEntity {
+public class Ocelot extends TameableEntityLiving {
 
     public enum CatVariant {
         TABBY(0),

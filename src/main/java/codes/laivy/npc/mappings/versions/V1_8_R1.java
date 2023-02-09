@@ -160,8 +160,8 @@ public class V1_8_R1 extends Version {
             load(V1_8_R1.class, "Entity:Zombie", new Zombie.ZombieClass("net.minecraft.server.v1_8_R1.EntityZombie"));
             load(V1_8_R1.class, "Entity:Villager", new Villager.VillagerClass("net.minecraft.server.v1_8_R1.EntityVillager"));
 
-            load(V1_8_R1.class, "Entity:Ageable", new AgeableLivingEntity.AgeableLivingEntityClass("net.minecraft.server.v1_8_R1.EntityAgeable"));
-            load(V1_8_R1.class, "Entity:Tameable", new TameableLivingEntity.TameableLivingEntityClass("net.minecraft.server.v1_8_R1.EntityTameableAnimal"));
+            load(V1_8_R1.class, "Entity:Ageable", new AgeableEntityLiving.AgeableLivingEntityClass("net.minecraft.server.v1_8_R1.EntityAgeable"));
+            load(V1_8_R1.class, "Entity:Tameable", new TameableEntityLiving.TameableLivingEntityClass("net.minecraft.server.v1_8_R1.EntityTameableAnimal"));
             // EntityPlayer
             load(V1_8_R1.class, "GameProfile", new GameProfile.GameProfileClass("com.mojang.authlib.GameProfile"));
             load(V1_8_R1.class, "PropertyMap", new PropertyMap.PropertyMapClass("com.mojang.authlib.properties.PropertyMap"));
@@ -983,7 +983,7 @@ public class V1_8_R1 extends Version {
     @Override
     public void setEntityHorseType(@NotNull AbstractHorse horse, Horse.@NotNull Type type) {
         if (!type.isCompatible()) {
-            throw new IllegalArgumentException("This horse type '" + type.name() + "' is only compatible with '" + type.getSince().getSimpleName() + "' or higher");
+            throw new UnsupportedOperationException("This horse type '" + type.name() + "' is only compatible with '" + type.getSince().getSimpleName() + "' or higher");
         }
 
         getMethodExec("Entity:Horse:setType").invokeInstance(horse, new IntegerObjExec(type.getId()));
@@ -1027,7 +1027,7 @@ public class V1_8_R1 extends Version {
     @Override
     public void setEntitySkeletonType(@NotNull Skeleton skeleton, Skeleton.@NotNull Type type) {
         if (!type.isCompatible()) {
-            throw new IllegalArgumentException("This skeleton type '" + type.name() + "' isn't compatible with that version!");
+            throw new UnsupportedOperationException("This skeleton type '" + type.name() + "' isn't compatible with that version!");
         }
 
         int value;
@@ -1122,12 +1122,12 @@ public class V1_8_R1 extends Version {
 
     @Override
     public boolean hasEntitySnowmanHat(@NotNull Snowman snowman) {
-        throw new IllegalStateException("The pumpkin hat of a snowman is only available at 1.9+");
+        throw new UnsupportedOperationException("The pumpkin hat of a snowman is only available at 1.9+");
     }
 
     @Override
     public void setEntitySnowmanHat(@NotNull Snowman snowman, boolean hat) {
-        throw new IllegalStateException("The pumpkin hat of a snowman is only available at 1.9+");
+        throw new UnsupportedOperationException("The pumpkin hat of a snowman is only available at 1.9+");
     }
 
     @Override
@@ -1139,6 +1139,26 @@ public class V1_8_R1 extends Version {
     @Override
     public void setEntityChestedHorseChest(@NotNull AbstractChestedHorse horse, boolean chest) {
         getMethodExec("Entity:Horse:setHasChest").invokeInstance(horse, new BooleanObjExec(chest));
+    }
+
+    @Override
+    public @NotNull Llama.Variant getEntityLlamaVariant(@NotNull Llama llama) {
+        throw new UnsupportedOperationException("The llamas is only available at 1.11+");
+    }
+
+    @Override
+    public void setEntityLlamaVariant(@NotNull Llama llama, Llama.@NotNull Variant variant) {
+        throw new UnsupportedOperationException("The llamas is only available at 1.11+");
+    }
+
+    @Override
+    public @Nullable EnumColorEnum.EnumColor getEntityLlamaCarpetColor(@NotNull Llama llama) {
+        throw new UnsupportedOperationException("The llamas is only available at 1.11+");
+    }
+
+    @Override
+    public void setEntityLlamaCarpetColor(@NotNull Llama llama, EnumColorEnum.@Nullable EnumColor color) {
+        throw new UnsupportedOperationException("The llamas is only available at 1.11+");
     }
 
     @Override

@@ -1,6 +1,6 @@
 package codes.laivy.npc.mappings.defaults.classes.entity.animal;
 
-import codes.laivy.npc.mappings.defaults.classes.entity.TameableLivingEntity;
+import codes.laivy.npc.mappings.defaults.classes.entity.TameableEntityLiving;
 import codes.laivy.npc.mappings.defaults.classes.enums.EnumColorEnum;
 import codes.laivy.npc.mappings.defaults.classes.java.BooleanObjExec;
 import org.jetbrains.annotations.NotNull;
@@ -8,7 +8,7 @@ import org.jetbrains.annotations.Nullable;
 
 import static codes.laivy.npc.LaivyNPC.laivynpc;
 
-public class Wolf extends TameableLivingEntity {
+public class Wolf extends TameableEntityLiving {
     public Wolf(@Nullable Object value) {
         super(value);
     }

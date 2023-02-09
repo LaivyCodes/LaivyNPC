@@ -357,8 +357,8 @@ public class V1_11_R1 extends V1_10_R1 {
             load(V1_11_R1.class, "Entity:Shulker", new Shulker.ShulkerClass("net.minecraft.server.v1_11_R1.EntityShulker"));
             load(V1_11_R1.class, "Entity:PolarBear", new PolarBear.PolarBearClass("net.minecraft.server.v1_11_R1.EntityPolarBear"));
 
-            load(V1_11_R1.class, "Entity:Ageable", new AgeableLivingEntity.AgeableLivingEntityClass("net.minecraft.server.v1_11_R1.EntityAgeable"));
-            load(V1_11_R1.class, "Entity:Tameable", new TameableLivingEntity.TameableLivingEntityClass("net.minecraft.server.v1_11_R1.EntityTameableAnimal"));
+            load(V1_11_R1.class, "Entity:Ageable", new AgeableEntityLiving.AgeableLivingEntityClass("net.minecraft.server.v1_11_R1.EntityAgeable"));
+            load(V1_11_R1.class, "Entity:Tameable", new TameableEntityLiving.TameableLivingEntityClass("net.minecraft.server.v1_11_R1.EntityTameableAnimal"));
             // EntityPlayer
             load(V1_11_R1.class, "GameProfile", new GameProfile.GameProfileClass("com.mojang.authlib.GameProfile"));
             load(V1_11_R1.class, "PropertyMap", new PropertyMap.PropertyMapClass("com.mojang.authlib.properties.PropertyMap"));
@@ -441,6 +441,46 @@ public class V1_11_R1 extends V1_10_R1 {
         }
         
         return super.getClasses();
+    }
+
+    @Override
+    public void setEntityLlamaVariant(@NotNull Llama llama, Llama.@NotNull Variant variant) {
+        if (!variant.isCompatible()) {
+            throw new UnsupportedOperationException("This llama variant '" + variant.name() + "' is available only at '" + variant.getSince().getSimpleName() + "' or higher!");
+        }
+
+        getMethodExec("Entity:Llama:setVariant").invokeInstance(llama, new IntegerObjExec(variant.getId()));
+    }
+    @Override
+    public @NotNull Llama.Variant getEntityLlamaVariant(@NotNull Llama llama) {
+        //noinspection DataFlowIssue
+        return Llama.Variant.getById((int) getMethodExec("Entity:Llama:setVariant").invokeInstance(llama));
+    }
+
+    @Override
+    public void setEntityLlamaCarpetColor(@NotNull Llama llama, EnumColorEnum.@Nullable EnumColor color) {
+        getMethodExec("Entity:Llama:setCarpetColor").invokeInstance(llama, color);
+    }
+    @Override
+    public EnumColorEnum.@Nullable EnumColor getEntityLlamaCarpetColor(@NotNull Llama llama) {
+        Enum<?> value = (Enum<?>) getMethodExec("Entity:Llama:getCarpetColor").invokeInstance(llama);
+        if (value == null) {
+            return null;
+        }
+
+        return new EnumColorEnum.EnumColor(value);
+    }
+
+    @Override
+    public @NotNull Map<String, MethodExecutor> getMethods() {
+        if (!super.getMethods().containsKey("Entity:Llama:setVariant")) {
+            load(V1_11_R1.class, "Entity:Llama:setVariant", new MethodExecutor(getClassExec("Entity:Llama"), ClassExecutor.VOID, "setVariant", "Sets the variant of a Llama", ClassExecutor.INT));
+            load(V1_11_R1.class, "Entity:Llama:getVariant", new MethodExecutor(getClassExec("Entity:Llama"), ClassExecutor.INT, "getVariant", "Gets the variant of a Llama"));
+            load(V1_11_R1.class, "Entity:Llama:setCarpetColor", new MethodExecutor(getClassExec("Entity:Llama"), ClassExecutor.VOID, "a", "Sets the carpet color of a Llama", getClassExec("EnumColor")));
+            load(V1_11_R1.class, "Entity:Llama:getCarpetColor", new MethodExecutor(getClassExec("Entity:Llama"), getClassExec("EnumColor"), "dO", "Gets the carpet color of a Llama"));
+        }
+
+        return super.getMethods();
     }
 
     @Override

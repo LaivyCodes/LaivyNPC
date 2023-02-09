@@ -81,7 +81,7 @@ public class SheepNPC extends AgeableEntityLivingNPC {
                         sheepNPC.setColor(color);
                         sender.sendMessage(translate(sender, "npc.commands.general.flag_changed"));
                     } catch (IllegalArgumentException ignore) {
-                        sender.performCommand("laivynpc config color");
+                        sender.performCommand("laivynpc config " + getName());
                         return;
                     }
                     return;
@@ -95,7 +95,7 @@ public class SheepNPC extends AgeableEntityLivingNPC {
                     row++;
                 }
 
-                sender.sendMessage("§cUse /laivynpc config color (color)");
+                sender.sendMessage("§cUse " + getSyntax());
                 sender.sendMessage(translate(sender, "npc.commands.general.available_options", builder));
             }
         });
@@ -111,7 +111,7 @@ public class SheepNPC extends AgeableEntityLivingNPC {
                     } else if (args[0].equalsIgnoreCase("true")) {
                         flag = true;
                     } else {
-                        sender.performCommand("laivynpc config sheared");
+                        sender.performCommand("laivynpc config " + getName());
                         return;
                     }
 
