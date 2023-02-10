@@ -290,6 +290,9 @@ public abstract class Version implements VersionCompound, VersionPacket, Version
     // ENTITY TROPICALFISH
     public abstract int getEntityTropicalFishVariant(@NotNull TropicalFish fish);
     public abstract void setEntityTropicalFishVariant(@NotNull TropicalFish fish, int variant);
+    // ENTITY PHANTOM
+    public abstract int getEntityPhantomSize(@NotNull Phantom phantom);
+    public abstract void setEntityPhantomSize(@NotNull Phantom phantom, int variant);
     //
 
     // ENTITY PLAYER

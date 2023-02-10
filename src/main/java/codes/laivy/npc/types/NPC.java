@@ -1204,6 +1204,7 @@ public abstract class NPC {
         put("Salmon", SalmonNPC.class);
         put("PufferFish", PufferFishNPC.class);
         put("TropicalFish", TropicalFishNPC.class);
+        put("Phantom", PhantomNPC.class);
     }};
 
     @SuppressWarnings("unchecked")

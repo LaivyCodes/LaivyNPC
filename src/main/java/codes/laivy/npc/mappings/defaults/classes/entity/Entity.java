@@ -250,6 +250,8 @@ public class Entity extends ObjectExecutor {
         SALMON(Salmon.class, SalmonNPC.class, V1_13_R1.class),
         PUFFERFISH(PufferFish.class, PufferFishNPC.class, V1_13_R1.class),
         TROPICALFISH(TropicalFish.class, TropicalFishNPC.class, V1_13_R1.class),
+
+        PHANTOM(Phantom.class, PhantomNPC.class, V1_13_R1.class),
         ;
 
         private final @NotNull Class<? extends Entity> entityClass;
