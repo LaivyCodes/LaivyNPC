@@ -4,6 +4,7 @@ import codes.laivy.npc.mappings.defaults.classes.datawatcher.DataWatcherObject;
 import codes.laivy.npc.mappings.defaults.classes.entity.EntityLiving;
 import codes.laivy.npc.mappings.versions.V1_13_R1;
 import codes.laivy.npc.utils.ReflectionUtils;
+import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -26,6 +27,7 @@ public class Dolphin extends EntityLiving {
     public boolean hasFish() {
         return laivynpc().getVersion().hasEntityDolphinFish(this);
     }
+    @ApiStatus.Experimental
     public void setFish(boolean fish) {
         laivynpc().getVersion().setEntityDolphinFish(this, fish);
     }

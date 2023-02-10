@@ -9,6 +9,7 @@ import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -44,6 +45,7 @@ public class DolphinNPC extends EntityLivingNPC {
     public boolean hasFish() {
         return getEntity().hasFish();
     }
+    @ApiStatus.Experimental
     public void setFish(boolean fish) {
         getEntity().setFish(fish);
         sendUpdatePackets(getSpawnedPlayers(), false, false, true, false, false, false);
