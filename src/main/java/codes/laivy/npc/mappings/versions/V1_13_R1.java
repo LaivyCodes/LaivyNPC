@@ -115,7 +115,7 @@ public class V1_13_R1 extends V1_12_R1 {
                         break;
                 }
             }
-        }else if (version == V1_8_R1.class) {
+        } else if (version == V1_8_R1.class) {
             if (executor instanceof MethodExecutor) {
                 switch (key) {
                     case "NBTTagCompound:keySet":
@@ -467,7 +467,7 @@ public class V1_13_R1 extends V1_12_R1 {
         if (!super.getFields().containsKey("Entity:Dolphin:DataWatcher:hasFish")) {
             load(V1_13_R1.class, "Entity:Dolphin:DataWatcher:hasFish", new FieldExecutor(getClassExec("Entity:Dolphin"), getClassExec("DataWatcherObject"), "c", "Gets the dolphin's hasFish DataWatcherObject"));
             load(V1_13_R1.class, "Entity:PufferFish:DataWatcher:PuffState", new FieldExecutor(getClassExec("Entity:PufferFish"), getClassExec("DataWatcherObject"), "b", "Gets the puffer fish's puff state DataWatcherObject"));
-            load(V1_13_R1.class, "Entity:TropicalFish:DataWatcher:Variant", new FieldExecutor(getClassExec("Entity:PufferFish"), getClassExec("DataWatcherObject"), "b", "Gets the tropical fish's variant DataWatcherObject"));
+            load(V1_13_R1.class, "Entity:TropicalFish:DataWatcher:Variant", new FieldExecutor(getClassExec("Entity:TropicalFish"), getClassExec("DataWatcherObject"), "b", "Gets the tropical fish's variant DataWatcherObject"));
             load(V1_13_R1.class, "Entity:Phantom:DataWatcher:Size", new FieldExecutor(getClassExec("Entity:Phantom"), getClassExec("DataWatcherObject"), "a", "Gets the phantom's size DataWatcherObject"));
             load(V1_13_R1.class, "Entity:Turtle:DataWatcher:Egg", new FieldExecutor(getClassExec("Entity:Turtle"), getClassExec("DataWatcherObject"), "bE", "Gets the turtle's egg DataWatcherObject", false, true));
         }

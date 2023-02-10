@@ -142,7 +142,7 @@ public class MethodExecutor implements Executor {
                 throw new NoSuchMethodException("This method's return type is '" + this.getMethod().getReturnType().getName() + "', and the requested is '" + r.getName() + "'");
             }
         } catch (Exception e) {
-            throw new RuntimeException("Cannot create the MethodExecutor named '" + getName() + "', from class '" + getMethodClass().getName() + "' with return type '" + getReturnType().getName() + "'", e);
+            throw new RuntimeException("Cannot create the MethodExecutor named '" + getName() + "', from class '" + getMethodClass().getName() + "' with return type '" + getReturnType().getName() + "', meaning '" + getMeans() + "'", e);
         }
     }
 

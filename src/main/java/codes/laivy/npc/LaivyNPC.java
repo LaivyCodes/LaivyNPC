@@ -70,6 +70,7 @@ public class LaivyNPC extends JavaPlugin {
         saveDefaultConfig();
 
         try {
+            log(translate(null, "plugin.trying_load", ReflectionUtils.getVersionName()));
             //noinspection unchecked
             Class<Version> clazz = (Class<Version>) ReflectionUtils.getNullableClass("codes.laivy.npc.mappings.versions." + ReflectionUtils.getVersionName().toUpperCase());
             if (clazz == null) {
