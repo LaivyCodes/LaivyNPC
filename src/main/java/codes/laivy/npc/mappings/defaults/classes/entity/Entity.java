@@ -4,6 +4,7 @@ import codes.laivy.npc.mappings.Version;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.illagers.Evoker;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.illagers.Illusioner;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.illagers.Vindicator;
+import codes.laivy.npc.mappings.defaults.classes.others.chat.IChatBaseComponent;
 import codes.laivy.npc.mappings.instances.classes.ClassExecutor;
 import codes.laivy.npc.mappings.instances.ObjectExecutor;
 import codes.laivy.npc.mappings.defaults.classes.datawatcher.DataWatcher;
@@ -101,10 +102,10 @@ public class Entity extends ObjectExecutor {
     }
 
     public @NotNull @NotEmpty String getCustomName() {
-        return (String) Objects.requireNonNull(laivynpc().getVersion().getMethodExec("Entity:Entity:getCustomName").invokeInstance(this));
+        return laivynpc().getVersion().getEntityCustomName(this);
     }
     public void setCustomName(@NotNull String customName) {
-        laivynpc().getVersion().getMethodExec("Entity:Entity:setCustomName").invokeInstance(this, new StringObjExec(customName));
+        laivynpc().getVersion().setEntityCustomName(this, customName);
     }
 
     public boolean isGlowing() {

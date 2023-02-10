@@ -207,6 +207,9 @@ public abstract class Version implements VersionCompound, VersionPacket, Version
     public abstract @NotNull BlockPosition createBlockPosition(int x, int y, int z);
     //
 
+    // ENTITY
+    public abstract @NotNull String getEntityCustomName(@NotNull Entity entity);
+    public abstract void setEntityCustomName(@NotNull Entity entity, @NotNull String customName);
     // ENTITY CAT
     public abstract @NotNull Ocelot.CatVariant getEntityCatVariant(@NotNull Ocelot ocelot);
     public abstract void setEntityCatVariant(@NotNull Ocelot ocelot, @NotNull Ocelot.CatVariant variant);
@@ -268,6 +271,9 @@ public abstract class Version implements VersionCompound, VersionPacket, Version
     // ENTITY SHULKER
     public abstract @NotNull EnumColorEnum.EnumColor getEntityShulkerColor(@NotNull Shulker shulker);
     public abstract void setEntityShulkerColor(@NotNull Shulker shulker, @NotNull EnumColorEnum.EnumColor variant);
+    // ENTITY SPIDER
+    public abstract boolean isEntitySpiderClimbing(@NotNull Spider spider);
+    public abstract void setEntitySpiderClimbing(@NotNull Spider spider, boolean climbing);
     //
 
     // ENTITY PLAYER
@@ -289,19 +295,17 @@ public abstract class Version implements VersionCompound, VersionPacket, Version
     public abstract @NotNull Scoreboard getScoreboardFrom(@NotNull org.bukkit.scoreboard.Scoreboard scoreboard);
     public abstract @NotNull ScoreboardTeam createScoreboardTeam(@NotNull Scoreboard scoreboard, @NotNull String name);
     public abstract boolean addToTeam(@NotNull Scoreboard scoreboard, @NotNull ScoreboardTeam team, @NotNull Entity entity);
+    public abstract void setPrefix(@NotNull ScoreboardTeam team, @NotNull String prefix);
     //
     // SCOREBOARD
 
     // IChatBaseComponent
-    //
     public abstract @NotNull IChatBaseComponent stringToBaseComponent(@NotNull String string);
+    public abstract @NotNull String baseComponentToString(@NotNull IChatBaseComponent iChatBaseComponent);
     //
-    // IChatBaseComponent
 
     // DataWatcher
-    //
     public abstract @NotNull Map<@NotNull Integer, @NotNull VersionedDataWatcherObject> dataWatcherGetValues(@NotNull DataWatcher dataWatcher);
     //
-    // DataWatcher
 
 }

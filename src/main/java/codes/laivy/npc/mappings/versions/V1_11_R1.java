@@ -205,7 +205,7 @@ public class V1_11_R1 extends V1_10_R1 {
 
     @Override
     public void setEntityWizardSpell(@NotNull IllagerWizard wizard, EnumSpellEnum.@NotNull Spell spell) {
-        DataWatcherObject metadata = new DataWatcherObject(laivynpc().getVersion().getFieldExec("Entity:IllagerWizard:DataWatcher:Spell").invokeStatic());
+        DataWatcherObject metadata = new DataWatcherObject(getFieldExec("Entity:IllagerWizard:DataWatcher:Spell").invokeStatic());
 
         if (wizard instanceof Evoker) {
             wizard.getDataWatcher().set(metadata, new ByteObjExec((byte) spell.getValue()));
@@ -215,7 +215,7 @@ public class V1_11_R1 extends V1_10_R1 {
     }
     @Override
     public @NotNull EnumSpellEnum.Spell getEntityWizardSpell(@NotNull IllagerWizard wizard) {
-        DataWatcherObject metadata = new DataWatcherObject(laivynpc().getVersion().getFieldExec("Entity:IllagerWizard:DataWatcher:Spell").invokeStatic());
+        DataWatcherObject metadata = new DataWatcherObject(getFieldExec("Entity:IllagerWizard:DataWatcher:Spell").invokeStatic());
 
         if (wizard instanceof Evoker) {
             return EnumSpellEnum.Spell.getByValue(((Byte) Objects.requireNonNull(wizard.getDataWatcher().get(metadata))).intValue());
@@ -226,7 +226,7 @@ public class V1_11_R1 extends V1_10_R1 {
 
     @Override
     public void setEntitySlimeSize(@NotNull Slime slime, int size) {
-        laivynpc().getVersion().getMethodExec("Entity:Slime:setSize").invokeInstance(slime, new IntegerObjExec(size), new BooleanObjExec(false));
+        getMethodExec("Entity:Slime:setSize").invokeInstance(slime, new IntegerObjExec(size), new BooleanObjExec(false));
     }
 
     @Override
@@ -477,38 +477,33 @@ public class V1_11_R1 extends V1_10_R1 {
             throw new UnsupportedOperationException("This llama variant '" + variant.name() + "' is available only at '" + variant.getSince().getSimpleName() + "' or higher!");
         }
 
-        getMethodExec("Entity:Llama:setVariant").invokeInstance(llama, new IntegerObjExec(variant.getId()));
+        llama.getDataWatcher().set(Llama.VARIANT_METADATA(), new IntegerObjExec(variant.getId()));
     }
     @Override
     public @NotNull Llama.Variant getEntityLlamaVariant(@NotNull Llama llama) {
         //noinspection DataFlowIssue
-        return Llama.Variant.getById((int) getMethodExec("Entity:Llama:getVariant").invokeInstance(llama));
+        return Llama.Variant.getById((int) llama.getDataWatcher().get(Llama.VARIANT_METADATA()));
     }
 
     @Override
     public void setEntityLlamaCarpetColor(@NotNull Llama llama, EnumColorEnum.@Nullable EnumColor color) {
-        getMethodExec("Entity:Llama:setCarpetColor").invokeInstance(llama, color);
+        int index = -1;
+        if (color != null) {
+            index = color.getColorIndex();
+        }
+
+        llama.getDataWatcher().set(Llama.CARPET_COLOR_METADATA(), new IntegerObjExec(index));
     }
     @Override
     public EnumColorEnum.@Nullable EnumColor getEntityLlamaCarpetColor(@NotNull Llama llama) {
-        Enum<?> value = (Enum<?>) getMethodExec("Entity:Llama:getCarpetColor").invokeInstance(llama);
-        if (value == null) {
+        //noinspection DataFlowIssue
+        int index = (int) llama.getDataWatcher().get(Llama.CARPET_COLOR_METADATA());
+
+        if (index == -1) {
             return null;
         }
 
-        return new EnumColorEnum.EnumColor(value);
-    }
-
-    @Override
-    public @NotNull Map<String, MethodExecutor> getMethods() {
-        if (!super.getMethods().containsKey("Entity:Llama:setVariant")) {
-            load(V1_11_R1.class, "Entity:Llama:setVariant", new MethodExecutor(getClassExec("Entity:Llama"), ClassExecutor.VOID, "setVariant", "Sets the variant of a Llama", ClassExecutor.INT));
-            load(V1_11_R1.class, "Entity:Llama:getVariant", new MethodExecutor(getClassExec("Entity:Llama"), ClassExecutor.INT, "getVariant", "Gets the variant of a Llama"));
-            load(V1_11_R1.class, "Entity:Llama:setCarpetColor", new MethodExecutor(getClassExec("Entity:Llama"), ClassExecutor.VOID, "a", "Sets the carpet color of a Llama", getClassExec("EnumColor")));
-            load(V1_11_R1.class, "Entity:Llama:getCarpetColor", new MethodExecutor(getClassExec("Entity:Llama"), getClassExec("EnumColor"), "dO", "Gets the carpet color of a Llama"));
-        }
-
-        return super.getMethods();
+        return EnumColorEnum.fromColorIndex(index);
     }
 
     @Override
@@ -516,6 +511,8 @@ public class V1_11_R1 extends V1_10_R1 {
         if (!super.getFields().containsKey("Entity:IllagerWizard:DataWatcher:Spell")) {
             load(V1_11_R1.class, "Entity:IllagerWizard:DataWatcher:Spell", new FieldExecutor(getClassExec("Entity:Evoker"), getClassExec("DataWatcherObject"), "a", "Gets the illager illusioner's spell DataWatcherObject"));
             load(V1_11_R1.class, "Entity:Shulker:DataWatcher:Color", new FieldExecutor(getClassExec("Entity:Shulker"), getClassExec("DataWatcherObject"), "bw", "Gets the shulker's color DataWatcherObject"));
+            load(V1_11_R1.class, "Entity:Llama:DataWatcher:CarpetColor", new FieldExecutor(getClassExec("Entity:Llama"), getClassExec("DataWatcherObject"), "bH", "Gets the llama's carpet color DataWatcherObject"));
+            load(V1_11_R1.class, "Entity:Llama:DataWatcher:Variant", new FieldExecutor(getClassExec("Entity:Llama"), getClassExec("DataWatcherObject"), "bI", "Gets the llama's variant DataWatcherObject"));
         }
 
         return super.getFields();

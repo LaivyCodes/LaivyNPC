@@ -2,6 +2,7 @@ package codes.laivy.npc.mappings.versions;
 
 import codes.laivy.npc.mappings.Version;
 import codes.laivy.npc.mappings.defaults.classes.entity.animal.horse.AbstractHorse;
+import codes.laivy.npc.mappings.defaults.classes.java.ByteObjExec;
 import codes.laivy.npc.mappings.instances.EnumExecutor;
 import codes.laivy.npc.mappings.instances.Executor;
 import codes.laivy.npc.mappings.instances.FieldExecutor;
@@ -51,7 +52,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-import static codes.laivy.npc.LaivyNPC.laivynpc;
 import static codes.laivy.npc.mappings.defaults.classes.others.objects.ItemStack.getNMSItemStack;
 
 public class V1_9_R1 extends V1_8_R3 {
@@ -71,6 +71,8 @@ public class V1_9_R1 extends V1_8_R3 {
                     case "Entity:Zombie:setVillagerType":
                         load(V1_9_R1.class, key, new MethodExecutor(getClassExec("Entity:Zombie"), ClassExecutor.VOID, "setVillagerType", "Sets the villager type of a Zombie", ClassExecutor.INT));
                         return false;
+                    case "Entity:Spider:isClimbing":
+                    case "Entity:Spider:setClimbing":
                     case "Entity:Enderman:isScreaming":
                     case "Entity:Enderman:setScreaming":
                     case "WatchableObject:getValue":
@@ -81,9 +83,6 @@ public class V1_9_R1 extends V1_8_R3 {
                         return false;
                     case "Entity:Horse:getType":
                         load(V1_9_R1.class, key, new MethodExecutor(getClassExec("Entity:Horse"), getClassExec("EnumHorseType"), "getType", "Gets the horse type"));
-                        return false;
-                    case "Entity:Spider:isClimbing":
-                        load(V1_9_R1.class, key, new MethodExecutor(getClassExec("Entity:Spider"), ClassExecutor.BOOLEAN, "o", "Gets the spider climbing state"));
                         return false;
                     case "World:getEntityById":
                         load(V1_9_R1.class, key, new MethodExecutor(getClassExec("World"), getClassExec("Entity"), "getEntity", "Gets a entity by its ID", ClassExecutor.INT));
@@ -118,7 +117,7 @@ public class V1_9_R1 extends V1_8_R3 {
 
         if (type == null) type = Zombie.Type.NORMAL;
 
-        laivynpc().getVersion().getMethodExec("Entity:Zombie:setVillagerType").invokeInstance(zombie, new IntegerObjExec(type.getId()));
+        getMethodExec("Entity:Zombie:setVillagerType").invokeInstance(zombie, new IntegerObjExec(type.getId()));
     }
 
     @Override
@@ -220,11 +219,11 @@ public class V1_9_R1 extends V1_8_R3 {
     @Override
     public boolean hasEntitySnowmanHat(@NotNull Snowman snowman) {
         //noinspection DataFlowIssue
-        return (boolean) laivynpc().getVersion().getMethodExec("Entity:Snowman:hasPumpkinHat").invokeInstance(snowman);
+        return (boolean) getMethodExec("Entity:Snowman:hasPumpkinHat").invokeInstance(snowman);
     }
     @Override
     public void setEntitySnowmanHat(@NotNull Snowman snowman, boolean hat) {
-        laivynpc().getVersion().getMethodExec("Entity:Snowman:setPumpkinHat").invokeInstance(snowman, new BooleanObjExec(hat));
+        getMethodExec("Entity:Snowman:setPumpkinHat").invokeInstance(snowman, new BooleanObjExec(hat));
     }
 
     @Override
@@ -235,6 +234,16 @@ public class V1_9_R1 extends V1_8_R3 {
     public @NotNull HorseArmor getEntityHorseArmor(@NotNull Horse horse) {
         //noinspection DataFlowIssue
         return HorseArmor.getByData((int) horse.getDataWatcher().get(Horse.ARMOR_METADATA()));
+    }
+
+    @Override
+    public boolean isEntitySpiderClimbing(@NotNull Spider spider) {
+        //noinspection DataFlowIssue
+        return ((byte) spider.getDataWatcher().get(Spider.CLIMBING_METADATA())) == 1;
+    }
+    @Override
+    public void setEntitySpiderClimbing(@NotNull Spider spider, boolean climbing) {
+        spider.getDataWatcher().set(Spider.CLIMBING_METADATA(), new ByteObjExec((byte) (climbing ? 1 : 0)));
     }
 
     @Override
@@ -431,6 +440,7 @@ public class V1_9_R1 extends V1_8_R3 {
             load(V1_9_R1.class, "Metadata:Guardian:DataWatcher:Target", new FieldExecutor(getClassExec("Entity:Guardian"), getClassExec("DataWatcherObject"), "b", "Gets the Guardian target DataWatcherObject"));
             load(V1_9_R1.class, "Metadata:Creeper:DataWatcher:Ignited", new FieldExecutor(getClassExec("Entity:Creeper"), getClassExec("DataWatcherObject"), "c", "Gets the Creeper ignited DataWatcherObject"));
             load(V1_9_R1.class, "Metadata:Horse:DataWatcher:Armor", new FieldExecutor(getClassExec("Entity:Horse"), getClassExec("DataWatcherObject"), "bI", "Gets the horse armor DataWatcherObject"));
+            load(V1_9_R1.class, "Metadata:Spider:DataWatcher:Climbing", new FieldExecutor(getClassExec("Entity:Spider"), getClassExec("DataWatcherObject"), "a", "Gets the spider climbing DataWatcherObject"));
         }
 
         return super.getFields();

@@ -9,13 +9,19 @@ import static codes.laivy.npc.LaivyNPC.*;
 
 public class IChatBaseComponent extends ObjectExecutor {
 
-    @NotNull
-    public static IChatBaseComponent convert(@NotNull String string) {
+    public static @NotNull IChatBaseComponent convert(@NotNull String string) {
         return laivynpc().getVersion().stringToBaseComponent(string);
+    }
+    public static @NotNull String convert(@NotNull IChatBaseComponent iChatBaseComponent) {
+        return laivynpc().getVersion().baseComponentToString(iChatBaseComponent);
     }
 
     public IChatBaseComponent(@Nullable Object value) {
         super(value);
+    }
+
+    public @NotNull String getString() {
+        return convert(this);
     }
 
     @Override

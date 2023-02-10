@@ -1,6 +1,7 @@
 package codes.laivy.npc.mappings.defaults.classes.entity.animal.horse;
 
 import codes.laivy.npc.mappings.Version;
+import codes.laivy.npc.mappings.defaults.classes.datawatcher.DataWatcherObject;
 import codes.laivy.npc.mappings.defaults.classes.enums.EnumColorEnum;
 import codes.laivy.npc.mappings.versions.V1_11_R1;
 import codes.laivy.npc.utils.ReflectionUtils;
@@ -10,6 +11,22 @@ import org.jetbrains.annotations.Nullable;
 import static codes.laivy.npc.LaivyNPC.laivynpc;
 
 public class Llama extends AbstractChestedHorse {
+
+    public static @NotNull DataWatcherObject CARPET_COLOR_METADATA() {
+        if (ReflectionUtils.isCompatible(V1_11_R1.class)) {
+            return new DataWatcherObject(laivynpc().getVersion().getFieldExec("Entity:Llama:DataWatcher:CarpetColor").invokeStatic());
+        } else {
+            throw new IllegalStateException("This metadata object is compatible only with 1.11+");
+        }
+    }
+    public static @NotNull DataWatcherObject VARIANT_METADATA() {
+        if (ReflectionUtils.isCompatible(V1_11_R1.class)) {
+            return new DataWatcherObject(laivynpc().getVersion().getFieldExec("Entity:Llama:DataWatcher:Variant").invokeStatic());
+        } else {
+            throw new IllegalStateException("This metadata object is compatible only with 1.11+");
+        }
+    }
+
     public Llama(@Nullable Object value) {
         super(value);
     }

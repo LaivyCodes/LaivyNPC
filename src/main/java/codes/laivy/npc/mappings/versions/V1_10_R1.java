@@ -139,7 +139,7 @@ public class V1_10_R1 extends V1_9_R2 {
 
     @Override
     public @NotNull Zombie.Type getEntityZombieType(@NotNull Zombie zombie) {
-        return Zombie.Type.fromEnum(new EnumZombieTypeEnum.EnumZombieType((Enum<?>) Objects.requireNonNull(laivynpc().getVersion().getMethodExec("Entity:Zombie:getVillagerType").invokeInstance(zombie))));
+        return Zombie.Type.fromEnum(new EnumZombieTypeEnum.EnumZombieType((Enum<?>) Objects.requireNonNull(getMethodExec("Entity:Zombie:getVillagerType").invokeInstance(zombie))));
     }
 
     @Override
@@ -150,7 +150,7 @@ public class V1_10_R1 extends V1_9_R2 {
 
         if (type == null) type = Zombie.Type.NORMAL;
 
-        laivynpc().getVersion().getMethodExec("Entity:Zombie:setVillagerType").invokeInstance(zombie, type.getEnum());
+        getMethodExec("Entity:Zombie:setVillagerType").invokeInstance(zombie, type.getEnum());
     }
 
     @Override

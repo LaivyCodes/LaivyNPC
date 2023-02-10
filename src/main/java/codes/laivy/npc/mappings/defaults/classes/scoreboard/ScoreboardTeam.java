@@ -33,7 +33,7 @@ public class ScoreboardTeam extends ObjectExecutor {
         laivynpc().getVersion().getMethodExec("ScoreboardTeam:setColor").invokeInstance(this, color);
     }
     public void setPrefix(@NotNull String prefix) {
-        laivynpc().getVersion().getMethodExec("ScoreboardTeam:setPrefix").invokeInstance(this, new StringObjExec(prefix));
+        laivynpc().getVersion().setPrefix(this, prefix);
     }
     @NotNull
     public String getName() {

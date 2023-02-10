@@ -65,14 +65,6 @@ public class V1_12_R1 extends V1_11_R1 {
         if (version == V1_11_R1.class) {
             if (executor instanceof ClassExecutor && !(executor instanceof EnumExecutor)) {
                 return false;
-            } else if (executor instanceof MethodExecutor) {
-                switch (key) {
-                    case "Entity:Llama:getCarpetColor":
-                        load(V1_12_R1.class, key, new MethodExecutor(getClassExec("Entity:Llama"), getClassExec("EnumColor"), "dT", "Gets the carpet color of a Llama"));
-                        return false;
-                    default:
-                        break;
-                }
             } else if (executor instanceof FieldExecutor) {
                 switch (key) {
                     case "Entity:Enderman:DataWatcher:screaming":
@@ -87,6 +79,12 @@ public class V1_12_R1 extends V1_11_R1 {
                     case "Metadata:Horse:DataWatcher:Armor":
                         load(V1_12_R1.class, key, new FieldExecutor(getClassExec("Entity:Horse"), getClassExec("DataWatcherObject"), "bJ", "Gets the horse armor DataWatcherObject"));
                         return false;
+                    case "Entity:Llama:DataWatcher:CarpetColor":
+                        load(V1_12_R1.class, key, new FieldExecutor(getClassExec("Entity:Llama"), getClassExec("DataWatcherObject"), "bI", "Gets the llama's carpet color DataWatcherObject"));
+                        return false;
+                    case "Entity:Llama:DataWatcher:Variant":
+                        load(V1_12_R1.class, key, new FieldExecutor(getClassExec("Entity:Llama"), getClassExec("DataWatcherObject"), "bJ", "Gets the llama's variant DataWatcherObject"));
+                        return false;
                     case "Entity:IllagerWizard:DataWatcher:Spell":
                         return false;
                     default:
@@ -98,16 +96,6 @@ public class V1_12_R1 extends V1_11_R1 {
                 switch (key) {
                     case "ScoreboardTeam:setColor":
                         load(V1_12_R1.class, key, new MethodExecutor(getClassExec("ScoreboardTeam"), ClassExecutor.VOID, "setColor", "Sets the color of a ScoreboardTeam", getClassExec("EnumChatFormat")));
-                        return false;
-                    default:
-                        break;
-                }
-            }
-        } else if (version == V1_9_R1.class) {
-            if (executor instanceof MethodExecutor) {
-                switch (key) {
-                    case "Entity:Spider:isClimbing":
-                        load(V1_12_R1.class, key, new MethodExecutor(getClassExec("Entity:Spider"), ClassExecutor.BOOLEAN, "p", "Gets the spider climbing state"));
                         return false;
                     default:
                         break;

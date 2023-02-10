@@ -225,7 +225,7 @@ public class V1_8_R1 extends Version {
             load(V1_8_R1.class, "NBTTagCompound:remove", new MethodExecutor(getClassExec("NBTBase:NBTTagCompound"), ClassExecutor.VOID, "remove", "Removes a value from a NBTTagCompound", ClassExecutor.STRING));
             load(V1_8_R1.class, "NBTTagCompound:contains", new MethodExecutor(getClassExec("NBTBase:NBTTagCompound"), ClassExecutor.BOOLEAN, "hasKey", "Check if a NBTTagCompound contains a key", ClassExecutor.STRING));
             load(V1_8_R1.class, "NBTTagCompound:isEmpty", new MethodExecutor(getClassExec("NBTBase:NBTTagCompound"), ClassExecutor.BOOLEAN, "isEmpty", "Check if a NBTTagCompound is empty"));
-            load(V1_8_R1.class, "NBTTagCompound:keySet", new MethodExecutor(getClassExec("NBTBase:NBTTagCompound"), new ClassExecutor("java.util.Set") {}, "c", "Gets a NBTTagCompound's keys"));
+            load(V1_8_R1.class, "NBTTagCompound:keySet", new MethodExecutor(getClassExec("NBTBase:NBTTagCompound"), new ClassExecutor(Set.class) {}, "c", "Gets a NBTTagCompound's keys"));
             //
 
             // Entity
@@ -595,7 +595,7 @@ public class V1_8_R1 extends Version {
 
             if (nbtBaseList != null) {
                 for (Object nbtbase : nbtBaseList) {
-                    returnList.add(laivynpc().getVersion().nbtTag(NBTBase.getTagType(nbtbase), nbtbase));
+                    returnList.add(nbtTag(NBTBase.getTagType(nbtbase), nbtbase));
                 }
                 return returnList;
             } else {
@@ -625,7 +625,7 @@ public class V1_8_R1 extends Version {
             NBTTagCompound f = (NBTTagCompound) from;
 
             for (String key : f.keySet()) {
-                i.set(key, Objects.requireNonNull(laivynpc().getVersion().nbtCompound(VersionCompound.NBTCompoundAction.GET, f, new StringObjExec(key), null)));
+                i.set(key, Objects.requireNonNull(nbtCompound(VersionCompound.NBTCompoundAction.GET, f, new StringObjExec(key), null)));
             }
         } else if (into instanceof NBTTagList && from instanceof List) {
             NBTTagList i = (NBTTagList) into;
@@ -958,6 +958,16 @@ public class V1_8_R1 extends Version {
     }
 
     @Override
+    public @NotNull String getEntityCustomName(@NotNull Entity entity) {
+        return (String) Objects.requireNonNull(getMethodExec("Entity:Entity:getCustomName").invokeInstance(entity));
+    }
+
+    @Override
+    public void setEntityCustomName(@NotNull Entity entity, @NotNull String customName) {
+        getMethodExec("Entity:Entity:setCustomName").invokeInstance(entity, new StringObjExec(customName));
+    }
+
+    @Override
     public @NotNull Ocelot.CatVariant getEntityCatVariant(@NotNull Ocelot ocelot) {
         //noinspection DataFlowIssue
         int id = (int) getMethodExec("Entity:Ocelot:getCatType").invokeInstance(ocelot);
@@ -1222,6 +1232,16 @@ public class V1_8_R1 extends Version {
     }
 
     @Override
+    public boolean isEntitySpiderClimbing(@NotNull Spider spider) {
+        //noinspection DataFlowIssue
+        return (boolean) laivynpc().getVersion().getMethodExec("Entity:Spider:isClimbing").invokeInstance(spider);
+    }
+    @Override
+    public void setEntitySpiderClimbing(@NotNull Spider spider, boolean climbing) {
+        laivynpc().getVersion().getMethodExec("Entity:Spider:setClimbing").invokeInstance(spider, new BooleanObjExec(climbing));
+    }
+
+    @Override
     public @NotNull EntityPlayer createPlayer(@NotNull GameProfile profile, @NotNull Location location) {
         if (location.getWorld() == null) {
             throw new NullPointerException("This location's world is null!");
@@ -1419,11 +1439,24 @@ public class V1_8_R1 extends Version {
     }
 
     @Override
+    public void setPrefix(@NotNull ScoreboardTeam team, @NotNull String prefix) {
+        laivynpc().getVersion().getMethodExec("ScoreboardTeam:setPrefix").invokeInstance(team, new StringObjExec(prefix));
+    }
+
+    @Override
     public @NotNull IChatBaseComponent stringToBaseComponent(@NotNull String string) {
         MethodExecutor method = new MethodExecutor(getClassExec("ChatSerializer"), getClassExec("IChatBaseComponent"), "a", "Converts a string to a IChatBaseComponent", ClassExecutor.STRING);
         method.load();
 
         return new IChatBaseComponent(method.invokeStatic(new StringObjExec("{\"text\":\"" + string + "\"}")));
+    }
+
+    @Override
+    public @NotNull String baseComponentToString(@NotNull IChatBaseComponent iChatBaseComponent) {
+        MethodExecutor method = new MethodExecutor(getClassExec("ChatSerializer"), ClassExecutor.STRING, "getText", "Converts a IChatBaseComponent to a string", getClassExec("IChatBaseComponent"));
+        method.load();
+
+        return (String) Objects.requireNonNull(method.invokeInstance(iChatBaseComponent));
     }
 
     @Override
