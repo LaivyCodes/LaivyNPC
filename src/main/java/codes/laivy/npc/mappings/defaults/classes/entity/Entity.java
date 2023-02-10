@@ -1,6 +1,10 @@
 package codes.laivy.npc.mappings.defaults.classes.entity;
 
 import codes.laivy.npc.mappings.Version;
+import codes.laivy.npc.mappings.defaults.classes.entity.animal.fish.Cod;
+import codes.laivy.npc.mappings.defaults.classes.entity.animal.fish.PufferFish;
+import codes.laivy.npc.mappings.defaults.classes.entity.animal.fish.Salmon;
+import codes.laivy.npc.mappings.defaults.classes.entity.animal.fish.TropicalFish;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.illagers.Evoker;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.illagers.Illusioner;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.illagers.Vindicator;
@@ -40,6 +44,10 @@ import codes.laivy.npc.types.NPC;
 import codes.laivy.npc.types.list.ambient.BatNPC;
 import codes.laivy.npc.types.list.ambient.EggNPC;
 import codes.laivy.npc.types.list.animal.*;
+import codes.laivy.npc.types.list.animal.fish.CodNPC;
+import codes.laivy.npc.types.list.animal.fish.PufferFishNPC;
+import codes.laivy.npc.types.list.animal.fish.SalmonNPC;
+import codes.laivy.npc.types.list.animal.fish.TropicalFishNPC;
 import codes.laivy.npc.types.list.animal.horse.*;
 import codes.laivy.npc.types.list.boss.dragon.EnderDragonNPC;
 import codes.laivy.npc.types.list.boss.dragon.EnderSignalNPC;
@@ -224,6 +232,7 @@ public class Entity extends ObjectExecutor {
         ZOMBIE(Zombie.class, ZombieNPC.class, V1_8_R1.class),
         ZOMBIE_HUSK(ZombieHusk.class, ZombieHuskNPC.class, V1_10_R1.class),
         ZOMBIE_VILLAGER(ZombieVillager.class, ZombieVillagerNPC.class, V1_8_R1.class),
+        ZOMBIE_DROWNED(ZombieDrowned.class, ZombieDrownedNPC.class, V1_13_R1.class),
 
         VILLAGER(Villager.class, VillagerNPC.class, V1_8_R1.class),
         SHULKER(Shulker.class, ShulkerNPC.class, V1_9_R1.class),
@@ -236,7 +245,11 @@ public class Entity extends ObjectExecutor {
         ILLUSIONER(Illusioner.class, IllusionerNPC.class, V1_12_R1.class),
         PARROT(Parrot.class, ParrotNPC.class, V1_12_R1.class),
         DOLPHIN(Dolphin.class, DolphinNPC.class, V1_13_R1.class),
-        ZOMBIE_DROWNED(ZombieDrowned.class, ZombieDrownedNPC.class, V1_13_R1.class),
+
+        COD(Cod.class, CodNPC.class, V1_13_R1.class),
+        SALMON(Salmon.class, SalmonNPC.class, V1_13_R1.class),
+        PUFFERFISH(PufferFish.class, PufferFishNPC.class, V1_13_R1.class),
+        TROPICALFISH(TropicalFish.class, TropicalFishNPC.class, V1_13_R1.class),
         ;
 
         private final @NotNull Class<? extends Entity> entityClass;

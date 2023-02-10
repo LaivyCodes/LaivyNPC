@@ -23,6 +23,10 @@ import codes.laivy.npc.types.commands.NPCItemsEditorConfiguration;
 import codes.laivy.npc.types.list.ambient.BatNPC;
 import codes.laivy.npc.types.list.ambient.EggNPC;
 import codes.laivy.npc.types.list.animal.*;
+import codes.laivy.npc.types.list.animal.fish.CodNPC;
+import codes.laivy.npc.types.list.animal.fish.PufferFishNPC;
+import codes.laivy.npc.types.list.animal.fish.SalmonNPC;
+import codes.laivy.npc.types.list.animal.fish.TropicalFishNPC;
 import codes.laivy.npc.types.list.animal.horse.*;
 import codes.laivy.npc.types.list.boss.dragon.EnderDragonNPC;
 import codes.laivy.npc.types.list.boss.dragon.EnderSignalNPC;
@@ -1196,6 +1200,10 @@ public abstract class NPC {
         put("Mule", HorseMuleNPC.class);
         put("Horse Skeleton", HorseSkeletonNPC.class);
         put("Horse Zombie", HorseZombieNPC.class);
+        put("Cod", CodNPC.class);
+        put("Salmon", SalmonNPC.class);
+        put("PufferFish", PufferFishNPC.class);
+        put("TropicalFish", TropicalFishNPC.class);
     }};
 
     @SuppressWarnings("unchecked")

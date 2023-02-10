@@ -1,6 +1,9 @@
 package codes.laivy.npc.mappings.versions;
 
 import codes.laivy.npc.mappings.Version;
+import codes.laivy.npc.mappings.defaults.classes.entity.animal.fish.Fish;
+import codes.laivy.npc.mappings.defaults.classes.entity.animal.fish.PufferFish;
+import codes.laivy.npc.mappings.defaults.classes.entity.animal.fish.TropicalFish;
 import codes.laivy.npc.mappings.defaults.classes.entity.animal.horse.*;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.illagers.IllagerWizard;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.skeleton.SkeletonWither;
@@ -1263,6 +1266,31 @@ public class V1_8_R1 extends Version {
     @Override
     public void setEntityDolphinFish(@NotNull Dolphin dolphin, boolean fish) {
         throw new UnsupportedOperationException("The dolphin is only available at 1.13+");
+    }
+
+    @Override
+    public @NotNull Fish.Type getEntityFishType(@NotNull Fish fish) {
+        throw new UnsupportedOperationException("The fishes are only available at 1.13+");
+    }
+
+    @Override
+    public int getEntityPufferFishPuff(@NotNull PufferFish fish) {
+        throw new UnsupportedOperationException("The puffer fish is only available at 1.13+");
+    }
+
+    @Override
+    public void setEntityPufferFishPuff(@NotNull PufferFish fish, int puff) {
+        throw new UnsupportedOperationException("The puffer fish is only available at 1.13+");
+    }
+
+    @Override
+    public int getEntityTropicalFishVariant(@NotNull TropicalFish fish) {
+        throw new UnsupportedOperationException("The tropical fish is only available at 1.13+");
+    }
+
+    @Override
+    public void setEntityTropicalFishVariant(@NotNull TropicalFish fish, int variant) {
+        throw new UnsupportedOperationException("The tropical fish is only available at 1.13+");
     }
 
     @Override

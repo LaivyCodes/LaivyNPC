@@ -1,6 +1,9 @@
 package codes.laivy.npc.mappings;
 
 import codes.laivy.npc.mappings.defaults.classes.entity.animal.*;
+import codes.laivy.npc.mappings.defaults.classes.entity.animal.fish.Fish;
+import codes.laivy.npc.mappings.defaults.classes.entity.animal.fish.PufferFish;
+import codes.laivy.npc.mappings.defaults.classes.entity.animal.fish.TropicalFish;
 import codes.laivy.npc.mappings.defaults.classes.entity.animal.horse.AbstractChestedHorse;
 import codes.laivy.npc.mappings.defaults.classes.entity.animal.horse.AbstractHorse;
 import codes.laivy.npc.mappings.defaults.classes.entity.animal.horse.Llama;
@@ -279,6 +282,14 @@ public abstract class Version implements VersionCompound, VersionPacket, Version
     // ENTITY DOLPHIN
     public abstract boolean hasEntityDolphinFish(@NotNull Dolphin dolphin);
     public abstract void setEntityDolphinFish(@NotNull Dolphin dolphin, boolean fish);
+    // ENTITY FISH
+    public abstract @NotNull Fish.Type getEntityFishType(@NotNull Fish fish);
+    // ENTITY PUFFERFISH
+    public abstract int getEntityPufferFishPuff(@NotNull PufferFish fish);
+    public abstract void setEntityPufferFishPuff(@NotNull PufferFish fish, int puff);
+    // ENTITY TROPICALFISH
+    public abstract int getEntityTropicalFishVariant(@NotNull TropicalFish fish);
+    public abstract void setEntityTropicalFishVariant(@NotNull TropicalFish fish, int variant);
     //
 
     // ENTITY PLAYER

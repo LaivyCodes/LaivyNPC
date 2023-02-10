@@ -8,6 +8,7 @@ import codes.laivy.npc.mappings.defaults.classes.entity.*;
 import codes.laivy.npc.mappings.defaults.classes.entity.ambient.Bat;
 import codes.laivy.npc.mappings.defaults.classes.entity.ambient.Egg;
 import codes.laivy.npc.mappings.defaults.classes.entity.animal.*;
+import codes.laivy.npc.mappings.defaults.classes.entity.animal.fish.*;
 import codes.laivy.npc.mappings.defaults.classes.entity.animal.horse.*;
 import codes.laivy.npc.mappings.defaults.classes.entity.boss.dragon.EnderDragon;
 import codes.laivy.npc.mappings.defaults.classes.entity.boss.dragon.EnderSignal;
@@ -36,6 +37,7 @@ import codes.laivy.npc.mappings.defaults.classes.gameprofile.GameProfile;
 import codes.laivy.npc.mappings.defaults.classes.gameprofile.Property;
 import codes.laivy.npc.mappings.defaults.classes.gameprofile.PropertyMap;
 import codes.laivy.npc.mappings.defaults.classes.java.BooleanObjExec;
+import codes.laivy.npc.mappings.defaults.classes.java.IntegerObjExec;
 import codes.laivy.npc.mappings.defaults.classes.java.StringObjExec;
 import codes.laivy.npc.mappings.defaults.classes.nbt.NBTBase;
 import codes.laivy.npc.mappings.defaults.classes.nbt.tags.*;
@@ -346,6 +348,12 @@ public class V1_13_R1 extends V1_12_R1 {
             load(V1_13_R1.class, "Entity:Parrot", new Parrot.ParrotClass("net.minecraft.server.v1_13_R1.EntityParrot"));
             // Entity dolphin
             load(V1_13_R1.class, "Entity:Dolphin", new Dolphin.DolphinClass("net.minecraft.server.v1_13_R1.EntityDolphin"));
+            // Entity fish
+            load(V1_13_R1.class, "Entity:Fish", new Fish.FishClass("net.minecraft.server.v1_13_R1.EntityFish"));
+            load(V1_13_R1.class, "Entity:Cod", new Cod.CodClass("net.minecraft.server.v1_13_R1.EntityCod"));
+            load(V1_13_R1.class, "Entity:Salmon", new Salmon.SalmonClass("net.minecraft.server.v1_13_R1.EntitySalmon"));
+            load(V1_13_R1.class, "Entity:PufferFish", new PufferFish.PufferFishClass("net.minecraft.server.v1_13_R1.EntityPufferFish"));
+            load(V1_13_R1.class, "Entity:TropicalFish", new TropicalFish.TropicalFishClass("net.minecraft.server.v1_13_R1.EntityTropicalFish"));
             //
         }
         
@@ -361,6 +369,18 @@ public class V1_13_R1 extends V1_12_R1 {
         } else if (type == Entity.EntityType.ZOMBIE_DROWNED) {
             Object object = getClassExec("Entity:Zombie:Drowned").getConstructor(getClassExec("World")).newInstance(CraftWorld.getCraftWorld(location.getWorld()).getHandle());
             entity = new ZombieDrowned(object);
+        } else if (type == Entity.EntityType.COD) {
+            Object object = getClassExec("Entity:Cod").getConstructor(getClassExec("World")).newInstance(CraftWorld.getCraftWorld(location.getWorld()).getHandle());
+            entity = new Cod(object);
+        } else if (type == Entity.EntityType.SALMON) {
+            Object object = getClassExec("Entity:Salmon").getConstructor(getClassExec("World")).newInstance(CraftWorld.getCraftWorld(location.getWorld()).getHandle());
+            entity = new Salmon(object);
+        } else if (type == Entity.EntityType.PUFFERFISH) {
+            Object object = getClassExec("Entity:PufferFish").getConstructor(getClassExec("World")).newInstance(CraftWorld.getCraftWorld(location.getWorld()).getHandle());
+            entity = new PufferFish(object);
+        } else if (type == Entity.EntityType.TROPICALFISH) {
+            Object object = getClassExec("Entity:TropicalFish").getConstructor(getClassExec("World")).newInstance(CraftWorld.getCraftWorld(location.getWorld()).getHandle());
+            entity = new TropicalFish(object);
         }
 
         return entity;
@@ -377,9 +397,46 @@ public class V1_13_R1 extends V1_12_R1 {
     }
 
     @Override
+    public void setEntityPufferFishPuff(@NotNull PufferFish fish, int puff) {
+        fish.getDataWatcher().set(PufferFish.PUFF_STATE_METADATA(), new IntegerObjExec(puff));
+    }
+    @Override
+    public int getEntityPufferFishPuff(@NotNull PufferFish fish) {
+        //noinspection DataFlowIssue
+        return (int) fish.getDataWatcher().get(PufferFish.PUFF_STATE_METADATA());
+    }
+
+    @Override
+    public void setEntityTropicalFishVariant(@NotNull TropicalFish fish, int variant) {
+        fish.getDataWatcher().set(TropicalFish.VARIANT_METADATA(), new IntegerObjExec(variant));
+    }
+    @Override
+    public int getEntityTropicalFishVariant(@NotNull TropicalFish fish) {
+        //noinspection DataFlowIssue
+        return (int) fish.getDataWatcher().get(TropicalFish.VARIANT_METADATA());
+    }
+
+    @Override
+    public @NotNull Fish.Type getEntityFishType(@NotNull Fish fish) {
+        if (fish instanceof Cod) {
+            return Fish.Type.COD;
+        } else if (fish instanceof Salmon) {
+            return Fish.Type.SALMON;
+        } else if (fish instanceof PufferFish) {
+            return Fish.Type.PUFFERFISH;
+        } else if (fish instanceof TropicalFish) {
+            return Fish.Type.TROPICALFISH;
+        } else {
+            throw new IllegalArgumentException("Couldn't get this fish type '" + fish + "'");
+        }
+    }
+
+    @Override
     public @NotNull Map<String, FieldExecutor> getFields() {
         if (!super.getFields().containsKey("Entity:Dolphin:DataWatcher:hasFish")) {
             load(V1_13_R1.class, "Entity:Dolphin:DataWatcher:hasFish", new FieldExecutor(getClassExec("Entity:Dolphin"), getClassExec("DataWatcherObject"), "c", "Gets the dolphin's hasFish DataWatcherObject"));
+            load(V1_13_R1.class, "Entity:PufferFish:DataWatcher:PuffState", new FieldExecutor(getClassExec("Entity:PufferFish"), getClassExec("DataWatcherObject"), "b", "Gets the puffer fish's puff state DataWatcherObject"));
+            load(V1_13_R1.class, "Entity:TropicalFish:DataWatcher:Variant", new FieldExecutor(getClassExec("Entity:PufferFish"), getClassExec("DataWatcherObject"), "b", "Gets the tropical fish's variant DataWatcherObject"));
         }
 
         return super.getFields();
