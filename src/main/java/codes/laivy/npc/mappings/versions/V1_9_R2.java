@@ -70,6 +70,9 @@ public class V1_9_R2 extends V1_9_R1 {
                     case "Entity:Enderman:DataWatcher:screaming":
                         load(V1_9_R2.class, key, new FieldExecutor(getClassExec("Entity:Enderman"), getClassExec("DataWatcherObject"), "bx", "Gets the enderman's screaming datawatcher object"));
                         return false;
+                    case "Metadata:Horse:DataWatcher:Armor":
+                        load(V1_9_R2.class, key, new FieldExecutor(getClassExec("Entity:Horse"), getClassExec("DataWatcherObject"), "bJ", "Gets the horse armor DataWatcherObject"));
+                        return false;
                     default:
                         break;
                 }

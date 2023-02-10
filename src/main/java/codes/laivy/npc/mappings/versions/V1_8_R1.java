@@ -494,6 +494,7 @@ public class V1_8_R1 extends Version {
     public @NotNull Map<String, Object> getObjects() {
         if (super.getObjects().isEmpty()) {
             super.getObjects().put("Metadata:Player:SkinParts", 10);
+            super.getObjects().put("Metadata:Horse:DataWatcher:Armor", 22);
             super.getObjects().put("Metadata:Ghast:DataWatcher:Attacking", 16);
             super.getObjects().put("Metadata:Guardian:DataWatcher:Target", 17);
             super.getObjects().put("Metadata:Creeper:DataWatcher:Ignited", 18);
@@ -806,23 +807,23 @@ public class V1_8_R1 extends Version {
         } else if (type == Entity.EntityType.HORSE) {
             Object object = getClassExec("Entity:Horse").getConstructor(getClassExec("World")).newInstance(CraftWorld.getCraftWorld(location.getWorld()).getHandle());
             entity = new Horse(object);
-            setEntityHorseType((AbstractHorse) entity, AbstractHorse.Type.HORSE);
+            setEntityAbstractHorseType((AbstractHorse) entity, AbstractHorse.Type.HORSE);
         } else if (type == Entity.EntityType.HORSE_DONKEY) {
             Object object = getClassExec("Entity:Horse").getConstructor(getClassExec("World")).newInstance(CraftWorld.getCraftWorld(location.getWorld()).getHandle());
             entity = new HorseDonkey(object);
-            setEntityHorseType((AbstractHorse) entity, AbstractHorse.Type.DONKEY);
+            setEntityAbstractHorseType((AbstractHorse) entity, AbstractHorse.Type.DONKEY);
         } else if (type == Entity.EntityType.HORSE_MULE) {
             Object object = getClassExec("Entity:Horse").getConstructor(getClassExec("World")).newInstance(CraftWorld.getCraftWorld(location.getWorld()).getHandle());
             entity = new HorseMule(object);
-            setEntityHorseType((AbstractHorse) entity, AbstractHorse.Type.MULE);
+            setEntityAbstractHorseType((AbstractHorse) entity, AbstractHorse.Type.MULE);
         } else if (type == Entity.EntityType.HORSE_SKELETON) {
             Object object = getClassExec("Entity:Horse").getConstructor(getClassExec("World")).newInstance(CraftWorld.getCraftWorld(location.getWorld()).getHandle());
             entity = new HorseSkeleton(object);
-            setEntityHorseType((AbstractHorse) entity, AbstractHorse.Type.SKELETON);
+            setEntityAbstractHorseType((AbstractHorse) entity, AbstractHorse.Type.SKELETON);
         } else if (type == Entity.EntityType.HORSE_ZOMBIE) {
             Object object = getClassExec("Entity:Horse").getConstructor(getClassExec("World")).newInstance(CraftWorld.getCraftWorld(location.getWorld()).getHandle());
             entity = new HorseZombie(object);
-            setEntityHorseType((AbstractHorse) entity, AbstractHorse.Type.ZOMBIE);
+            setEntityAbstractHorseType((AbstractHorse) entity, AbstractHorse.Type.ZOMBIE);
         } else if (type == Entity.EntityType.COW) {
             Object object = getClassExec("Entity:Cow").getConstructor(getClassExec("World")).newInstance(CraftWorld.getCraftWorld(location.getWorld()).getHandle());
             entity = new Cow(object);
@@ -979,17 +980,30 @@ public class V1_8_R1 extends Version {
     }
 
     @Override
-    public @NotNull Horse.Type getEntityHorseType(@NotNull AbstractHorse horse) {
+    public @NotNull Horse.Type getEntityAbstractHorseType(@NotNull AbstractHorse horse) {
         //noinspection DataFlowIssue
         return AbstractHorse.Type.getById((int) getMethodExec("Entity:Horse:getType").invokeInstance(horse));
     }
     @Override
-    public void setEntityHorseType(@NotNull AbstractHorse horse, Horse.@NotNull Type type) {
+    public void setEntityAbstractHorseType(@NotNull AbstractHorse horse, Horse.@NotNull Type type) {
         if (!type.isCompatible()) {
             throw new UnsupportedOperationException("This horse type '" + type.name() + "' is only compatible with '" + type.getSince().getSimpleName() + "' or higher");
         }
 
         getMethodExec("Entity:Horse:setType").invokeInstance(horse, new IntegerObjExec(type.getId()));
+    }
+
+    @SuppressWarnings("DataFlowIssue")
+    @Override
+    public @NotNull HorseArmor getEntityHorseArmor(@NotNull Horse horse) {
+        int index = (int) getObject("Metadata:Horse:DataWatcher:Armor");
+        return HorseArmor.getByData((int) horse.getDataWatcher().get(index));
+    }
+
+    @Override
+    public void setEntityHorseArmor(@NotNull Horse horse, @NotNull HorseArmor armor) {
+        int index = (int) getObject("Metadata:Horse:DataWatcher:Armor");
+        horse.getDataWatcher().set(index, armor.getData());
     }
 
     @Override

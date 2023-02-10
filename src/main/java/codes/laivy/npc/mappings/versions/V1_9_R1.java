@@ -137,7 +137,7 @@ public class V1_9_R1 extends V1_8_R3 {
     }
 
     @Override
-    public void setEntityHorseType(@NotNull AbstractHorse horse, Horse.@NotNull Type type) {
+    public void setEntityAbstractHorseType(@NotNull AbstractHorse horse, Horse.@NotNull Type type) {
         if (!type.isCompatible()) {
             throw new IllegalArgumentException("This horse type '" + type.name() + "' is only compatible with '" + type.getSince().getSimpleName() + "' or higher");
         }
@@ -161,7 +161,7 @@ public class V1_9_R1 extends V1_8_R3 {
     }
 
     @Override
-    public @NotNull Horse.Type getEntityHorseType(@NotNull AbstractHorse horse) {
+    public @NotNull Horse.Type getEntityAbstractHorseType(@NotNull AbstractHorse horse) {
         return AbstractHorse.Type.valueOf(new EnumHorseTypeEnum.EnumHorseType((Enum<?>) Objects.requireNonNull(getMethodExec("Entity:Horse:getType").invokeInstance(horse))).name());
     }
 
@@ -225,6 +225,16 @@ public class V1_9_R1 extends V1_8_R3 {
     @Override
     public void setEntitySnowmanHat(@NotNull Snowman snowman, boolean hat) {
         laivynpc().getVersion().getMethodExec("Entity:Snowman:setPumpkinHat").invokeInstance(snowman, new BooleanObjExec(hat));
+    }
+
+    @Override
+    public void setEntityHorseArmor(@NotNull Horse horse, @NotNull HorseArmor armor) {
+        horse.getDataWatcher().set(Horse.ARMOR_METADATA(), new IntegerObjExec(armor.getData()));
+    }
+    @Override
+    public @NotNull HorseArmor getEntityHorseArmor(@NotNull Horse horse) {
+        //noinspection DataFlowIssue
+        return HorseArmor.getByData((int) horse.getDataWatcher().get(Horse.ARMOR_METADATA()));
     }
 
     @Override
@@ -417,9 +427,10 @@ public class V1_9_R1 extends V1_8_R3 {
             load(V1_9_R1.class, "Entity:Shulker:DataWatcherObject:Direction", new FieldExecutor(getClassExec("Entity:Shulker"), getClassExec("DataWatcherObject"), "a", "Get shulker's direction DataWatcher's object"));
             load(V1_9_R1.class, "Entity:Shulker:DataWatcherObject:Peek", new FieldExecutor(getClassExec("Entity:Shulker"), getClassExec("DataWatcherObject"), "c", "Get shulker's color DataWatcher's object"));
 
-            load(V1_9_R1.class, "Metadata:Ghast:DataWatcher:Attacking", new FieldExecutor(getClassExec("Entity:Ghast"), getClassExec("DataWatcherObject"), "a", "Gets the Ghast attacking DataWatcherObject"));
+            load(V1_9_R1.class, "Metadata:Ghast:DataWatcher:Attacking", new FieldExecutor(getClassExec("Entity:Ghast"), getClassExec("DataWatcherObject"), "a", "Gets the ghast attacking DataWatcherObject"));
             load(V1_9_R1.class, "Metadata:Guardian:DataWatcher:Target", new FieldExecutor(getClassExec("Entity:Guardian"), getClassExec("DataWatcherObject"), "b", "Gets the Guardian target DataWatcherObject"));
             load(V1_9_R1.class, "Metadata:Creeper:DataWatcher:Ignited", new FieldExecutor(getClassExec("Entity:Creeper"), getClassExec("DataWatcherObject"), "c", "Gets the Creeper ignited DataWatcherObject"));
+            load(V1_9_R1.class, "Metadata:Horse:DataWatcher:Armor", new FieldExecutor(getClassExec("Entity:Horse"), getClassExec("DataWatcherObject"), "bI", "Gets the horse armor DataWatcherObject"));
         }
 
         return super.getFields();

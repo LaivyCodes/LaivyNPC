@@ -91,6 +91,9 @@ public class V1_11_R1 extends V1_10_R1 {
                     case "Entity:Enderman:DataWatcher:screaming":
                         load(V1_11_R1.class, key, new FieldExecutor(getClassExec("Entity:Enderman"), getClassExec("DataWatcherObject"), "bx", "Gets the enderman's screaming datawatcher object"));
                         return false;
+                    case "Metadata:Horse:DataWatcher:Armor":
+                        load(V1_11_R1.class, key, new FieldExecutor(getClassExec("Entity:Horse"), getClassExec("DataWatcherObject"), "bI", "Gets the horse armor DataWatcherObject"));
+                        return false;
                     default:
                         break;
                 }
@@ -243,7 +246,7 @@ public class V1_11_R1 extends V1_10_R1 {
     }
 
     @Override
-    public @NotNull Horse.Type getEntityHorseType(@NotNull AbstractHorse horse) {
+    public @NotNull Horse.Type getEntityAbstractHorseType(@NotNull AbstractHorse horse) {
         if (horse instanceof HorseDonkey) {
             return AbstractHorse.Type.DONKEY;
         } else if (horse instanceof HorseMule) {
@@ -259,7 +262,7 @@ public class V1_11_R1 extends V1_10_R1 {
         }
     }
     @Override
-    public void setEntityHorseType(@NotNull AbstractHorse horse, Horse.@NotNull Type type) {
+    public void setEntityAbstractHorseType(@NotNull AbstractHorse horse, Horse.@NotNull Type type) {
         throw new IllegalStateException("This version doesn't supports entity horse type changing");
     }
 

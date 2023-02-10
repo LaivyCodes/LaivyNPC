@@ -6,6 +6,7 @@ import codes.laivy.npc.mappings.defaults.classes.entity.animal.horse.AbstractHor
 import codes.laivy.npc.mappings.defaults.classes.entity.animal.horse.Llama;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.illagers.IllagerWizard;
 import codes.laivy.npc.mappings.defaults.classes.enums.EnumSpellEnum;
+import codes.laivy.npc.mappings.defaults.classes.enums.HorseArmor;
 import codes.laivy.npc.mappings.instances.classes.ClassExecutor;
 import codes.laivy.npc.mappings.instances.EnumExecutor;
 import codes.laivy.npc.mappings.instances.Executor;
@@ -209,8 +210,10 @@ public abstract class Version implements VersionCompound, VersionPacket, Version
     public abstract @NotNull Ocelot.CatVariant getEntityCatVariant(@NotNull Ocelot ocelot);
     public abstract void setEntityCatVariant(@NotNull Ocelot ocelot, @NotNull Ocelot.CatVariant variant);
     // ENTITY HORSE
-    public abstract @NotNull Horse.Type getEntityHorseType(@NotNull AbstractHorse horse);
-    public abstract void setEntityHorseType(@NotNull AbstractHorse horse, @NotNull Horse.Type type);
+    public abstract @NotNull Horse.Type getEntityAbstractHorseType(@NotNull AbstractHorse horse);
+    public abstract void setEntityAbstractHorseType(@NotNull AbstractHorse horse, @NotNull Horse.Type type);
+    public abstract @NotNull HorseArmor getEntityHorseArmor(@NotNull Horse horse);
+    public abstract void setEntityHorseArmor(@NotNull Horse horse, @NotNull HorseArmor armor);
     // ENTITY RABBIT
     public abstract @NotNull Rabbit.Variant getEntityRabbitType(@NotNull Rabbit rabbit);
     public abstract void setEntityRabbitType(@NotNull Rabbit rabbit, @NotNull Rabbit.Variant type);

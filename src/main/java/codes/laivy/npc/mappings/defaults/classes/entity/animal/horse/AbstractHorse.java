@@ -16,7 +16,7 @@ public abstract class AbstractHorse extends AgeableEntityLiving {
     }
 
     public @NotNull Type getType() {
-        return laivynpc().getVersion().getEntityHorseType(this);
+        return laivynpc().getVersion().getEntityAbstractHorseType(this);
     }
 
     @Override

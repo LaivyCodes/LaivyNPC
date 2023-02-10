@@ -82,6 +82,11 @@ public class GuardianNPC extends EntityLivingNPC {
     }
 
     @Override
+    public @NotNull Guardian getEntity() {
+        return (Guardian) super.getEntity();
+    }
+
+    @Override
     public List<NPCConfiguration> getByCommandConfigurations() {
         List<NPCConfiguration> list = super.getByCommandConfigurations();
         list.add(new NPCConfiguration("laser", "/laivynpc config laser") {
@@ -104,11 +109,6 @@ public class GuardianNPC extends EntityLivingNPC {
             }
         });
         return list;
-    }
-
-    @Override
-    public @NotNull Guardian getEntity() {
-        return (Guardian) super.getEntity();
     }
 
     // Serializators
