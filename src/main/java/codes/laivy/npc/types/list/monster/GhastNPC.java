@@ -53,30 +53,16 @@ public class GhastNPC extends EntityLivingNPC {
     @Override
     public List<NPCConfiguration> getByCommandConfigurations() {
         List<NPCConfiguration> list = super.getByCommandConfigurations();
-        list.add(new NPCConfiguration("attacking", "/laivynpc config attacking (flag)") {
+
+        list.add(new NPCConfiguration("attacking", "/laivynpc config attacking") {
             @Override
             public void execute(@NotNull NPC npc, @NotNull Player sender, @NotNull String[] args) {
                 GhastNPC ghastNPC = (GhastNPC) npc;
-
-                if (args.length > 0) {
-                    boolean flag;
-                    if (args[0].equalsIgnoreCase("false")) {
-                        flag = false;
-                    } else if (args[0].equalsIgnoreCase("true")) {
-                        flag = true;
-                    } else {
-                        sender.performCommand("laivynpc config " + getName());
-                        return;
-                    }
-
-                    ghastNPC.setAttacking(flag);
-                    sender.sendMessage(translate(sender, "npc.commands.general.flag_changed"));
-                    return;
-                }
-
-                sender.sendMessage("§cUse " + getSyntax());
+                ghastNPC.setAttacking(!ghastNPC.isAttacking());
+                sender.sendMessage(translate(sender, "npc.commands.general.flag_changed"));
             }
         });
+
         return list;
     }
 

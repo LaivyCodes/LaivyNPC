@@ -1242,6 +1242,16 @@ public class V1_8_R1 extends Version {
     }
 
     @Override
+    public boolean hasEntityDolphinFish(@NotNull Dolphin dolphin) {
+        throw new UnsupportedOperationException("The dolphin is only available at 1.13+");
+    }
+
+    @Override
+    public void setEntityDolphinFish(@NotNull Dolphin dolphin, boolean fish) {
+        throw new UnsupportedOperationException("The dolphin is only available at 1.13+");
+    }
+
+    @Override
     public @NotNull EntityPlayer createPlayer(@NotNull GameProfile profile, @NotNull Location location) {
         if (location.getWorld() == null) {
             throw new NullPointerException("This location's world is null!");

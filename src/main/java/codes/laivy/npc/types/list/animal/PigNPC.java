@@ -63,7 +63,6 @@ public class PigNPC extends AgeableEntityLivingNPC {
                 else sender.sendMessage(translate(sender, "npc.commands.pig.saddle.allowed"));
 
                 pigNPC.setSaddle(!pigNPC.hasSaddle());
-                npc.sendUpdatePackets(npc.getSpawnedPlayers(), false, false, true, false, false, false);
             }
         });
 

@@ -57,33 +57,12 @@ public class SnowmanNPC extends EntityLivingNPC {
         List<NPCConfiguration> list = super.getByCommandConfigurations();
 
         if (ReflectionUtils.isCompatible(V1_9_R1.class)) {
-            list.add(new NPCConfiguration("pumpkin", "/laivynpc config pumpkin (flag)") {
+            list.add(new NPCConfiguration("pumpkin", "/laivynpc config pumpkin") {
                 @Override
                 public void execute(@NotNull NPC npc, @NotNull Player sender, @NotNull String[] args) {
                     SnowmanNPC snowmanNPC = (SnowmanNPC) npc;
-
-                    if (!ReflectionUtils.isCompatible(V1_9_R1.class)) {
-                        sender.sendMessage(Translate.translate(sender, "npc.commands.snowman.version"));
-                        return;
-                    }
-
-                    if (args.length > 0) {
-                        boolean flag;
-                        if (args[0].equalsIgnoreCase("false")) {
-                            flag = false;
-                        } else if (args[0].equalsIgnoreCase("true")) {
-                            flag = true;
-                        } else {
-                            sender.performCommand("laivynpc config " + getName());
-                            return;
-                        }
-
-                        snowmanNPC.setPumpkinHat(flag);
-                        sender.sendMessage(translate(sender, "npc.commands.general.flag_changed"));
-                        return;
-                    }
-
-                    sender.sendMessage("§cUse " + getSyntax());
+                    snowmanNPC.setPumpkinHat(!snowmanNPC.hasPumpkinHat());
+                    sender.sendMessage(translate(sender, "npc.commands.general.flag_changed"));
                 }
             });
         }

@@ -52,30 +52,16 @@ public class SpiderNPC extends EntityLivingNPC {
     @Override
     public List<NPCConfiguration> getByCommandConfigurations() {
         List<NPCConfiguration> list = super.getByCommandConfigurations();
-        list.add(new NPCConfiguration("climbing", "/laivynpc config climbing (flag)") {
+
+        list.add(new NPCConfiguration("climbing", "/laivynpc config climbing") {
             @Override
             public void execute(@NotNull NPC npc, @NotNull Player sender, @NotNull String[] args) {
                 SpiderNPC spiderNPC = (SpiderNPC) npc;
-
-                if (args.length > 0) {
-                    boolean flag;
-                    if (args[0].equalsIgnoreCase("false")) {
-                        flag = false;
-                    } else if (args[0].equalsIgnoreCase("true")) {
-                        flag = true;
-                    } else {
-                        sender.performCommand("laivynpc config " + getName());
-                        return;
-                    }
-
-                    spiderNPC.setClimbing(flag);
-                    sender.sendMessage(translate(sender, "npc.commands.general.flag_changed"));
-                    return;
-                }
-
-                sender.sendMessage("§cUse " + getSyntax());
+                spiderNPC.setClimbing(!spiderNPC.isClimbing());
+                sender.sendMessage(translate(sender, "npc.commands.general.flag_changed"));
             }
         });
+
         return list;
     }
 

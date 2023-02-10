@@ -200,7 +200,6 @@ public class ArmorStandNPC extends EntityNPC {
         @Override
         public void execute(@NotNull NPC npc, @NotNull Player sender, @NotNull String[] args) {
             ArmorStandNPC standNPC = (ArmorStandNPC) npc;
-
             standNPC.setBasePlate(!standNPC.hasBasePlate());
             sender.sendMessage(translate(sender, "npc.commands.armor_stand.base.changed"));
         }
@@ -209,7 +208,6 @@ public class ArmorStandNPC extends EntityNPC {
         @Override
         public void execute(@NotNull NPC npc, @NotNull Player sender, @NotNull String[] args) {
             ArmorStandNPC standNPC = (ArmorStandNPC) npc;
-
             standNPC.setArms(!standNPC.hasArms());
             sender.sendMessage(translate(sender, "npc.commands.armor_stand.arms.changed"));
         }

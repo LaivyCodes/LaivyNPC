@@ -3,7 +3,7 @@ package codes.laivy.npc.types.list.animal;
 import codes.laivy.npc.mappings.defaults.classes.entity.Entity;
 import codes.laivy.npc.mappings.defaults.classes.entity.animal.Ocelot;
 import codes.laivy.npc.types.NPC;
-import codes.laivy.npc.types.TameableLivingEntityNPC;
+import codes.laivy.npc.types.TameableEntityLivingNPC;
 import codes.laivy.npc.types.commands.NPCConfiguration;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
@@ -19,7 +19,7 @@ import java.util.Map;
 
 import static codes.laivy.npc.config.Translate.translate;
 
-public class OcelotNPC extends TameableLivingEntityNPC {
+public class OcelotNPC extends TameableEntityLivingNPC {
 
     public static @NotNull OcelotNPC fastInstance(@NotNull List<OfflinePlayer> players, @NotNull Location location, @Nullable Object object) {
         return new OcelotNPC(players, location);
@@ -104,7 +104,7 @@ public class OcelotNPC extends TameableLivingEntityNPC {
     }
 
     public static @NotNull OcelotNPC deserialize(@NotNull ConfigurationSection section) {
-        OcelotNPC npc = (OcelotNPC) TameableLivingEntityNPC.deserialize(section);
+        OcelotNPC npc = (OcelotNPC) TameableEntityLivingNPC.deserialize(section);
 
         section = section.getConfigurationSection("OcelotNPC Configuration");
         npc.setVariant(Ocelot.CatVariant.valueOf(section.getString("Variant").toUpperCase()));

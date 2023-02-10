@@ -81,30 +81,15 @@ public class EndermanNPC extends EntityLivingNPC {
                 sender.sendMessage(translate(sender, "npc.commands.general.flag_changed"));
             }
         });
-        list.add(new NPCConfiguration("screaming", "/laivynpc config screaming (flag)") {
+        list.add(new NPCConfiguration("screaming", "/laivynpc config screaming") {
             @Override
             public void execute(@NotNull NPC npc, @NotNull Player sender, @NotNull String[] args) {
                 EndermanNPC endermanNPC = (EndermanNPC) npc;
-
-                if (args.length > 0) {
-                    boolean flag;
-                    if (args[0].equalsIgnoreCase("false")) {
-                        flag = false;
-                    } else if (args[0].equalsIgnoreCase("true")) {
-                        flag = true;
-                    } else {
-                        sender.performCommand("laivynpc config screaming");
-                        return;
-                    }
-
-                    endermanNPC.setScreaming(flag);
-                    sender.sendMessage(translate(sender, "npc.commands.general.flag_changed"));
-                    return;
-                }
-
-                sender.sendMessage("§cUse " + getSyntax());
+                endermanNPC.setScreaming(!endermanNPC.isScreaming());
+                sender.sendMessage(translate(sender, "npc.commands.general.flag_changed"));
             }
         });
+
         return list;
     }
 

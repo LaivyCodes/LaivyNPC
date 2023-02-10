@@ -3,6 +3,7 @@ package codes.laivy.npc.types;
 import codes.laivy.npc.mappings.defaults.classes.entity.Entity;
 import codes.laivy.npc.mappings.defaults.classes.entity.TameableEntityLiving;
 import codes.laivy.npc.types.commands.NPCConfiguration;
+import codes.laivy.npc.types.list.monster.SpiderNPC;
 import codes.laivy.npc.utils.Validation;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
@@ -17,7 +18,7 @@ import java.util.Map;
 import static codes.laivy.npc.LaivyNPC.laivynpc;
 import static codes.laivy.npc.config.Translate.translate;
 
-public abstract class TameableLivingEntityNPC extends EntityLivingNPC {
+public abstract class TameableEntityLivingNPC extends EntityLivingNPC {
 
     @Override
     public void debug() {
@@ -26,7 +27,7 @@ public abstract class TameableLivingEntityNPC extends EntityLivingNPC {
         setSitting(!isSitting());
     }
 
-    public TameableLivingEntityNPC(@NotNull List<OfflinePlayer> players, @NotNull Entity.EntityType entityType, @NotNull Location location) {
+    public TameableEntityLivingNPC(@NotNull List<OfflinePlayer> players, @NotNull Entity.EntityType entityType, @NotNull Location location) {
         super(players, entityType, location);
         Validation.isTrue(!entityType.isAgeableEntityLiving(), new IllegalArgumentException("This EntityType isn't a AgeableLivingEntity."));
     }
@@ -58,46 +59,20 @@ public abstract class TameableLivingEntityNPC extends EntityLivingNPC {
     public List<NPCConfiguration> getByCommandConfigurations() {
         List<NPCConfiguration> list = super.getByCommandConfigurations();
 
-        list.add(new NPCConfiguration("tamed", "/laivynpc config tamed (flag)") {
+        list.add(new NPCConfiguration("tamed", "/laivynpc config tamed") {
             @Override
             public void execute(@NotNull NPC npc, @NotNull Player sender, @NotNull String[] args) {
-                if (args.length > 0) {
-                    boolean flag;
-                    if (args[0].equalsIgnoreCase("false")) {
-                        flag = false;
-                    } else if (args[0].equalsIgnoreCase("true")) {
-                        flag = true;
-                    } else {
-                        sender.performCommand("laivynpc config tamed");
-                        return;
-                    }
-
-                    ((TameableLivingEntityNPC) npc).setTamed(flag);
-                    sender.sendMessage(translate(sender, "npc.commands.general.flag_changed"));
-                } else {
-                    sender.sendMessage("§cUse /laivynpc config tamed (flag)");
-                }
+                TameableEntityLivingNPC tameableNPC = (TameableEntityLivingNPC) npc;
+                tameableNPC.setTamed(!tameableNPC.isTamed());
+                sender.sendMessage(translate(sender, "npc.commands.general.flag_changed"));
             }
         });
-        list.add(new NPCConfiguration("sitting", "/laivynpc config sitting (flag)") {
+        list.add(new NPCConfiguration("sitting", "/laivynpc config sitting") {
             @Override
             public void execute(@NotNull NPC npc, @NotNull Player sender, @NotNull String[] args) {
-                if (args.length > 0) {
-                    boolean flag;
-                    if (args[0].equalsIgnoreCase("false")) {
-                        flag = false;
-                    } else if (args[0].equalsIgnoreCase("true")) {
-                        flag = true;
-                    } else {
-                        sender.performCommand("laivynpc config sitting");
-                        return;
-                    }
-
-                    ((TameableLivingEntityNPC) npc).setSitting(flag);
-                    sender.sendMessage(translate(sender, "npc.commands.general.flag_changed"));
-                } else {
-                    sender.sendMessage("§cUse /laivynpc config sitting (flag)");
-                }
+                TameableEntityLivingNPC tameableNPC = (TameableEntityLivingNPC) npc;
+                tameableNPC.setSitting(!tameableNPC.isSitting());
+                sender.sendMessage(translate(sender, "npc.commands.general.flag_changed"));
             }
         });
 
@@ -115,8 +90,8 @@ public abstract class TameableLivingEntityNPC extends EntityLivingNPC {
         return map;
     }
 
-    public static @NotNull TameableLivingEntityNPC deserialize(@NotNull ConfigurationSection section) {
-        TameableLivingEntityNPC npc = (TameableLivingEntityNPC) EntityLivingNPC.deserialize(section);
+    public static @NotNull TameableEntityLivingNPC deserialize(@NotNull ConfigurationSection section) {
+        TameableEntityLivingNPC npc = (TameableEntityLivingNPC) EntityLivingNPC.deserialize(section);
 
         section = section.getConfigurationSection("TameableNPC Configuration");
         npc.setTamed(section.getBoolean("Tamed"));

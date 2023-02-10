@@ -7,6 +7,7 @@ import codes.laivy.npc.mappings.versions.V1_9_R1;
 import codes.laivy.npc.types.EntityLivingNPC;
 import codes.laivy.npc.types.NPC;
 import codes.laivy.npc.types.commands.NPCConfiguration;
+import codes.laivy.npc.types.list.boss.wither.WitherSkullNPC;
 import codes.laivy.npc.utils.ReflectionUtils;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
@@ -95,36 +96,23 @@ public class ZombieNPC extends EntityLivingNPC {
                     }
                 });
             } else {
-                list.add(new NPCConfiguration("villager", "/laivynpc config villager (flag)") {
+                list.add(new NPCConfiguration("villager", "/laivynpc config villager") {
                     @Override
                     public void execute(@NotNull NPC npc, @NotNull Player sender, @NotNull String[] args) {
                         ZombieNPC zombieNPC = (ZombieNPC) npc;
 
-                        if (args.length > 0) {
-                            boolean flag;
-                            if (args[0].equalsIgnoreCase("false")) {
-                                flag = false;
-                            } else if (args[0].equalsIgnoreCase("true")) {
-                                flag = true;
-                            } else {
-                                sender.performCommand("laivynpc config " + getName());
-                                return;
-                            }
-
-                            //
-                            Type type = Type.NORMAL;
-                            if (flag) type = Type.VILLAGER;
-
-                            laivynpc().getVersion().setEntityZombieType(getEntity(), type);
-                            sendUpdatePackets(getSpawnedPlayers(), false, false, true, false, false, false);
-                            entityType = type.getEntityType();
-                            //
-
-                            sender.sendMessage(translate(sender, "npc.commands.general.flag_changed"));
-                            return;
+                        Type type = Type.NORMAL;
+                        if (!zombieNPC.isVillager()) {
+                            type = Type.VILLAGER;
                         }
 
-                        sender.sendMessage("§cUse " + getSyntax());
+                        laivynpc().getVersion().setEntityZombieType(getEntity(), type);
+                        entityType = type.getEntityType();
+                        entity = getNewEntity();
+                        respawn();
+                        sendUpdatePackets(getSpawnedPlayers(), false, false, true, false, false, false);
+
+                        sender.sendMessage(translate(sender, "npc.commands.general.flag_changed"));
                     }
                 });
             }

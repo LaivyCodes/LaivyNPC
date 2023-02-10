@@ -4,7 +4,6 @@ import codes.laivy.npc.mappings.Version;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.illagers.Evoker;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.illagers.Illusioner;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.illagers.Vindicator;
-import codes.laivy.npc.mappings.defaults.classes.others.chat.IChatBaseComponent;
 import codes.laivy.npc.mappings.instances.classes.ClassExecutor;
 import codes.laivy.npc.mappings.instances.ObjectExecutor;
 import codes.laivy.npc.mappings.defaults.classes.datawatcher.DataWatcher;
@@ -33,7 +32,6 @@ import codes.laivy.npc.mappings.defaults.classes.enums.EntityPose;
 import codes.laivy.npc.mappings.defaults.classes.java.BooleanObjExec;
 import codes.laivy.npc.mappings.defaults.classes.java.DoubleObjExec;
 import codes.laivy.npc.mappings.defaults.classes.java.FloatObjExec;
-import codes.laivy.npc.mappings.defaults.classes.java.StringObjExec;
 import codes.laivy.npc.mappings.defaults.classes.others.location.World;
 import codes.laivy.npc.mappings.versions.*;
 import codes.laivy.npc.types.EntityNPC;
@@ -235,6 +233,7 @@ public class Entity extends ObjectExecutor {
 
         ILLUSIONER(Illusioner.class, IllusionerNPC.class, V1_12_R1.class),
         PARROT(Parrot.class, ParrotNPC.class, V1_12_R1.class),
+        DOLPHIN(Dolphin.class, DolphinNPC.class, V1_13_R1.class),
         ;
 
         private final @NotNull Class<? extends Entity> entityClass;

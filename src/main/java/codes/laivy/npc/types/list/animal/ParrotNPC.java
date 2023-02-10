@@ -3,7 +3,7 @@ package codes.laivy.npc.types.list.animal;
 import codes.laivy.npc.mappings.defaults.classes.entity.Entity;
 import codes.laivy.npc.mappings.defaults.classes.entity.animal.Parrot;
 import codes.laivy.npc.types.NPC;
-import codes.laivy.npc.types.TameableLivingEntityNPC;
+import codes.laivy.npc.types.TameableEntityLivingNPC;
 import codes.laivy.npc.types.commands.NPCConfiguration;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
@@ -19,7 +19,7 @@ import java.util.Map;
 
 import static codes.laivy.npc.config.Translate.translate;
 
-public class ParrotNPC extends TameableLivingEntityNPC {
+public class ParrotNPC extends TameableEntityLivingNPC {
 
     public static @NotNull ParrotNPC fastInstance(@NotNull List<OfflinePlayer> players, @NotNull Location location, @Nullable Object object) {
         return new ParrotNPC(players, location);
@@ -104,7 +104,7 @@ public class ParrotNPC extends TameableLivingEntityNPC {
     }
 
     public static @NotNull ParrotNPC deserialize(@NotNull ConfigurationSection section) {
-        ParrotNPC npc = (ParrotNPC) TameableLivingEntityNPC.deserialize(section);
+        ParrotNPC npc = (ParrotNPC) TameableEntityLivingNPC.deserialize(section);
 
         section = section.getConfigurationSection("ParrotNPC Configuration");
         npc.setVariant(Parrot.Variant.valueOf(section.getString("Variant").toUpperCase()));

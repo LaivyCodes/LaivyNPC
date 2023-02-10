@@ -99,30 +99,16 @@ public class SheepNPC extends AgeableEntityLivingNPC {
                 sender.sendMessage(translate(sender, "npc.commands.general.available_options", builder));
             }
         });
-        list.add(new NPCConfiguration("sheared", "/laivynpc config sheared (flag)") {
+
+        list.add(new NPCConfiguration("sheared", "/laivynpc config sheared") {
             @Override
             public void execute(@NotNull NPC npc, @NotNull Player sender, @NotNull String[] args) {
                 SheepNPC sheepNPC = (SheepNPC) npc;
-
-                if (args.length > 0) {
-                    boolean flag;
-                    if (args[0].equalsIgnoreCase("false")) {
-                        flag = false;
-                    } else if (args[0].equalsIgnoreCase("true")) {
-                        flag = true;
-                    } else {
-                        sender.performCommand("laivynpc config " + getName());
-                        return;
-                    }
-
-                    sheepNPC.setSheared(flag);
-                    sender.sendMessage(translate(sender, "npc.commands.general.flag_changed"));
-                    return;
-                }
-
-                sender.sendMessage("§cUse " + getSyntax());
+                sheepNPC.setSheared(!sheepNPC.isSheared());
+                sender.sendMessage(translate(sender, "npc.commands.general.flag_changed"));
             }
         });
+
         return list;
     }
 

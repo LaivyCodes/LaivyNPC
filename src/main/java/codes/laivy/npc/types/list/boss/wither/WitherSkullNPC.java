@@ -5,6 +5,7 @@ import codes.laivy.npc.mappings.defaults.classes.entity.boss.wither.WitherSkull;
 import codes.laivy.npc.types.EntityNPC;
 import codes.laivy.npc.types.NPC;
 import codes.laivy.npc.types.commands.NPCConfiguration;
+import codes.laivy.npc.types.list.animal.WolfNPC;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.ConfigurationSection;
@@ -85,28 +86,12 @@ public class WitherSkullNPC extends EntityNPC {
     @Override
     public List<NPCConfiguration> getByCommandConfigurations() {
         List<NPCConfiguration> list = super.getByCommandConfigurations();
-        list.add(new NPCConfiguration("charged", "/laivynpc config charged (flag)") {
+        list.add(new NPCConfiguration("charged", "/laivynpc config charged") {
             @Override
             public void execute(@NotNull NPC npc, @NotNull Player sender, @NotNull String[] args) {
                 WitherSkullNPC witherSkullNPC = (WitherSkullNPC) npc;
-
-                if (args.length > 0) {
-                    boolean flag;
-                    if (args[0].equalsIgnoreCase("false")) {
-                        flag = false;
-                    } else if (args[0].equalsIgnoreCase("true")) {
-                        flag = true;
-                    } else {
-                        sender.performCommand("laivynpc config charged");
-                        return;
-                    }
-
-                    witherSkullNPC.setCharged(flag);
-                    sender.sendMessage(translate(sender, "npc.commands.general.flag_changed"));
-                    return;
-                }
-
-                sender.sendMessage("§cUse " + getSyntax());
+                witherSkullNPC.setCharged(!witherSkullNPC.isCharged());
+                sender.sendMessage(translate(sender, "npc.commands.general.flag_changed"));
             }
         });
         return list;

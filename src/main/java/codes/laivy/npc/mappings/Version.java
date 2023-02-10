@@ -274,6 +274,9 @@ public abstract class Version implements VersionCompound, VersionPacket, Version
     // ENTITY SPIDER
     public abstract boolean isEntitySpiderClimbing(@NotNull Spider spider);
     public abstract void setEntitySpiderClimbing(@NotNull Spider spider, boolean climbing);
+    // ENTITY DOLPHIN
+    public abstract boolean hasEntityDolphinFish(@NotNull Dolphin dolphin);
+    public abstract void setEntityDolphinFish(@NotNull Dolphin dolphin, boolean fish);
     //
 
     // ENTITY PLAYER

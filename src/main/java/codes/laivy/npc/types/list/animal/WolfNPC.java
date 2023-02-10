@@ -5,7 +5,7 @@ import codes.laivy.npc.mappings.defaults.classes.entity.animal.Wolf;
 import codes.laivy.npc.mappings.defaults.classes.enums.EnumColorEnum;
 import codes.laivy.npc.mappings.defaults.classes.java.EnumObjExec;
 import codes.laivy.npc.types.NPC;
-import codes.laivy.npc.types.TameableLivingEntityNPC;
+import codes.laivy.npc.types.TameableEntityLivingNPC;
 import codes.laivy.npc.types.commands.NPCConfiguration;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
@@ -21,7 +21,7 @@ import java.util.Map;
 
 import static codes.laivy.npc.config.Translate.translate;
 
-public class WolfNPC extends TameableLivingEntityNPC {
+public class WolfNPC extends TameableEntityLivingNPC {
 
     public static @NotNull WolfNPC fastInstance(@NotNull List<OfflinePlayer> players, @NotNull Location location, @Nullable Object object) {
         return new WolfNPC(players, location);
@@ -77,7 +77,7 @@ public class WolfNPC extends TameableLivingEntityNPC {
                         wolfNPC.setCollarColor(color);
                         sender.sendMessage(translate(sender, "npc.commands.general.flag_changed"));
                     } catch (IllegalArgumentException ignore) {
-                        sender.performCommand("laivynpc config collar-color");
+                        sender.performCommand("laivynpc config " + getName());
                         return;
                     }
                     return;
@@ -95,30 +95,15 @@ public class WolfNPC extends TameableLivingEntityNPC {
                 sender.sendMessage(translate(sender, "npc.commands.general.available_options", builder));
             }
         });
-        list.add(new NPCConfiguration("angry", "/laivynpc config angry (flag)") {
+        list.add(new NPCConfiguration("angry", "/laivynpc config angry") {
             @Override
             public void execute(@NotNull NPC npc, @NotNull Player sender, @NotNull String[] args) {
                 WolfNPC wolfNPC = (WolfNPC) npc;
-
-                if (args.length > 0) {
-                    boolean flag;
-                    if (args[0].equalsIgnoreCase("false")) {
-                        flag = false;
-                    } else if (args[0].equalsIgnoreCase("true")) {
-                        flag = true;
-                    } else {
-                        sender.performCommand("laivynpc config angry");
-                        return;
-                    }
-
-                    wolfNPC.setAngry(flag);
-                    sender.sendMessage(translate(sender, "npc.commands.general.flag_changed"));
-                    return;
-                }
-
-                sender.sendMessage("§cUse " + getSyntax());
+                wolfNPC.setAngry(!wolfNPC.isAngry());
+                sender.sendMessage(translate(sender, "npc.commands.general.flag_changed"));
             }
         });
+
         return list;
     }
 
@@ -140,7 +125,7 @@ public class WolfNPC extends TameableLivingEntityNPC {
     }
 
     public static @NotNull WolfNPC deserialize(@NotNull ConfigurationSection section) {
-        WolfNPC npc = (WolfNPC) TameableLivingEntityNPC.deserialize(section);
+        WolfNPC npc = (WolfNPC) TameableEntityLivingNPC.deserialize(section);
 
         section = section.getConfigurationSection("WolfNPC Configuration");
         npc.setCollarColor(new EnumColorEnum.EnumColor(EnumColorEnum.getInstance().valueOf(section.getString("Collar color")).getValue()));

@@ -34,6 +34,7 @@ import codes.laivy.npc.mappings.defaults.classes.enums.*;
 import codes.laivy.npc.mappings.defaults.classes.gameprofile.GameProfile;
 import codes.laivy.npc.mappings.defaults.classes.gameprofile.Property;
 import codes.laivy.npc.mappings.defaults.classes.gameprofile.PropertyMap;
+import codes.laivy.npc.mappings.defaults.classes.java.BooleanObjExec;
 import codes.laivy.npc.mappings.defaults.classes.java.StringObjExec;
 import codes.laivy.npc.mappings.defaults.classes.nbt.NBTBase;
 import codes.laivy.npc.mappings.defaults.classes.nbt.tags.*;
@@ -53,6 +54,7 @@ import codes.laivy.npc.mappings.instances.FieldExecutor;
 import codes.laivy.npc.mappings.instances.MethodExecutor;
 import codes.laivy.npc.mappings.instances.classes.ClassExecutor;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
 import java.util.Objects;
@@ -337,10 +339,42 @@ public class V1_13_R1 extends V1_12_R1 {
             load(V1_13_R1.class, "Entity:IllagerWizard:Spell", new EnumSpellEnum.EnumSpellClass("net.minecraft.server.v1_13_R1.EntityIllagerWizard$Spell"));
             // Entity parrot
             load(V1_13_R1.class, "Entity:Parrot", new Parrot.ParrotClass("net.minecraft.server.v1_13_R1.EntityParrot"));
+            // Entity dolphin
+            load(V1_13_R1.class, "Entity:Dolphin", new Dolphin.DolphinClass("net.minecraft.server.v1_13_R1.EntityDolphin"));
             //
         }
         
         return super.getClasses();
+    }
+
+    @Override
+    public @Nullable Entity getEntityInstance(Entity.@NotNull EntityType type, @NotNull org.bukkit.Location location) {
+        Entity entity = super.getEntityInstance(type, location);
+        if (type == Entity.EntityType.DOLPHIN) {
+            Object object = getClassExec("Entity:Dolphin").getConstructor(getClassExec("World")).newInstance(CraftWorld.getCraftWorld(location.getWorld()).getHandle());
+            entity = new Dolphin(object);
+        }
+
+        return entity;
+    }
+
+    @Override
+    public void setEntityDolphinFish(@NotNull Dolphin dolphin, boolean fish) {
+        dolphin.getDataWatcher().set(Dolphin.FISH_METADATA(), new BooleanObjExec(fish));
+    }
+    @Override
+    public boolean hasEntityDolphinFish(@NotNull Dolphin dolphin) {
+        //noinspection DataFlowIssue
+        return (boolean) dolphin.getDataWatcher().get(Dolphin.FISH_METADATA());
+    }
+
+    @Override
+    public @NotNull Map<String, FieldExecutor> getFields() {
+        if (!super.getFields().containsKey("Entity:Dolphin:DataWatcher:hasFish")) {
+            load(V1_13_R1.class, "Entity:Dolphin:DataWatcher:hasFish", new FieldExecutor(getClassExec("Entity:Dolphin"), getClassExec("DataWatcherObject"), "c", "Gets the dolphin's hasFish DataWatcherObject"));
+        }
+
+        return super.getFields();
     }
 
     @Override

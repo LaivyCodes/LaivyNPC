@@ -61,54 +61,24 @@ public class CreeperNPC extends EntityLivingNPC {
     @Override
     public List<NPCConfiguration> getByCommandConfigurations() {
         List<NPCConfiguration> list = super.getByCommandConfigurations();
-        list.add(new NPCConfiguration("powered", "/laivynpc config powered (flag)") {
+
+        list.add(new NPCConfiguration("powered", "/laivynpc config powered") {
             @Override
             public void execute(@NotNull NPC npc, @NotNull Player sender, @NotNull String[] args) {
                 CreeperNPC creeperNPC = (CreeperNPC) npc;
-
-                if (args.length > 0) {
-                    boolean flag;
-                    if (args[0].equalsIgnoreCase("false")) {
-                        flag = false;
-                    } else if (args[0].equalsIgnoreCase("true")) {
-                        flag = true;
-                    } else {
-                        sender.performCommand("laivynpc config powered");
-                        return;
-                    }
-
-                    creeperNPC.setPowered(flag);
-                    sender.sendMessage(translate(sender, "npc.commands.general.flag_changed"));
-                    return;
-                }
-
-                sender.sendMessage("§cUse " + getSyntax());
+                creeperNPC.setPowered(!creeperNPC.isPowered());
+                sender.sendMessage(translate(sender, "npc.commands.general.flag_changed"));
             }
         });
-        list.add(new NPCConfiguration("ignited", "/laivynpc config ignited (flag)") {
+        list.add(new NPCConfiguration("ignited", "/laivynpc config ignited") {
             @Override
             public void execute(@NotNull NPC npc, @NotNull Player sender, @NotNull String[] args) {
                 CreeperNPC creeperNPC = (CreeperNPC) npc;
-
-                if (args.length > 0) {
-                    boolean flag;
-                    if (args[0].equalsIgnoreCase("false")) {
-                        flag = false;
-                    } else if (args[0].equalsIgnoreCase("true")) {
-                        flag = true;
-                    } else {
-                        sender.performCommand("laivynpc config ignited");
-                        return;
-                    }
-
-                    creeperNPC.setIgnited(flag);
-                    sender.sendMessage(translate(sender, "npc.commands.general.flag_changed"));
-                    return;
-                }
-
-                sender.sendMessage("§cUse " + getSyntax());
+                creeperNPC.setIgnited(!creeperNPC.isIgnited());
+                sender.sendMessage(translate(sender, "npc.commands.general.flag_changed"));
             }
         });
+
         return list;
     }
 

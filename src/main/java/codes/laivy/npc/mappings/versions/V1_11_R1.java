@@ -59,8 +59,6 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Map;
 import java.util.Objects;
 
-import static codes.laivy.npc.LaivyNPC.laivynpc;
-
 public class V1_11_R1 extends V1_10_R1 {
 
     @Override
