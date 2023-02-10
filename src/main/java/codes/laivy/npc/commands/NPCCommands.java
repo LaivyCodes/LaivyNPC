@@ -107,7 +107,7 @@ public class NPCCommands implements CommandExecutor, Listener {
                     if (!sender.hasPermission("laivynpc.admin.delete")) {
                         sender.sendMessage(translate(player, "npc.general_command.no_permission"));
                     } else if (args.length < 2) {
-                        sender.sendMessage("§cUse /laivynpc destroy (id)");
+                        sender.sendMessage("§cUse /laivynpc delete (id)");
                     } else {
                         try {
                             int id = Integer.parseInt(args[1]);

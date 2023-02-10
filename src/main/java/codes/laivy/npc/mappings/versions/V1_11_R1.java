@@ -92,6 +92,9 @@ public class V1_11_R1 extends V1_10_R1 {
                     case "Metadata:Horse:DataWatcher:Armor":
                         load(V1_11_R1.class, key, new FieldExecutor(getClassExec("Entity:Horse"), getClassExec("DataWatcherObject"), "bI", "Gets the horse armor DataWatcherObject"));
                         return false;
+                    case "Metadata:Zombie:DataWatcher:Baby":
+                        load(V1_11_R1.class, key, new FieldExecutor(getClassExec("Entity:Zombie"), getClassExec("DataWatcherObject"), "bw", "Gets the zombie baby DataWatcherObject"));
+                        return false;
                     default:
                         break;
                 }

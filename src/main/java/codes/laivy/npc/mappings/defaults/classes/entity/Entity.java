@@ -4,6 +4,7 @@ import codes.laivy.npc.mappings.Version;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.illagers.Evoker;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.illagers.Illusioner;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.illagers.Vindicator;
+import codes.laivy.npc.mappings.defaults.classes.entity.monster.zombie.ZombieDrowned;
 import codes.laivy.npc.mappings.instances.classes.ClassExecutor;
 import codes.laivy.npc.mappings.instances.ObjectExecutor;
 import codes.laivy.npc.mappings.defaults.classes.datawatcher.DataWatcher;
@@ -56,6 +57,7 @@ import codes.laivy.npc.types.list.monster.illagers.VindicatorNPC;
 import codes.laivy.npc.types.list.monster.skeleton.SkeletonNPC;
 import codes.laivy.npc.types.list.monster.skeleton.SkeletonStrayNPC;
 import codes.laivy.npc.types.list.monster.skeleton.SkeletonWitherNPC;
+import codes.laivy.npc.types.list.monster.zombie.ZombieDrownedNPC;
 import codes.laivy.npc.types.list.monster.zombie.ZombieHuskNPC;
 import codes.laivy.npc.types.list.monster.zombie.ZombieNPC;
 import codes.laivy.npc.types.list.monster.zombie.ZombieVillagerNPC;
@@ -234,6 +236,7 @@ public class Entity extends ObjectExecutor {
         ILLUSIONER(Illusioner.class, IllusionerNPC.class, V1_12_R1.class),
         PARROT(Parrot.class, ParrotNPC.class, V1_12_R1.class),
         DOLPHIN(Dolphin.class, DolphinNPC.class, V1_13_R1.class),
+        ZOMBIE_DROWNED(ZombieDrowned.class, ZombieDrownedNPC.class, V1_13_R1.class),
         ;
 
         private final @NotNull Class<? extends Entity> entityClass;

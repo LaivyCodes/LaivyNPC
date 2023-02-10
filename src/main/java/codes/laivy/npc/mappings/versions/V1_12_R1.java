@@ -85,6 +85,9 @@ public class V1_12_R1 extends V1_11_R1 {
                     case "Entity:Llama:DataWatcher:Variant":
                         load(V1_12_R1.class, key, new FieldExecutor(getClassExec("Entity:Llama"), getClassExec("DataWatcherObject"), "bJ", "Gets the llama's variant DataWatcherObject"));
                         return false;
+                    case "Metadata:Zombie:DataWatcher:Baby":
+                        load(V1_12_R1.class, key, new FieldExecutor(getClassExec("Entity:Zombie"), getClassExec("DataWatcherObject"), "bx", "Gets the zombie baby DataWatcherObject"));
+                        return false;
                     case "Entity:IllagerWizard:DataWatcher:Spell":
                         return false;
                     default:

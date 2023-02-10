@@ -329,6 +329,9 @@ public class V1_8_R1 extends Version {
             load(V1_8_R1.class, "Entity:Spider:setClimbing", new MethodExecutor(getClassExec("Entity:Spider"), ClassExecutor.VOID, "a", "Sets the spider climbing state", ClassExecutor.BOOLEAN));
             // Zombie
             load(V1_8_R1.class, "Entity:Zombie:setVillagerType", new MethodExecutor(getClassExec("Entity:Zombie"), ClassExecutor.VOID, "setVillager", "Sets the villager state of a Zombie", ClassExecutor.BOOLEAN));
+
+            load(V1_8_R1.class, "Entity:Zombie:isBaby", new MethodExecutor(getClassExec("Entity:Zombie"), ClassExecutor.BOOLEAN, "isBaby", "Checks if a zombie is a baby"));
+            load(V1_8_R1.class, "Entity:Zombie:setBaby", new MethodExecutor(getClassExec("Entity:Zombie"), ClassExecutor.VOID, "setBaby", "Sets the baby state of a zombie", ClassExecutor.BOOLEAN));
             // Villager
             load(V1_8_R1.class, "Entity:Villager:getProfession", new MethodExecutor(getClassExec("Entity:Villager"), ClassExecutor.INT, "getProfession", "Gets the profession of a Villager"));
             load(V1_8_R1.class, "Entity:Villager:setProfession", new MethodExecutor(getClassExec("Entity:Villager"), ClassExecutor.VOID, "setProfession", "Sets the profession of a Villager", ClassExecutor.INT));
@@ -1116,6 +1119,17 @@ public class V1_8_R1 extends Version {
         }
 
         getMethodExec("Entity:Zombie:setVillagerType").invokeInstance(zombie, new BooleanObjExec(type != null));
+    }
+
+    @Override
+    public boolean isEntityZombieBaby(@NotNull Zombie zombie) {
+        //noinspection DataFlowIssue
+        return (boolean) getMethodExec("Entity:Zombie:isBaby").invokeInstance(zombie);
+    }
+
+    @Override
+    public void setEntityZombieBaby(@NotNull Zombie zombie, boolean baby) {
+        getMethodExec("Entity:Zombie:setBaby").invokeInstance(zombie, new BooleanObjExec(baby));
     }
 
     @Override

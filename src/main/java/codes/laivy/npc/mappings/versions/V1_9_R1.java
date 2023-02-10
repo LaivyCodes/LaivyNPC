@@ -71,6 +71,8 @@ public class V1_9_R1 extends V1_8_R3 {
                     case "Entity:Zombie:setVillagerType":
                         load(V1_9_R1.class, key, new MethodExecutor(getClassExec("Entity:Zombie"), ClassExecutor.VOID, "setVillagerType", "Sets the villager type of a Zombie", ClassExecutor.INT));
                         return false;
+                    case "Entity:Zombie:isBaby":
+                    case "Entity:Zombie:setBaby":
                     case "Entity:Spider:isClimbing":
                     case "Entity:Spider:setClimbing":
                     case "Entity:Enderman:isScreaming":
@@ -244,6 +246,17 @@ public class V1_9_R1 extends V1_8_R3 {
     @Override
     public void setEntitySpiderClimbing(@NotNull Spider spider, boolean climbing) {
         spider.getDataWatcher().set(Spider.CLIMBING_METADATA(), new ByteObjExec((byte) (climbing ? 1 : 0)));
+    }
+
+    @Override
+    public boolean isEntityZombieBaby(@NotNull Zombie zombie) {
+        //noinspection DataFlowIssue
+        return (boolean) zombie.getDataWatcher().get(Zombie.BABY_METADATA());
+    }
+
+    @Override
+    public void setEntityZombieBaby(@NotNull Zombie zombie, boolean baby) {
+        zombie.getDataWatcher().set(Zombie.BABY_METADATA(), new BooleanObjExec(baby));
     }
 
     @Override
@@ -441,6 +454,7 @@ public class V1_9_R1 extends V1_8_R3 {
             load(V1_9_R1.class, "Metadata:Creeper:DataWatcher:Ignited", new FieldExecutor(getClassExec("Entity:Creeper"), getClassExec("DataWatcherObject"), "c", "Gets the Creeper ignited DataWatcherObject"));
             load(V1_9_R1.class, "Metadata:Horse:DataWatcher:Armor", new FieldExecutor(getClassExec("Entity:Horse"), getClassExec("DataWatcherObject"), "bI", "Gets the horse armor DataWatcherObject"));
             load(V1_9_R1.class, "Metadata:Spider:DataWatcher:Climbing", new FieldExecutor(getClassExec("Entity:Spider"), getClassExec("DataWatcherObject"), "a", "Gets the spider climbing DataWatcherObject"));
+            load(V1_9_R1.class, "Metadata:Zombie:DataWatcher:Baby", new FieldExecutor(getClassExec("Entity:Zombie"), getClassExec("DataWatcherObject"), "bv", "Gets the zombie baby DataWatcherObject"));
         }
 
         return super.getFields();

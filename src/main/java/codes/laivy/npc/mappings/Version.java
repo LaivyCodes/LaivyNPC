@@ -240,6 +240,8 @@ public abstract class Version implements VersionCompound, VersionPacket, Version
     // ENTITY ZOMBIE
     public abstract @Nullable Zombie.Type getEntityZombieType(@NotNull Zombie zombie);
     public abstract void setEntityZombieType(@NotNull Zombie zombie, @Nullable Zombie.Type type);
+    public abstract boolean isEntityZombieBaby(@NotNull Zombie zombie);
+    public abstract void setEntityZombieBaby(@NotNull Zombie zombie, boolean baby);
     // ENTITY CREEPER
     public abstract boolean isEntityCreeperIgnited(@NotNull Creeper creeper);
     public abstract void setEntityCreeperIgnited(@NotNull Creeper creeper, boolean ignited);

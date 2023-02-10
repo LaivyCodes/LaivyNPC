@@ -1,9 +1,11 @@
 package codes.laivy.npc.mappings.defaults.classes.entity.monster.zombie;
 
 import codes.laivy.npc.mappings.Version;
+import codes.laivy.npc.mappings.defaults.classes.datawatcher.DataWatcherObject;
 import codes.laivy.npc.mappings.defaults.classes.entity.EntityLiving;
 import codes.laivy.npc.mappings.defaults.classes.enums.EnumZombieTypeEnum;
 import codes.laivy.npc.mappings.versions.V1_10_R1;
+import codes.laivy.npc.mappings.versions.V1_13_R1;
 import codes.laivy.npc.mappings.versions.V1_8_R1;
 import codes.laivy.npc.mappings.versions.V1_9_R1;
 import codes.laivy.npc.utils.ReflectionUtils;
@@ -13,8 +15,24 @@ import org.jetbrains.annotations.Nullable;
 import static codes.laivy.npc.LaivyNPC.laivynpc;
 
 public class Zombie extends EntityLiving {
+
+    public static @NotNull DataWatcherObject BABY_METADATA() {
+        if (ReflectionUtils.isCompatible(V1_9_R1.class)) {
+            return new DataWatcherObject(laivynpc().getVersion().getFieldExec("Metadata:Zombie:DataWatcher:Baby").invokeStatic());
+        } else {
+            throw new IllegalStateException("Metadata objects is compatible only at 1.9+");
+        }
+    }
+
     public Zombie(@Nullable Object value) {
         super(value);
+    }
+
+    public boolean isBaby() {
+        return laivynpc().getVersion().isEntityZombieBaby(this);
+    }
+    public void setBaby(boolean baby) {
+        laivynpc().getVersion().setEntityZombieBaby(this, baby);
     }
 
     public @Nullable Zombie.Type getType() {
@@ -40,6 +58,7 @@ public class Zombie extends EntityLiving {
         NORMAL(V1_8_R1.class, -1, EntityType.ZOMBIE),
         VILLAGER(V1_8_R1.class, 0, EntityType.ZOMBIE_VILLAGER),
         HUSK(V1_10_R1.class, 5, EntityType.ZOMBIE_HUSK),
+        DROWNED(V1_13_R1.class, -1, EntityType.ZOMBIE_DROWNED),
         ;
 
         private final @NotNull EntityType entityType;

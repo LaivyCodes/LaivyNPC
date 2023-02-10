@@ -1,6 +1,8 @@
 package codes.laivy.npc.types;
 
 import codes.laivy.npc.developers.events.NPCDestroyEvent;
+import codes.laivy.npc.mappings.defaults.classes.entity.monster.zombie.ZombieHusk;
+import codes.laivy.npc.mappings.defaults.classes.entity.monster.zombie.ZombieVillager;
 import codes.laivy.npc.mappings.instances.classes.ClassExecutor;
 import codes.laivy.npc.mappings.instances.MethodExecutor;
 import codes.laivy.npc.mappings.instances.ObjectExecutor;
@@ -21,8 +23,7 @@ import codes.laivy.npc.types.commands.NPCItemsEditorConfiguration;
 import codes.laivy.npc.types.list.ambient.BatNPC;
 import codes.laivy.npc.types.list.ambient.EggNPC;
 import codes.laivy.npc.types.list.animal.*;
-import codes.laivy.npc.types.list.animal.horse.HorseNPC;
-import codes.laivy.npc.types.list.animal.horse.LlamaNPC;
+import codes.laivy.npc.types.list.animal.horse.*;
 import codes.laivy.npc.types.list.boss.dragon.EnderDragonNPC;
 import codes.laivy.npc.types.list.boss.dragon.EnderSignalNPC;
 import codes.laivy.npc.types.list.boss.wither.WitherNPC;
@@ -37,7 +38,12 @@ import codes.laivy.npc.types.list.monster.illagers.EvokerNPC;
 import codes.laivy.npc.types.list.monster.illagers.IllusionerNPC;
 import codes.laivy.npc.types.list.monster.illagers.VindicatorNPC;
 import codes.laivy.npc.types.list.monster.skeleton.SkeletonNPC;
+import codes.laivy.npc.types.list.monster.skeleton.SkeletonStrayNPC;
+import codes.laivy.npc.types.list.monster.skeleton.SkeletonWitherNPC;
+import codes.laivy.npc.types.list.monster.zombie.ZombieDrownedNPC;
+import codes.laivy.npc.types.list.monster.zombie.ZombieHuskNPC;
 import codes.laivy.npc.types.list.monster.zombie.ZombieNPC;
+import codes.laivy.npc.types.list.monster.zombie.ZombieVillagerNPC;
 import codes.laivy.npc.types.list.npc.VillagerNPC;
 import codes.laivy.npc.types.player.PlayerNPC;
 import codes.laivy.npc.types.utils.GlowingStatus;
@@ -1181,6 +1187,15 @@ public abstract class NPC {
         put("Illusioner", IllusionerNPC.class);
         put("Parrot", ParrotNPC.class);
         put("Dolphin", DolphinNPC.class);
+        put("Drowned", ZombieDrownedNPC.class);
+        put("Husk", ZombieHuskNPC.class);
+        put("Zombie Villager", ZombieVillagerNPC.class);
+        put("Skeleton Wither", SkeletonWitherNPC.class);
+        put("Stray", SkeletonStrayNPC.class);
+        put("Donkey", HorseDonkeyNPC.class);
+        put("Mule", HorseMuleNPC.class);
+        put("Horse Skeleton", HorseSkeletonNPC.class);
+        put("Horse Zombie", HorseZombieNPC.class);
     }};
 
     @SuppressWarnings("unchecked")

@@ -27,6 +27,7 @@ import codes.laivy.npc.mappings.defaults.classes.entity.monster.skeleton.Skeleto
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.skeleton.SkeletonStray;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.skeleton.SkeletonWither;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.zombie.Zombie;
+import codes.laivy.npc.mappings.defaults.classes.entity.monster.zombie.ZombieDrowned;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.zombie.ZombieHusk;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.zombie.ZombieVillager;
 import codes.laivy.npc.mappings.defaults.classes.entity.npc.Villager;
@@ -85,6 +86,9 @@ public class V1_13_R1 extends V1_12_R1 {
                         return false;
                     case "Entity:Llama:DataWatcher:Variant":
                         load(V1_13_R1.class, key, new FieldExecutor(getClassExec("Entity:Llama"), getClassExec("DataWatcherObject"), "bO", "Gets the llama's variant DataWatcherObject"));
+                        return false;
+                    case "Metadata:Zombie:DataWatcher:Baby":
+                        load(V1_13_R1.class, key, new FieldExecutor(getClassExec("Entity:Zombie"), getClassExec("DataWatcherObject"), "bC", "Gets the zombie baby DataWatcherObject"));
                         return false;
                     default:
                         break;
@@ -324,6 +328,7 @@ public class V1_13_R1 extends V1_12_R1 {
             // Entity zombie
             load(V1_13_R1.class, "Entity:Zombie:Villager", new ZombieVillager.ZombieVillagerClass("net.minecraft.server.v1_13_R1.EntityZombieVillager"));
             load(V1_13_R1.class, "Entity:Zombie:Husk", new ZombieHusk.ZombieHuskClass("net.minecraft.server.v1_13_R1.EntityZombieHusk"));
+            load(V1_13_R1.class, "Entity:Zombie:Drowned", new ZombieDrowned.ZombieDrownedClass("net.minecraft.server.v1_13_R1.EntityDrowned"));
             // Entity vindicator
             load(V1_13_R1.class, "Entity:Vindicator", new Vindicator.VindicatorClass("net.minecraft.server.v1_13_R1.EntityVindicator"));
             // Entity evoker
@@ -353,6 +358,9 @@ public class V1_13_R1 extends V1_12_R1 {
         if (type == Entity.EntityType.DOLPHIN) {
             Object object = getClassExec("Entity:Dolphin").getConstructor(getClassExec("World")).newInstance(CraftWorld.getCraftWorld(location.getWorld()).getHandle());
             entity = new Dolphin(object);
+        } else if (type == Entity.EntityType.ZOMBIE_DROWNED) {
+            Object object = getClassExec("Entity:Zombie:Drowned").getConstructor(getClassExec("World")).newInstance(CraftWorld.getCraftWorld(location.getWorld()).getHandle());
+            entity = new ZombieDrowned(object);
         }
 
         return entity;

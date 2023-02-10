@@ -7,7 +7,7 @@ import codes.laivy.npc.mappings.versions.V1_9_R1;
 import codes.laivy.npc.types.EntityLivingNPC;
 import codes.laivy.npc.types.NPC;
 import codes.laivy.npc.types.commands.NPCConfiguration;
-import codes.laivy.npc.types.list.boss.wither.WitherSkullNPC;
+import codes.laivy.npc.types.list.monster.CreeperNPC;
 import codes.laivy.npc.utils.ReflectionUtils;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
@@ -44,6 +44,14 @@ public class ZombieNPC extends EntityLivingNPC {
         return getEntity().getType() != null && getEntity().getType() == Type.VILLAGER;
     }
 
+    public boolean isBaby() {
+        return getEntity().isBaby();
+    }
+    public void setBaby(boolean flag) {
+        getEntity().setBaby(flag);
+        sendUpdatePackets(getSpawnedPlayers(), false, false, true, false, false, false);
+    }
+
     public @Nullable Zombie.Type getType() {
         return getEntity().getType();
     }
@@ -56,6 +64,16 @@ public class ZombieNPC extends EntityLivingNPC {
     @Override
     public List<NPCConfiguration> getByCommandConfigurations() {
         List<NPCConfiguration> list = super.getByCommandConfigurations();
+
+        list.add(new NPCConfiguration("baby", "/laivynpc config baby") {
+            @Override
+            public void execute(@NotNull NPC npc, @NotNull Player sender, @NotNull String[] args) {
+                ZombieNPC zombieNPC = (ZombieNPC) npc;
+                zombieNPC.setBaby(!zombieNPC.isBaby());
+                sender.sendMessage(translate(sender, "npc.commands.general.flag_changed"));
+            }
+        });
+
         if (!ReflectionUtils.isCompatible(V1_11_R1.class)) {
             if (ReflectionUtils.isCompatible(V1_9_R1.class)) {
                 list.add(new NPCConfiguration("type", "/laivynpc config type (type)") {
@@ -128,6 +146,7 @@ public class ZombieNPC extends EntityLivingNPC {
             if (getType() != null) {
                 put("Type", getType().name());
             }
+            put("Baby", isBaby());
         }});
 
         return map;
@@ -136,8 +155,8 @@ public class ZombieNPC extends EntityLivingNPC {
     public static @NotNull ZombieNPC deserialize(@NotNull ConfigurationSection section) {
         ZombieNPC npc = (ZombieNPC) EntityLivingNPC.deserialize(section);
 
+        section = section.getConfigurationSection("ZombieNPC Configuration");
         if (!ReflectionUtils.isCompatible(V1_11_R1.class)) {
-            section = section.getConfigurationSection("ZombieNPC Configuration");
             if (section.contains("Type")) {
                 Type type = Type.valueOf(section.getString("Type").toUpperCase());
                 if (type.isCompatible()) {
@@ -147,6 +166,7 @@ public class ZombieNPC extends EntityLivingNPC {
                 }
             }
         }
+        npc.setBaby(section.getBoolean("Baby"));
 
         return npc;
     }
