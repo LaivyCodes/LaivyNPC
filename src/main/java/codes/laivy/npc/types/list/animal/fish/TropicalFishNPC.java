@@ -30,6 +30,12 @@ public class TropicalFishNPC extends FishNPC {
         tropicalFishNPC.destroy();
     }
 
+    @Override
+    protected void debug() {
+        super.debug();
+        setVariant(getVariant());
+    }
+
     public TropicalFishNPC(@NotNull List<OfflinePlayer> players, @NotNull Location location) {
         super(players, Fish.Type.TROPICALFISH, location);
     }

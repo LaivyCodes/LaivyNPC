@@ -30,6 +30,12 @@ public class PufferFishNPC extends FishNPC {
         pufferFishNPC.destroy();
     }
 
+    @Override
+    protected void debug() {
+        super.debug();
+        setPuffState(getPuffState());
+    }
+
     public PufferFishNPC(@NotNull List<OfflinePlayer> players, @NotNull Location location) {
         super(players, Fish.Type.PUFFERFISH, location);
     }

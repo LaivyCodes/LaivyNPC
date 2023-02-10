@@ -59,6 +59,7 @@ import codes.laivy.npc.mappings.instances.classes.ClassExecutor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.lang.reflect.Field;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
@@ -356,6 +357,8 @@ public class V1_13_R1 extends V1_12_R1 {
             load(V1_13_R1.class, "Entity:TropicalFish", new TropicalFish.TropicalFishClass("net.minecraft.server.v1_13_R1.EntityTropicalFish"));
             // Entity phantom
             load(V1_13_R1.class, "Entity:Phantom", new Phantom.PhantomClass("net.minecraft.server.v1_13_R1.EntityPhantom"));
+            // Entity turtle
+            load(V1_13_R1.class, "Entity:Turtle", new Turtle.TurtleClass("net.minecraft.server.v1_13_R1.EntityTurtle"));
             //
         }
         
@@ -386,6 +389,9 @@ public class V1_13_R1 extends V1_12_R1 {
         } else if (type == Entity.EntityType.PHANTOM) {
             Object object = getClassExec("Entity:Phantom").getConstructor(getClassExec("World")).newInstance(CraftWorld.getCraftWorld(location.getWorld()).getHandle());
             entity = new Phantom(object);
+        } else if (type == Entity.EntityType.TURTLE) {
+            Object object = getClassExec("Entity:Turtle").getConstructor(getClassExec("World")).newInstance(CraftWorld.getCraftWorld(location.getWorld()).getHandle());
+            entity = new Turtle(object);
         }
 
         return entity;
@@ -447,12 +453,23 @@ public class V1_13_R1 extends V1_12_R1 {
     }
 
     @Override
+    public void setEntityTurtleEgg(@NotNull Turtle turtle, boolean egg) {
+        turtle.getDataWatcher().set(Turtle.EGG_METADATA(), new BooleanObjExec(egg));
+    }
+    @Override
+    public boolean hasEntityTurtleEgg(@NotNull Turtle turtle) {
+        //noinspection DataFlowIssue
+        return (boolean) turtle.getDataWatcher().get(Turtle.EGG_METADATA());
+    }
+
+    @Override
     public @NotNull Map<String, FieldExecutor> getFields() {
         if (!super.getFields().containsKey("Entity:Dolphin:DataWatcher:hasFish")) {
             load(V1_13_R1.class, "Entity:Dolphin:DataWatcher:hasFish", new FieldExecutor(getClassExec("Entity:Dolphin"), getClassExec("DataWatcherObject"), "c", "Gets the dolphin's hasFish DataWatcherObject"));
             load(V1_13_R1.class, "Entity:PufferFish:DataWatcher:PuffState", new FieldExecutor(getClassExec("Entity:PufferFish"), getClassExec("DataWatcherObject"), "b", "Gets the puffer fish's puff state DataWatcherObject"));
             load(V1_13_R1.class, "Entity:TropicalFish:DataWatcher:Variant", new FieldExecutor(getClassExec("Entity:PufferFish"), getClassExec("DataWatcherObject"), "b", "Gets the tropical fish's variant DataWatcherObject"));
             load(V1_13_R1.class, "Entity:Phantom:DataWatcher:Size", new FieldExecutor(getClassExec("Entity:Phantom"), getClassExec("DataWatcherObject"), "a", "Gets the phantom's size DataWatcherObject"));
+            load(V1_13_R1.class, "Entity:Turtle:DataWatcher:Egg", new FieldExecutor(getClassExec("Entity:Turtle"), getClassExec("DataWatcherObject"), "bE", "Gets the turtle's egg DataWatcherObject", false, true));
         }
 
         return super.getFields();

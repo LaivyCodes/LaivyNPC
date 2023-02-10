@@ -22,11 +22,20 @@ public class FieldExecutor implements Executor {
     private final @NotNull String name;
     private final @NotNull String means;
 
+    private final boolean notDeclared;
+    private final boolean declared;
+
     public FieldExecutor(@NotNull ClassExecutor fieldClass, @NotNull ClassExecutor returnType, @NotNull String name, @NotNull String means) {
+        this(fieldClass, returnType, name, means, true, true);
+    }
+    public FieldExecutor(@NotNull ClassExecutor fieldClass, @NotNull ClassExecutor returnType, @NotNull String name, @NotNull String means, boolean notDeclared, boolean declared) {
         this.fieldClass = fieldClass;
         this.returnType = returnType;
         this.name = name;
         this.means = means;
+
+        this.declared = declared;
+        this.notDeclared = notDeclared;
     }
 
     public @NotNull ClassExecutor getFieldClass() {
@@ -121,6 +130,7 @@ public class FieldExecutor implements Executor {
         if (isLoaded()) {
             return;
         }
+
         if (!getFieldClass().isLoaded()) {
             getFieldClass().load();
         }
@@ -129,10 +139,20 @@ public class FieldExecutor implements Executor {
         }
 
         try {
-            try {
-                this.field = this.getFieldClass().getField(name);
-            } catch (NoSuchFieldException ignore) {
+            if (notDeclared) {
+                try {
+                    this.field = this.getFieldClass().getField(name);
+                } catch (NoSuchFieldException e) {
+                    if (declared) {
+                        this.field = this.getFieldClass().getDeclaredField(name);
+                    } else {
+                        throw e;
+                    }
+                }
+            } else if (declared) {
                 this.field = this.getFieldClass().getDeclaredField(name);
+            } else {
+                throw new NullPointerException("'declared' and 'notDeclared' couldn't be both false!");
             }
 
             field.setAccessible(true);

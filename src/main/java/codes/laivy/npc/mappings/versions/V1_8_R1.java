@@ -1304,6 +1304,16 @@ public class V1_8_R1 extends Version {
     }
 
     @Override
+    public boolean hasEntityTurtleEgg(@NotNull Turtle turtle) {
+        throw new UnsupportedOperationException("The turtle is only available at 1.13+");
+    }
+
+    @Override
+    public void setEntityTurtleEgg(@NotNull Turtle turtle, boolean egg) {
+        throw new UnsupportedOperationException("The turtle is only available at 1.13+");
+    }
+
+    @Override
     public @NotNull EntityPlayer createPlayer(@NotNull GameProfile profile, @NotNull Location location) {
         if (location.getWorld() == null) {
             throw new NullPointerException("This location's world is null!");

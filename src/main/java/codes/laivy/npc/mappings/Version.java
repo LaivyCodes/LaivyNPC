@@ -293,6 +293,9 @@ public abstract class Version implements VersionCompound, VersionPacket, Version
     // ENTITY PHANTOM
     public abstract int getEntityPhantomSize(@NotNull Phantom phantom);
     public abstract void setEntityPhantomSize(@NotNull Phantom phantom, int variant);
+    // ENTITY TURTLE
+    public abstract boolean hasEntityTurtleEgg(@NotNull Turtle turtle);
+    public abstract void setEntityTurtleEgg(@NotNull Turtle turtle, boolean egg);
     //
 
     // ENTITY PLAYER
