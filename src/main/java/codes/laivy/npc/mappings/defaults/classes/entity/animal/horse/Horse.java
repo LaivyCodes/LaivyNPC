@@ -4,6 +4,7 @@ import codes.laivy.npc.mappings.defaults.classes.datawatcher.DataWatcherObject;
 import codes.laivy.npc.mappings.defaults.classes.enums.HorseArmor;
 import codes.laivy.npc.mappings.versions.V1_9_R1;
 import codes.laivy.npc.utils.ReflectionUtils;
+import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -28,6 +29,15 @@ public class Horse extends AbstractHorse {
     }
     public void setArmor(@NotNull HorseArmor armor) {
         laivynpc().getVersion().setEntityHorseArmor(this, armor);
+    }
+
+    @ApiStatus.Experimental
+    public int getVariant() {
+        return laivynpc().getVersion().getEntityHorseVariant(this);
+    }
+    @ApiStatus.Experimental
+    public void setVariant(int variant) {
+        laivynpc().getVersion().setEntityHorseVariant(this, variant);
     }
 
 }

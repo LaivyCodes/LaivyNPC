@@ -319,6 +319,8 @@ public class V1_8_R1 extends Version {
             load(V1_8_R1.class, "Entity:Horse:setType", new MethodExecutor(getClassExec("Entity:Horse"), ClassExecutor.VOID, "setType", "Sets the horse type", ClassExecutor.INT));
             load(V1_8_R1.class, "Entity:Horse:setHasChest", new MethodExecutor(getClassExec("Entity:Horse"), ClassExecutor.VOID, "setHasChest", "Sets the chest state of a Horse", ClassExecutor.BOOLEAN));
             load(V1_8_R1.class, "Entity:Horse:hasChest", new MethodExecutor(getClassExec("Entity:Horse"), ClassExecutor.BOOLEAN, "hasChest", "Gets the chest state of a Horse"));
+            load(V1_8_R1.class, "Entity:Horse:setVariant", new MethodExecutor(getClassExec("Entity:Horse"), ClassExecutor.VOID, "setVariant", "Sets the variant of a Horse", ClassExecutor.INT));
+            load(V1_8_R1.class, "Entity:Horse:getVariant", new MethodExecutor(getClassExec("Entity:Horse"), ClassExecutor.INT, "getVariant", "Gets the variant of a Horse"));
             // Slime
             load(V1_8_R1.class, "Entity:Slime:getSize", new MethodExecutor(getClassExec("Entity:Slime"), ClassExecutor.INT, "getSize", "Gets the slime size"));
             load(V1_8_R1.class, "Entity:Slime:setSize", new MethodExecutor(getClassExec("Entity:Slime"), ClassExecutor.VOID, "setSize", "Sets the slime size", ClassExecutor.INT));
@@ -1004,6 +1006,17 @@ public class V1_8_R1 extends Version {
     public void setEntityHorseArmor(@NotNull Horse horse, @NotNull HorseArmor armor) {
         int index = (int) getObject("Metadata:Horse:DataWatcher:Armor");
         horse.getDataWatcher().set(index, armor.getData());
+    }
+
+    @Override
+    public int getEntityHorseVariant(@NotNull Horse horse) {
+        //noinspection DataFlowIssue
+        return (int) getMethodExec("Entity:Horse:getVariant").invokeInstance(horse);
+    }
+
+    @Override
+    public void setEntityHorseVariant(@NotNull Horse horse, int variant) {
+        getMethodExec("Entity:Horse:setVariant").invokeInstance(horse, new IntegerObjExec(variant));
     }
 
     @Override

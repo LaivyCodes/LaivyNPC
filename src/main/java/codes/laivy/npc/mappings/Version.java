@@ -38,6 +38,7 @@ import codes.laivy.npc.mappings.defaults.classes.scoreboard.Scoreboard;
 import codes.laivy.npc.mappings.defaults.classes.scoreboard.ScoreboardTeam;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -214,6 +215,10 @@ public abstract class Version implements VersionCompound, VersionPacket, Version
     public abstract void setEntityAbstractHorseType(@NotNull AbstractHorse horse, @NotNull Horse.Type type);
     public abstract @NotNull HorseArmor getEntityHorseArmor(@NotNull Horse horse);
     public abstract void setEntityHorseArmor(@NotNull Horse horse, @NotNull HorseArmor armor);
+    @ApiStatus.Experimental
+    public abstract int getEntityHorseVariant(@NotNull Horse horse);
+    @ApiStatus.Experimental
+    public abstract void setEntityHorseVariant(@NotNull Horse horse, int variant);
     // ENTITY RABBIT
     public abstract @NotNull Rabbit.Variant getEntityRabbitType(@NotNull Rabbit rabbit);
     public abstract void setEntityRabbitType(@NotNull Rabbit rabbit, @NotNull Rabbit.Variant type);

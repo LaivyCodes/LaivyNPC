@@ -6,10 +6,12 @@ import codes.laivy.npc.mappings.defaults.classes.enums.HorseArmor;
 import codes.laivy.npc.types.AgeableEntityLivingNPC;
 import codes.laivy.npc.types.NPC;
 import codes.laivy.npc.types.commands.NPCConfiguration;
+import codes.laivy.npc.types.list.monster.SlimeNPC;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
@@ -32,6 +34,7 @@ public class HorseNPC extends AbstractHorseNPC {
     public void debug() {
         super.debug();
         setArmor(getArmor());
+        setVariant(getVariant());
     }
 
     public HorseNPC(@NotNull List<OfflinePlayer> players, @NotNull Location location) {
@@ -43,6 +46,16 @@ public class HorseNPC extends AbstractHorseNPC {
     }
     public void setArmor(@NotNull HorseArmor armor) {
         getEntity().setArmor(armor);
+        sendUpdatePackets(getSpawnedPlayers(), false, false, true, false, false, false);
+    }
+
+    @ApiStatus.Experimental
+    public int getVariant() {
+        return getEntity().getVariant();
+    }
+    @ApiStatus.Experimental
+    public void setVariant(int variant) {
+        getEntity().setVariant(variant);
         sendUpdatePackets(getSpawnedPlayers(), false, false, true, false, false, false);
     }
 
@@ -88,6 +101,28 @@ public class HorseNPC extends AbstractHorseNPC {
                 sender.sendMessage(translate(sender, "npc.commands.general.available_options", builder));
             }
         });
+        list.add(new NPCConfiguration("variant", "/laivynpc config variant (number)") {
+            @Override
+            public void execute(@NotNull NPC npc, @NotNull Player sender, @NotNull String[] args) {
+                HorseNPC horseNPC = (HorseNPC) npc;
+
+                if (args.length > 0) {
+                    int variant;
+                    try {
+                        variant = Integer.parseInt(args[0].replace(",", "."));
+                    } catch (NumberFormatException ignore) {
+                        sender.performCommand("laivynpc config " + getName());
+                        return;
+                    }
+
+                    horseNPC.setVariant(variant);
+                    sender.sendMessage(translate(sender, "npc.commands.general.flag_changed"));
+                    return;
+                }
+
+                sender.sendMessage("§cUse " + getSyntax());
+            }
+        });
 
         return list;
     }
@@ -98,6 +133,7 @@ public class HorseNPC extends AbstractHorseNPC {
         Map<String, Object> map = super.serialize();
         map.put("HorseNPC Configuration", new LinkedHashMap<String, Object>() {{
             put("Armor", getArmor().name());
+            put("Variant", getVariant());
         }});
         return map;
     }
@@ -107,6 +143,7 @@ public class HorseNPC extends AbstractHorseNPC {
 
         ConfigurationSection config = section.getConfigurationSection("HorseNPC Configuration");
         npc.setArmor(HorseArmor.valueOf(config.getString("Armor").toUpperCase()));
+        npc.setVariant(config.getInt("Variant"));
 
         return npc;
     }
