@@ -8,17 +8,17 @@ import org.jetbrains.annotations.Nullable;
 
 import static codes.laivy.npc.LaivyNPC.laivynpc;
 
-public class PufferFish extends Fish {
+public class Pufferfish extends Fish {
 
     public static @NotNull DataWatcherObject PUFF_STATE_METADATA() {
         if (ReflectionUtils.isCompatible(V1_13_R1.class)) {
-            return new DataWatcherObject(laivynpc().getVersion().getFieldExec("Entity:PufferFish:DataWatcher:PuffState").invokeStatic());
+            return new DataWatcherObject(laivynpc().getVersion().getFieldExec("Entity:PufferFish:PuffState").invokeStatic());
         } else {
             throw new IllegalStateException("This metadata object is compatible only with 1.13+");
         }
     }
 
-    public PufferFish(@Nullable Object value) {
+    public Pufferfish(@Nullable Object value) {
         super(value);
     }
 
@@ -30,12 +30,12 @@ public class PufferFish extends Fish {
     }
 
     @Override
-    public @NotNull PufferFish.PufferFishClass getClassExecutor() {
-        return (PufferFishClass) laivynpc().getVersion().getClassExec("Entity:PufferFish");
+    public @NotNull Pufferfish.PufferfishClass getClassExecutor() {
+        return (PufferfishClass) laivynpc().getVersion().getClassExec("Entity:PufferFish");
     }
 
-    public static class PufferFishClass extends FishClass {
-        public PufferFishClass(@NotNull String className) {
+    public static class PufferfishClass extends FishClass {
+        public PufferfishClass(@NotNull String className) {
             super(className);
         }
     }

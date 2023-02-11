@@ -1,8 +1,6 @@
 package codes.laivy.npc.types;
 
 import codes.laivy.npc.developers.events.NPCDestroyEvent;
-import codes.laivy.npc.mappings.defaults.classes.entity.monster.zombie.ZombieHusk;
-import codes.laivy.npc.mappings.defaults.classes.entity.monster.zombie.ZombieVillager;
 import codes.laivy.npc.mappings.instances.classes.ClassExecutor;
 import codes.laivy.npc.mappings.instances.MethodExecutor;
 import codes.laivy.npc.mappings.instances.ObjectExecutor;
@@ -24,9 +22,9 @@ import codes.laivy.npc.types.list.ambient.BatNPC;
 import codes.laivy.npc.types.list.ambient.EggNPC;
 import codes.laivy.npc.types.list.animal.*;
 import codes.laivy.npc.types.list.animal.fish.CodNPC;
-import codes.laivy.npc.types.list.animal.fish.PufferFishNPC;
+import codes.laivy.npc.types.list.animal.fish.PufferfishNPC;
 import codes.laivy.npc.types.list.animal.fish.SalmonNPC;
-import codes.laivy.npc.types.list.animal.fish.TropicalFishNPC;
+import codes.laivy.npc.types.list.animal.fish.TropicalfishNPC;
 import codes.laivy.npc.types.list.animal.horse.*;
 import codes.laivy.npc.types.list.boss.dragon.EnderDragonNPC;
 import codes.laivy.npc.types.list.boss.dragon.EnderSignalNPC;
@@ -1202,10 +1200,11 @@ public abstract class NPC {
         put("Horse Zombie", HorseZombieNPC.class);
         put("Cod", CodNPC.class);
         put("Salmon", SalmonNPC.class);
-        put("PufferFish", PufferFishNPC.class);
-        put("TropicalFish", TropicalFishNPC.class);
+        put("PufferFish", PufferfishNPC.class);
+        put("TropicalFish", TropicalfishNPC.class);
         put("Phantom", PhantomNPC.class);
         put("Turtle", TurtleNPC.class);
+        put("Cat", CatNPC.class);
     }};
 
     @SuppressWarnings("unchecked")

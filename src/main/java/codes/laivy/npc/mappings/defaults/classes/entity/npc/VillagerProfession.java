@@ -8,7 +8,7 @@ import java.util.Map;
 public class VillagerProfession {
 
     private final @NotNull Type type;
-    private int level;
+    private final int level;
 
     public VillagerProfession(@NotNull Type type, int level) {
         this.type = type;
@@ -21,10 +21,6 @@ public class VillagerProfession {
 
     public int getLevel() {
         return level;
-    }
-
-    public void setLevel(int level) {
-        this.level = level;
     }
 
     public @NotNull Map<String, Object> serialize() {

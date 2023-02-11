@@ -2,8 +2,8 @@ package codes.laivy.npc.mappings.versions;
 
 import codes.laivy.npc.mappings.Version;
 import codes.laivy.npc.mappings.defaults.classes.entity.animal.fish.Fish;
-import codes.laivy.npc.mappings.defaults.classes.entity.animal.fish.PufferFish;
-import codes.laivy.npc.mappings.defaults.classes.entity.animal.fish.TropicalFish;
+import codes.laivy.npc.mappings.defaults.classes.entity.animal.fish.Pufferfish;
+import codes.laivy.npc.mappings.defaults.classes.entity.animal.fish.Tropicalfish;
 import codes.laivy.npc.mappings.defaults.classes.entity.animal.horse.*;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.illagers.IllagerWizard;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.skeleton.SkeletonWither;
@@ -161,8 +161,8 @@ public class V1_8_R1 extends Version {
             load(V1_8_R1.class, "Entity:Zombie", new Zombie.ZombieClass("net.minecraft.server.v1_8_R1.EntityZombie"));
             load(V1_8_R1.class, "Entity:Villager", new Villager.VillagerClass("net.minecraft.server.v1_8_R1.EntityVillager"));
 
-            load(V1_8_R1.class, "Entity:Ageable", new AgeableEntityLiving.AgeableLivingEntityClass("net.minecraft.server.v1_8_R1.EntityAgeable"));
-            load(V1_8_R1.class, "Entity:Tameable", new TameableEntityLiving.TameableLivingEntityClass("net.minecraft.server.v1_8_R1.EntityTameableAnimal"));
+            load(V1_8_R1.class, "Entity:Ageable", new AgeableEntityLiving.AgeableEntityLivingClass("net.minecraft.server.v1_8_R1.EntityAgeable"));
+            load(V1_8_R1.class, "Entity:Tameable", new TameableEntityLiving.TameableEntityLivingClass("net.minecraft.server.v1_8_R1.EntityTameableAnimal"));
             // EntityPlayer
             load(V1_8_R1.class, "GameProfile", new GameProfile.GameProfileClass("com.mojang.authlib.GameProfile"));
             load(V1_8_R1.class, "PropertyMap", new PropertyMap.PropertyMapClass("com.mojang.authlib.properties.PropertyMap"));
@@ -302,8 +302,6 @@ public class V1_8_R1 extends Version {
             load(V1_8_R1.class, "Entity:Enderman:setCarried", new MethodExecutor(getClassExec("Entity:Enderman"), ClassExecutor.VOID, "setCarried", "Sets the block of a Enderman", getClassExec("IBlockData")));
             load(V1_8_R1.class, "Entity:Enderman:isScreaming", new MethodExecutor(getClassExec("Entity:Enderman"), ClassExecutor.BOOLEAN, "cm", "Gets the screaming state of a Enderman"));
             load(V1_8_R1.class, "Entity:Enderman:setScreaming", new MethodExecutor(getClassExec("Entity:Enderman"), ClassExecutor.VOID, "a", "Sets the screaming state of a Enderman", ClassExecutor.BOOLEAN));
-            // Ghast
-            load(V1_8_R1.class, "Entity:Ghast:setAttacking", new MethodExecutor(getClassExec("Entity:Ghast"), ClassExecutor.VOID, "a", "Sets the attacking state of a Ghast", ClassExecutor.BOOLEAN));
             // Skeleton
             load(V1_8_R1.class, "Entity:Skeleton:getSkeletonType", new MethodExecutor(getClassExec("Entity:Skeleton"), ClassExecutor.INT, "getSkeletonType", "Gets the skeleton type of the Skeleton"));
             load(V1_8_R1.class, "Entity:Skeleton:setSkeletonType", new MethodExecutor(getClassExec("Entity:Skeleton"), ClassExecutor.VOID, "setSkeletonType", "Sets the skeleton type of a Skeleton", ClassExecutor.INT));
@@ -502,10 +500,10 @@ public class V1_8_R1 extends Version {
     public @NotNull Map<String, Object> getObjects() {
         if (super.getObjects().isEmpty()) {
             super.getObjects().put("Metadata:Player:SkinParts", 10);
-            super.getObjects().put("Metadata:Horse:DataWatcher:Armor", 22);
-            super.getObjects().put("Metadata:Ghast:DataWatcher:Attacking", 16);
-            super.getObjects().put("Metadata:Guardian:DataWatcher:Target", 17);
-            super.getObjects().put("Metadata:Creeper:DataWatcher:Ignited", 18);
+            super.getObjects().put("Metadata:Horse:Armor", 22);
+            super.getObjects().put("Metadata:Ghast:Attacking", 16);
+            super.getObjects().put("Metadata:Guardian:Target", 17);
+            super.getObjects().put("Metadata:Creeper:Ignited", 18);
         }
 
         return super.getObjects();
@@ -974,12 +972,12 @@ public class V1_8_R1 extends Version {
     }
 
     @Override
-    public @NotNull Ocelot.CatVariant getEntityCatVariant(@NotNull Ocelot ocelot) {
+    public @NotNull Cat.CatVariant getEntityCatVariant(@NotNull Cat cat) {
         //noinspection DataFlowIssue
-        int id = (int) getMethodExec("Entity:Ocelot:getCatType").invokeInstance(ocelot);
+        int id = (int) getMethodExec("Entity:Ocelot:getCatType").invokeInstance(cat);
 
-        Ocelot.CatVariant variant = null;
-        for (Ocelot.CatVariant v : Ocelot.CatVariant.values()) {
+        Cat.CatVariant variant = null;
+        for (Cat.CatVariant v : Cat.CatVariant.values()) {
             if (v.getId() == id) {
                 variant = v;
                 break;
@@ -993,8 +991,8 @@ public class V1_8_R1 extends Version {
     }
 
     @Override
-    public void setEntityCatVariant(@NotNull Ocelot ocelot, @NotNull Ocelot.CatVariant variant) {
-        getMethodExec("Entity:Ocelot:setCatType").invokeInstance(ocelot, new IntegerObjExec(variant.getId()));
+    public void setEntityCatVariant(@NotNull Cat cat, @NotNull Cat.CatVariant variant) {
+        getMethodExec("Entity:Ocelot:setCatType").invokeInstance(cat, new IntegerObjExec(variant.getId()));
     }
 
     @Override
@@ -1014,13 +1012,17 @@ public class V1_8_R1 extends Version {
     @SuppressWarnings("DataFlowIssue")
     @Override
     public @NotNull HorseArmor getEntityHorseArmor(@NotNull Horse horse) {
-        int index = (int) getObject("Metadata:Horse:DataWatcher:Armor");
+        int index = (int) getObject("Metadata:Horse:Armor");
         return HorseArmor.getByData((int) horse.getDataWatcher().get(index));
     }
 
     @Override
     public void setEntityHorseArmor(@NotNull Horse horse, @NotNull HorseArmor armor) {
-        int index = (int) getObject("Metadata:Horse:DataWatcher:Armor");
+        if (!armor.isCompatible()) {
+            throw new UnsupportedOperationException("This horse armor type isn't compatible with that version '" + armor.name() + "'");
+        }
+
+        int index = (int) getObject("Metadata:Horse:Armor");
         horse.getDataWatcher().set(index, armor.getData());
     }
 
@@ -1100,6 +1102,36 @@ public class V1_8_R1 extends Version {
     }
 
     @Override
+    public @NotNull Villager.Type getEntityVillagerType(@NotNull Villager villager) {
+        throw new UnsupportedOperationException("The villager types are only available at 1.14+");
+    }
+
+    @Override
+    public void setEntityVillagerType(@NotNull Villager villager, Villager.@NotNull Type type) {
+        throw new UnsupportedOperationException("The villager types are only available at 1.14+");
+    }
+
+    @Override
+    public @NotNull VillagerProfession getEntityZombieVillagerProfession(@NotNull ZombieVillager zombieVillager) {
+        throw new UnsupportedOperationException("The zombie villager profession are only available at 1.9+");
+    }
+
+    @Override
+    public void setEntityZombieVillagerProfession(@NotNull ZombieVillager zombieVillager, @NotNull VillagerProfession profession) {
+        throw new UnsupportedOperationException("The zombie villager profession are only available at 1.9+");
+    }
+
+    @Override
+    public @NotNull Villager.Type getEntityZombieVillagerType(@NotNull ZombieVillager zombieVillager) {
+        throw new UnsupportedOperationException("The villager types are only available at 1.14+");
+    }
+
+    @Override
+    public void setEntityZombieVillagerType(@NotNull ZombieVillager zombieVillager, Villager.@NotNull Type type) {
+        throw new UnsupportedOperationException("The villager types are only available at 1.14+");
+    }
+
+    @Override
     public boolean isEntityEndermanScreaming(@NotNull Enderman enderman) {
         //noinspection DataFlowIssue
         return (boolean) getMethodExec("Entity:Enderman:isScreaming").invokeInstance(enderman);
@@ -1138,23 +1170,31 @@ public class V1_8_R1 extends Version {
     @Override
     public boolean isEntityCreeperIgnited(@NotNull Creeper creeper) {
         //noinspection DataFlowIssue
-        return ((byte) creeper.getDataWatcher().get((int) getObject("Metadata:Creeper:DataWatcher:Ignited"))) == 1;
+        return ((byte) creeper.getDataWatcher().get((int) getObject("Metadata:Creeper:Ignited"))) == 1;
+    }
+    @Override
+    public void setEntityCreeperIgnited(@NotNull Creeper creeper, boolean flag) {
+        creeper.getDataWatcher().set((int) getObject("Metadata:Creeper:Ignited"), (byte) (flag ? 1 : 0));
     }
 
     @Override
-    public void setEntityCreeperIgnited(@NotNull Creeper creeper, boolean flag) {
-        creeper.getDataWatcher().set((int) getObject("Metadata:Creeper:DataWatcher:Ignited"), (byte) (flag ? 1 : 0));
+    public boolean isEntityCreeperPowered(@NotNull Creeper creeper) {
+        //noinspection DataFlowIssue
+        return (boolean) laivynpc().getVersion().getMethodExec("Entity:Creeper:isPowered").invokeInstance(creeper);
+    }
+    @Override
+    public void setEntityCreeperPowered(@NotNull Creeper creeper, boolean powered) {
+        laivynpc().getVersion().getMethodExec("Entity:Creeper:setPowered").invokeInstance(creeper, new BooleanObjExec(powered));
     }
 
     @Override
     public boolean isEntityGhastAttacking(@NotNull Ghast ghast) {
         //noinspection DataFlowIssue
-        return ((byte) ghast.getDataWatcher().get((int) getObject("Metadata:Ghast:DataWatcher:Attacking"))) == 1;
+        return ((byte) ghast.getDataWatcher().get((int) getObject("Metadata:Ghast:Attacking"))) == 1;
     }
-
     @Override
     public void setEntityGhastAttacking(@NotNull Ghast ghast, boolean flag) {
-        ghast.getDataWatcher().set((int) getObject("Metadata:Ghast:DataWatcher:Attacking"), (byte) (flag ? 1 : 0));
+        ghast.getDataWatcher().set((int) getObject("Metadata:Ghast:Attacking"), (byte) (flag ? 1 : 0));
     }
 
     @Override
@@ -1163,7 +1203,7 @@ public class V1_8_R1 extends Version {
         if (entity != null) {
             id = entity.getId();
         }
-        guardian.getDataWatcher().set((int) getObject("Metadata:Guardian:DataWatcher:Target"), id);
+        guardian.getDataWatcher().set((int) getObject("Metadata:Guardian:Target"), id);
     }
 
     @Override
@@ -1274,22 +1314,22 @@ public class V1_8_R1 extends Version {
     }
 
     @Override
-    public int getEntityPufferFishPuff(@NotNull PufferFish fish) {
+    public int getEntityPufferFishPuff(@NotNull Pufferfish fish) {
         throw new UnsupportedOperationException("The puffer fish is only available at 1.13+");
     }
 
     @Override
-    public void setEntityPufferFishPuff(@NotNull PufferFish fish, int puff) {
+    public void setEntityPufferFishPuff(@NotNull Pufferfish fish, int puff) {
         throw new UnsupportedOperationException("The puffer fish is only available at 1.13+");
     }
 
     @Override
-    public int getEntityTropicalFishVariant(@NotNull TropicalFish fish) {
+    public int getEntityTropicalFishVariant(@NotNull Tropicalfish fish) {
         throw new UnsupportedOperationException("The tropical fish is only available at 1.13+");
     }
 
     @Override
-    public void setEntityTropicalFishVariant(@NotNull TropicalFish fish, int variant) {
+    public void setEntityTropicalFishVariant(@NotNull Tropicalfish fish, int variant) {
         throw new UnsupportedOperationException("The tropical fish is only available at 1.13+");
     }
 
@@ -1311,6 +1351,27 @@ public class V1_8_R1 extends Version {
     @Override
     public void setEntityTurtleEgg(@NotNull Turtle turtle, boolean egg) {
         throw new UnsupportedOperationException("The turtle is only available at 1.13+");
+    }
+
+    @Override
+    public boolean isEntityBlazeCharging(@NotNull Blaze blaze) {
+        //noinspection DataFlowIssue
+        return (boolean) laivynpc().getVersion().getMethodExec("Entity:Blaze:isCharging").invokeInstance(blaze);
+    }
+
+    @Override
+    public void setEntityBlazeCharging(@NotNull Blaze blaze, boolean charging) {
+        laivynpc().getVersion().getMethodExec("Entity:Blaze:setCharging").invokeInstance(blaze, new BooleanObjExec(charging));
+    }
+
+    @Override
+    public boolean isEntityPolarBearStanding(@NotNull PolarBear bear) {
+        throw new UnsupportedOperationException("The polar bear is only available at 1.10+");
+    }
+
+    @Override
+    public void setEntityPolarBearStanding(@NotNull PolarBear bear, boolean standing) {
+        throw new UnsupportedOperationException("The polar bear is only available at 1.10+");
     }
 
     @Override

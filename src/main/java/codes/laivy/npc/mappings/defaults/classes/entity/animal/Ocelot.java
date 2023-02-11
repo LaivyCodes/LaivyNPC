@@ -8,49 +8,24 @@ import static codes.laivy.npc.LaivyNPC.laivynpc;
 
 public class Ocelot extends TameableEntityLiving {
 
-    public enum CatVariant {
-        TABBY(0),
-        BLACK(1),
-        RED(2),
-        SIAMESE(3),
-        BRITISH_SHORTHAIR(4),
-        CALICO(5),
-        PERSIAN(6),
-        RAGDOLL(7),
-        WHITE(8),
-        JELLIE(9),
-        ALL_BLACK(10),
-        ;
-
-        private final int id;
-
-        CatVariant(int id) {
-            this.id = id;
-        }
-
-        public int getId() {
-            return id;
-        }
-
-        public static @NotNull CatVariant getById(int id) {
-            for (CatVariant variant : values()) {
-                if (variant.getId() == id) {
-                    return variant;
-                }
-            }
-            throw new NullPointerException("Couldn't get this cat variant id '" + id + "'");
-        }
-    }
-
     public Ocelot(@Nullable Object value) {
         super(value);
     }
 
-    public @NotNull CatVariant getVariant() {
-        return laivynpc().getVersion().getEntityCatVariant(this);
+    @Override
+    public void setTamed(boolean flag) {
     }
-    public void setVariant(@NotNull CatVariant variant) {
-        laivynpc().getVersion().setEntityCatVariant(this, variant);
+    @Override
+    public boolean isTamed() {
+        return false;
+    }
+
+    @Override
+    public void setSitting(boolean flag) {
+    }
+    @Override
+    public boolean isSitting() {
+        return false;
     }
 
     @Override
@@ -58,7 +33,7 @@ public class Ocelot extends TameableEntityLiving {
         return (OcelotClass) laivynpc().getVersion().getClassExec("Entity:Ocelot");
     }
 
-    public static class OcelotClass extends TameableLivingEntityClass {
+    public static class OcelotClass extends TameableEntityLivingClass {
         public OcelotClass(@NotNull String className) {
             super(className);
         }

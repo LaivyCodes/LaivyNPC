@@ -2,9 +2,9 @@ package codes.laivy.npc.mappings.defaults.classes.entity;
 
 import codes.laivy.npc.mappings.Version;
 import codes.laivy.npc.mappings.defaults.classes.entity.animal.fish.Cod;
-import codes.laivy.npc.mappings.defaults.classes.entity.animal.fish.PufferFish;
+import codes.laivy.npc.mappings.defaults.classes.entity.animal.fish.Pufferfish;
 import codes.laivy.npc.mappings.defaults.classes.entity.animal.fish.Salmon;
-import codes.laivy.npc.mappings.defaults.classes.entity.animal.fish.TropicalFish;
+import codes.laivy.npc.mappings.defaults.classes.entity.animal.fish.Tropicalfish;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.illagers.Evoker;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.illagers.Illusioner;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.illagers.Vindicator;
@@ -45,9 +45,9 @@ import codes.laivy.npc.types.list.ambient.BatNPC;
 import codes.laivy.npc.types.list.ambient.EggNPC;
 import codes.laivy.npc.types.list.animal.*;
 import codes.laivy.npc.types.list.animal.fish.CodNPC;
-import codes.laivy.npc.types.list.animal.fish.PufferFishNPC;
+import codes.laivy.npc.types.list.animal.fish.PufferfishNPC;
 import codes.laivy.npc.types.list.animal.fish.SalmonNPC;
-import codes.laivy.npc.types.list.animal.fish.TropicalFishNPC;
+import codes.laivy.npc.types.list.animal.fish.TropicalfishNPC;
 import codes.laivy.npc.types.list.animal.horse.*;
 import codes.laivy.npc.types.list.boss.dragon.EnderDragonNPC;
 import codes.laivy.npc.types.list.boss.dragon.EnderSignalNPC;
@@ -248,11 +248,12 @@ public class Entity extends ObjectExecutor {
 
         COD(Cod.class, CodNPC.class, V1_13_R1.class),
         SALMON(Salmon.class, SalmonNPC.class, V1_13_R1.class),
-        PUFFERFISH(PufferFish.class, PufferFishNPC.class, V1_13_R1.class),
-        TROPICALFISH(TropicalFish.class, TropicalFishNPC.class, V1_13_R1.class),
+        PUFFERFISH(Pufferfish.class, PufferfishNPC.class, V1_13_R1.class),
+        TROPICALFISH(Tropicalfish.class, TropicalfishNPC.class, V1_13_R1.class),
 
         PHANTOM(Phantom.class, PhantomNPC.class, V1_13_R1.class),
         TURTLE(Turtle.class, TurtleNPC.class, V1_13_R1.class),
+        CAT(Cat.class, CatNPC.class, V1_13_R1.class),
         ;
 
         private final @NotNull Class<? extends Entity> entityClass;

@@ -14,7 +14,14 @@ public class Creeper extends EntityLiving {
 
     public static @NotNull DataWatcherObject IGNITED_METADATA() {
         if (ReflectionUtils.isCompatible(V1_9_R1.class)) {
-            return new DataWatcherObject(laivynpc().getVersion().getFieldExec("Metadata:Creeper:DataWatcher:Ignited").invokeStatic());
+            return new DataWatcherObject(laivynpc().getVersion().getFieldExec("Metadata:Creeper:Ignited").invokeStatic());
+        } else {
+            throw new IllegalStateException("Metadata objects is compatible only at 1.9+");
+        }
+    }
+    public static @NotNull DataWatcherObject POWERED_METADATA() {
+        if (ReflectionUtils.isCompatible(V1_9_R1.class)) {
+            return new DataWatcherObject(laivynpc().getVersion().getFieldExec("Metadata:Creeper:Powered").invokeStatic());
         } else {
             throw new IllegalStateException("Metadata objects is compatible only at 1.9+");
         }
@@ -25,11 +32,10 @@ public class Creeper extends EntityLiving {
     }
 
     public boolean isPowered() {
-        //noinspection DataFlowIssue
-        return (boolean) laivynpc().getVersion().getMethodExec("Entity:Creeper:isPowered").invokeInstance(this);
+        return laivynpc().getVersion().isEntityCreeperPowered(this);
     }
     public void setPowered(boolean flag) {
-        laivynpc().getVersion().getMethodExec("Entity:Creeper:setPowered").invokeInstance(this, new BooleanObjExec(flag));
+        laivynpc().getVersion().setEntityCreeperIgnited(this, flag);
     }
 
     public boolean isIgnited() {

@@ -1,7 +1,9 @@
 package codes.laivy.npc.mappings.defaults.classes.entity.monster.illagers;
 
+import codes.laivy.npc.mappings.defaults.classes.datawatcher.DataWatcherObject;
 import codes.laivy.npc.mappings.defaults.classes.entity.EntityLiving;
 import codes.laivy.npc.mappings.defaults.classes.enums.EnumSpellEnum;
+import codes.laivy.npc.mappings.versions.V1_11_R1;
 import codes.laivy.npc.mappings.versions.V1_12_R1;
 import codes.laivy.npc.utils.ReflectionUtils;
 import org.jetbrains.annotations.NotNull;
@@ -10,6 +12,14 @@ import org.jetbrains.annotations.Nullable;
 import static codes.laivy.npc.LaivyNPC.laivynpc;
 
 public abstract class IllagerWizard extends EntityLiving {
+
+    public static @NotNull DataWatcherObject SPELL_METADATA() {
+        if (ReflectionUtils.isCompatible(V1_11_R1.class)) {
+            return new DataWatcherObject(laivynpc().getVersion().getFieldExec("Metadata:IllagerWizard:Spell").invokeStatic());
+        } else {
+            throw new IllegalStateException("This metadata object is compatible only at 1.11+");
+        }
+    }
 
     public IllagerWizard(@Nullable Object value) {
         super(value);

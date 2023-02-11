@@ -28,12 +28,12 @@ public class TameableEntityLiving extends AgeableEntityLiving {
     }
 
     @Override
-    public @NotNull TameableLivingEntityClass getClassExecutor() {
-        return (TameableLivingEntityClass) laivynpc().getVersion().getClassExec("Entity:Tameable");
+    public @NotNull TameableEntityLiving.TameableEntityLivingClass getClassExecutor() {
+        return (TameableEntityLivingClass) laivynpc().getVersion().getClassExec("Entity:Tameable");
     }
 
-    public static class TameableLivingEntityClass extends AgeableLivingEntityClass {
-        public TameableLivingEntityClass(@NotNull String className) {
+    public static class TameableEntityLivingClass extends AgeableEntityLivingClass {
+        public TameableEntityLivingClass(@NotNull String className) {
             super(className);
         }
     }

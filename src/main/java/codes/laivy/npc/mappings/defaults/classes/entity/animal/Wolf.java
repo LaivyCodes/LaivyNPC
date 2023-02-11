@@ -35,7 +35,7 @@ public class Wolf extends TameableEntityLiving {
         return (WolfClass) laivynpc().getVersion().getClassExec("Entity:Wolf");
     }
 
-    public static class WolfClass extends TameableLivingEntityClass {
+    public static class WolfClass extends TameableEntityLivingClass {
         public WolfClass(@NotNull String className) {
             super(className);
         }

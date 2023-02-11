@@ -4,6 +4,7 @@ import codes.laivy.npc.mappings.Version;
 import codes.laivy.npc.mappings.defaults.classes.entity.animal.horse.AbstractHorse;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.skeleton.SkeletonStray;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.zombie.ZombieHusk;
+import codes.laivy.npc.mappings.defaults.classes.java.BooleanObjExec;
 import codes.laivy.npc.mappings.instances.EnumExecutor;
 import codes.laivy.npc.mappings.instances.Executor;
 import codes.laivy.npc.mappings.instances.FieldExecutor;
@@ -51,8 +52,6 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Map;
 import java.util.Objects;
 
-import static codes.laivy.npc.LaivyNPC.laivynpc;
-
 public class V1_10_R1 extends V1_9_R2 {
 
     @Override
@@ -62,14 +61,17 @@ public class V1_10_R1 extends V1_9_R2 {
                 return false;
             } else if (executor instanceof FieldExecutor) {
                 switch (key) {
-                    case "Entity:Enderman:DataWatcher:screaming":
+                    case "Metadata:Enderman:screaming":
                         load(V1_10_R1.class, key, new FieldExecutor(getClassExec("Entity:Enderman"), getClassExec("DataWatcherObject"), "by", "Gets the enderman's screaming datawatcher object"));
                         return false;
-                    case "Metadata:Horse:DataWatcher:Armor":
+                    case "Metadata:Horse:Armor":
                         load(V1_10_R1.class, key, new FieldExecutor(getClassExec("Entity:Horse"), getClassExec("DataWatcherObject"), "bK", "Gets the horse armor DataWatcherObject"));
                         return false;
-                    case "Metadata:Zombie:DataWatcher:Baby":
+                    case "Metadata:Zombie:Baby":
                         load(V1_10_R1.class, key, new FieldExecutor(getClassExec("Entity:Zombie"), getClassExec("DataWatcherObject"), "bx", "Gets the zombie baby DataWatcherObject"));
+                        return false;
+                    case "Metadata:Zombie:Villager:Profession":
+                        load(V1_10_R1.class, key, new FieldExecutor(getClassExec("Entity:Zombie"), getClassExec("DataWatcherObject"), "by", "Gets the zombie villager profession DataWatcherObject"));
                         return false;
                     default:
                         break;
@@ -176,6 +178,16 @@ public class V1_10_R1 extends V1_9_R2 {
     }
 
     @Override
+    public boolean isEntityPolarBearStanding(@NotNull PolarBear bear) {
+        //noinspection DataFlowIssue
+        return (boolean) bear.getDataWatcher().get(PolarBear.STANDING_METADATA());
+    }
+    @Override
+    public void setEntityPolarBearStanding(@NotNull PolarBear bear, boolean standing) {
+        bear.getDataWatcher().set(PolarBear.STANDING_METADATA(), new BooleanObjExec(standing));
+    }
+
+    @Override
     public @NotNull Map<String, ClassExecutor> getClasses() {
         if (super.getClasses().isEmpty()) {
             load(V1_10_R1.class, "WatchableObject", new ClassExecutor.BrokenClassExecutor());
@@ -265,8 +277,8 @@ public class V1_10_R1 extends V1_9_R2 {
             load(V1_10_R1.class, "Entity:Shulker", new Shulker.ShulkerClass("net.minecraft.server.v1_10_R1.EntityShulker"));
             load(V1_10_R1.class, "Entity:PolarBear", new PolarBear.PolarBearClass("net.minecraft.server.v1_10_R1.EntityPolarBear"));
 
-            load(V1_10_R1.class, "Entity:Ageable", new AgeableEntityLiving.AgeableLivingEntityClass("net.minecraft.server.v1_10_R1.EntityAgeable"));
-            load(V1_10_R1.class, "Entity:Tameable", new TameableEntityLiving.TameableLivingEntityClass("net.minecraft.server.v1_10_R1.EntityTameableAnimal"));
+            load(V1_10_R1.class, "Entity:Ageable", new AgeableEntityLiving.AgeableEntityLivingClass("net.minecraft.server.v1_10_R1.EntityAgeable"));
+            load(V1_10_R1.class, "Entity:Tameable", new TameableEntityLiving.TameableEntityLivingClass("net.minecraft.server.v1_10_R1.EntityTameableAnimal"));
             // EntityPlayer
             load(V1_10_R1.class, "GameProfile", new GameProfile.GameProfileClass("com.mojang.authlib.GameProfile"));
             load(V1_10_R1.class, "PropertyMap", new PropertyMap.PropertyMapClass("com.mojang.authlib.properties.PropertyMap"));
@@ -337,13 +349,12 @@ public class V1_10_R1 extends V1_9_R2 {
     }
 
     @Override
-    public @NotNull Map<String, MethodExecutor> getMethods() {
-        if (!super.getMethods().containsKey("Entity:PolarBear:isStanding")) {
-            load(V1_10_R1.class, "Entity:PolarBear:isStanding", new MethodExecutor(getClassExec("Entity:PolarBear"), ClassExecutor.BOOLEAN, "df", "Checks if a polar bear is standing up"));
-            load(V1_10_R1.class, "Entity:PolarBear:setStanding", new MethodExecutor(getClassExec("Entity:PolarBear"), ClassExecutor.VOID, "p", "Sets the standing up state of a polar bear", ClassExecutor.BOOLEAN));
+    public @NotNull Map<String, FieldExecutor> getFields() {
+        if (!super.getFields().containsKey("Metadata:PolarBear:Standing")) {
+            load(V1_10_R1.class, "Metadata:PolarBear:Standing", new FieldExecutor(getClassExec("Entity:PolarBear"), getClassExec("DataWatcherObject"), "bx", "Gets the polar bear's standing DataWatcherObject"));
         }
 
-        return super.getMethods();
+        return super.getFields();
     }
 
     @Override

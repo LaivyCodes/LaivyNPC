@@ -156,8 +156,8 @@ public class V1_8_R3 extends V1_8_R2 {
             load(V1_8_R3.class, "Entity:Zombie", new Zombie.ZombieClass("net.minecraft.server.v1_8_R3.EntityZombie"));
             load(V1_8_R3.class, "Entity:Villager", new Villager.VillagerClass("net.minecraft.server.v1_8_R3.EntityVillager"));
 
-            load(V1_8_R3.class, "Entity:Ageable", new AgeableEntityLiving.AgeableLivingEntityClass("net.minecraft.server.v1_8_R3.EntityAgeable"));
-            load(V1_8_R3.class, "Entity:Tameable", new TameableEntityLiving.TameableLivingEntityClass("net.minecraft.server.v1_8_R3.EntityTameableAnimal"));
+            load(V1_8_R3.class, "Entity:Ageable", new AgeableEntityLiving.AgeableEntityLivingClass("net.minecraft.server.v1_8_R3.EntityAgeable"));
+            load(V1_8_R3.class, "Entity:Tameable", new TameableEntityLiving.TameableEntityLivingClass("net.minecraft.server.v1_8_R3.EntityTameableAnimal"));
             // EntityPlayer
             load(V1_8_R3.class, "GameProfile", new GameProfile.GameProfileClass("com.mojang.authlib.GameProfile"));
             load(V1_8_R3.class, "PropertyMap", new PropertyMap.PropertyMapClass("com.mojang.authlib.properties.PropertyMap"));

@@ -14,7 +14,7 @@ public class Horse extends AbstractHorse {
 
     public static @NotNull DataWatcherObject ARMOR_METADATA() {
         if (ReflectionUtils.isCompatible(V1_9_R1.class)) {
-            return new DataWatcherObject(laivynpc().getVersion().getFieldExec("Metadata:Horse:DataWatcher:Armor").invokeStatic());
+            return new DataWatcherObject(laivynpc().getVersion().getFieldExec("Metadata:Horse:Armor").invokeStatic());
         } else {
             throw new IllegalStateException("Metadata objects is compatible only at 1.9+");
         }
@@ -28,6 +28,10 @@ public class Horse extends AbstractHorse {
         return laivynpc().getVersion().getEntityHorseArmor(this);
     }
     public void setArmor(@NotNull HorseArmor armor) {
+        if (!armor.isCompatible()) {
+            throw new UnsupportedOperationException("This horse armor type isn't compatible with that version '" + armor.name() + "'");
+        }
+
         laivynpc().getVersion().setEntityHorseArmor(this, armor);
     }
 

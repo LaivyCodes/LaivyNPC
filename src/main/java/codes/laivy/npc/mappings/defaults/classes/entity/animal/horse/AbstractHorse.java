@@ -2,9 +2,12 @@ package codes.laivy.npc.mappings.defaults.classes.entity.animal.horse;
 
 import codes.laivy.npc.mappings.Version;
 import codes.laivy.npc.mappings.defaults.classes.entity.AgeableEntityLiving;
+import codes.laivy.npc.mappings.defaults.classes.others.inventories.InventorySubcontainer;
 import codes.laivy.npc.mappings.versions.V1_11_R1;
+import codes.laivy.npc.mappings.versions.V1_14_R1;
 import codes.laivy.npc.mappings.versions.V1_8_R1;
 import codes.laivy.npc.utils.ReflectionUtils;
+import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -15,20 +18,30 @@ public abstract class AbstractHorse extends AgeableEntityLiving {
         super(value);
     }
 
+    @ApiStatus.Internal
+    public @NotNull InventorySubcontainer getInventory() {
+        if (!ReflectionUtils.isCompatible(V1_14_R1.class)) {
+            throw new UnsupportedOperationException("This method is only available at 1.14+");
+        }
+
+        V1_14_R1 version = (V1_14_R1) laivynpc().getVersion();
+        return version.getHorseInventory(this);
+    }
+
     public @NotNull Type getType() {
         return laivynpc().getVersion().getEntityAbstractHorseType(this);
     }
 
     @Override
-    public @NotNull AgeableLivingEntityClass getClassExecutor() {
+    public @NotNull AgeableEntityLiving.AgeableEntityLivingClass getClassExecutor() {
         if (ReflectionUtils.isCompatible(V1_11_R1.class)) {
             return (AbstractHorseClass) laivynpc().getVersion().getClassExec("Entity:Horse:Abstract");
         } else {
-            return (AgeableLivingEntityClass) laivynpc().getVersion().getClassExec("Entity:Horse");
+            return (AgeableEntityLivingClass) laivynpc().getVersion().getClassExec("Entity:Horse");
         }
     }
 
-    public static class AbstractHorseClass extends AgeableLivingEntityClass {
+    public static class AbstractHorseClass extends AgeableEntityLivingClass {
         public AbstractHorseClass(@NotNull String className) {
             super(className);
         }

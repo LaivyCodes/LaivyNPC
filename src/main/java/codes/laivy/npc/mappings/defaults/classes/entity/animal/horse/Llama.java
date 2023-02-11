@@ -14,14 +14,14 @@ public class Llama extends AbstractChestedHorse {
 
     public static @NotNull DataWatcherObject CARPET_COLOR_METADATA() {
         if (ReflectionUtils.isCompatible(V1_11_R1.class)) {
-            return new DataWatcherObject(laivynpc().getVersion().getFieldExec("Entity:Llama:DataWatcher:CarpetColor").invokeStatic());
+            return new DataWatcherObject(laivynpc().getVersion().getFieldExec("Metadata:Llama:CarpetColor").invokeStatic());
         } else {
             throw new IllegalStateException("This metadata object is compatible only with 1.11+");
         }
     }
     public static @NotNull DataWatcherObject VARIANT_METADATA() {
         if (ReflectionUtils.isCompatible(V1_11_R1.class)) {
-            return new DataWatcherObject(laivynpc().getVersion().getFieldExec("Entity:Llama:DataWatcher:Variant").invokeStatic());
+            return new DataWatcherObject(laivynpc().getVersion().getFieldExec("Metadata:Llama:Variant").invokeStatic());
         } else {
             throw new IllegalStateException("This metadata object is compatible only with 1.11+");
         }

@@ -69,7 +69,7 @@ public class V1_13_R2 extends V1_13_R1 {
                 return false;
             } else if (executor instanceof FieldExecutor) {
                 switch (key) {
-                    case "Entity:PufferFish:DataWatcher:PuffState":
+                    case "Entity:PufferFish:PuffState":
                         load(V1_13_R2.class, key, new FieldExecutor(getClassExec("Entity:PufferFish"), getClassExec("DataWatcherObject"), "a", "Gets the puffer fish's puff state DataWatcherObject"));
                         return false;
                     default:
@@ -198,8 +198,8 @@ public class V1_13_R2 extends V1_13_R1 {
             load(V1_13_R2.class, "Entity:Shulker", new Shulker.ShulkerClass("net.minecraft.server.v1_13_R2.EntityShulker"));
             load(V1_13_R2.class, "Entity:PolarBear", new PolarBear.PolarBearClass("net.minecraft.server.v1_13_R2.EntityPolarBear"));
 
-            load(V1_13_R2.class, "Entity:Ageable", new AgeableEntityLiving.AgeableLivingEntityClass("net.minecraft.server.v1_13_R2.EntityAgeable"));
-            load(V1_13_R2.class, "Entity:Tameable", new TameableEntityLiving.TameableLivingEntityClass("net.minecraft.server.v1_13_R2.EntityTameableAnimal"));
+            load(V1_13_R2.class, "Entity:Ageable", new AgeableEntityLiving.AgeableEntityLivingClass("net.minecraft.server.v1_13_R2.EntityAgeable"));
+            load(V1_13_R2.class, "Entity:Tameable", new TameableEntityLiving.TameableEntityLivingClass("net.minecraft.server.v1_13_R2.EntityTameableAnimal"));
             // EntityPlayer
             load(V1_13_R2.class, "GameProfile", new GameProfile.GameProfileClass("com.mojang.authlib.GameProfile"));
             load(V1_13_R2.class, "PropertyMap", new PropertyMap.PropertyMapClass("com.mojang.authlib.properties.PropertyMap"));
@@ -292,8 +292,8 @@ public class V1_13_R2 extends V1_13_R1 {
             load(V1_13_R2.class, "Entity:Fish", new Fish.FishClass("net.minecraft.server.v1_13_R2.EntityFish"));
             load(V1_13_R2.class, "Entity:Cod", new Cod.CodClass("net.minecraft.server.v1_13_R2.EntityCod"));
             load(V1_13_R2.class, "Entity:Salmon", new Salmon.SalmonClass("net.minecraft.server.v1_13_R2.EntitySalmon"));
-            load(V1_13_R2.class, "Entity:PufferFish", new PufferFish.PufferFishClass("net.minecraft.server.v1_13_R2.EntityPufferFish"));
-            load(V1_13_R2.class, "Entity:TropicalFish", new TropicalFish.TropicalFishClass("net.minecraft.server.v1_13_R2.EntityTropicalFish"));
+            load(V1_13_R2.class, "Entity:PufferFish", new Pufferfish.PufferfishClass("net.minecraft.server.v1_13_R2.EntityPufferFish"));
+            load(V1_13_R2.class, "Entity:TropicalFish", new Tropicalfish.TropicalfishClass("net.minecraft.server.v1_13_R2.EntityTropicalFish"));
             // Entity phantom
             load(V1_13_R2.class, "Entity:Phantom", new Phantom.PhantomClass("net.minecraft.server.v1_13_R2.EntityPhantom"));
             // Entity turtle

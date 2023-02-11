@@ -6,7 +6,6 @@ import codes.laivy.npc.mappings.defaults.classes.enums.HorseArmor;
 import codes.laivy.npc.types.AgeableEntityLivingNPC;
 import codes.laivy.npc.types.NPC;
 import codes.laivy.npc.types.commands.NPCConfiguration;
-import codes.laivy.npc.types.list.monster.SlimeNPC;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.ConfigurationSection;
@@ -91,9 +90,11 @@ public class HorseNPC extends AbstractHorseNPC {
 
                 StringBuilder builder = new StringBuilder();
                 int row = 0;
-                for (HorseArmor variant : HorseArmor.values()) {
+                for (HorseArmor armor : HorseArmor.values()) {
+                    if (!armor.isCompatible()) continue;
+
                     if (row != 0) builder.append("§7, ");
-                    builder.append("§f").append(variant.name());
+                    builder.append("§f").append(armor.name());
                     row++;
                 }
 

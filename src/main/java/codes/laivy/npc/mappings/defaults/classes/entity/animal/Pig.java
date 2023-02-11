@@ -25,7 +25,7 @@ public class Pig extends AgeableEntityLiving {
         return (PigClass) laivynpc().getVersion().getClassExec("Entity:Pig");
     }
 
-    public static class PigClass extends AgeableLivingEntityClass {
+    public static class PigClass extends AgeableEntityLivingClass {
         public PigClass(@NotNull String className) {
             super(className);
         }

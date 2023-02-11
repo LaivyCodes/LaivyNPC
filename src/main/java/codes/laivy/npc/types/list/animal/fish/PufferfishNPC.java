@@ -1,7 +1,7 @@
 package codes.laivy.npc.types.list.animal.fish;
 
 import codes.laivy.npc.mappings.defaults.classes.entity.animal.fish.Fish;
-import codes.laivy.npc.mappings.defaults.classes.entity.animal.fish.PufferFish;
+import codes.laivy.npc.mappings.defaults.classes.entity.animal.fish.Pufferfish;
 import codes.laivy.npc.types.EntityLivingNPC;
 import codes.laivy.npc.types.NPC;
 import codes.laivy.npc.types.commands.NPCConfiguration;
@@ -18,14 +18,14 @@ import java.util.Map;
 
 import static codes.laivy.npc.config.Translate.translate;
 
-public class PufferFishNPC extends FishNPC {
+public class PufferfishNPC extends FishNPC {
 
-    public static @NotNull PufferFishNPC fastInstance(@NotNull List<OfflinePlayer> players, @NotNull Location location, @NotNull Object object) {
-        return new PufferFishNPC(players, location);
+    public static @NotNull PufferfishNPC fastInstance(@NotNull List<OfflinePlayer> players, @NotNull Location location, @NotNull Object object) {
+        return new PufferfishNPC(players, location);
     }
 
     public static void debug(@NotNull Location location) {
-        PufferFishNPC pufferFishNPC = new PufferFishNPC(new ArrayList<>(), location);
+        PufferfishNPC pufferFishNPC = new PufferfishNPC(new ArrayList<>(), location);
         pufferFishNPC.debug();
         pufferFishNPC.destroy();
     }
@@ -36,7 +36,7 @@ public class PufferFishNPC extends FishNPC {
         setPuffState(getPuffState());
     }
 
-    public PufferFishNPC(@NotNull List<OfflinePlayer> players, @NotNull Location location) {
+    public PufferfishNPC(@NotNull List<OfflinePlayer> players, @NotNull Location location) {
         super(players, Fish.Type.PUFFERFISH, location);
     }
 
@@ -49,8 +49,8 @@ public class PufferFishNPC extends FishNPC {
     }
 
     @Override
-    public @NotNull PufferFish getEntity() {
-        return (PufferFish) super.getEntity();
+    public @NotNull Pufferfish getEntity() {
+        return (Pufferfish) super.getEntity();
     }
 
     @Override
@@ -60,7 +60,7 @@ public class PufferFishNPC extends FishNPC {
         list.add(new NPCConfiguration("puff", "/laivynpc config puff (size)") {
             @Override
             public void execute(@NotNull NPC npc, @NotNull Player sender, @NotNull String[] args) {
-                PufferFishNPC pufferFish = (PufferFishNPC) npc;
+                PufferfishNPC pufferFish = (PufferfishNPC) npc;
 
                 if (args.length > 0) {
                     int size;
@@ -93,8 +93,8 @@ public class PufferFishNPC extends FishNPC {
         return map;
     }
 
-    public static @NotNull PufferFishNPC deserialize(@NotNull ConfigurationSection section) {
-        PufferFishNPC npc = (PufferFishNPC) EntityLivingNPC.deserialize(section);
+    public static @NotNull PufferfishNPC deserialize(@NotNull ConfigurationSection section) {
+        PufferfishNPC npc = (PufferfishNPC) EntityLivingNPC.deserialize(section);
         npc.setPuffState(section.getConfigurationSection("TropicalFishNPC Configuration").getInt("Puff state"));
         return npc;
     }

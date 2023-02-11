@@ -33,7 +33,7 @@ public class Sheep extends AgeableEntityLiving {
         return (SheepClass) laivynpc().getVersion().getClassExec("Entity:Sheep");
     }
 
-    public static class SheepClass extends AgeableLivingEntityClass {
+    public static class SheepClass extends AgeableEntityLivingClass {
         public SheepClass(@NotNull String className) {
             super(className);
         }

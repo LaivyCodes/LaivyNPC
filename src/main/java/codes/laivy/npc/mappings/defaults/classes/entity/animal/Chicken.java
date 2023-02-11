@@ -16,7 +16,7 @@ public class Chicken extends AgeableEntityLiving {
         return (ChickenClass) laivynpc().getVersion().getClassExec("Entity:Chicken");
     }
 
-    public static class ChickenClass extends AgeableLivingEntityClass {
+    public static class ChickenClass extends AgeableEntityLivingClass {
         public ChickenClass(@NotNull String className) {
             super(className);
         }

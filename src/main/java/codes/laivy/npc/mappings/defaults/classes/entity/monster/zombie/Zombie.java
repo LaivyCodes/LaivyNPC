@@ -18,7 +18,7 @@ public class Zombie extends EntityLiving {
 
     public static @NotNull DataWatcherObject BABY_METADATA() {
         if (ReflectionUtils.isCompatible(V1_9_R1.class)) {
-            return new DataWatcherObject(laivynpc().getVersion().getFieldExec("Metadata:Zombie:DataWatcher:Baby").invokeStatic());
+            return new DataWatcherObject(laivynpc().getVersion().getFieldExec("Metadata:Zombie:Baby").invokeStatic());
         } else {
             throw new IllegalStateException("Metadata objects is compatible only at 1.9+");
         }

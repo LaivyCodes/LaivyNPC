@@ -14,7 +14,7 @@ public class Spider extends EntityLiving {
 
     public static @NotNull DataWatcherObject CLIMBING_METADATA() {
         if (ReflectionUtils.isCompatible(V1_9_R1.class)) {
-            return new DataWatcherObject(laivynpc().getVersion().getFieldExec("Metadata:Spider:DataWatcher:Climbing").invokeStatic());
+            return new DataWatcherObject(laivynpc().getVersion().getFieldExec("Metadata:Spider:Climbing").invokeStatic());
         } else {
             throw new IllegalStateException("Metadata objects is compatible only at 1.9+");
         }

@@ -2,12 +2,13 @@ package codes.laivy.npc.mappings;
 
 import codes.laivy.npc.mappings.defaults.classes.entity.animal.*;
 import codes.laivy.npc.mappings.defaults.classes.entity.animal.fish.Fish;
-import codes.laivy.npc.mappings.defaults.classes.entity.animal.fish.PufferFish;
-import codes.laivy.npc.mappings.defaults.classes.entity.animal.fish.TropicalFish;
+import codes.laivy.npc.mappings.defaults.classes.entity.animal.fish.Pufferfish;
+import codes.laivy.npc.mappings.defaults.classes.entity.animal.fish.Tropicalfish;
 import codes.laivy.npc.mappings.defaults.classes.entity.animal.horse.AbstractChestedHorse;
 import codes.laivy.npc.mappings.defaults.classes.entity.animal.horse.AbstractHorse;
 import codes.laivy.npc.mappings.defaults.classes.entity.animal.horse.Llama;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.illagers.IllagerWizard;
+import codes.laivy.npc.mappings.defaults.classes.entity.monster.zombie.ZombieVillager;
 import codes.laivy.npc.mappings.defaults.classes.enums.EnumSpellEnum;
 import codes.laivy.npc.mappings.defaults.classes.enums.HorseArmor;
 import codes.laivy.npc.mappings.instances.classes.ClassExecutor;
@@ -214,8 +215,8 @@ public abstract class Version implements VersionCompound, VersionPacket, Version
     public abstract @NotNull String getEntityCustomName(@NotNull Entity entity);
     public abstract void setEntityCustomName(@NotNull Entity entity, @NotNull String customName);
     // ENTITY CAT
-    public abstract @NotNull Ocelot.CatVariant getEntityCatVariant(@NotNull Ocelot ocelot);
-    public abstract void setEntityCatVariant(@NotNull Ocelot ocelot, @NotNull Ocelot.CatVariant variant);
+    public abstract @NotNull Cat.CatVariant getEntityCatVariant(@NotNull Cat cat);
+    public abstract void setEntityCatVariant(@NotNull Cat cat, @NotNull Cat.CatVariant variant);
     // ENTITY HORSE
     public abstract @NotNull Horse.Type getEntityAbstractHorseType(@NotNull AbstractHorse horse);
     public abstract void setEntityAbstractHorseType(@NotNull AbstractHorse horse, @NotNull Horse.Type type);
@@ -237,6 +238,13 @@ public abstract class Version implements VersionCompound, VersionPacket, Version
     // ENTITY VILLAGER
     public abstract @NotNull VillagerProfession getEntityVillagerProfession(@NotNull Villager villager);
     public abstract void setEntityVillagerProfession(@NotNull Villager villager, @NotNull VillagerProfession profession);
+    public abstract @NotNull Villager.Type getEntityVillagerType(@NotNull Villager villager);
+    public abstract void setEntityVillagerType(@NotNull Villager villager, @NotNull Villager.Type type);
+    // ENTITY ZOMBIE VILLAGER
+    public abstract @NotNull VillagerProfession getEntityZombieVillagerProfession(@NotNull ZombieVillager zombieVillager);
+    public abstract void setEntityZombieVillagerProfession(@NotNull ZombieVillager zombieVillager, @NotNull VillagerProfession profession);
+    public abstract @NotNull Villager.Type getEntityZombieVillagerType(@NotNull ZombieVillager zombieVillager);
+    public abstract void setEntityZombieVillagerType(@NotNull ZombieVillager zombieVillager, @NotNull Villager.Type type);
     // ENTITY ENDERMAN
     public abstract boolean isEntityEndermanScreaming(@NotNull Enderman enderman);
     public abstract void setEntityEndermanScreaming(@NotNull Enderman enderman, boolean screaming);
@@ -248,6 +256,8 @@ public abstract class Version implements VersionCompound, VersionPacket, Version
     // ENTITY CREEPER
     public abstract boolean isEntityCreeperIgnited(@NotNull Creeper creeper);
     public abstract void setEntityCreeperIgnited(@NotNull Creeper creeper, boolean ignited);
+    public abstract boolean isEntityCreeperPowered(@NotNull Creeper creeper);
+    public abstract void setEntityCreeperPowered(@NotNull Creeper creeper, boolean powered);
     // ENTITY GHAST
     public abstract boolean isEntityGhastAttacking(@NotNull Ghast ghast);
     public abstract void setEntityGhastAttacking(@NotNull Ghast ghast, boolean attacking);
@@ -285,17 +295,23 @@ public abstract class Version implements VersionCompound, VersionPacket, Version
     // ENTITY FISH
     public abstract @NotNull Fish.Type getEntityFishType(@NotNull Fish fish);
     // ENTITY PUFFERFISH
-    public abstract int getEntityPufferFishPuff(@NotNull PufferFish fish);
-    public abstract void setEntityPufferFishPuff(@NotNull PufferFish fish, int puff);
+    public abstract int getEntityPufferFishPuff(@NotNull Pufferfish fish);
+    public abstract void setEntityPufferFishPuff(@NotNull Pufferfish fish, int puff);
     // ENTITY TROPICALFISH
-    public abstract int getEntityTropicalFishVariant(@NotNull TropicalFish fish);
-    public abstract void setEntityTropicalFishVariant(@NotNull TropicalFish fish, int variant);
+    public abstract int getEntityTropicalFishVariant(@NotNull Tropicalfish fish);
+    public abstract void setEntityTropicalFishVariant(@NotNull Tropicalfish fish, int variant);
     // ENTITY PHANTOM
     public abstract int getEntityPhantomSize(@NotNull Phantom phantom);
     public abstract void setEntityPhantomSize(@NotNull Phantom phantom, int variant);
     // ENTITY TURTLE
     public abstract boolean hasEntityTurtleEgg(@NotNull Turtle turtle);
     public abstract void setEntityTurtleEgg(@NotNull Turtle turtle, boolean egg);
+    // ENTITY BLAZE
+    public abstract boolean isEntityBlazeCharging(@NotNull Blaze blaze);
+    public abstract void setEntityBlazeCharging(@NotNull Blaze blaze, boolean charging);
+    // ENTITY POLAR BEAR
+    public abstract boolean isEntityPolarBearStanding(@NotNull PolarBear bear);
+    public abstract void setEntityPolarBearStanding(@NotNull PolarBear bear, boolean standing);
     //
 
     // ENTITY PLAYER

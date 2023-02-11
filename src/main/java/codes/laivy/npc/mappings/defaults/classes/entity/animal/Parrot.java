@@ -24,7 +24,7 @@ public class Parrot extends TameableEntityLiving {
         return (ParrotClass) laivynpc().getVersion().getClassExec("Entity:Parrot");
     }
 
-    public static class ParrotClass extends TameableLivingEntityClass {
+    public static class ParrotClass extends TameableEntityLivingClass {
         public ParrotClass(@NotNull String className) {
             super(className);
         }

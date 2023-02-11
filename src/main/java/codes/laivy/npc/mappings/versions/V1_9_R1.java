@@ -2,6 +2,8 @@ package codes.laivy.npc.mappings.versions;
 
 import codes.laivy.npc.mappings.Version;
 import codes.laivy.npc.mappings.defaults.classes.entity.animal.horse.AbstractHorse;
+import codes.laivy.npc.mappings.defaults.classes.entity.monster.zombie.ZombieVillager;
+import codes.laivy.npc.mappings.defaults.classes.entity.npc.VillagerProfession;
 import codes.laivy.npc.mappings.defaults.classes.java.ByteObjExec;
 import codes.laivy.npc.mappings.instances.EnumExecutor;
 import codes.laivy.npc.mappings.instances.Executor;
@@ -65,12 +67,13 @@ public class V1_9_R1 extends V1_8_R3 {
         } else if (version == V1_8_R1.class) {
             if (executor instanceof MethodExecutor) {
                 switch (key) {
-                    case "Entity:Blaze:isCharging":
-                        load(V1_9_R1.class, key, new MethodExecutor(getClassExec("Entity:Blaze"), ClassExecutor.BOOLEAN, "isBurning", "Gets the charged state of the Blaze"));
-                        return false;
                     case "Entity:Zombie:setVillagerType":
                         load(V1_9_R1.class, key, new MethodExecutor(getClassExec("Entity:Zombie"), ClassExecutor.VOID, "setVillagerType", "Sets the villager type of a Zombie", ClassExecutor.INT));
                         return false;
+                    case "Entity:Creeper:isPowered":
+                    case "Entity:Creeper:setPowered":
+                    case "Entity:Blaze:isCharging":
+                    case "Entity:Blaze:setCharging":
                     case "Entity:Zombie:isBaby":
                     case "Entity:Zombie:setBaby":
                     case "Entity:Spider:isClimbing":
@@ -230,6 +233,10 @@ public class V1_9_R1 extends V1_8_R3 {
 
     @Override
     public void setEntityHorseArmor(@NotNull Horse horse, @NotNull HorseArmor armor) {
+        if (!armor.isCompatible()) {
+            throw new UnsupportedOperationException("This horse armor type isn't compatible with that version '" + armor.name() + "'");
+        }
+
         horse.getDataWatcher().set(Horse.ARMOR_METADATA(), new IntegerObjExec(armor.getData()));
     }
     @Override
@@ -253,10 +260,19 @@ public class V1_9_R1 extends V1_8_R3 {
         //noinspection DataFlowIssue
         return (boolean) zombie.getDataWatcher().get(Zombie.BABY_METADATA());
     }
-
     @Override
     public void setEntityZombieBaby(@NotNull Zombie zombie, boolean baby) {
         zombie.getDataWatcher().set(Zombie.BABY_METADATA(), new BooleanObjExec(baby));
+    }
+
+    @Override
+    public boolean isEntityBlazeCharging(@NotNull Blaze blaze) {
+        //noinspection DataFlowIssue
+        return ((byte) blaze.getDataWatcher().get(Blaze.CHARGING_METADATA())) == 1;
+    }
+    @Override
+    public void setEntityBlazeCharging(@NotNull Blaze blaze, boolean charging) {
+        blaze.getDataWatcher().set(Blaze.CHARGING_METADATA(), new ByteObjExec((byte) (charging ? 1 : 0)));
     }
 
     @Override
@@ -348,8 +364,8 @@ public class V1_9_R1 extends V1_8_R3 {
             load(V1_9_R1.class, "Entity:Villager", new Villager.VillagerClass("net.minecraft.server.v1_9_R1.EntityVillager"));
             load(V1_9_R1.class, "Entity:Shulker", new Shulker.ShulkerClass("net.minecraft.server.v1_9_R1.EntityShulker"));
 
-            load(V1_9_R1.class, "Entity:Ageable", new AgeableEntityLiving.AgeableLivingEntityClass("net.minecraft.server.v1_9_R1.EntityAgeable"));
-            load(V1_9_R1.class, "Entity:Tameable", new TameableEntityLiving.TameableLivingEntityClass("net.minecraft.server.v1_9_R1.EntityTameableAnimal"));
+            load(V1_9_R1.class, "Entity:Ageable", new AgeableEntityLiving.AgeableEntityLivingClass("net.minecraft.server.v1_9_R1.EntityAgeable"));
+            load(V1_9_R1.class, "Entity:Tameable", new TameableEntityLiving.TameableEntityLivingClass("net.minecraft.server.v1_9_R1.EntityTameableAnimal"));
             // EntityPlayer
             load(V1_9_R1.class, "GameProfile", new GameProfile.GameProfileClass("com.mojang.authlib.GameProfile"));
             load(V1_9_R1.class, "PropertyMap", new PropertyMap.PropertyMapClass("com.mojang.authlib.properties.PropertyMap"));
@@ -442,19 +458,45 @@ public class V1_9_R1 extends V1_8_R3 {
     }
 
     @Override
+    public boolean isEntityCreeperPowered(@NotNull Creeper creeper) {
+        //noinspection DataFlowIssue
+        return (boolean) creeper.getDataWatcher().get(Creeper.POWERED_METADATA());
+    }
+
+    @Override
+    public void setEntityCreeperPowered(@NotNull Creeper creeper, boolean powered) {
+        creeper.getDataWatcher().set(Creeper.POWERED_METADATA(), new BooleanObjExec(powered));
+    }
+
+    @Override
+    public @NotNull VillagerProfession getEntityZombieVillagerProfession(@NotNull ZombieVillager zombieVillager) {
+        DataWatcherObject object = new DataWatcherObject(getFieldExec("Metadata:Zombie:Villager:Profession").invokeStatic());
+        //noinspection DataFlowIssue
+        return new VillagerProfession(VillagerProfession.Type.getById((int) zombieVillager.getDataWatcher().get(object)), 1);
+    }
+    @Override
+    public void setEntityZombieVillagerProfession(@NotNull ZombieVillager zombieVillager, @NotNull VillagerProfession profession) {
+        DataWatcherObject object = new DataWatcherObject(getFieldExec("Metadata:Zombie:Villager:Profession").invokeStatic());
+        zombieVillager.getDataWatcher().set(object, new IntegerObjExec(profession.getType().getId()));
+    }
+
+    @Override
     public @NotNull Map<String, FieldExecutor> getFields() {
-        if (!super.getFields().containsKey("Entity:Enderman:DataWatcher:screaming")) {
-            load(V1_9_R1.class, "Entity:Enderman:DataWatcher:screaming", new FieldExecutor(getClassExec("Entity:Enderman"), getClassExec("DataWatcherObject"), "bw", "Gets the enderman's screaming DataWatcher's object"));
+        if (!super.getFields().containsKey("Metadata:Enderman:screaming")) {
+            load(V1_9_R1.class, "Metadata:Enderman:screaming", new FieldExecutor(getClassExec("Entity:Enderman"), getClassExec("DataWatcherObject"), "bw", "Gets the enderman's screaming DataWatcher's object"));
 
-            load(V1_9_R1.class, "Entity:Shulker:DataWatcherObject:Direction", new FieldExecutor(getClassExec("Entity:Shulker"), getClassExec("DataWatcherObject"), "a", "Get shulker's direction DataWatcher's object"));
-            load(V1_9_R1.class, "Entity:Shulker:DataWatcherObject:Peek", new FieldExecutor(getClassExec("Entity:Shulker"), getClassExec("DataWatcherObject"), "c", "Get shulker's color DataWatcher's object"));
+            load(V1_9_R1.class, "Metadata:Shulker:Direction", new FieldExecutor(getClassExec("Entity:Shulker"), getClassExec("DataWatcherObject"), "a", "Get shulker's direction DataWatcher's object"));
+            load(V1_9_R1.class, "Metadata:Shulker:Peek", new FieldExecutor(getClassExec("Entity:Shulker"), getClassExec("DataWatcherObject"), "c", "Get shulker's peek DataWatcher's object"));
 
-            load(V1_9_R1.class, "Metadata:Ghast:DataWatcher:Attacking", new FieldExecutor(getClassExec("Entity:Ghast"), getClassExec("DataWatcherObject"), "a", "Gets the ghast attacking DataWatcherObject"));
-            load(V1_9_R1.class, "Metadata:Guardian:DataWatcher:Target", new FieldExecutor(getClassExec("Entity:Guardian"), getClassExec("DataWatcherObject"), "b", "Gets the Guardian target DataWatcherObject"));
-            load(V1_9_R1.class, "Metadata:Creeper:DataWatcher:Ignited", new FieldExecutor(getClassExec("Entity:Creeper"), getClassExec("DataWatcherObject"), "c", "Gets the Creeper ignited DataWatcherObject"));
-            load(V1_9_R1.class, "Metadata:Horse:DataWatcher:Armor", new FieldExecutor(getClassExec("Entity:Horse"), getClassExec("DataWatcherObject"), "bI", "Gets the horse armor DataWatcherObject"));
-            load(V1_9_R1.class, "Metadata:Spider:DataWatcher:Climbing", new FieldExecutor(getClassExec("Entity:Spider"), getClassExec("DataWatcherObject"), "a", "Gets the spider climbing DataWatcherObject"));
-            load(V1_9_R1.class, "Metadata:Zombie:DataWatcher:Baby", new FieldExecutor(getClassExec("Entity:Zombie"), getClassExec("DataWatcherObject"), "bv", "Gets the zombie baby DataWatcherObject"));
+            load(V1_9_R1.class, "Metadata:Ghast:Attacking", new FieldExecutor(getClassExec("Entity:Ghast"), getClassExec("DataWatcherObject"), "a", "Gets the ghast attacking DataWatcherObject"));
+            load(V1_9_R1.class, "Metadata:Guardian:Target", new FieldExecutor(getClassExec("Entity:Guardian"), getClassExec("DataWatcherObject"), "b", "Gets the guardian target DataWatcherObject"));
+            load(V1_9_R1.class, "Metadata:Creeper:Ignited", new FieldExecutor(getClassExec("Entity:Creeper"), getClassExec("DataWatcherObject"), "c", "Gets the creeper ignited DataWatcherObject"));
+            load(V1_9_R1.class, "Metadata:Creeper:Powered", new FieldExecutor(getClassExec("Entity:Creeper"), getClassExec("DataWatcherObject"), "b", "Gets the creeper powered DataWatcherObject"));
+            load(V1_9_R1.class, "Metadata:Horse:Armor", new FieldExecutor(getClassExec("Entity:Horse"), getClassExec("DataWatcherObject"), "bI", "Gets the horse armor DataWatcherObject"));
+            load(V1_9_R1.class, "Metadata:Spider:Climbing", new FieldExecutor(getClassExec("Entity:Spider"), getClassExec("DataWatcherObject"), "a", "Gets the spider climbing DataWatcherObject"));
+            load(V1_9_R1.class, "Metadata:Zombie:Baby", new FieldExecutor(getClassExec("Entity:Zombie"), getClassExec("DataWatcherObject"), "bv", "Gets the zombie baby DataWatcherObject"));
+            load(V1_9_R1.class, "Metadata:Blaze:Charging", new FieldExecutor(getClassExec("Entity:Blaze"), getClassExec("DataWatcherObject"), "c", "Gets the blaze charging DataWatcherObject"));
+            load(V1_9_R1.class, "Metadata:Zombie:Villager:Profession", new FieldExecutor(getClassExec("Entity:Zombie"), getClassExec("DataWatcherObject"), "bw", "Gets the zombie villager profession DataWatcherObject"));
         }
 
         return super.getFields();

@@ -86,14 +86,20 @@ public class V1_11_R1 extends V1_10_R1 {
                 }
             } else if (executor instanceof FieldExecutor) {
                 switch (key) {
-                    case "Entity:Enderman:DataWatcher:screaming":
+                    case "Metadata:Enderman:screaming":
                         load(V1_11_R1.class, key, new FieldExecutor(getClassExec("Entity:Enderman"), getClassExec("DataWatcherObject"), "bx", "Gets the enderman's screaming datawatcher object"));
                         return false;
-                    case "Metadata:Horse:DataWatcher:Armor":
+                    case "Metadata:Horse:Armor":
                         load(V1_11_R1.class, key, new FieldExecutor(getClassExec("Entity:Horse"), getClassExec("DataWatcherObject"), "bI", "Gets the horse armor DataWatcherObject"));
                         return false;
-                    case "Metadata:Zombie:DataWatcher:Baby":
+                    case "Metadata:Zombie:Baby":
                         load(V1_11_R1.class, key, new FieldExecutor(getClassExec("Entity:Zombie"), getClassExec("DataWatcherObject"), "bw", "Gets the zombie baby DataWatcherObject"));
+                        return false;
+                    case "Metadata:PolarBear:Standing":
+                        load(V1_11_R1.class, key, new FieldExecutor(getClassExec("Entity:PolarBear"), getClassExec("DataWatcherObject"), "bw", "Gets the polar bear's standing DataWatcherObject"));
+                        return false;
+                    case "Metadata:Zombie:Villager:Profession":
+                        load(V1_11_R1.class, key, new FieldExecutor(getClassExec("Entity:Zombie:Villager"), getClassExec("DataWatcherObject"), "c", "Gets the zombie villager profession DataWatcherObject"));
                         return false;
                     default:
                         break;
@@ -141,7 +147,7 @@ public class V1_11_R1 extends V1_10_R1 {
                 }
             } else if (executor instanceof FieldExecutor) {
                 switch (key) {
-                    case "Metadata:Guardian:DataWatcher:Target":
+                    case "Metadata:Guardian:Target":
                         load(V1_11_R1.class, key, new FieldExecutor(getClassExec("Entity:Guardian"), getClassExec("DataWatcherObject"), "bA", "Gets the Guardian target DataWatcherObject"));
                         return false;
                     default:
@@ -206,20 +212,16 @@ public class V1_11_R1 extends V1_10_R1 {
 
     @Override
     public void setEntityWizardSpell(@NotNull IllagerWizard wizard, EnumSpellEnum.@NotNull Spell spell) {
-        DataWatcherObject metadata = new DataWatcherObject(getFieldExec("Entity:IllagerWizard:DataWatcher:Spell").invokeStatic());
-
         if (wizard instanceof Evoker) {
-            wizard.getDataWatcher().set(metadata, new ByteObjExec((byte) spell.getValue()));
+            wizard.getDataWatcher().set(IllagerWizard.SPELL_METADATA(), new ByteObjExec((byte) spell.getValue()));
         } else {
             throw new UnsupportedOperationException("This version (1.11) only supports Evokers as wizards");
         }
     }
     @Override
     public @NotNull EnumSpellEnum.Spell getEntityWizardSpell(@NotNull IllagerWizard wizard) {
-        DataWatcherObject metadata = new DataWatcherObject(getFieldExec("Entity:IllagerWizard:DataWatcher:Spell").invokeStatic());
-
         if (wizard instanceof Evoker) {
-            return EnumSpellEnum.Spell.getByValue(((Byte) Objects.requireNonNull(wizard.getDataWatcher().get(metadata))).intValue());
+            return EnumSpellEnum.Spell.getByValue(((Byte) Objects.requireNonNull(wizard.getDataWatcher().get(IllagerWizard.SPELL_METADATA()))).intValue());
         } else {
             throw new UnsupportedOperationException("This version (1.11) only supports Evokers as wizards");
         }
@@ -284,12 +286,12 @@ public class V1_11_R1 extends V1_10_R1 {
 
     @Override
     public @NotNull EnumColorEnum.EnumColor getEntityShulkerColor(@NotNull Shulker shulker) {
-        DataWatcherObject metadata = new DataWatcherObject(getFieldExec("Entity:Shulker:DataWatcher:Color").invokeStatic());
+        DataWatcherObject metadata = new DataWatcherObject(getFieldExec("Metadata:Shulker:Color").invokeStatic());
         return EnumColorEnum.fromColorIndex(((Byte) Objects.requireNonNull(shulker.getDataWatcher().get(metadata))).intValue());
     }
     @Override
     public void setEntityShulkerColor(@NotNull Shulker shulker, EnumColorEnum.@NotNull EnumColor variant) {
-        DataWatcherObject metadata = new DataWatcherObject(getFieldExec("Entity:Shulker:DataWatcher:Color").invokeStatic());
+        DataWatcherObject metadata = new DataWatcherObject(getFieldExec("Metadata:Shulker:Color").invokeStatic());
         shulker.getDataWatcher().set(metadata, new ByteObjExec((byte) variant.getColorIndex()));
     }
 
@@ -386,8 +388,8 @@ public class V1_11_R1 extends V1_10_R1 {
             load(V1_11_R1.class, "Entity:Shulker", new Shulker.ShulkerClass("net.minecraft.server.v1_11_R1.EntityShulker"));
             load(V1_11_R1.class, "Entity:PolarBear", new PolarBear.PolarBearClass("net.minecraft.server.v1_11_R1.EntityPolarBear"));
 
-            load(V1_11_R1.class, "Entity:Ageable", new AgeableEntityLiving.AgeableLivingEntityClass("net.minecraft.server.v1_11_R1.EntityAgeable"));
-            load(V1_11_R1.class, "Entity:Tameable", new TameableEntityLiving.TameableLivingEntityClass("net.minecraft.server.v1_11_R1.EntityTameableAnimal"));
+            load(V1_11_R1.class, "Entity:Ageable", new AgeableEntityLiving.AgeableEntityLivingClass("net.minecraft.server.v1_11_R1.EntityAgeable"));
+            load(V1_11_R1.class, "Entity:Tameable", new TameableEntityLiving.TameableEntityLivingClass("net.minecraft.server.v1_11_R1.EntityTameableAnimal"));
             // EntityPlayer
             load(V1_11_R1.class, "GameProfile", new GameProfile.GameProfileClass("com.mojang.authlib.GameProfile"));
             load(V1_11_R1.class, "PropertyMap", new PropertyMap.PropertyMapClass("com.mojang.authlib.properties.PropertyMap"));
@@ -509,11 +511,11 @@ public class V1_11_R1 extends V1_10_R1 {
 
     @Override
     public @NotNull Map<String, FieldExecutor> getFields() {
-        if (!super.getFields().containsKey("Entity:IllagerWizard:DataWatcher:Spell")) {
-            load(V1_11_R1.class, "Entity:IllagerWizard:DataWatcher:Spell", new FieldExecutor(getClassExec("Entity:Evoker"), getClassExec("DataWatcherObject"), "a", "Gets the illager illusioner's spell DataWatcherObject"));
-            load(V1_11_R1.class, "Entity:Shulker:DataWatcher:Color", new FieldExecutor(getClassExec("Entity:Shulker"), getClassExec("DataWatcherObject"), "bw", "Gets the shulker's color DataWatcherObject"));
-            load(V1_11_R1.class, "Entity:Llama:DataWatcher:CarpetColor", new FieldExecutor(getClassExec("Entity:Llama"), getClassExec("DataWatcherObject"), "bH", "Gets the llama's carpet color DataWatcherObject"));
-            load(V1_11_R1.class, "Entity:Llama:DataWatcher:Variant", new FieldExecutor(getClassExec("Entity:Llama"), getClassExec("DataWatcherObject"), "bI", "Gets the llama's variant DataWatcherObject"));
+        if (!super.getFields().containsKey("Metadata:IllagerWizard:Spell")) {
+            load(V1_11_R1.class, "Metadata:IllagerWizard:Spell", new FieldExecutor(getClassExec("Entity:Evoker"), getClassExec("DataWatcherObject"), "a", "Gets the illager illusioner's spell DataWatcherObject"));
+            load(V1_11_R1.class, "Metadata:Shulker:Color", new FieldExecutor(getClassExec("Entity:Shulker"), getClassExec("DataWatcherObject"), "bw", "Gets the shulker's color DataWatcherObject"));
+            load(V1_11_R1.class, "Metadata:Llama:CarpetColor", new FieldExecutor(getClassExec("Entity:Llama"), getClassExec("DataWatcherObject"), "bH", "Gets the llama's carpet color DataWatcherObject"));
+            load(V1_11_R1.class, "Metadata:Llama:Variant", new FieldExecutor(getClassExec("Entity:Llama"), getClassExec("DataWatcherObject"), "bI", "Gets the llama's variant DataWatcherObject"));
         }
 
         return super.getFields();

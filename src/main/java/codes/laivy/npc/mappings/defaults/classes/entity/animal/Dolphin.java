@@ -14,7 +14,7 @@ public class Dolphin extends EntityLiving {
 
     public static @NotNull DataWatcherObject FISH_METADATA() {
         if (ReflectionUtils.isCompatible(V1_13_R1.class)) {
-            return new DataWatcherObject(laivynpc().getVersion().getFieldExec("Entity:Dolphin:DataWatcher:hasFish").invokeStatic());
+            return new DataWatcherObject(laivynpc().getVersion().getFieldExec("Entity:Dolphin:hasFish").invokeStatic());
         } else {
             throw new IllegalStateException("This metadata object is compatible only with 1.13+");
         }

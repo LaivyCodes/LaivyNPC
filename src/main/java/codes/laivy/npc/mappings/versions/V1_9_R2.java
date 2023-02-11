@@ -64,17 +64,21 @@ public class V1_9_R2 extends V1_9_R1 {
                         return false;
                     default:
                         break;
+
                 }
             } else if (executor instanceof FieldExecutor) {
                 switch (key) {
-                    case "Entity:Enderman:DataWatcher:screaming":
+                    case "Metadata:Enderman:screaming":
                         load(V1_9_R2.class, key, new FieldExecutor(getClassExec("Entity:Enderman"), getClassExec("DataWatcherObject"), "bx", "Gets the enderman's screaming datawatcher object"));
                         return false;
-                    case "Metadata:Horse:DataWatcher:Armor":
+                    case "Metadata:Horse:Armor":
                         load(V1_9_R2.class, key, new FieldExecutor(getClassExec("Entity:Horse"), getClassExec("DataWatcherObject"), "bJ", "Gets the horse armor DataWatcherObject"));
                         return false;
-                    case "Metadata:Zombie:DataWatcher:Baby":
+                    case "Metadata:Zombie:Baby":
                         load(V1_9_R2.class, key, new FieldExecutor(getClassExec("Entity:Zombie"), getClassExec("DataWatcherObject"), "bw", "Gets the zombie baby DataWatcherObject"));
+                        return false;
+                    case "Metadata:Zombie:Villager:Profession":
+                        load(V1_9_R2.class, key, new FieldExecutor(getClassExec("Entity:Zombie"), getClassExec("DataWatcherObject"), "bx", "Gets the zombie villager profession DataWatcherObject"));
                         return false;
                     default:
                         break;
@@ -174,8 +178,8 @@ public class V1_9_R2 extends V1_9_R1 {
             load(V1_9_R2.class, "Entity:Villager", new Villager.VillagerClass("net.minecraft.server.v1_9_R2.EntityVillager"));
             load(V1_9_R2.class, "Entity:Shulker", new Shulker.ShulkerClass("net.minecraft.server.v1_9_R2.EntityShulker"));
 
-            load(V1_9_R2.class, "Entity:Ageable", new AgeableEntityLiving.AgeableLivingEntityClass("net.minecraft.server.v1_9_R2.EntityAgeable"));
-            load(V1_9_R2.class, "Entity:Tameable", new TameableEntityLiving.TameableLivingEntityClass("net.minecraft.server.v1_9_R2.EntityTameableAnimal"));
+            load(V1_9_R2.class, "Entity:Ageable", new AgeableEntityLiving.AgeableEntityLivingClass("net.minecraft.server.v1_9_R2.EntityAgeable"));
+            load(V1_9_R2.class, "Entity:Tameable", new TameableEntityLiving.TameableEntityLivingClass("net.minecraft.server.v1_9_R2.EntityTameableAnimal"));
             // EntityPlayer
             load(V1_9_R2.class, "GameProfile", new GameProfile.GameProfileClass("com.mojang.authlib.GameProfile"));
             load(V1_9_R2.class, "PropertyMap", new PropertyMap.PropertyMapClass("com.mojang.authlib.properties.PropertyMap"));

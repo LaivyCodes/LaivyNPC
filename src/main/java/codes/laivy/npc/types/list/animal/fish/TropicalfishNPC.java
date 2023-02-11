@@ -1,7 +1,7 @@
 package codes.laivy.npc.types.list.animal.fish;
 
 import codes.laivy.npc.mappings.defaults.classes.entity.animal.fish.Fish;
-import codes.laivy.npc.mappings.defaults.classes.entity.animal.fish.TropicalFish;
+import codes.laivy.npc.mappings.defaults.classes.entity.animal.fish.Tropicalfish;
 import codes.laivy.npc.types.EntityLivingNPC;
 import codes.laivy.npc.types.NPC;
 import codes.laivy.npc.types.commands.NPCConfiguration;
@@ -18,14 +18,14 @@ import java.util.Map;
 
 import static codes.laivy.npc.config.Translate.translate;
 
-public class TropicalFishNPC extends FishNPC {
+public class TropicalfishNPC extends FishNPC {
 
-    public static @NotNull TropicalFishNPC fastInstance(@NotNull List<OfflinePlayer> players, @NotNull Location location, @NotNull Object object) {
-        return new TropicalFishNPC(players, location);
+    public static @NotNull TropicalfishNPC fastInstance(@NotNull List<OfflinePlayer> players, @NotNull Location location, @NotNull Object object) {
+        return new TropicalfishNPC(players, location);
     }
 
     public static void debug(@NotNull Location location) {
-        TropicalFishNPC tropicalFishNPC = new TropicalFishNPC(new ArrayList<>(), location);
+        TropicalfishNPC tropicalFishNPC = new TropicalfishNPC(new ArrayList<>(), location);
         tropicalFishNPC.debug();
         tropicalFishNPC.destroy();
     }
@@ -36,7 +36,7 @@ public class TropicalFishNPC extends FishNPC {
         setVariant(getVariant());
     }
 
-    public TropicalFishNPC(@NotNull List<OfflinePlayer> players, @NotNull Location location) {
+    public TropicalfishNPC(@NotNull List<OfflinePlayer> players, @NotNull Location location) {
         super(players, Fish.Type.TROPICALFISH, location);
     }
 
@@ -49,8 +49,8 @@ public class TropicalFishNPC extends FishNPC {
     }
 
     @Override
-    public @NotNull TropicalFish getEntity() {
-        return (TropicalFish) super.getEntity();
+    public @NotNull Tropicalfish getEntity() {
+        return (Tropicalfish) super.getEntity();
     }
 
     @Override
@@ -60,7 +60,7 @@ public class TropicalFishNPC extends FishNPC {
         list.add(new NPCConfiguration("variant", "/laivynpc config variant (variant)") {
             @Override
             public void execute(@NotNull NPC npc, @NotNull Player sender, @NotNull String[] args) {
-                TropicalFishNPC tropicalFishNPC = (TropicalFishNPC) npc;
+                TropicalfishNPC tropicalFishNPC = (TropicalfishNPC) npc;
 
                 if (args.length > 0) {
                     int variant;
@@ -93,8 +93,8 @@ public class TropicalFishNPC extends FishNPC {
         return map;
     }
 
-    public static @NotNull TropicalFishNPC deserialize(@NotNull ConfigurationSection section) {
-        TropicalFishNPC npc = (TropicalFishNPC) EntityLivingNPC.deserialize(section);
+    public static @NotNull TropicalfishNPC deserialize(@NotNull ConfigurationSection section) {
+        TropicalfishNPC npc = (TropicalfishNPC) EntityLivingNPC.deserialize(section);
         npc.setVariant(section.getConfigurationSection("TropicalFishNPC Configuration").getInt("Variant"));
         return npc;
     }

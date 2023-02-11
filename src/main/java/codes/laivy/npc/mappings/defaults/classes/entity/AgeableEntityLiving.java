@@ -21,12 +21,12 @@ public class AgeableEntityLiving extends EntityLiving {
     }
 
     @Override
-    public @NotNull AgeableLivingEntityClass getClassExecutor() {
-        return (AgeableLivingEntityClass) laivynpc().getVersion().getClassExec("Entity:Ageable");
+    public @NotNull AgeableEntityLiving.AgeableEntityLivingClass getClassExecutor() {
+        return (AgeableEntityLivingClass) laivynpc().getVersion().getClassExec("Entity:Ageable");
     }
 
-    public static class AgeableLivingEntityClass extends EntityLivingClass {
-        public AgeableLivingEntityClass(@NotNull String className) {
+    public static class AgeableEntityLivingClass extends EntityLivingClass {
+        public AgeableEntityLivingClass(@NotNull String className) {
             super(className);
         }
     }

@@ -16,8 +16,8 @@ import static codes.laivy.npc.LaivyNPC.laivynpc;
 
 public class Shulker extends EntityLiving {
 
-    public static final DataWatcherObject DIRECTION_WATCHER_OBJECT = new DataWatcherObject(laivynpc().getVersion().getFieldExec("Entity:Shulker:DataWatcherObject:Direction").invokeStatic());
-    public static final DataWatcherObject PEEK_WATCHER_OBJECT = new DataWatcherObject(laivynpc().getVersion().getFieldExec("Entity:Shulker:DataWatcherObject:Peek").invokeStatic());
+    public static final DataWatcherObject DIRECTION_WATCHER_OBJECT = new DataWatcherObject(laivynpc().getVersion().getFieldExec("Metadata:Shulker:Direction").invokeStatic());
+    public static final DataWatcherObject PEEK_WATCHER_OBJECT = new DataWatcherObject(laivynpc().getVersion().getFieldExec("Metadata:Shulker:Peek").invokeStatic());
 
     public Shulker(@Nullable Object value) {
         super(value);

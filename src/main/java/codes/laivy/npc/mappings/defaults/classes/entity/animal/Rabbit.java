@@ -23,7 +23,7 @@ public class Rabbit extends AgeableEntityLiving {
         return (RabbitClass) laivynpc().getVersion().getClassExec("Entity:Rabbit");
     }
 
-    public static class RabbitClass extends AgeableLivingEntityClass {
+    public static class RabbitClass extends AgeableEntityLivingClass {
         public RabbitClass(@NotNull String className) {
             super(className);
         }
