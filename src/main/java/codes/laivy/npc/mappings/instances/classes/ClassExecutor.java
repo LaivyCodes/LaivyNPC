@@ -7,6 +7,7 @@ import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Collection;
@@ -144,6 +145,18 @@ public class ClassExecutor implements Executor {
             return byte[].class;
         }
     };
+    public static final ClassExecutor SHORT = new ClassExecutor(short.class) {
+        @Override
+        public @NotNull Class<Short> getReflectionClass() {
+            return short.class;
+        }
+    };
+    public static final ClassExecutor LONG = new ClassExecutor(long.class) {
+        @Override
+        public @NotNull Class<Long> getReflectionClass() {
+            return long.class;
+        }
+    };
 
     public static Class<?>[] toClassArray(ClassExecutor[] classExecutors) {
         Class<?>[] classes = new Class[classExecutors.length];
@@ -199,9 +212,19 @@ public class ClassExecutor implements Executor {
     @NotNull
     public ClassConstructor getConstructor(@NotNull ClassExecutor... parameters) {
         try {
-            return new ClassConstructor(getReflectionClass().getConstructor(toClassArray(parameters)));
-        } catch (NoSuchMethodException e) {
-            throw new RuntimeException("Getting the constructor's instance", e);
+            Constructor<?> constructor = getReflectionClass().getConstructor(toClassArray(parameters));
+            constructor.setAccessible(true);
+
+            return new ClassConstructor(constructor);
+        } catch (NoSuchMethodException ignore) {
+            try {
+                Constructor<?> constructor = getReflectionClass().getDeclaredConstructor(toClassArray(parameters));
+                constructor.setAccessible(true);
+
+                return new ClassConstructor(constructor);
+            } catch (NoSuchMethodException e) {
+                throw new RuntimeException("Getting the constructor's instance", e);
+            }
         }
     }
 

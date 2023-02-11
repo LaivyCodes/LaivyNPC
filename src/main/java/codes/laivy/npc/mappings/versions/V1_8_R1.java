@@ -10,6 +10,7 @@ import codes.laivy.npc.mappings.defaults.classes.entity.monster.skeleton.Skeleto
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.zombie.ZombieVillager;
 import codes.laivy.npc.mappings.defaults.classes.entity.vehicle.Boat;
 import codes.laivy.npc.mappings.instances.*;
+import codes.laivy.npc.mappings.instances.classes.ClassConstructor;
 import codes.laivy.npc.mappings.instances.classes.ClassExecutor;
 import codes.laivy.npc.mappings.defaults.VersionCompound;
 import codes.laivy.npc.mappings.defaults.classes.datawatcher.VersionedDataWatcherObject;
@@ -651,7 +652,6 @@ public class V1_8_R1 extends Version {
     }
 
     @Override
-    @SuppressWarnings("RedundantCast")
     public @NotNull NBTBase nbtTag(@NotNull NBTTag tag, @NotNull Object... objects) {
         try {
             Object object;
@@ -661,47 +661,47 @@ public class V1_8_R1 extends Version {
                 object = objects[0];
 
                 if (tag == NBTTag.BYTE) {
-                    if (!ClassUtils.isInstanceOf(getClassExec("NBTBase:NBTTagByte").getReflectionClass(), objects[0].getClass())) {
+                    if (!getClassExec("NBTBase:NBTTagByte").isReflectiveInstance(objects[0])) {
                         constructor = NBTTagByte.class.getDeclaredConstructor(Object.class);
                     }
                 } else if (tag == NBTTag.BYTE_ARRAY) {
-                    if (!ClassUtils.isInstanceOf(getClassExec("NBTBase:NBTTagByteArray").getReflectionClass(), objects[0].getClass())) {
+                    if (!getClassExec("NBTBase:NBTTagByteArray").isReflectiveInstance(objects[0])) {
                         constructor = NBTTagByteArray.class.getDeclaredConstructor(Object.class);
                     }
                 } else if (tag == NBTTag.COMPOUND) {
-                    if (!ClassUtils.isInstanceOf(getClassExec("NBTBase:NBTTagCompound").getReflectionClass(), objects[0].getClass())) {
+                    if (!getClassExec("NBTBase:NBTTagCompound").isReflectiveInstance(objects[0])) {
                         constructor = NBTTagCompound.class.getDeclaredConstructor(Object.class);
                     }
                 } else if (tag == NBTTag.DOUBLE) {
-                    if (!ClassUtils.isInstanceOf(getClassExec("NBTBase:NBTTagDouble").getReflectionClass(), objects[0].getClass())) {
+                    if (!getClassExec("NBTBase:NBTTagDouble").isReflectiveInstance(objects[0])) {
                         constructor = NBTTagDouble.class.getDeclaredConstructor(Object.class);
                     }
                 } else if (tag == NBTTag.FLOAT) {
-                    if (!ClassUtils.isInstanceOf(getClassExec("NBTBase:NBTTagFloat").getReflectionClass(), objects[0].getClass())) {
+                    if (!getClassExec("NBTBase:NBTTagFloat").isReflectiveInstance(objects[0])) {
                         constructor = NBTTagFloat.class.getDeclaredConstructor(Object.class);
                     }
                 } else if (tag == NBTTag.INT) {
-                    if (!ClassUtils.isInstanceOf(getClassExec("NBTBase:NBTTagInt").getReflectionClass(), objects[0].getClass())) {
+                    if (!getClassExec("NBTBase:NBTTagInt").isReflectiveInstance(objects[0])) {
                         constructor = NBTTagInt.class.getDeclaredConstructor(Object.class);
                     }
                 } else if (tag == NBTTag.INT_ARRAY) {
-                    if (!ClassUtils.isInstanceOf(getClassExec("NBTBase:NBTTagIntArray").getReflectionClass(), objects[0].getClass())) {
+                    if (!getClassExec("NBTBase:NBTTagIntArray").isReflectiveInstance(objects[0])) {
                         constructor = NBTTagIntArray.class.getDeclaredConstructor(Object.class);
                     }
                 } else if (tag == NBTTag.LIST) {
-                    if (!ClassUtils.isInstanceOf(getClassExec("NBTBase:NBTTagList").getReflectionClass(), objects[0].getClass())) {
+                    if (!getClassExec("NBTBase:NBTTagList").isReflectiveInstance(objects[0])) {
                         constructor = NBTTagList.class.getDeclaredConstructor(Object.class);
                     }
                 } else if (tag == NBTTag.LONG) {
-                    if (!ClassUtils.isInstanceOf(getClassExec("NBTBase:NBTTagLong").getReflectionClass(), objects[0].getClass())) {
+                    if (!getClassExec("NBTBase:NBTTagLong").isReflectiveInstance(objects[0])) {
                         constructor = NBTTagLong.class.getDeclaredConstructor(Object.class);
                     }
                 } else if (tag == NBTTag.SHORT) {
-                    if (!ClassUtils.isInstanceOf(getClassExec("NBTBase:NBTTagShort").getReflectionClass(), objects[0].getClass())) {
+                    if (!getClassExec("NBTBase:NBTTagShort").isReflectiveInstance(objects[0])) {
                         constructor = NBTTagShort.class.getDeclaredConstructor(Object.class);
                     }
                 } else if (tag == NBTTag.STRING) {
-                    if (!ClassUtils.isInstanceOf(getClassExec("NBTBase:NBTTagString").getReflectionClass(), objects[0].getClass())) {
+                    if (!getClassExec("NBTBase:NBTTagString").isReflectiveInstance(objects[0])) {
                         constructor = NBTTagString.class.getDeclaredConstructor(Object.class);
                     }
                 } else {
@@ -721,50 +721,48 @@ public class V1_8_R1 extends Version {
                 }
 
                 if (tag == NBTTag.BYTE) {
-                    constructor = getClassExec("NBTBase:NBTTagByte").getReflectionClass().getConstructor(byte.class);
-                    object = constructor.newInstance((byte) objects[0]);
+                    ClassConstructor c = getClassExec("NBTBase:NBTTagByte").getConstructor(ClassExecutor.BYTE);
+                    object = c.newInstance(new ByteObjExec((byte) objects[0]));
                     constructor = NBTTagByte.class.getDeclaredConstructor(Object.class);
                 } else if (tag == NBTTag.BYTE_ARRAY) {
-                    constructor = getClassExec("NBTBase:NBTTagByteArray").getReflectionClass().getConstructor(byte[].class);
-                    //noinspection PrimitiveArrayArgumentToVarargsMethod
-                    object = constructor.newInstance((byte[]) objects[0]);
+                    ClassConstructor c = getClassExec("NBTBase:NBTTagByteArray").getConstructor(ClassExecutor.BYTE_ARRAY);
+                    object = c.newInstance(new ByteArrayObjExec((byte[]) objects[0]));
                     constructor = NBTTagByteArray.class.getDeclaredConstructor(Object.class);
                 } else if (tag == NBTTag.COMPOUND) {
-                    constructor = getClassExec("NBTBase:NBTTagCompound").getReflectionClass().getConstructor();
-                    object = constructor.newInstance();
+                    ClassConstructor c = getClassExec("NBTBase:NBTTagCompound").getConstructor();
+                    object = c.newInstance();
                     constructor = NBTTagCompound.class.getDeclaredConstructor(Object.class);
                 } else if (tag == NBTTag.DOUBLE) {
-                    constructor = getClassExec("NBTBase:NBTTagDouble").getReflectionClass().getConstructor(double.class);
-                    object = constructor.newInstance((double) objects[0]);
+                    ClassConstructor c = getClassExec("NBTBase:NBTTagDouble").getConstructor(ClassExecutor.DOUBLE);
+                    object = c.newInstance(new DoubleObjExec((double) objects[0]));
                     constructor = NBTTagDouble.class.getDeclaredConstructor(Object.class);
                 } else if (tag == NBTTag.FLOAT) {
-                    constructor = getClassExec("NBTBase:NBTTagFloat").getReflectionClass().getConstructor(float.class);
-                    object = constructor.newInstance((float) objects[0]);
+                    ClassConstructor c = getClassExec("NBTBase:NBTTagFloat").getConstructor(ClassExecutor.FLOAT);
+                    object = c.newInstance(new FloatObjExec((float) objects[0]));
                     constructor = NBTTagFloat.class.getDeclaredConstructor(Object.class);
                 } else if (tag == NBTTag.INT) {
-                    constructor = getClassExec("NBTBase:NBTTagInt").getReflectionClass().getConstructor(int.class);
-                    object = constructor.newInstance((int) objects[0]);
+                    ClassConstructor c = getClassExec("NBTBase:NBTTagInt").getConstructor(ClassExecutor.INT);
+                    object = c.newInstance(new IntegerObjExec((int) objects[0]));
                     constructor = NBTTagInt.class.getDeclaredConstructor(Object.class);
                 } else if (tag == NBTTag.INT_ARRAY) {
-                    constructor = getClassExec("NBTBase:NBTTagIntArray").getReflectionClass().getConstructor(int[].class);
-                    //noinspection PrimitiveArrayArgumentToVarargsMethod
-                    object = constructor.newInstance((int[]) objects[0]);
+                    ClassConstructor c = getClassExec("NBTBase:NBTTagIntArray").getConstructor(ClassExecutor.INT_ARRAY);
+                    object = c.newInstance(new IntegerArrayObjExec((int[]) objects[0]));
                     constructor = NBTTagIntArray.class.getDeclaredConstructor(Object.class);
                 } else if (tag == NBTTag.LIST) {
-                    constructor = getClassExec("NBTBase:NBTTagList").getReflectionClass().getConstructor();
-                    object = constructor.newInstance();
+                    ClassConstructor c = getClassExec("NBTBase:NBTTagList").getConstructor();
+                    object = c.newInstance();
                     constructor = NBTTagList.class.getDeclaredConstructor(Object.class);
                 } else if (tag == NBTTag.LONG) {
-                    constructor = getClassExec("NBTBase:NBTTagLong").getReflectionClass().getConstructor(long.class);
-                    object = constructor.newInstance((long) objects[0]);
+                    ClassConstructor c = getClassExec("NBTBase:NBTTagLong").getConstructor(ClassExecutor.LONG);
+                    object = c.newInstance(new LongObjExec((long) objects[0]));
                     constructor = NBTTagLong.class.getDeclaredConstructor(Object.class);
                 } else if (tag == NBTTag.SHORT) {
-                    constructor = getClassExec("NBTBase:NBTTagShort").getReflectionClass().getConstructor(short.class);
-                    object = constructor.newInstance((short) objects[0]);
+                    ClassConstructor c = getClassExec("NBTBase:NBTTagShort").getConstructor(ClassExecutor.SHORT);
+                    object = c.newInstance(new ShortObjExec((short) objects[0]));
                     constructor = NBTTagShort.class.getDeclaredConstructor(Object.class);
                 } else if (tag == NBTTag.STRING) {
-                    constructor = getClassExec("NBTBase:NBTTagString").getReflectionClass().getConstructor(String.class);
-                    object = constructor.newInstance((String) objects[0]);
+                    ClassConstructor c = getClassExec("NBTBase:NBTTagString").getConstructor(ClassExecutor.STRING);
+                    object = c.newInstance(new StringObjExec((String) objects[0]));
                     constructor = NBTTagString.class.getDeclaredConstructor(Object.class);
                 } else {
                     throw new IllegalStateException("Cannot invoke nbtTag() method due to an invalid tag parameter error");

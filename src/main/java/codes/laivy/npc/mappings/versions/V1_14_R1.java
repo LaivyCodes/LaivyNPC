@@ -117,8 +117,6 @@ public class V1_14_R1 extends V1_13_R2 {
                         load(V1_14_R1.class, key, new FieldExecutor(getClassExec("Entity:PolarBear"), getClassExec("DataWatcherObject"), "bz", "Gets the polar bear's standing DataWatcherObject"));
                         return false;
                     case "Metadata:Zombie:Villager:Profession":
-                        load(V1_14_R1.class, key, new FieldExecutor(getClassExec("Entity:Zombie:Villager"), getClassExec("DataWatcherObject"), "c", "Gets the zombie villager profession DataWatcherObject"));
-                        return false;
                     case "Metadata:Horse:Armor":
                         return false;
                     default:
@@ -171,9 +169,6 @@ public class V1_14_R1 extends V1_13_R2 {
                         return false;
                     case "Metadata:Spider:Climbing":
                         load(V1_14_R1.class, key, new FieldExecutor(getClassExec("Entity:Spider"), getClassExec("DataWatcherObject"), "b", "Gets the spider climbing DataWatcherObject"));
-                        return false;
-                    case "Metadata:Zombie:Baby":
-                        load(V1_14_R1.class, key, new FieldExecutor(getClassExec("Entity:Zombie"), getClassExec("DataWatcherObject"), "bz", "Gets the zombie baby DataWatcherObject"));
                         return false;
                     default:
                         break;
