@@ -9,6 +9,7 @@ import codes.laivy.npc.mappings.defaults.classes.entity.monster.illagers.Evoker;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.illagers.Illusioner;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.illagers.Vindicator;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.zombie.ZombieDrowned;
+import codes.laivy.npc.mappings.defaults.classes.entity.vehicle.Boat;
 import codes.laivy.npc.mappings.instances.classes.ClassExecutor;
 import codes.laivy.npc.mappings.instances.ObjectExecutor;
 import codes.laivy.npc.mappings.defaults.classes.datawatcher.DataWatcher;
@@ -70,6 +71,7 @@ import codes.laivy.npc.types.list.monster.zombie.ZombieHuskNPC;
 import codes.laivy.npc.types.list.monster.zombie.ZombieNPC;
 import codes.laivy.npc.types.list.monster.zombie.ZombieVillagerNPC;
 import codes.laivy.npc.types.list.npc.VillagerNPC;
+import codes.laivy.npc.types.list.vehicle.BoatNPC;
 import codes.laivy.npc.utils.ClassUtils;
 import codes.laivy.npc.utils.ReflectionUtils;
 import com.avaje.ebean.validation.NotEmpty;
@@ -254,6 +256,8 @@ public class Entity extends ObjectExecutor {
         PHANTOM(Phantom.class, PhantomNPC.class, V1_13_R1.class),
         TURTLE(Turtle.class, TurtleNPC.class, V1_13_R1.class),
         CAT(Cat.class, CatNPC.class, V1_13_R1.class),
+        BOAT(Boat.class, BoatNPC.class, V1_8_R1.class),
+        CAVE_SPIDER(CaveSpider.class, CaveSpiderNPC.class, V1_8_R1.class),
         ;
 
         private final @NotNull Class<? extends Entity> entityClass;

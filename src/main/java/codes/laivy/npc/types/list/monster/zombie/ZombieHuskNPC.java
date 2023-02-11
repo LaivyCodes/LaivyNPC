@@ -23,6 +23,9 @@ public class ZombieHuskNPC extends ZombieNPC {
         zombieNPC.destroy();
     }
 
+    protected ZombieHuskNPC(@NotNull List<OfflinePlayer> players, @NotNull Zombie.Type type, @NotNull Location location) {
+        super(players, type, location);
+    }
     public ZombieHuskNPC(@NotNull List<OfflinePlayer> players, @NotNull Location location) {
         super(players, Type.HUSK, location);
     }

@@ -37,6 +37,9 @@ public class BatNPC extends EntityLivingNPC {
         setAsleep(!isAsleep());
     }
 
+    protected BatNPC(@NotNull List<OfflinePlayer> players, @NotNull Entity.EntityType type, @NotNull Location location) {
+        super(players, type, location);
+    }
     public BatNPC(@NotNull List<OfflinePlayer> players, @NotNull Location location) {
         super(players, Entity.EntityType.BAT, location.clone().add(0, 1, 0));
         getHolograms().setDistanceFromNPC(-1.25D);

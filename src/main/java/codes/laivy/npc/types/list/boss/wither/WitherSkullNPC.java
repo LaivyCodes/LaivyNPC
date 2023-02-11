@@ -38,6 +38,9 @@ public class WitherSkullNPC extends EntityNPC {
         setCharged(!isCharged());
     }
 
+    protected WitherSkullNPC(@NotNull List<OfflinePlayer> players, @NotNull Entity.EntityType type, @NotNull Location location) {
+        super(players, type, location);
+    }
     public WitherSkullNPC(@NotNull List<OfflinePlayer> players, @NotNull Location location) {
         super(players, Entity.EntityType.WITHER_SKULL, location);
         getHolograms().setDistanceFromNPC(-1.25D);

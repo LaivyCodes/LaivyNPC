@@ -22,6 +22,9 @@ public class VexNPC extends EntityLivingNPC {
         vexNPC.destroy();
     }
 
+    protected VexNPC(@NotNull List<OfflinePlayer> players, @NotNull Entity.EntityType type, @NotNull Location location) {
+        super(players, type, location);
+    }
     public VexNPC(@NotNull List<OfflinePlayer> players, @NotNull Location location) {
         super(players, Entity.EntityType.VEX, location);
     }

@@ -23,6 +23,9 @@ public class CowNPC extends AgeableEntityLivingNPC {
         cow.destroy();
     }
 
+    protected CowNPC(@NotNull List<OfflinePlayer> players, @NotNull Entity.EntityType type, @NotNull Location location) {
+        super(players, type, location);
+    }
     public CowNPC(@NotNull List<OfflinePlayer> players, @NotNull Location location) {
         super(players, Entity.EntityType.COW, location);
     }

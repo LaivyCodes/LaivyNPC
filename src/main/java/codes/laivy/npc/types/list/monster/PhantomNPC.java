@@ -37,6 +37,9 @@ public class PhantomNPC extends EntityLivingNPC {
         setSize(getSize());
     }
 
+    protected PhantomNPC(@NotNull List<OfflinePlayer> players, @NotNull Entity.EntityType type, @NotNull Location location) {
+        super(players, type, location);
+    }
     public PhantomNPC(@NotNull List<OfflinePlayer> players, @NotNull Location location) {
         super(players, Entity.EntityType.PHANTOM, location);
     }

@@ -1,5 +1,6 @@
 package codes.laivy.npc.types.list.animal.horse;
 
+import codes.laivy.npc.mappings.defaults.classes.entity.Entity;
 import codes.laivy.npc.mappings.defaults.classes.entity.animal.horse.AbstractHorse;
 import codes.laivy.npc.mappings.defaults.classes.entity.animal.horse.Horse;
 import codes.laivy.npc.mappings.defaults.classes.entity.animal.horse.HorseZombie;
@@ -22,6 +23,9 @@ public class HorseZombieNPC extends AbstractHorseNPC {
         horse.destroy();
     }
 
+    protected HorseZombieNPC(@NotNull List<OfflinePlayer> players, @NotNull AbstractHorse.Type type, @NotNull Location location) {
+        super(players, type, location);
+    }
     public HorseZombieNPC(@NotNull List<OfflinePlayer> players, @NotNull Location location) {
         super(players, AbstractHorse.Type.ZOMBIE, location);
     }

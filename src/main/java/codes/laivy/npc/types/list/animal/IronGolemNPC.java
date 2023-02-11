@@ -23,6 +23,9 @@ public class IronGolemNPC extends EntityLivingNPC {
         golem.destroy();
     }
 
+    protected IronGolemNPC(@NotNull List<OfflinePlayer> players, @NotNull Entity.EntityType type, @NotNull Location location) {
+        super(players, type, location);
+    }
     public IronGolemNPC(@NotNull List<OfflinePlayer> players, @NotNull Location location) {
         super(players, Entity.EntityType.IRON_GOLEM, location);
     }

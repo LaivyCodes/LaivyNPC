@@ -38,6 +38,9 @@ public class CreeperNPC extends EntityLivingNPC {
         setIgnited(!isIgnited());
     }
 
+    protected CreeperNPC(@NotNull List<OfflinePlayer> players, @NotNull Entity.EntityType type, @NotNull Location location) {
+        super(players, type, location);
+    }
     public CreeperNPC(@NotNull List<OfflinePlayer> players, @NotNull Location location) {
         super(players, Entity.EntityType.CREEPER, location);
     }

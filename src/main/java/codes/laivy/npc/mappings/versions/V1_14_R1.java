@@ -36,6 +36,7 @@ import codes.laivy.npc.mappings.defaults.classes.entity.npc.objs.VillagerData;
 import codes.laivy.npc.mappings.defaults.classes.entity.npc.VillagerProfession;
 import codes.laivy.npc.mappings.defaults.classes.entity.npc.objs.VillagerProfessionExec;
 import codes.laivy.npc.mappings.defaults.classes.entity.npc.objs.VillagerType;
+import codes.laivy.npc.mappings.defaults.classes.entity.vehicle.Boat;
 import codes.laivy.npc.mappings.defaults.classes.enums.*;
 import codes.laivy.npc.mappings.defaults.classes.gameprofile.GameProfile;
 import codes.laivy.npc.mappings.defaults.classes.gameprofile.Property;
@@ -367,6 +368,12 @@ public class V1_14_R1 extends V1_13_R2 {
         } else if (type == Entity.EntityType.CAT) {
             object = getClassExec("Entity:Cat").getConstructor(getClassExec("EntityTypes"), getClassExec("World")).newInstance(EntityTypes.CAT(), world);
             entity = new Cat(object);
+        } else if (type == Entity.EntityType.BOAT) {
+            object = getClassExec("Entity:Boat").getConstructor(getClassExec("EntityTypes"), getClassExec("World")).newInstance(EntityTypes.BOAT(), world);
+            entity = new Boat(object);
+        } else if (type == Entity.EntityType.CAVE_SPIDER) {
+            object = getClassExec("Entity:CaveSpider").getConstructor(getClassExec("EntityTypes"), getClassExec("World")).newInstance(EntityTypes.CAVE_SPIDER(), world);
+            entity = new CaveSpider(object);
         } else {
             throw new IllegalArgumentException("Couldn't get this entity type '" + type.name() + "' instance");
         }
@@ -668,6 +675,8 @@ public class V1_14_R1 extends V1_13_R2 {
             load(V1_14_R1.class, "Entity:Villager", new Villager.VillagerClass("net.minecraft.server.v1_14_R1.EntityVillager"));
             load(V1_14_R1.class, "Entity:Shulker", new Shulker.ShulkerClass("net.minecraft.server.v1_14_R1.EntityShulker"));
             load(V1_14_R1.class, "Entity:PolarBear", new PolarBear.PolarBearClass("net.minecraft.server.v1_14_R1.EntityPolarBear"));
+            load(V1_14_R1.class, "Entity:Boat", new Boat.BoatClass("net.minecraft.server.v1_14_R1.EntityBoat"));
+            load(V1_14_R1.class, "Entity:CaveSpider", new CaveSpider.CaveSpiderClass("net.minecraft.server.v1_14_R1.EntityCaveSpider"));
 
             load(V1_14_R1.class, "Entity:Ageable", new AgeableEntityLiving.AgeableEntityLivingClass("net.minecraft.server.v1_14_R1.EntityAgeable"));
             load(V1_14_R1.class, "Entity:Tameable", new TameableEntityLiving.TameableEntityLivingClass("net.minecraft.server.v1_14_R1.EntityTameableAnimal"));

@@ -4,6 +4,7 @@ import codes.laivy.npc.mappings.Version;
 import codes.laivy.npc.mappings.defaults.classes.entity.animal.horse.AbstractHorse;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.zombie.ZombieVillager;
 import codes.laivy.npc.mappings.defaults.classes.entity.npc.VillagerProfession;
+import codes.laivy.npc.mappings.defaults.classes.entity.vehicle.Boat;
 import codes.laivy.npc.mappings.defaults.classes.java.ByteObjExec;
 import codes.laivy.npc.mappings.instances.EnumExecutor;
 import codes.laivy.npc.mappings.instances.Executor;
@@ -363,6 +364,8 @@ public class V1_9_R1 extends V1_8_R3 {
             load(V1_9_R1.class, "Entity:Zombie", new Zombie.ZombieClass("net.minecraft.server.v1_9_R1.EntityZombie"));
             load(V1_9_R1.class, "Entity:Villager", new Villager.VillagerClass("net.minecraft.server.v1_9_R1.EntityVillager"));
             load(V1_9_R1.class, "Entity:Shulker", new Shulker.ShulkerClass("net.minecraft.server.v1_9_R1.EntityShulker"));
+            load(V1_9_R1.class, "Entity:Boat", new Boat.BoatClass("net.minecraft.server.v1_9_R1.EntityBoat"));
+            load(V1_9_R1.class, "Entity:CaveSpider", new CaveSpider.CaveSpiderClass("net.minecraft.server.v1_9_R1.EntityCaveSpider"));
 
             load(V1_9_R1.class, "Entity:Ageable", new AgeableEntityLiving.AgeableEntityLivingClass("net.minecraft.server.v1_9_R1.EntityAgeable"));
             load(V1_9_R1.class, "Entity:Tameable", new TameableEntityLiving.TameableEntityLivingClass("net.minecraft.server.v1_9_R1.EntityTameableAnimal"));

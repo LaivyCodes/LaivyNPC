@@ -31,6 +31,9 @@ public class OcelotNPC extends TameableEntityLivingNPC {
         ocelotNPC.destroy();
     }
 
+    protected OcelotNPC(@NotNull List<OfflinePlayer> players, @NotNull Entity.EntityType type, @NotNull Location location) {
+        super(players, type, location);
+    }
     public OcelotNPC(@NotNull List<OfflinePlayer> players, @NotNull Location location) {
         super(players, Entity.EntityType.OCELOT, location);
         getHolograms().setDistanceFromNPC(-1.25D);

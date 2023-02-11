@@ -23,6 +23,9 @@ public class SilverfishNPC extends EntityLivingNPC {
         silverfishNPC.destroy();
     }
 
+    protected SilverfishNPC(@NotNull List<OfflinePlayer> players, @NotNull Entity.EntityType type, @NotNull Location location) {
+        super(players, type, location);
+    }
     public SilverfishNPC(@NotNull List<OfflinePlayer> players, @NotNull Location location) {
         super(players, Entity.EntityType.SILVERFISH, location);
     }

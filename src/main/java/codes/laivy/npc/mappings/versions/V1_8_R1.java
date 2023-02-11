@@ -8,6 +8,7 @@ import codes.laivy.npc.mappings.defaults.classes.entity.animal.horse.*;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.illagers.IllagerWizard;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.skeleton.SkeletonWither;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.zombie.ZombieVillager;
+import codes.laivy.npc.mappings.defaults.classes.entity.vehicle.Boat;
 import codes.laivy.npc.mappings.instances.*;
 import codes.laivy.npc.mappings.instances.classes.ClassExecutor;
 import codes.laivy.npc.mappings.defaults.VersionCompound;
@@ -160,6 +161,8 @@ public class V1_8_R1 extends Version {
             load(V1_8_R1.class, "Entity:Witch", new Witch.WitchClass("net.minecraft.server.v1_8_R1.EntityWitch"));
             load(V1_8_R1.class, "Entity:Zombie", new Zombie.ZombieClass("net.minecraft.server.v1_8_R1.EntityZombie"));
             load(V1_8_R1.class, "Entity:Villager", new Villager.VillagerClass("net.minecraft.server.v1_8_R1.EntityVillager"));
+            load(V1_8_R1.class, "Entity:Boat", new Boat.BoatClass("net.minecraft.server.v1_8_R1.EntityBoat"));
+            load(V1_8_R1.class, "Entity:CaveSpider", new CaveSpider.CaveSpiderClass("net.minecraft.server.v1_8_R1.EntityCaveSpider"));
 
             load(V1_8_R1.class, "Entity:Ageable", new AgeableEntityLiving.AgeableEntityLivingClass("net.minecraft.server.v1_8_R1.EntityAgeable"));
             load(V1_8_R1.class, "Entity:Tameable", new TameableEntityLiving.TameableEntityLivingClass("net.minecraft.server.v1_8_R1.EntityTameableAnimal"));
@@ -916,6 +919,12 @@ public class V1_8_R1 extends Version {
         } else if (type == Entity.EntityType.VILLAGER) {
             Object object = getClassExec("Entity:Villager").getConstructor(getClassExec("World")).newInstance(CraftWorld.getCraftWorld(location.getWorld()).getHandle());
             entity = new Villager(object);
+        } else if (type == Entity.EntityType.BOAT) {
+            Object object = getClassExec("Entity:Boat").getConstructor(getClassExec("World")).newInstance(CraftWorld.getCraftWorld(location.getWorld()).getHandle());
+            entity = new Boat(object);
+        } else if (type == Entity.EntityType.CAVE_SPIDER) {
+            Object object = getClassExec("Entity:CaveSpider").getConstructor(getClassExec("World")).newInstance(CraftWorld.getCraftWorld(location.getWorld()).getHandle());
+            entity = new CaveSpider(object);
         } else {
             return null;
         }

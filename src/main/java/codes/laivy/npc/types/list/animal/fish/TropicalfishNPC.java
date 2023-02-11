@@ -1,5 +1,6 @@
 package codes.laivy.npc.types.list.animal.fish;
 
+import codes.laivy.npc.mappings.defaults.classes.entity.Entity;
 import codes.laivy.npc.mappings.defaults.classes.entity.animal.fish.Fish;
 import codes.laivy.npc.mappings.defaults.classes.entity.animal.fish.Tropicalfish;
 import codes.laivy.npc.types.EntityLivingNPC;
@@ -36,6 +37,9 @@ public class TropicalfishNPC extends FishNPC {
         setVariant(getVariant());
     }
 
+    protected TropicalfishNPC(@NotNull List<OfflinePlayer> players, @NotNull Fish.Type type, @NotNull Location location) {
+        super(players, type, location);
+    }
     public TropicalfishNPC(@NotNull List<OfflinePlayer> players, @NotNull Location location) {
         super(players, Fish.Type.TROPICALFISH, location);
     }

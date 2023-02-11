@@ -1,5 +1,6 @@
 package codes.laivy.npc.types.list.animal.horse;
 
+import codes.laivy.npc.mappings.defaults.classes.entity.Entity;
 import codes.laivy.npc.mappings.defaults.classes.entity.animal.horse.AbstractHorse;
 import codes.laivy.npc.mappings.defaults.classes.entity.animal.horse.Horse;
 import codes.laivy.npc.mappings.defaults.classes.entity.animal.horse.Llama;
@@ -40,6 +41,9 @@ public class LlamaNPC extends AbstractChestedHorseNPC {
         setCarpetColor(getCarpetColor());
     }
 
+    protected LlamaNPC(@NotNull List<OfflinePlayer> players, @NotNull AbstractHorse.Type type, @NotNull Location location) {
+        super(players, type, location);
+    }
     public LlamaNPC(@NotNull List<OfflinePlayer> players, @NotNull Location location) {
         super(players, AbstractHorse.Type.LLAMA, location);
     }

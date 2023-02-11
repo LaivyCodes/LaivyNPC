@@ -39,6 +39,9 @@ public class RabbitNPC extends AgeableEntityLivingNPC {
         } setVariant(getVariant());
     }
 
+    protected RabbitNPC(@NotNull List<OfflinePlayer> players, @NotNull Entity.EntityType type, @NotNull Location location) {
+        super(players, type, location);
+    }
     public RabbitNPC(@NotNull List<OfflinePlayer> players, @NotNull Location location) {
         super(players, Entity.EntityType.RABBIT, location);
     }

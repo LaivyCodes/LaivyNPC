@@ -37,6 +37,9 @@ public class ItemFrameNPC extends EntityNPC {
         setRotation(getRotation());
     }
 
+    protected ItemFrameNPC(@NotNull List<OfflinePlayer> players, @NotNull Entity.EntityType type, @NotNull Location location) {
+        super(players, type, location);
+    }
     public ItemFrameNPC(@NotNull List<OfflinePlayer> players, @NotNull Location location) {
         super(players, Entity.EntityType.ITEM_FRAME, location);
         getHolograms().setDistanceFromNPC(-1.25D);

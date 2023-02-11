@@ -22,6 +22,9 @@ public class HorseMuleNPC extends AbstractChestedHorseNPC {
         horse.destroy();
     }
 
+    protected HorseMuleNPC(@NotNull List<OfflinePlayer> players, @NotNull AbstractHorse.Type type, @NotNull Location location) {
+        super(players, type, location);
+    }
     public HorseMuleNPC(@NotNull List<OfflinePlayer> players, @NotNull Location location) {
         super(players, AbstractHorse.Type.MULE, location);
     }

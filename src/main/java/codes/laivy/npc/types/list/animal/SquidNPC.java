@@ -23,6 +23,9 @@ public class SquidNPC extends EntityLivingNPC {
         squidNPC.destroy();
     }
 
+    protected SquidNPC(@NotNull List<OfflinePlayer> players, @NotNull Entity.EntityType type, @NotNull Location location) {
+        super(players, type, location);
+    }
     public SquidNPC(@NotNull List<OfflinePlayer> players, @NotNull Location location) {
         super(players, Entity.EntityType.SQUID, location);
         getHolograms().setDistanceFromNPC(-1.05D);

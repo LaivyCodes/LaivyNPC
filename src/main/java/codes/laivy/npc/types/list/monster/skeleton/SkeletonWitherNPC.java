@@ -1,5 +1,6 @@
 package codes.laivy.npc.types.list.monster.skeleton;
 
+import codes.laivy.npc.mappings.defaults.classes.entity.Entity;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.skeleton.Skeleton;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.skeleton.Skeleton.Type;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.skeleton.SkeletonWither;
@@ -23,6 +24,9 @@ public class SkeletonWitherNPC extends SkeletonNPC {
         skeletonNPC.destroy();
     }
 
+    protected SkeletonWitherNPC(@NotNull List<OfflinePlayer> players, @NotNull Skeleton.Type type, @NotNull Location location) {
+        super(players, type, location);
+    }
     public SkeletonWitherNPC(@NotNull List<OfflinePlayer> players, @NotNull Location location) {
         super(players, Type.WITHER, location);
     }

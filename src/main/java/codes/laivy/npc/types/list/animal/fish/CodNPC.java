@@ -2,7 +2,6 @@ package codes.laivy.npc.types.list.animal.fish;
 
 import codes.laivy.npc.mappings.defaults.classes.entity.animal.fish.Cod;
 import codes.laivy.npc.mappings.defaults.classes.entity.animal.fish.Fish;
-import codes.laivy.npc.types.list.animal.horse.HorseNPC;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.jetbrains.annotations.NotNull;
@@ -22,6 +21,9 @@ public class CodNPC extends FishNPC {
         codNPC.destroy();
     }
 
+    protected CodNPC(@NotNull List<OfflinePlayer> players, @NotNull Fish.Type type, @NotNull Location location) {
+        super(players, type, location);
+    }
     public CodNPC(@NotNull List<OfflinePlayer> players, @NotNull Location location) {
         super(players, Fish.Type.COD, location);
     }

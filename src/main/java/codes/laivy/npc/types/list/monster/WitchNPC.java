@@ -23,6 +23,9 @@ public class WitchNPC extends EntityLivingNPC {
         witchNPC.destroy();
     }
 
+    protected WitchNPC(@NotNull List<OfflinePlayer> players, @NotNull Entity.EntityType type, @NotNull Location location) {
+        super(players, type, location);
+    }
     public WitchNPC(@NotNull List<OfflinePlayer> players, @NotNull Location location) {
         super(players, Entity.EntityType.WITCH, location);
     }

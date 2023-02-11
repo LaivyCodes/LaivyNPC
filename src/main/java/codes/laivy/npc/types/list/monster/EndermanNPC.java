@@ -41,6 +41,9 @@ public class EndermanNPC extends EntityLivingNPC {
         setScreaming(!isScreaming());
     }
 
+    protected EndermanNPC(@NotNull List<OfflinePlayer> players, @NotNull Entity.EntityType type, @NotNull Location location) {
+        super(players, type, location);
+    }
     public EndermanNPC(@NotNull List<OfflinePlayer> players, @NotNull Location location) {
         super(players, Entity.EntityType.ENDERMAN, location);
         getHolograms().setDistanceFromNPC(1D);

@@ -24,6 +24,9 @@ public class ZombieDrownedNPC extends ZombieNPC {
         zombieNPC.destroy();
     }
 
+    protected ZombieDrownedNPC(@NotNull List<OfflinePlayer> players, @NotNull Zombie.Type type, @NotNull Location location) {
+        super(players, type, location);
+    }
     public ZombieDrownedNPC(@NotNull List<OfflinePlayer> players, @NotNull Location location) {
         super(players, Type.DROWNED, location);
     }

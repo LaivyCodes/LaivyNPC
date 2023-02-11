@@ -37,6 +37,9 @@ public class GhastNPC extends EntityLivingNPC {
         setAttacking(!isAttacking());
     }
 
+    protected GhastNPC(@NotNull List<OfflinePlayer> players, @NotNull Entity.EntityType type, @NotNull Location location) {
+        super(players, type, location);
+    }
     public GhastNPC(@NotNull List<OfflinePlayer> players, @NotNull Location location) {
         super(players, Entity.EntityType.GHAST, location);
         getHolograms().setDistanceFromNPC(3D);

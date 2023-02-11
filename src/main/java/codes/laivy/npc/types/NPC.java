@@ -47,6 +47,7 @@ import codes.laivy.npc.types.list.monster.zombie.ZombieHuskNPC;
 import codes.laivy.npc.types.list.monster.zombie.ZombieNPC;
 import codes.laivy.npc.types.list.monster.zombie.ZombieVillagerNPC;
 import codes.laivy.npc.types.list.npc.VillagerNPC;
+import codes.laivy.npc.types.list.vehicle.BoatNPC;
 import codes.laivy.npc.types.player.PlayerNPC;
 import codes.laivy.npc.types.utils.GlowingStatus;
 import codes.laivy.npc.types.utils.NPCHeadRotation;
@@ -1205,6 +1206,7 @@ public abstract class NPC {
         put("Phantom", PhantomNPC.class);
         put("Turtle", TurtleNPC.class);
         put("Cat", CatNPC.class);
+        put("Boat", BoatNPC.class);
     }};
 
     @SuppressWarnings("unchecked")

@@ -21,6 +21,9 @@ public class SalmonNPC extends FishNPC {
         salmonNPC.destroy();
     }
 
+    protected SalmonNPC(@NotNull List<OfflinePlayer> players, @NotNull Fish.Type type, @NotNull Location location) {
+        super(players, type, location);
+    }
     public SalmonNPC(@NotNull List<OfflinePlayer> players, @NotNull Location location) {
         super(players, Fish.Type.SALMON, location);
     }

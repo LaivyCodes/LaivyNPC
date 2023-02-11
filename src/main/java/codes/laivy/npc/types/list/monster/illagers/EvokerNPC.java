@@ -22,6 +22,9 @@ public class EvokerNPC extends IllagerWizardNPC {
         evokerNPC.destroy();
     }
 
+    protected EvokerNPC(@NotNull List<OfflinePlayer> players, @NotNull Entity.EntityType type, @NotNull Location location) {
+        super(players, type, location);
+    }
     public EvokerNPC(@NotNull List<OfflinePlayer> players, @NotNull Location location) {
         super(players, Entity.EntityType.EVOKER, location);
     }

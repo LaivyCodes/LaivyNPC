@@ -22,6 +22,9 @@ public class HorseSkeletonNPC extends AbstractHorseNPC {
         horse.destroy();
     }
 
+    protected HorseSkeletonNPC(@NotNull List<OfflinePlayer> players, @NotNull AbstractHorse.Type type, @NotNull Location location) {
+        super(players, type, location);
+    }
     public HorseSkeletonNPC(@NotNull List<OfflinePlayer> players, @NotNull Location location) {
         super(players, AbstractHorse.Type.SKELETON, location);
     }

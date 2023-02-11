@@ -21,6 +21,9 @@ public class HorseDonkeyNPC extends AbstractChestedHorseNPC {
         horse.destroy();
     }
 
+    protected HorseDonkeyNPC(@NotNull List<OfflinePlayer> players, @NotNull AbstractHorse.Type type, @NotNull Location location) {
+        super(players, type, location);
+    }
     public HorseDonkeyNPC(@NotNull List<OfflinePlayer> players, @NotNull Location location) {
         super(players, AbstractHorse.Type.DONKEY, location);
     }

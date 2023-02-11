@@ -38,6 +38,9 @@ public class BlazeNPC extends EntityLivingNPC {
         setCharging(!isCharging());
     }
 
+    protected BlazeNPC(@NotNull List<OfflinePlayer> players, @NotNull Entity.EntityType type, @NotNull Location location) {
+        super(players, type, location);
+    }
     public BlazeNPC(@NotNull List<OfflinePlayer> players, @NotNull Location location) {
         super(players, Entity.EntityType.BLAZE, location);
     }

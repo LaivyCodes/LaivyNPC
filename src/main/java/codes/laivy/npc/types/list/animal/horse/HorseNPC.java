@@ -36,6 +36,9 @@ public class HorseNPC extends AbstractHorseNPC {
         setVariant(getVariant());
     }
 
+    protected HorseNPC(@NotNull List<OfflinePlayer> players, @NotNull AbstractHorse.Type type, @NotNull Location location) {
+        super(players, type, location);
+    }
     public HorseNPC(@NotNull List<OfflinePlayer> players, @NotNull Location location) {
         super(players, AbstractHorse.Type.HORSE, location);
     }

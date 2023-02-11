@@ -1,5 +1,6 @@
 package codes.laivy.npc.types.list.monster.zombie;
 
+import codes.laivy.npc.mappings.defaults.classes.entity.Entity;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.zombie.Zombie;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.zombie.Zombie.Type;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.zombie.ZombieVillager;
@@ -43,6 +44,9 @@ public class ZombieVillagerNPC extends ZombieNPC {
         }
     }
 
+    protected ZombieVillagerNPC(@NotNull List<OfflinePlayer> players, @NotNull Zombie.Type type, @NotNull Location location) {
+        super(players, type, location);
+    }
     public ZombieVillagerNPC(@NotNull List<OfflinePlayer> players, @NotNull Location location) {
         super(players, Type.VILLAGER, location);
     }

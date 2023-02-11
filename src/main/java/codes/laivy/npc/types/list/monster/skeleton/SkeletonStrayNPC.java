@@ -23,6 +23,9 @@ public class SkeletonStrayNPC extends SkeletonNPC {
         skeletonNPC.destroy();
     }
 
+    protected SkeletonStrayNPC(@NotNull List<OfflinePlayer> players, @NotNull Skeleton.Type type, @NotNull Location location) {
+        super(players, type, location);
+    }
     public SkeletonStrayNPC(@NotNull List<OfflinePlayer> players, @NotNull Location location) {
         super(players, Type.STRAY, location);
     }

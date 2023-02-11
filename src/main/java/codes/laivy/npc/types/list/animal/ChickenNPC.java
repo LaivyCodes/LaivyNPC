@@ -23,6 +23,9 @@ public class ChickenNPC extends AgeableEntityLivingNPC {
         chicken.destroy();
     }
 
+    protected ChickenNPC(@NotNull List<OfflinePlayer> players, @NotNull Entity.EntityType type, @NotNull Location location) {
+        super(players, type, location);
+    }
     public ChickenNPC(@NotNull List<OfflinePlayer> players, @NotNull Location location) {
         super(players, Entity.EntityType.CHICKEN, location);
         getHolograms().setDistanceFromNPC(-1.25D);

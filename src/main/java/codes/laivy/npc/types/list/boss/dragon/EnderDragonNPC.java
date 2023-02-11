@@ -23,6 +23,9 @@ public class EnderDragonNPC extends EntityLivingNPC {
         enderDragonNPC.destroy();
     }
 
+    protected EnderDragonNPC(@NotNull List<OfflinePlayer> players, @NotNull Entity.EntityType type, @NotNull Location location) {
+        super(players, type, location);
+    }
     public EnderDragonNPC(@NotNull List<OfflinePlayer> players, @NotNull Location location) {
         super(players, Entity.EntityType.ENDER_DRAGON, location);
         getHolograms().setDistanceFromNPC(2.5D);

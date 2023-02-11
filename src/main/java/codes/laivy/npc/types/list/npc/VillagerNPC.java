@@ -44,6 +44,9 @@ public class VillagerNPC extends EntityLivingNPC {
         }
     }
 
+    protected VillagerNPC(@NotNull List<OfflinePlayer> players, @NotNull Entity.EntityType type, @NotNull Location location) {
+        super(players, type, location);
+    }
     public VillagerNPC(@NotNull List<OfflinePlayer> players, @NotNull Location location) {
         super(players, Entity.EntityType.VILLAGER, location);
     }

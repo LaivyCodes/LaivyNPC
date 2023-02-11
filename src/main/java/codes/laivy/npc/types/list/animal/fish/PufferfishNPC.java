@@ -36,6 +36,9 @@ public class PufferfishNPC extends FishNPC {
         setPuffState(getPuffState());
     }
 
+    protected PufferfishNPC(@NotNull List<OfflinePlayer> players, @NotNull Fish.Type type, @NotNull Location location) {
+        super(players, type, location);
+    }
     public PufferfishNPC(@NotNull List<OfflinePlayer> players, @NotNull Location location) {
         super(players, Fish.Type.PUFFERFISH, location);
     }

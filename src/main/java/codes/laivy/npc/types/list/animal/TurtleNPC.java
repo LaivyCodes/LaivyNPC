@@ -37,6 +37,9 @@ public class TurtleNPC extends AgeableEntityLivingNPC {
         setEgg(!hasEgg());
     }
 
+    protected TurtleNPC(@NotNull List<OfflinePlayer> players, @NotNull Entity.EntityType type, @NotNull Location location) {
+        super(players, type, location);
+    }
     public TurtleNPC(@NotNull List<OfflinePlayer> players, @NotNull Location location) {
         super(players, Entity.EntityType.TURTLE, location);
     }
