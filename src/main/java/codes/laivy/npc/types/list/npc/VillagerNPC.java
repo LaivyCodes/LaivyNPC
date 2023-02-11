@@ -7,6 +7,7 @@ import codes.laivy.npc.mappings.versions.V1_14_R1;
 import codes.laivy.npc.types.EntityLivingNPC;
 import codes.laivy.npc.types.NPC;
 import codes.laivy.npc.types.commands.NPCConfiguration;
+import codes.laivy.npc.types.list.animal.fish.TropicalfishNPC;
 import codes.laivy.npc.utils.ReflectionUtils;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
@@ -130,6 +131,30 @@ public class VillagerNPC extends EntityLivingNPC {
 
                     sender.sendMessage("§cUse " + getSyntax());
                     sender.sendMessage(translate(sender, "npc.commands.general.available_options", builder));
+                }
+            });
+            list.add(new NPCConfiguration("level", "/laivynpc config level (level)") {
+                @Override
+                public void execute(@NotNull NPC npc, @NotNull Player sender, @NotNull String[] args) {
+                    VillagerNPC villagerNPC = (VillagerNPC) npc;
+
+                    if (args.length > 0) {
+                        int level;
+                        try {
+                            level = Integer.parseInt(args[0].replace(",", "."));
+                        } catch (NumberFormatException ignore) {
+                            sender.performCommand("laivynpc config " + getName());
+                            return;
+                        }
+
+                        VillagerProfession profession = new VillagerProfession(villagerNPC.getProfession().getType(), level);
+                        villagerNPC.setProfession(profession);
+
+                        sender.sendMessage(translate(sender, "npc.commands.general.flag_changed"));
+                        return;
+                    }
+
+                    sender.sendMessage("§cUse " + getSyntax());
                 }
             });
         }

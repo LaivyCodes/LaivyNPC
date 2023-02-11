@@ -291,9 +291,6 @@ public class EntityTypes extends ObjectExecutor {
     public static @NotNull EntityTypes RAVAGER() {
         return a("RAVAGER");
     }
-    public static @NotNull EntityTypes PLAYER() {
-        return a("PLAYER");
-    }
 
     private static @NotNull EntityTypes a(@NotNull String name) {
         FieldExecutor executor = new FieldExecutor(laivynpc().getVersion().getClassExec("EntityTypes"), laivynpc().getVersion().getClassExec("EntityTypes"), name, "Gets the '" + name + "' entity type");

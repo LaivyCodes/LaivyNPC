@@ -289,7 +289,7 @@ public class Entity extends ObjectExecutor {
         }
 
         public boolean canFastInstance() {
-            for (Method method : getNPCClass().getMethods()) {
+            for (Method method : getNPCClass().getDeclaredMethods()) {
                 if (method.getName().equals("fastInstance")) {
                     return true;
                 }
@@ -300,7 +300,7 @@ public class Entity extends ObjectExecutor {
             if (canFastInstance()) {
                 try {
                     Method method = null;
-                    for (Method fM : getNPCClass().getMethods()) {
+                    for (Method fM : getNPCClass().getDeclaredMethods()) {
                         if (fM.getName().equals("fastInstance")) {
                             method = fM;
                         }

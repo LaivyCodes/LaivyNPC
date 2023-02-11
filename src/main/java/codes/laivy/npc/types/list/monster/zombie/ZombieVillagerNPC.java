@@ -123,7 +123,7 @@ public class ZombieVillagerNPC extends ZombieNPC {
     }
 
     public static @NotNull ZombieVillagerNPC deserialize(@NotNull ConfigurationSection section) {
-        ZombieVillagerNPC npc = (ZombieVillagerNPC) EntityLivingNPC.deserialize(section);
+        ZombieVillagerNPC npc = (ZombieVillagerNPC) ZombieNPC.deserialize(section);
 
         section = section.getConfigurationSection("ZombieVillagerNPC Configuration");
         if (ReflectionUtils.isCompatible(V1_14_R1.class)) {
