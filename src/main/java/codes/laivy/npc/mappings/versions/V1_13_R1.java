@@ -84,6 +84,9 @@ public class V1_13_R1 extends V1_12_R1 {
                     case "Metadata:Horse:Armor":
                         load(V1_13_R1.class, key, new FieldExecutor(getClassExec("Entity:Horse"), getClassExec("DataWatcherObject"), "bO", "Gets the horse armor DataWatcherObject"));
                         return false;
+                    case "Metadata:Horse:Variant":
+                        load(V1_13_R1.class, key, new FieldExecutor(getClassExec("Entity:Horse"), getClassExec("DataWatcherObject"), "bN", "Gets the horse variant DataWatcherObject"));
+                        return false;
                     case "Metadata:Llama:CarpetColor":
                         load(V1_13_R1.class, key, new FieldExecutor(getClassExec("Entity:Llama"), getClassExec("DataWatcherObject"), "bN", "Gets the llama's carpet color DataWatcherObject"));
                         return false;
@@ -98,6 +101,15 @@ public class V1_13_R1 extends V1_12_R1 {
                         return false;
                     case "Metadata:Zombie:Villager:Profession":
                         load(V1_13_R1.class, key, new FieldExecutor(getClassExec("Entity:Zombie:Villager"), getClassExec("DataWatcherObject"), "b", "Gets the zombie villager profession DataWatcherObject"));
+                        return false;
+                    case "Metadata:Pig:Saddle":
+                        load(V1_13_R1.class, key, new FieldExecutor(getClassExec("Entity:Pig"), getClassExec("DataWatcherObject"), "bC", "Gets the pig saddle DataWatcherObject"));
+                        return false;
+                    case "Metadata:Wolf:Angry":
+                        load(V1_13_R1.class, key, new FieldExecutor(getClassExec("Entity:Wolf"), getClassExec("DataWatcherObject"), "bH", "Gets the wolf angry DataWatcherObject"));
+                        return false;
+                    case "Metadata:Wolf:CollarColor":
+                        load(V1_13_R1.class, key, new FieldExecutor(getClassExec("Entity:Wolf"), getClassExec("DataWatcherObject"), "bI", "Gets the wolf collar color DataWatcherObject"));
                         return false;
                     default:
                         break;
@@ -314,6 +326,7 @@ public class V1_13_R1 extends V1_12_R1 {
             load(V1_13_R1.class, "CraftWorld", new CraftWorld.CraftWorldClass("org.bukkit.craftbukkit.v1_13_R1.CraftWorld"));
             load(V1_13_R1.class, "World", new World.WorldClass("net.minecraft.server.v1_13_R1.World"));
             load(V1_13_R1.class, "Vector3f", new Vector3f.Vector3fClass("net.minecraft.server.v1_13_R1.Vector3f"));
+            load(V1_13_R1.class, "Vec3D", new Vec3D.Vec3DClass("net.minecraft.server.v1_13_R1.Vec3D"));
             load(V1_13_R1.class, "BlockPosition", new BlockPosition.BlockPositionClass("net.minecraft.server.v1_13_R1.BlockPosition"));
             load(V1_13_R1.class, "CraftBlock", new CraftBlock.CraftBlockClass("org.bukkit.craftbukkit.v1_13_R1.block.CraftBlock"));
             load(V1_13_R1.class, "IBlockData", new IBlockData.IBlockDataClass("net.minecraft.server.v1_13_R1.IBlockData"));

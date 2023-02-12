@@ -201,6 +201,7 @@ public class V1_8_R3 extends V1_8_R2 {
             load(V1_8_R3.class, "CraftWorld", new CraftWorld.CraftWorldClass("org.bukkit.craftbukkit.v1_8_R3.CraftWorld"));
             load(V1_8_R3.class, "World", new World.WorldClass("net.minecraft.server.v1_8_R3.World"));
             load(V1_8_R3.class, "Vector3f", new Vector3f.Vector3fClass("net.minecraft.server.v1_8_R3.Vector3f"));
+            load(V1_8_R3.class, "Vec3D", new Vec3D.Vec3DClass("net.minecraft.server.v1_8_R3.Vec3D"));
             load(V1_8_R3.class, "BlockPosition", new BlockPosition.BlockPositionClass("net.minecraft.server.v1_8_R3.BlockPosition"));
             load(V1_8_R3.class, "CraftBlock", new CraftBlock.CraftBlockClass("org.bukkit.craftbukkit.v1_8_R3.block.CraftBlock"));
             load(V1_8_R3.class, "IBlockData", new IBlockData.IBlockDataClass("net.minecraft.server.v1_8_R3.IBlockData"));

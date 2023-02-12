@@ -7,10 +7,12 @@ import codes.laivy.npc.mappings.defaults.classes.entity.animal.fish.Tropicalfish
 import codes.laivy.npc.mappings.defaults.classes.entity.animal.horse.AbstractChestedHorse;
 import codes.laivy.npc.mappings.defaults.classes.entity.animal.horse.AbstractHorse;
 import codes.laivy.npc.mappings.defaults.classes.entity.animal.horse.Llama;
+import codes.laivy.npc.mappings.defaults.classes.entity.decoration.ArmorStand;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.illagers.IllagerWizard;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.zombie.ZombieVillager;
 import codes.laivy.npc.mappings.defaults.classes.enums.EnumSpellEnum;
 import codes.laivy.npc.mappings.defaults.classes.enums.HorseArmor;
+import codes.laivy.npc.mappings.defaults.classes.others.location.Vector3f;
 import codes.laivy.npc.mappings.instances.classes.ClassExecutor;
 import codes.laivy.npc.mappings.instances.EnumExecutor;
 import codes.laivy.npc.mappings.instances.Executor;
@@ -18,7 +20,7 @@ import codes.laivy.npc.mappings.instances.FieldExecutor;
 import codes.laivy.npc.mappings.instances.MethodExecutor;
 import codes.laivy.npc.mappings.defaults.VersionCompound;
 import codes.laivy.npc.mappings.defaults.VersionPacket;
-import codes.laivy.npc.mappings.defaults.VersionVector3f;
+import codes.laivy.npc.mappings.defaults.VersionLocation;
 import codes.laivy.npc.mappings.defaults.classes.datawatcher.DataWatcher;
 import codes.laivy.npc.mappings.defaults.classes.datawatcher.VersionedDataWatcherObject;
 import codes.laivy.npc.mappings.defaults.classes.entity.Entity;
@@ -51,7 +53,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.UUID;
 
-public abstract class Version implements VersionCompound, VersionPacket, VersionVector3f {
+public abstract class Version implements VersionCompound, VersionPacket, VersionLocation {
 
     public static final @NotNull Map<@NotNull String, @NotNull Version> LOADED_VERSIONS = new HashMap<>();
 
@@ -203,7 +205,7 @@ public abstract class Version implements VersionCompound, VersionPacket, Version
     public abstract @NotNull EntityPose getPose(@NotNull Entity entity);
     public abstract void setPose(@NotNull Entity entity, @NotNull EntityPose pose);
 
-    public abstract @NotNull Location getLocation(@NotNull Entity entity);
+    public abstract @NotNull Location getEntityLocation(@NotNull Entity entity);
     //
     // ENTITY
 
@@ -312,6 +314,14 @@ public abstract class Version implements VersionCompound, VersionPacket, Version
     // ENTITY POLAR BEAR
     public abstract boolean isEntityPolarBearStanding(@NotNull PolarBear bear);
     public abstract void setEntityPolarBearStanding(@NotNull PolarBear bear, boolean standing);
+    // ENTITY PIG
+    public abstract boolean hasEntityPigSaddle(@NotNull Pig pig);
+    public abstract void setEntityPigSaddle(@NotNull Pig pig, boolean saddle);
+    // ENTITY WOLF
+    public abstract boolean isEntityWolfAngry(@NotNull Wolf wolf);
+    public abstract void setEntityWolfAngry(@NotNull Wolf wolf, boolean angry);
+    public abstract @NotNull EnumColorEnum.EnumColor getEntityWolfCollarColor(@NotNull Wolf wolf);
+    public abstract void setEntityWolfCollarColor(@NotNull Wolf wolf, @NotNull EnumColorEnum.EnumColor color);
     //
 
     // ENTITY PLAYER
@@ -322,6 +332,8 @@ public abstract class Version implements VersionCompound, VersionPacket, Version
     // ENTITY PLAYER
 
     // ARMOR STAND
+    public abstract @NotNull Vector3f getArmorStandPose(ArmorStand.@NotNull Pose pose, @NotNull ArmorStand stand);
+    public abstract void setArmorStandPose(ArmorStand.@NotNull Pose pose, @NotNull ArmorStand stand, @NotNull Vector3f vector3f);
     //
 
     // MOJANG

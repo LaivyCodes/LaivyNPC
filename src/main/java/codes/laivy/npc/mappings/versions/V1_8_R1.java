@@ -207,6 +207,7 @@ public class V1_8_R1 extends Version {
             load(V1_8_R1.class, "CraftWorld", new CraftWorld.CraftWorldClass("org.bukkit.craftbukkit.v1_8_R1.CraftWorld"));
             load(V1_8_R1.class, "World", new World.WorldClass("net.minecraft.server.v1_8_R1.World"));
             load(V1_8_R1.class, "Vector3f", new Vector3f.Vector3fClass("net.minecraft.server.v1_8_R1.Vector3f"));
+            load(V1_8_R1.class, "Vec3D", new Vec3D.Vec3DClass("net.minecraft.server.v1_8_R1.Vec3D"));
             load(V1_8_R1.class, "BlockPosition", new BlockPosition.BlockPositionClass("net.minecraft.server.v1_8_R1.BlockPosition"));
             load(V1_8_R1.class, "CraftBlock", new CraftBlock.CraftBlockClass("org.bukkit.craftbukkit.v1_8_R1.block.CraftBlock"));
             load(V1_8_R1.class, "IBlockData", new IBlockData.IBlockDataClass("net.minecraft.server.v1_8_R1.IBlockData"));
@@ -395,10 +396,14 @@ public class V1_8_R1 extends Version {
             load(V1_8_R1.class, "World:getEntityById", new MethodExecutor(getClassExec("World"), getClassExec("Entity"), "a", "Gets a entity by its ID", ClassExecutor.INT));
             //
 
-            // Vector3f
+            // Location
             load(V1_8_R1.class, "Vector3f:getX", new MethodExecutor(getClassExec("Vector3f"), ClassExecutor.FLOAT, "getX", "Gets the X align of a Vector3f"));
             load(V1_8_R1.class, "Vector3f:getY", new MethodExecutor(getClassExec("Vector3f"), ClassExecutor.FLOAT, "getY", "Gets the Y align of a Vector3f"));
             load(V1_8_R1.class, "Vector3f:getZ", new MethodExecutor(getClassExec("Vector3f"), ClassExecutor.FLOAT, "getZ", "Gets the Z align of a Vector3f"));
+
+            load(V1_8_R1.class, "Vec3D:getX", new MethodExecutor(getClassExec("Vec3D"), ClassExecutor.DOUBLE, "getX", "Gets the X align of a Vec3D"));
+            load(V1_8_R1.class, "Vec3D:getY", new MethodExecutor(getClassExec("Vec3D"), ClassExecutor.DOUBLE, "getY", "Gets the Y align of a Vec3D"));
+            load(V1_8_R1.class, "Vec3D:getZ", new MethodExecutor(getClassExec("Vec3D"), ClassExecutor.DOUBLE, "getZ", "Gets the Z align of a Vec3D"));
             //
 
             // BlockPosition
@@ -953,7 +958,7 @@ public class V1_8_R1 extends Version {
 
     @SuppressWarnings("DataFlowIssue")
     @Override
-    public @NotNull Location getLocation(@NotNull Entity entity) {
+    public @NotNull Location getEntityLocation(@NotNull Entity entity) {
         return new Location(
                 (org.bukkit.World) new World(getFieldExec("Entity:world").invokeInstance(entity)).getCraftWorld().getValue(),
                 (double) getFieldExec("Entity:locX").invokeInstance(entity),
@@ -1379,6 +1384,37 @@ public class V1_8_R1 extends Version {
     @Override
     public void setEntityPolarBearStanding(@NotNull PolarBear bear, boolean standing) {
         throw new UnsupportedOperationException("The polar bear is only available at 1.10+");
+    }
+
+    @Override
+    public boolean hasEntityPigSaddle(@NotNull Pig pig) {
+        //noinspection DataFlowIssue
+        return (boolean) laivynpc().getVersion().getMethodExec("Entity:Pig:hasSaddle").invokeInstance(pig);
+    }
+    @Override
+    public void setEntityPigSaddle(@NotNull Pig pig, boolean saddle) {
+        laivynpc().getVersion().getMethodExec("Entity:Pig:setSaddle").invokeInstance(pig, new BooleanObjExec(saddle));
+    }
+
+    @Override
+    public boolean isEntityWolfAngry(@NotNull Wolf wolf) {
+        //noinspection DataFlowIssue
+        return (boolean) laivynpc().getVersion().getMethodExec("Entity:Wolf:isAngry").invokeInstance(wolf);
+    }
+
+    @Override
+    public void setEntityWolfAngry(@NotNull Wolf wolf, boolean angry) {
+        laivynpc().getVersion().getMethodExec("Entity:Wolf:setAngry").invokeInstance(wolf, new BooleanObjExec(angry));
+    }
+
+    @Override
+    public @NotNull EnumColorEnum.EnumColor getEntityWolfCollarColor(@NotNull Wolf wolf) {
+        return new EnumColorEnum.EnumColor((Enum<?>) Objects.requireNonNull(laivynpc().getVersion().getMethodExec("Entity:Wolf:getCollarColor").invokeInstance(wolf)));
+    }
+
+    @Override
+    public void setEntityWolfCollarColor(@NotNull Wolf wolf, EnumColorEnum.@NotNull EnumColor color) {
+        laivynpc().getVersion().getMethodExec("Entity:Wolf:setCollarColor").invokeInstance(wolf, color);
     }
 
     @Override

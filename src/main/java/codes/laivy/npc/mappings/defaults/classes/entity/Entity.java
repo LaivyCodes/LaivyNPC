@@ -172,7 +172,7 @@ public class Entity extends ObjectExecutor {
     }
 
     public @NotNull Location getLocation() {
-        return laivynpc().getVersion().getLocation(this);
+        return laivynpc().getVersion().getEntityLocation(this);
     }
 
     @Override

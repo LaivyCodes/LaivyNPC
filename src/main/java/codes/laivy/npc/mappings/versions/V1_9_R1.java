@@ -71,6 +71,14 @@ public class V1_9_R1 extends V1_8_R3 {
                     case "Entity:Zombie:setVillagerType":
                         load(V1_9_R1.class, key, new MethodExecutor(getClassExec("Entity:Zombie"), ClassExecutor.VOID, "setVillagerType", "Sets the villager type of a Zombie", ClassExecutor.INT));
                         return false;
+                    case "Entity:Horse:getVariant":
+                    case "Entity:Horse:setVariant":
+                    case "Entity:Wolf:isAngry":
+                    case "Entity:Wolf:setAngry":
+                    case "Entity:Wolf:getCollarColor":
+                    case "Entity:Wolf:setCollarColor":
+                    case "Entity:Pig:hasSaddle":
+                    case "Entity:Pig:setSaddle":
                     case "Entity:Creeper:isPowered":
                     case "Entity:Creeper:setPowered":
                     case "Entity:Blaze:isCharging":
@@ -414,6 +422,7 @@ public class V1_9_R1 extends V1_8_R3 {
             load(V1_9_R1.class, "CraftWorld", new CraftWorld.CraftWorldClass("org.bukkit.craftbukkit.v1_9_R1.CraftWorld"));
             load(V1_9_R1.class, "World", new World.WorldClass("net.minecraft.server.v1_9_R1.World"));
             load(V1_9_R1.class, "Vector3f", new Vector3f.Vector3fClass("net.minecraft.server.v1_9_R1.Vector3f"));
+            load(V1_9_R1.class, "Vec3D", new Vec3D.Vec3DClass("net.minecraft.server.v1_9_R1.Vec3D"));
             load(V1_9_R1.class, "BlockPosition", new BlockPosition.BlockPositionClass("net.minecraft.server.v1_9_R1.BlockPosition"));
             load(V1_9_R1.class, "CraftBlock", new CraftBlock.CraftBlockClass("org.bukkit.craftbukkit.v1_9_R1.block.CraftBlock"));
             load(V1_9_R1.class, "IBlockData", new IBlockData.IBlockDataClass("net.minecraft.server.v1_9_R1.IBlockData"));
@@ -430,7 +439,7 @@ public class V1_9_R1 extends V1_8_R3 {
             load(V1_9_R1.class, "EnumHorseType", new EnumHorseTypeEnum.EnumHorseTypeClass("net.minecraft.server.v1_9_R1.EnumHorseType"));
             //
         }
-        
+
         return super.getClasses();
     }
 
@@ -484,6 +493,46 @@ public class V1_9_R1 extends V1_8_R3 {
     }
 
     @Override
+    public boolean hasEntityPigSaddle(@NotNull Pig pig) {
+        //noinspection DataFlowIssue
+        return (boolean) pig.getDataWatcher().get(Pig.SADDLE_METADATA());
+    }
+    @Override
+    public void setEntityPigSaddle(@NotNull Pig pig, boolean saddle) {
+        pig.getDataWatcher().set(Pig.SADDLE_METADATA(), new BooleanObjExec(saddle));
+    }
+
+    @Override
+    public boolean isEntityWolfAngry(@NotNull Wolf wolf) {
+        //noinspection DataFlowIssue
+        return (boolean) wolf.getDataWatcher().get(Wolf.ANGRY_METADATA());
+    }
+    @Override
+    public void setEntityWolfAngry(@NotNull Wolf wolf, boolean angry) {
+        wolf.getDataWatcher().set(Wolf.ANGRY_METADATA(), new BooleanObjExec(angry));
+    }
+
+    @Override
+    public @NotNull EnumColorEnum.EnumColor getEntityWolfCollarColor(@NotNull Wolf wolf) {
+        //noinspection DataFlowIssue
+        return EnumColorEnum.fromColorIndex((int) wolf.getDataWatcher().get(Wolf.COLLAR_COLOR_METADATA()));
+    }
+    @Override
+    public void setEntityWolfCollarColor(@NotNull Wolf wolf, EnumColorEnum.@NotNull EnumColor color) {
+        wolf.getDataWatcher().set(Wolf.COLLAR_COLOR_METADATA(), new IntegerObjExec(color.getColorIndex()));
+    }
+
+    @Override
+    public int getEntityHorseVariant(@NotNull Horse horse) {
+        //noinspection DataFlowIssue
+        return (int) horse.getDataWatcher().get(Horse.VARIANT_METADATA());
+    }
+    @Override
+    public void setEntityHorseVariant(@NotNull Horse horse, int variant) {
+        horse.getDataWatcher().set(Horse.VARIANT_METADATA(), new IntegerObjExec(variant));
+    }
+
+    @Override
     public @NotNull Map<String, FieldExecutor> getFields() {
         if (!super.getFields().containsKey("Metadata:Enderman:screaming")) {
             load(V1_9_R1.class, "Metadata:Enderman:screaming", new FieldExecutor(getClassExec("Entity:Enderman"), getClassExec("DataWatcherObject"), "bw", "Gets the enderman's screaming DataWatcher's object"));
@@ -496,10 +545,15 @@ public class V1_9_R1 extends V1_8_R3 {
             load(V1_9_R1.class, "Metadata:Creeper:Ignited", new FieldExecutor(getClassExec("Entity:Creeper"), getClassExec("DataWatcherObject"), "c", "Gets the creeper ignited DataWatcherObject"));
             load(V1_9_R1.class, "Metadata:Creeper:Powered", new FieldExecutor(getClassExec("Entity:Creeper"), getClassExec("DataWatcherObject"), "b", "Gets the creeper powered DataWatcherObject"));
             load(V1_9_R1.class, "Metadata:Horse:Armor", new FieldExecutor(getClassExec("Entity:Horse"), getClassExec("DataWatcherObject"), "bI", "Gets the horse armor DataWatcherObject"));
+            load(V1_9_R1.class, "Metadata:Horse:Variant", new FieldExecutor(getClassExec("Entity:Horse"), getClassExec("DataWatcherObject"), "bG", "Gets the horse variant DataWatcherObject"));
             load(V1_9_R1.class, "Metadata:Spider:Climbing", new FieldExecutor(getClassExec("Entity:Spider"), getClassExec("DataWatcherObject"), "a", "Gets the spider climbing DataWatcherObject"));
             load(V1_9_R1.class, "Metadata:Zombie:Baby", new FieldExecutor(getClassExec("Entity:Zombie"), getClassExec("DataWatcherObject"), "bv", "Gets the zombie baby DataWatcherObject"));
             load(V1_9_R1.class, "Metadata:Blaze:Charging", new FieldExecutor(getClassExec("Entity:Blaze"), getClassExec("DataWatcherObject"), "c", "Gets the blaze charging DataWatcherObject"));
             load(V1_9_R1.class, "Metadata:Zombie:Villager:Profession", new FieldExecutor(getClassExec("Entity:Zombie"), getClassExec("DataWatcherObject"), "bw", "Gets the zombie villager profession DataWatcherObject"));
+            load(V1_9_R1.class, "Metadata:Pig:Saddle", new FieldExecutor(getClassExec("Entity:Pig"), getClassExec("DataWatcherObject"), "bv", "Gets the pig saddle DataWatcherObject"));
+
+            load(V1_9_R1.class, "Metadata:Wolf:Angry", new FieldExecutor(getClassExec("Entity:Wolf"), getClassExec("DataWatcherObject"), "bA", "Gets the wolf angry DataWatcherObject"));
+            load(V1_9_R1.class, "Metadata:Wolf:CollarColor", new FieldExecutor(getClassExec("Entity:Wolf"), getClassExec("DataWatcherObject"), "bB", "Gets the wolf collar color DataWatcherObject"));
         }
 
         return super.getFields();

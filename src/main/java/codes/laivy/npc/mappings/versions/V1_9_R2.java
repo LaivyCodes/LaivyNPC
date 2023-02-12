@@ -75,11 +75,23 @@ public class V1_9_R2 extends V1_9_R1 {
                     case "Metadata:Horse:Armor":
                         load(V1_9_R2.class, key, new FieldExecutor(getClassExec("Entity:Horse"), getClassExec("DataWatcherObject"), "bJ", "Gets the horse armor DataWatcherObject"));
                         return false;
+                    case "Metadata:Horse:Variant":
+                        load(V1_9_R2.class, key, new FieldExecutor(getClassExec("Entity:Horse"), getClassExec("DataWatcherObject"), "bH", "Gets the horse variant DataWatcherObject"));
+                        return false;
                     case "Metadata:Zombie:Baby":
                         load(V1_9_R2.class, key, new FieldExecutor(getClassExec("Entity:Zombie"), getClassExec("DataWatcherObject"), "bw", "Gets the zombie baby DataWatcherObject"));
                         return false;
                     case "Metadata:Zombie:Villager:Profession":
                         load(V1_9_R2.class, key, new FieldExecutor(getClassExec("Entity:Zombie"), getClassExec("DataWatcherObject"), "bx", "Gets the zombie villager profession DataWatcherObject"));
+                        return false;
+                    case "Metadata:Pig:Saddle":
+                        load(V1_9_R2.class, key, new FieldExecutor(getClassExec("Entity:Pig"), getClassExec("DataWatcherObject"), "bw", "Gets the pig saddle DataWatcherObject"));
+                        return false;
+                    case "Metadata:Wolf:Angry":
+                        load(V1_9_R2.class, key, new FieldExecutor(getClassExec("Entity:Wolf"), getClassExec("DataWatcherObject"), "bB", "Gets the wolf angry DataWatcherObject"));
+                        return false;
+                    case "Metadata:Wolf:CollarColor":
+                        load(V1_9_R2.class, key, new FieldExecutor(getClassExec("Entity:Wolf"), getClassExec("DataWatcherObject"), "bC", "Gets the wolf collar color DataWatcherObject"));
                         return false;
                     default:
                         break;
@@ -228,6 +240,7 @@ public class V1_9_R2 extends V1_9_R1 {
             load(V1_9_R2.class, "CraftWorld", new CraftWorld.CraftWorldClass("org.bukkit.craftbukkit.v1_9_R2.CraftWorld"));
             load(V1_9_R2.class, "World", new World.WorldClass("net.minecraft.server.v1_9_R2.World"));
             load(V1_9_R2.class, "Vector3f", new Vector3f.Vector3fClass("net.minecraft.server.v1_9_R2.Vector3f"));
+            load(V1_9_R2.class, "Vec3D", new Vec3D.Vec3DClass("net.minecraft.server.v1_9_R2.Vec3D"));
             load(V1_9_R2.class, "BlockPosition", new BlockPosition.BlockPositionClass("net.minecraft.server.v1_9_R2.BlockPosition"));
             load(V1_9_R2.class, "CraftBlock", new CraftBlock.CraftBlockClass("org.bukkit.craftbukkit.v1_9_R2.block.CraftBlock"));
             load(V1_9_R2.class, "IBlockData", new IBlockData.IBlockDataClass("net.minecraft.server.v1_9_R2.IBlockData"));

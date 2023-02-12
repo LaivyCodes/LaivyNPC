@@ -19,6 +19,13 @@ public class Horse extends AbstractHorse {
             throw new IllegalStateException("Metadata objects is compatible only at 1.9+");
         }
     }
+    public static @NotNull DataWatcherObject VARIANT_METADATA() {
+        if (ReflectionUtils.isCompatible(V1_9_R1.class)) {
+            return new DataWatcherObject(laivynpc().getVersion().getFieldExec("Metadata:Horse:Variant").invokeStatic());
+        } else {
+            throw new IllegalStateException("Metadata objects is compatible only at 1.9+");
+        }
+    }
 
     public Horse(@Nullable Object value) {
         super(value);
