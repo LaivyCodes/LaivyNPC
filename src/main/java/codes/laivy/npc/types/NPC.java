@@ -201,6 +201,10 @@ public abstract class NPC {
     //
 
     public NPC(@NotNull List<OfflinePlayer> players, @NotNull Location location) {
+        if (!Bukkit.isPrimaryThread()) {
+            throw new UnsupportedOperationException("NPCs needs to be created synchronously");
+        }
+
         Set<UUID> uuids = new HashSet<>();
 
         if (players.size() > 0) {

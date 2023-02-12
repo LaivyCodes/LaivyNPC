@@ -62,10 +62,7 @@ import codes.laivy.npc.mappings.instances.MethodExecutor;
 import codes.laivy.npc.mappings.instances.classes.ClassExecutor;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 public class V1_16_R1 extends V1_15_R1 {
 
@@ -384,14 +381,19 @@ public class V1_16_R1 extends V1_15_R1 {
     }
 
     @Override
-    public @NotNull EntityEquipmentPacket createEquipmentPacket(@NotNull Entity entity, EnumItemSlotEnum.@NotNull EnumItemSlot slot, org.bukkit.inventory.@NotNull ItemStack item) {
-        Pair pair = new Pair(getClassExec("Pair").getConstructor(ClassExecutor.OBJECT, ClassExecutor.OBJECT).newInstance(slot.getEnum(), ItemStack.getNMSItemStack(item)));
-        List<Object> list = new LinkedList<Object>() {{
-            add(pair.getValue());
-        }};
+    public @NotNull Set<EntityEquipmentPacket> createEquipmentPacket(@NotNull Entity entity, @NotNull Map<EnumItemSlotEnum.@NotNull EnumItemSlot, org.bukkit.inventory.@NotNull ItemStack> items) {
+        List<Object> list = new LinkedList<>();
+
+        for (Map.Entry<EnumItemSlotEnum.@NotNull EnumItemSlot, org.bukkit.inventory.@NotNull ItemStack> entry : items.entrySet()) {
+            Pair pair = new Pair(getClassExec("Pair").getConstructor(ClassExecutor.OBJECT, ClassExecutor.OBJECT).newInstance(entry.getKey().getEnum(), ItemStack.getNMSItemStack(entry.getValue())));
+            list.add(pair.getValue());
+        }
 
         Object packet = getClassExec("PacketPlayOutEntityEquipment").getConstructor(ClassExecutor.INT, new ClassExecutor(List.class)).newInstance(new IntegerObjExec(entity.getId()), new ObjectObjExec(list));
-        return new EntityEquipmentPacket(packet);
+
+        return new LinkedHashSet<EntityEquipmentPacket>() {{
+            add(new EntityEquipmentPacket(packet));
+        }};
     }
 
     @Override

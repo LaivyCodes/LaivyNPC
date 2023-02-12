@@ -60,6 +60,7 @@ import codes.laivy.npc.mappings.instances.Executor;
 import codes.laivy.npc.mappings.instances.FieldExecutor;
 import codes.laivy.npc.mappings.instances.MethodExecutor;
 import codes.laivy.npc.mappings.instances.classes.ClassExecutor;
+import codes.laivy.npc.utils.NonLivingEntityType;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.jetbrains.annotations.NotNull;
@@ -872,6 +873,32 @@ public class V1_14_R1 extends V1_13_R2 {
     }
     //
     // ZOMBIE VILLAGER
+
+    @Override
+    public @NotNull EntitySpawnPacket createSpawnPacket(@NotNull Entity entity) {
+        Object packet = getClassExec("PacketPlayOutSpawnEntity").getConstructor(getClassExec("Entity")).newInstance(entity);
+        return new EntitySpawnPacket(packet);
+    }
+
+    @Override
+    public @NotNull Map<String, MethodExecutor> getMethods() {
+        if (!super.getMethods().containsKey("Vec3D:getX")) {
+            load(V1_14_R1.class, "Vec3D:getX", new MethodExecutor(getClassExec("Vec3D"), ClassExecutor.DOUBLE, "getX", "Gets the X align of a Vec3D"));
+            load(V1_14_R1.class, "Vec3D:getY", new MethodExecutor(getClassExec("Vec3D"), ClassExecutor.DOUBLE, "getY", "Gets the Y align of a Vec3D"));
+            load(V1_14_R1.class, "Vec3D:getZ", new MethodExecutor(getClassExec("Vec3D"), ClassExecutor.DOUBLE, "getZ", "Gets the Z align of a Vec3D"));
+        }
+
+        return super.getMethods();
+    }
+
+    @Override
+    public @NotNull Map<String, Object> getObjects() {
+        Map<String, Object> map = super.getObjects();
+
+        super.getObjects().put("Metadata:Player:SkinParts", 15);
+
+        return map;
+    }
 
     @Override
     public @NotNull String getName() {

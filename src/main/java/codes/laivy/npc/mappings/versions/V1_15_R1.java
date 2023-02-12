@@ -363,6 +363,15 @@ public class V1_15_R1 extends V1_14_R1 {
     }
 
     @Override
+    public @NotNull Map<String, Object> getObjects() {
+        Map<String, Object> map = super.getObjects();
+
+        super.getObjects().put("Metadata:Player:SkinParts", 17);
+
+        return map;
+    }
+
+    @Override
     public @NotNull String getName() {
         return "v1_15_R1";
     }

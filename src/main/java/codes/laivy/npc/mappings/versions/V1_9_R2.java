@@ -262,13 +262,6 @@ public class V1_9_R2 extends V1_9_R1 {
     }
 
     @Override
-    public @NotNull Map<String, Object> getObjects() {
-        super.getObjects().put("Metadata:Player:SkinParts", 13);
-
-        return super.getObjects();
-    }
-
-    @Override
     public @NotNull String getName() {
         return "v1_9_R2";
     }

@@ -1,5 +1,6 @@
 package codes.laivy.npc.mappings;
 
+import codes.laivy.npc.LaivyNPC;
 import codes.laivy.npc.mappings.defaults.classes.entity.animal.*;
 import codes.laivy.npc.mappings.defaults.classes.entity.animal.fish.Fish;
 import codes.laivy.npc.mappings.defaults.classes.entity.animal.fish.Pufferfish;
@@ -53,6 +54,8 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.UUID;
 
+import static codes.laivy.npc.LaivyNPC.laivynpc;
+
 public abstract class Version implements VersionCompound, VersionPacket, VersionLocation {
 
     public static final @NotNull Map<@NotNull String, @NotNull Version> LOADED_VERSIONS = new HashMap<>();
@@ -66,14 +69,31 @@ public abstract class Version implements VersionCompound, VersionPacket, Version
 
     protected abstract boolean onLoad(@NotNull Class<? extends Version> version, @NotNull String key, @NotNull Executor executor);
 
-    @SuppressWarnings("ResultOfMethodCallIgnored")
     public Version() {
-        getClasses();
-        getMethods();
-        getFields();
-        getEnums();
-        getTexts();
-        getObjects();
+        laivynpc().log("§7Loaded: " + getClasses().size() + " classes, " + getMethods().size() + " methods, " + getFields().size() + " fields, " + getEnums().size() + " enums, " + getTexts().size() + " texts and " + getObjects().size() + " objects.");
+
+        if (laivynpc().isDebug()) {
+            new Thread(() -> {
+                laivynpc().log("§7Doing some performance tests...");
+
+                int classes = 0, methods = 0, fields = 0, enums = 0, texts = 0, objects = 0;
+                long time = System.currentTimeMillis();
+
+                int row = 0;
+                while (row < 100) {
+                    classes += getClasses().size();
+                    methods += getMethods().size();
+                    fields += getFields().size();
+                    enums += getEnums().size();
+                    texts += getTexts().size();
+                    objects += getObjects().size();
+
+                    row++;
+                }
+
+                laivynpc().log("Performed '" + (classes + methods + fields + enums + texts + objects) + "' tests in " + ((System.currentTimeMillis() - time) / 1000D) + " seconds.");
+            }).start();
+        }
     }
 
     protected void load(@NotNull Class<? extends Version> version, @NotNull String key, @NotNull Executor executor) {

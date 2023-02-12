@@ -50,6 +50,7 @@ public class PlayerNPC extends NPC {
 
     @Override
     protected void debug() {
+        super.debug();
         setSkin("ItsLaivy");
         setTablistName("ItsLaivy");
         setShowOnTablist(true);
@@ -314,13 +315,7 @@ public class PlayerNPC extends NPC {
     }
     @Override
     public @NotNull List<@NotNull Packet> getEquipmentsUpdatePackets(@NotNull Player player) {
-        List<@NotNull Packet> packets = new LinkedList<>();
-
-        for (Map.Entry<EnumItemSlotEnum.@NotNull EnumItemSlot, @NotNull ItemStack> map : getEquipments().entrySet()) {
-            packets.add(laivynpc().getVersion().createEquipmentPacket(getEntity(), map.getKey(), map.getValue()));
-        }
-
-        return packets;
+        return new LinkedList<>(laivynpc().getVersion().createEquipmentPacket(getEntity(), getEquipments()));
     }
 
     //

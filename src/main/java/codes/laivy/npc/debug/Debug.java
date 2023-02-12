@@ -15,6 +15,7 @@ import codes.laivy.npc.mappings.defaults.classes.scoreboard.ScoreboardTeam;
 import codes.laivy.npc.types.NPC;
 import codes.laivy.npc.types.player.PlayerNPC;
 import codes.laivy.npc.utils.ReflectionUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -121,8 +122,12 @@ public class Debug {
             entityMetadataPacket.send(player);
 
             message.append("§7Trying to debug EntityEquipmentPacket...\n");
-            EntityEquipmentPacket entityEquipmentPacket = laivynpc().getVersion().createEquipmentPacket(stand, EnumItemSlotEnum.EnumItemSlot.HEAD, new ItemStack(Material.DIAMOND_HELMET));
-            entityEquipmentPacket.send(player);
+            @NotNull Set<EntityEquipmentPacket> entityEquipmentPackets = laivynpc().getVersion().createEquipmentPacket(stand, new LinkedHashMap<EnumItemSlotEnum.EnumItemSlot, ItemStack>() {{
+                put(EnumItemSlotEnum.EnumItemSlot.HEAD, new ItemStack(Material.DIAMOND_HELMET));
+            }});
+            for (EntityEquipmentPacket entityEquipmentPacket : entityEquipmentPackets) {
+                entityEquipmentPacket.send(player);
+            }
 
             message.append("§7Trying to debug EntityLivingSpawnPacket...\n");
             Pig pig = (Pig) laivynpc().getVersion().createEntity(Entity.EntityType.PIG, player.getLocation());
@@ -173,31 +178,30 @@ public class Debug {
         StringBuilder message = new StringBuilder("§8-----\n§7Debugging NPCs:\n");
 
         try {
-
 //            new Thread(() -> {
 //                for (Class<? extends NPC> npc : DEBUG_NPCS) {
 //                    message.append("§7Trying to debug ").append(npc.getSimpleName()).append("...\n");
 //                    Bukkit.broadcastMessage("Debugging '" + npc.getSimpleName() + "'");
 //
-//                    Bukkit.getScheduler().runTask(laivynpc(), () -> {
-//                        if (MethodExecutor.hasMethodWithReturn(npc, "debug", void.class, Location.class)) {
-//                            MethodExecutor method = new MethodExecutor(new ClassExecutor(npc), ClassExecutor.VOID, "debug", "Gets the debug method from a NPC class", new ClassExecutor(Location.class));
-//                            method.load();
-//
-//                            method.invokeStatic(new ObjectExecutor(player.getLocation()) {
-//                                @Override
-//                                public @NotNull ClassExecutor getClassExecutor() {
-//                                    return new ClassExecutor(Location.class);
-//                                }
-//                            });
-//                        } else {
-//                            message.append("§cCannot debug ").append(npc.getSimpleName()).append(" because this NPC class doesn't have a debug method");
+//                    ObjectExecutor playerObjExec = new ObjectExecutor(player.getLocation()) {
+//                        @Override
+//                        public @NotNull ClassExecutor getClassExecutor() {
+//                            return new ClassExecutor(Location.class);
 //                        }
-//                    });
+//                    };
+//
+//                    MethodExecutor method = new MethodExecutor(new ClassExecutor(npc), ClassExecutor.VOID, "debug", "Gets the debug method from a NPC class", new ClassExecutor(Location.class));
+//                    method.load();
+//
+//                    if (MethodExecutor.hasMethodWithReturn(npc, "debug", void.class, Location.class)) {
+//                        Bukkit.getScheduler().runTask(laivynpc(), () -> method.invokeStatic(playerObjExec));
+//                    } else {
+//                        message.append("§cCannot debug ").append(npc.getSimpleName()).append(" because this NPC class doesn't have a debug method");
+//                    }
 //
 //                    Bukkit.broadcastMessage("Success");
 //                    try {
-//                        Thread.sleep(2000);
+//                        Thread.sleep(1000);
 //                    } catch (InterruptedException e) {
 //                        throw new RuntimeException(e);
 //                    }

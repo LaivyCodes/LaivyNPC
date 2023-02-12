@@ -400,10 +400,6 @@ public class V1_8_R1 extends Version {
             load(V1_8_R1.class, "Vector3f:getX", new MethodExecutor(getClassExec("Vector3f"), ClassExecutor.FLOAT, "getX", "Gets the X align of a Vector3f"));
             load(V1_8_R1.class, "Vector3f:getY", new MethodExecutor(getClassExec("Vector3f"), ClassExecutor.FLOAT, "getY", "Gets the Y align of a Vector3f"));
             load(V1_8_R1.class, "Vector3f:getZ", new MethodExecutor(getClassExec("Vector3f"), ClassExecutor.FLOAT, "getZ", "Gets the Z align of a Vector3f"));
-
-            load(V1_8_R1.class, "Vec3D:getX", new MethodExecutor(getClassExec("Vec3D"), ClassExecutor.DOUBLE, "getX", "Gets the X align of a Vec3D"));
-            load(V1_8_R1.class, "Vec3D:getY", new MethodExecutor(getClassExec("Vec3D"), ClassExecutor.DOUBLE, "getY", "Gets the Y align of a Vec3D"));
-            load(V1_8_R1.class, "Vec3D:getZ", new MethodExecutor(getClassExec("Vec3D"), ClassExecutor.DOUBLE, "getZ", "Gets the Z align of a Vec3D"));
             //
 
             // BlockPosition
@@ -1569,13 +1565,22 @@ public class V1_8_R1 extends Version {
     }
 
     @Override
-    public @NotNull EntityEquipmentPacket createEquipmentPacket(@NotNull Entity entity, @NotNull EnumItemSlotEnum.EnumItemSlot slot, @NotNull ItemStack item) {
-        if (slot == EnumItemSlotEnum.EnumItemSlot.OFFHAND) {
-            throw new IllegalArgumentException("The offhand equipment slot is available only at 1.9+");
+    public @NotNull Set<EntityEquipmentPacket> createEquipmentPacket(@NotNull Entity entity, @NotNull Map<EnumItemSlotEnum.@NotNull EnumItemSlot, @NotNull ItemStack> items) {
+        Set<EntityEquipmentPacket> packets = new LinkedHashSet<>();
+
+        for (Map.Entry<EnumItemSlotEnum.@NotNull EnumItemSlot, @NotNull ItemStack> entry : items.entrySet()) {
+            EnumItemSlotEnum.EnumItemSlot slot = entry.getKey();
+            ItemStack item = entry.getValue();
+
+            if (slot == EnumItemSlotEnum.EnumItemSlot.OFFHAND) {
+                throw new IllegalArgumentException("The offhand equipment slot is available only at 1.9+");
+            }
+
+            Object packet = getClassExec("PacketPlayOutEntityEquipment").getConstructor(ClassExecutor.INT, ClassExecutor.INT, getClassExec("ItemStack")).newInstance(new IntegerObjExec(entity.getId()), new IntegerObjExec(slot.getId()), getNMSItemStack(item));
+            packets.add(new EntityEquipmentPacket(packet));
         }
 
-        Object packet = getClassExec("PacketPlayOutEntityEquipment").getConstructor(ClassExecutor.INT, ClassExecutor.INT, getClassExec("ItemStack")).newInstance(new IntegerObjExec(entity.getId()), new IntegerObjExec(slot.getId()), getNMSItemStack(item));
-        return new EntityEquipmentPacket(packet);
+        return packets;
     }
 
     @Override
