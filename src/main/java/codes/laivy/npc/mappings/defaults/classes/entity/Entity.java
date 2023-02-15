@@ -190,7 +190,10 @@ public class Entity extends ObjectExecutor {
         ARMOR_STAND(ArmorStand.class, ArmorStandNPC.class, V1_8_R1.class),
         PIG(Pig.class, PigNPC.class, V1_8_R1.class),
         COW(Cow.class, CowNPC.class, V1_8_R1.class),
+
         OCELOT(Ocelot.class, OcelotNPC.class, V1_8_R1.class),
+        CAT(Cat.class, CatNPC.class, V1_8_R1.class),
+
         BAT(Bat.class, BatNPC.class, V1_8_R1.class),
         EGG(Egg.class, EggNPC.class, V1_8_R1.class),
         CHICKEN(Chicken.class, ChickenNPC.class, V1_8_R1.class),
@@ -255,7 +258,7 @@ public class Entity extends ObjectExecutor {
 
         PHANTOM(Phantom.class, PhantomNPC.class, V1_13_R1.class),
         TURTLE(Turtle.class, TurtleNPC.class, V1_13_R1.class),
-        CAT(Cat.class, CatNPC.class, V1_13_R1.class),
+
         BOAT(Boat.class, BoatNPC.class, V1_8_R1.class),
         CAVE_SPIDER(CaveSpider.class, CaveSpiderNPC.class, V1_8_R1.class),
         ;

@@ -812,6 +812,9 @@ public class V1_8_R1 extends Version {
         } else if (type == Entity.EntityType.OCELOT) {
             Object object = getClassExec("Entity:Ocelot").getConstructor(getClassExec("World")).newInstance(CraftWorld.getCraftWorld(location.getWorld()).getHandle());
             entity = new Ocelot(object);
+        } else if (type == Entity.EntityType.CAT) {
+            Object object = getClassExec("Entity:Ocelot").getConstructor(getClassExec("World")).newInstance(CraftWorld.getCraftWorld(location.getWorld()).getHandle());
+            entity = new Cat(object);
         } else if (type == Entity.EntityType.HORSE) {
             Object object = getClassExec("Entity:Horse").getConstructor(getClassExec("World")).newInstance(CraftWorld.getCraftWorld(location.getWorld()).getHandle());
             entity = new Horse(object);

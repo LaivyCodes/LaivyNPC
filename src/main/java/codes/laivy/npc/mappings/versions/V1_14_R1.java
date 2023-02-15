@@ -60,6 +60,7 @@ import codes.laivy.npc.mappings.instances.Executor;
 import codes.laivy.npc.mappings.instances.FieldExecutor;
 import codes.laivy.npc.mappings.instances.MethodExecutor;
 import codes.laivy.npc.mappings.instances.classes.ClassExecutor;
+import codes.laivy.npc.utils.NonLivingEntityType;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.jetbrains.annotations.NotNull;
@@ -875,7 +876,7 @@ public class V1_14_R1 extends V1_13_R2 {
 
     @Override
     public @NotNull EntitySpawnPacket createSpawnPacket(@NotNull Entity entity) {
-        Object packet = getClassExec("PacketPlayOutSpawnEntity").getConstructor(getClassExec("Entity")).newInstance(entity);
+        Object packet = getClassExec("PacketPlayOutSpawnEntity").getConstructor(getClassExec("Entity"), ClassExecutor.INT).newInstance(entity, new IntegerObjExec(NonLivingEntityType.getByEntity(entity).getTypeId()));
         return new EntitySpawnPacket(packet);
     }
 

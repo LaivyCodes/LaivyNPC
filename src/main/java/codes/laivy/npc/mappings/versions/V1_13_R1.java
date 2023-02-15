@@ -106,7 +106,7 @@ public class V1_13_R1 extends V1_12_R1 {
                         load(V1_13_R1.class, key, new FieldExecutor(getClassExec("Entity:Wolf"), getClassExec("DataWatcherObject"), "bH", "Gets the wolf angry DataWatcherObject"));
                         return false;
                     case "Metadata:Wolf:CollarColor":
-                        load(V1_13_R1.class, key, new FieldExecutor(getClassExec("Entity:Wolf"), getClassExec("DataWatcherObject"), "bI", "Gets the wolf collar color DataWatcherObject"));
+                        load(V1_13_R1.class, key, new FieldExecutor(getClassExec("Entity:Wolf"), getClassExec("DataWatcherObject"), "bI", "Gets the wolf collar color DataWatcherObject", false, true));
                         return false;
                     default:
                         break;
