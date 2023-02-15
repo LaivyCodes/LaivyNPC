@@ -10,6 +10,7 @@ import codes.laivy.npc.mappings.instances.EnumExecutor;
 import codes.laivy.npc.mappings.instances.Executor;
 import codes.laivy.npc.mappings.instances.FieldExecutor;
 import codes.laivy.npc.mappings.instances.MethodExecutor;
+import codes.laivy.npc.mappings.instances.classes.ClassConstructor;
 import codes.laivy.npc.mappings.instances.classes.ClassExecutor;
 import codes.laivy.npc.mappings.defaults.classes.datawatcher.*;
 import codes.laivy.npc.mappings.defaults.classes.entity.*;
@@ -51,9 +52,7 @@ import codes.laivy.npc.mappings.defaults.classes.scoreboard.ScoreboardTeam;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 import static codes.laivy.npc.mappings.defaults.classes.others.objects.ItemStack.getNMSItemStack;
 
@@ -276,6 +275,16 @@ public class V1_9_R1 extends V1_8_R3 {
     @Override
     public void setEntityBlazeCharging(@NotNull Blaze blaze, boolean charging) {
         blaze.getDataWatcher().set(Blaze.CHARGING_METADATA(), new ByteObjExec((byte) (charging ? 1 : 0)));
+    }
+
+    @Override
+    public @NotNull Set<EntityEquipmentPacket> createEquipmentPacket(@NotNull Entity entity, @NotNull Map<EnumItemSlotEnum.@NotNull EnumItemSlot, org.bukkit.inventory.@NotNull ItemStack> items) {
+        ClassConstructor constructor = getClassExec("PacketPlayOutEntityEquipment").getConstructor(ClassExecutor.INT, getClassExec("EnumItemSlot"), getClassExec("ItemStack"));
+        Set<EntityEquipmentPacket> packets = new LinkedHashSet<>();
+
+        items.forEach((key, value) -> packets.add(new EntityEquipmentPacket(constructor.newInstance(new IntegerObjExec(entity.getId()), key.getEnum(), ItemStack.getNMSItemStack(value)))));
+
+        return packets;
     }
 
     @Override

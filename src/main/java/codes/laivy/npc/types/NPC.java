@@ -1,6 +1,7 @@
 package codes.laivy.npc.types;
 
 import codes.laivy.npc.developers.events.NPCDestroyEvent;
+import codes.laivy.npc.mappings.defaults.classes.others.objects.PlayerConnection;
 import codes.laivy.npc.mappings.instances.classes.ClassExecutor;
 import codes.laivy.npc.mappings.instances.MethodExecutor;
 import codes.laivy.npc.mappings.instances.ObjectExecutor;
@@ -683,8 +684,9 @@ public abstract class NPC {
         if (holograms) packetList.addAll(getHologramsUpdatePackets(player));
         if (movement) packetList.addAll(getMovementUpdatePackets());
 
+        PlayerConnection conn = EntityPlayer.getEntityPlayer(player).getPlayerConnection();
         for (Packet packet : packetList) {
-            packet.send(player);
+            conn.sendPacket(packet);
         }
     }
     //
@@ -692,11 +694,7 @@ public abstract class NPC {
     // Poses
     public void setPose(@NotNull EntityPose pose) {
         getEntity().setPose(pose);
-        EntityMetadataPacket packet = laivynpc().getVersion().createMetadataPacket(getEntity(), getEntity().getDataWatcher(), true);
-
-        for (UUID uuid : getSpawnedPlayers()) {
-            packet.send(Bukkit.getPlayer(uuid));
-        }
+        sendUpdatePackets(getSpawnedPlayers(), false, false, true, false, false, false);
     }
     public @NotNull EntityPose getPose() {
         return getEntity().getPose();

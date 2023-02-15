@@ -10,6 +10,8 @@ import codes.laivy.npc.utils.JsonParser;
 import java.util.ArrayList;
 import java.util.List;
 
+import static codes.laivy.npc.LaivyNPC.laivynpc;
+
 public class DebugResult {
 
     private final String mappingVersion;
@@ -19,7 +21,7 @@ public class DebugResult {
 
     public DebugResult() {
         this.startedTime = System.currentTimeMillis();
-        this.mappingVersion = LaivyNPC.laivynpc().getVersion().getName();
+        this.mappingVersion = laivynpc().getVersion().getName();
     }
 
     /**

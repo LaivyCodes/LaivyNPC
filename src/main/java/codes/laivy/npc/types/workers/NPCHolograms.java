@@ -61,9 +61,8 @@ public class NPCHolograms {
     private void removeLine(@Range(from = 0, to = 999) int line) {
         if (npcHologramTextMap.containsKey(line)) {
             NPCHologramText text = npcHologramTextMap.get(line);
+            EntityDestroyPacket packet = laivynpc().getVersion().createDestroyPacket(text.getArmorStands().toArray(new Entity[0]));
             for (@NotNull UUID uuid : getNPC().getSpawnedPlayers()) {
-                //noinspection ConstantConditions
-                EntityDestroyPacket packet = laivynpc().getVersion().createDestroyPacket(text.getArmorStands().toArray(new Entity[0]));
                 packet.send(Bukkit.getPlayer(uuid));
             }
             npcHologramTextMap.remove(line);

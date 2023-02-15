@@ -1,6 +1,5 @@
 package codes.laivy.npc.mappings;
 
-import codes.laivy.npc.LaivyNPC;
 import codes.laivy.npc.mappings.defaults.classes.entity.animal.*;
 import codes.laivy.npc.mappings.defaults.classes.entity.animal.fish.Fish;
 import codes.laivy.npc.mappings.defaults.classes.entity.animal.fish.Pufferfish;
@@ -50,7 +49,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.UUID;
 
@@ -60,12 +58,12 @@ public abstract class Version implements VersionCompound, VersionPacket, Version
 
     public static final @NotNull Map<@NotNull String, @NotNull Version> LOADED_VERSIONS = new HashMap<>();
 
-    private final @NotNull Map<@NotNull String, @NotNull ClassExecutor> classes = new LinkedHashMap<>();
-    private final @NotNull Map<@NotNull String, @NotNull MethodExecutor> methods = new LinkedHashMap<>();
-    private final @NotNull Map<@NotNull String, @NotNull FieldExecutor> fields = new LinkedHashMap<>();
-    private final @NotNull Map<@NotNull String, @NotNull EnumExecutor> enums = new LinkedHashMap<>();
-    private final @NotNull Map<@NotNull String, @NotNull String> texts = new LinkedHashMap<>();
-    private final @NotNull Map<@NotNull String, @NotNull Object> objects = new LinkedHashMap<>();
+    private final @NotNull Map<@NotNull String, @NotNull ClassExecutor> classes = new HashMap<>();
+    private final @NotNull Map<@NotNull String, @NotNull MethodExecutor> methods = new HashMap<>();
+    private final @NotNull Map<@NotNull String, @NotNull FieldExecutor> fields = new HashMap<>();
+    private final @NotNull Map<@NotNull String, @NotNull EnumExecutor> enums = new HashMap<>();
+    private final @NotNull Map<@NotNull String, @NotNull String> texts = new HashMap<>();
+    private final @NotNull Map<@NotNull String, @NotNull Object> objects = new HashMap<>();
 
     protected abstract boolean onLoad(@NotNull Class<? extends Version> version, @NotNull String key, @NotNull Executor executor);
 
@@ -77,21 +75,50 @@ public abstract class Version implements VersionCompound, VersionPacket, Version
                 laivynpc().log("§7Doing some performance tests...");
 
                 int classes = 0, methods = 0, fields = 0, enums = 0, texts = 0, objects = 0;
-                long time = System.currentTimeMillis();
 
+                long time1 = System.currentTimeMillis();
                 int row = 0;
                 while (row < 100) {
                     classes += getClasses().size();
+                    row++;
+                }
+                long time2 = System.currentTimeMillis();
+                row = 0;
+                while (row < 100) {
                     methods += getMethods().size();
+                    row++;
+                }
+                long time3 = System.currentTimeMillis();
+                row = 0;
+                while (row < 100) {
                     fields += getFields().size();
+                    row++;
+                }
+                long time4 = System.currentTimeMillis();
+                row = 0;
+                while (row < 100) {
                     enums += getEnums().size();
+                    row++;
+                }
+                long time5 = System.currentTimeMillis();
+                row = 0;
+                while (row < 100) {
                     texts += getTexts().size();
+                    row++;
+                }
+                long time6 = System.currentTimeMillis();
+                row = 0;
+                while (row < 100) {
                     objects += getObjects().size();
-
                     row++;
                 }
 
-                laivynpc().log("Performed '" + (classes + methods + fields + enums + texts + objects) + "' tests in " + ((System.currentTimeMillis() - time) / 1000D) + " seconds.");
+                laivynpc().log("Performed '" + (classes) + "' classes tests in " + ((System.currentTimeMillis() - time1) / 1000D) + " seconds.");
+                laivynpc().log("Performed '" + (methods) + "' methods tests in " + ((System.currentTimeMillis() - time2) / 1000D) + " seconds.");
+                laivynpc().log("Performed '" + (fields) + "' fields tests in " + ((System.currentTimeMillis() - time3) / 1000D) + " seconds.");
+                laivynpc().log("Performed '" + (enums) + "' enums tests in " + ((System.currentTimeMillis() - time4) / 1000D) + " seconds.");
+                laivynpc().log("Performed '" + (texts) + "' texts tests in " + ((System.currentTimeMillis() - time5) / 1000D) + " seconds.");
+                laivynpc().log("Performed '" + (objects) + "' objects tests in " + ((System.currentTimeMillis() - time6) / 1000D) + " seconds.");
             }).start();
         }
     }

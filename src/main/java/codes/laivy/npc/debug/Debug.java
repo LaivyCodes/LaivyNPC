@@ -46,6 +46,11 @@ public class Debug {
         result.getLogs().add(packets(player));
         result.getLogs().add(npcs(player));
         result.finish();
+
+        for (DebugLog log : result.getLogs()) {
+            // TODO: 03/02/2023 Better debug system
+            Bukkit.broadcastMessage(log.getMessage());
+        }
     }
 
     @NotNull
@@ -178,49 +183,21 @@ public class Debug {
         StringBuilder message = new StringBuilder("§8-----\n§7Debugging NPCs:\n");
 
         try {
-//            new Thread(() -> {
-//                for (Class<? extends NPC> npc : DEBUG_NPCS) {
-//                    message.append("§7Trying to debug ").append(npc.getSimpleName()).append("...\n");
-//                    Bukkit.broadcastMessage("Debugging '" + npc.getSimpleName() + "'");
-//
-//                    ObjectExecutor playerObjExec = new ObjectExecutor(player.getLocation()) {
-//                        @Override
-//                        public @NotNull ClassExecutor getClassExecutor() {
-//                            return new ClassExecutor(Location.class);
-//                        }
-//                    };
-//
-//                    MethodExecutor method = new MethodExecutor(new ClassExecutor(npc), ClassExecutor.VOID, "debug", "Gets the debug method from a NPC class", new ClassExecutor(Location.class));
-//                    method.load();
-//
-//                    if (MethodExecutor.hasMethodWithReturn(npc, "debug", void.class, Location.class)) {
-//                        Bukkit.getScheduler().runTask(laivynpc(), () -> method.invokeStatic(playerObjExec));
-//                    } else {
-//                        message.append("§cCannot debug ").append(npc.getSimpleName()).append(" because this NPC class doesn't have a debug method");
-//                    }
-//
-//                    Bukkit.broadcastMessage("Success");
-//                    try {
-//                        Thread.sleep(1000);
-//                    } catch (InterruptedException e) {
-//                        throw new RuntimeException(e);
-//                    }
-//                }
-//            }).start();
+            final ObjectExecutor playerObjectExec = new ObjectExecutor(player.getLocation()) {
+                @Override
+                public @NotNull ClassExecutor getClassExecutor() {
+                    return new ClassExecutor(Location.class);
+                }
+            };
 
             for (Class<? extends NPC> npc : DEBUG_NPCS) {
                 message.append("§7Trying to debug ").append(npc.getSimpleName()).append("...\n");
 
                 if (MethodExecutor.hasMethodWithReturn(npc, "debug", void.class, Location.class)) {
-                    MethodExecutor method = new MethodExecutor(new ClassExecutor(npc), ClassExecutor.VOID, "debug", "Gets the debug method from a NPC class", new ClassExecutor(Location.class));
-                    method.load();
-
-                    method.invokeStatic(new ObjectExecutor(player.getLocation()) {
-                        @Override
-                        public @NotNull ClassExecutor getClassExecutor() {
-                            return new ClassExecutor(Location.class);
-                        }
-                    });
+                    new MethodExecutor(new ClassExecutor(npc), ClassExecutor.VOID, "debug", "Gets the debug method from a NPC class", new ClassExecutor(Location.class)) {{
+                        load();
+                        invokeStatic(playerObjectExec);
+                    }};
                 } else {
                     message.append("§cCannot debug ").append(npc.getSimpleName()).append(" because this NPC class doesn't have a debug method");
                 }

@@ -1,6 +1,8 @@
 package codes.laivy.npc.utils;
 
 import codes.laivy.npc.mappings.Version;
+import codes.laivy.npc.mappings.defaults.classes.entity.EntityPlayer;
+import codes.laivy.npc.mappings.defaults.classes.others.objects.PlayerConnection;
 import codes.laivy.npc.mappings.defaults.classes.packets.Packet;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -10,6 +12,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.*;
 
 import static codes.laivy.npc.LaivyNPC.laivynpc;
+import static codes.laivy.npc.mappings.defaults.classes.entity.EntityPlayer.*;
 import static org.bukkit.Bukkit.getServer;
 
 public class ReflectionUtils {
@@ -54,12 +57,11 @@ public class ReflectionUtils {
         for (UUID uuid : players) {
             Player player = Bukkit.getPlayer(uuid);
 
-            if (player == null || !player.isOnline()) {
-                continue;
-            }
+            if (player == null) continue;
 
+            PlayerConnection conn = getEntityPlayer(player).getPlayerConnection();
             for (Packet packet : packets) {
-                packet.send(player.getPlayer());
+                conn.sendPacket(packet);
             }
         }
     }

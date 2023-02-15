@@ -33,6 +33,7 @@ public class ArmorStandNPC extends EntityNPC {
     @Override
     protected void debug() {
         super.debug();
+
         setBasePlate(!hasBasePlate());
         setArms(!hasArms());
         setSmall(!isSmall());
