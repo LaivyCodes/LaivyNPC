@@ -99,9 +99,6 @@ public class V1_13_R1 extends V1_12_R1 {
                     case "Metadata:PolarBear:Standing":
                         load(V1_13_R1.class, key, new FieldExecutor(getClassExec("Entity:PolarBear"), getClassExec("DataWatcherObject"), "bC", "Gets the polar bear's standing DataWatcherObject"));
                         return false;
-                    case "Metadata:Zombie:Villager:Profession":
-                        load(V1_13_R1.class, key, new FieldExecutor(getClassExec("Entity:Zombie:Villager"), getClassExec("DataWatcherObject"), "b", "Gets the zombie villager profession DataWatcherObject"));
-                        return false;
                     case "Metadata:Pig:Saddle":
                         load(V1_13_R1.class, key, new FieldExecutor(getClassExec("Entity:Pig"), getClassExec("DataWatcherObject"), "bC", "Gets the pig saddle DataWatcherObject"));
                         return false;
@@ -118,6 +115,16 @@ public class V1_13_R1 extends V1_12_R1 {
                 switch (key) {
                     case "Entity:isGlowing":
                         load(V1_13_R1.class, key, new MethodExecutor(getClassExec("Entity"), ClassExecutor.BOOLEAN, "bc", "Gets the glowing state of a Entity"));
+                        return false;
+                    default:
+                        break;
+                }
+            }
+        } else if (version == V1_11_R1.class) {
+            if (executor instanceof FieldExecutor) {
+                switch (key) {
+                    case "Metadata:Zombie:Villager:Profession":
+                        load(V1_13_R1.class, key, new FieldExecutor(getClassExec("Entity:Zombie:Villager"), getClassExec("DataWatcherObject"), "b", "Gets the zombie villager profession DataWatcherObject"));
                         return false;
                     default:
                         break;

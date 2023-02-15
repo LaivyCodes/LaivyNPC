@@ -42,6 +42,7 @@ public class Debug {
     public Debug(@NotNull Player player) {
         result = new DebugResult();
 
+        long time = System.currentTimeMillis();
         Bukkit.getScheduler().runTaskAsynchronously(laivynpc(), () -> {
             result.getLogs().add(version());
             result.getLogs().add(nbt());
@@ -53,6 +54,7 @@ public class Debug {
                 // TODO: 03/02/2023 Better debug system
                 Bukkit.broadcastMessage(log.getMessage());
             }
+            System.out.println("Performed in " + ((System.currentTimeMillis() - time) / 1000D) + " seconds.");
         });
     }
 

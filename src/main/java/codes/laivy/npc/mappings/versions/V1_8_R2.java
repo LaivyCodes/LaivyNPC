@@ -52,7 +52,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Map;
 
 public class V1_8_R2 extends V1_8_R1 {
-
+    
     @Override
     protected boolean onLoad(@NotNull Class<? extends Version> version, @NotNull String key, @NotNull Executor executor) {
         if (version == V1_8_R1.class) {
