@@ -13,6 +13,7 @@ import codes.laivy.npc.mappings.defaults.classes.nbt.tags.*;
 import codes.laivy.npc.mappings.defaults.classes.packets.*;
 import codes.laivy.npc.mappings.defaults.classes.scoreboard.ScoreboardTeam;
 import codes.laivy.npc.types.NPC;
+import codes.laivy.npc.types.list.npc.VillagerNPC;
 import codes.laivy.npc.types.player.PlayerNPC;
 import codes.laivy.npc.utils.ReflectionUtils;
 import org.bukkit.Bukkit;

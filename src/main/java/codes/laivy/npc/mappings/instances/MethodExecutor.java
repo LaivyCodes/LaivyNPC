@@ -130,9 +130,9 @@ public class MethodExecutor implements Executor {
 
         try {
             try {
-                this.method = this.getMethodClass().getMethod(name, parameters);
-            } catch (NoSuchMethodException ignore) {
                 this.method = this.getMethodClass().getDeclaredMethod(name, parameters);
+            } catch (NoSuchMethodException ignore) {
+                this.method = this.getMethodClass().getMethod(name, parameters);
             } assert this.getMethod() != null;
 
             this.getMethod().setAccessible(true);

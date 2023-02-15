@@ -139,18 +139,18 @@ public class FieldExecutor implements Executor {
         }
 
         try {
-            if (notDeclared) {
+            if (declared) {
                 try {
-                    this.field = this.getFieldClass().getField(name);
+                    this.field = this.getFieldClass().getDeclaredField(name);
                 } catch (NoSuchFieldException e) {
-                    if (declared) {
-                        this.field = this.getFieldClass().getDeclaredField(name);
+                    if (notDeclared) {
+                        this.field = this.getFieldClass().getField(name);
                     } else {
                         throw e;
                     }
                 }
-            } else if (declared) {
-                this.field = this.getFieldClass().getDeclaredField(name);
+            } else if (notDeclared) {
+                this.field = this.getFieldClass().getField(name);
             } else {
                 throw new NullPointerException("'declared' and 'notDeclared' couldn't be both false!");
             }
