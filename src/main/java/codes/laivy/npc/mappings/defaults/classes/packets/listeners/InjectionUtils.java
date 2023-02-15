@@ -64,7 +64,7 @@ public class InjectionUtils {
 
                                         this.interval.put(npc, System.currentTimeMillis());
 
-                                        NPCClickEvent event = new NPCClickEvent(npc, player, type);
+                                        NPCClickEvent event = new NPCClickEvent(!Bukkit.isPrimaryThread(), npc, player, type);
                                         Bukkit.getPluginManager().callEvent(event);
                                         if (!event.isCancelled()) {
                                             npc.getClickAction().run(player, type);

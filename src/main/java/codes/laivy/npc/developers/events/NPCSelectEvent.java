@@ -8,8 +8,8 @@ public class NPCSelectEvent extends NPCEvent implements Cancellable {
 
     private boolean cancelled = false;
 
-    public NPCSelectEvent(@NotNull NPC npc) {
-        super(npc);
+    public NPCSelectEvent(boolean async, @NotNull NPC npc) {
+        super(async, npc);
     }
 
     @Override

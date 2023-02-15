@@ -41,16 +41,19 @@ public class Debug {
 
     public Debug(@NotNull Player player) {
         result = new DebugResult();
-        result.getLogs().add(version());
-        result.getLogs().add(nbt());
-        result.getLogs().add(packets(player));
-        result.getLogs().add(npcs(player));
-        result.finish();
 
-        for (DebugLog log : result.getLogs()) {
-            // TODO: 03/02/2023 Better debug system
-            Bukkit.broadcastMessage(log.getMessage());
-        }
+        Bukkit.getScheduler().runTaskAsynchronously(laivynpc(), () -> {
+            result.getLogs().add(version());
+            result.getLogs().add(nbt());
+            result.getLogs().add(packets(player));
+            result.getLogs().add(npcs(player));
+            result.finish();
+
+            for (DebugLog log : result.getLogs()) {
+                // TODO: 03/02/2023 Better debug system
+                Bukkit.broadcastMessage(log.getMessage());
+            }
+        });
     }
 
     @NotNull
@@ -142,7 +145,7 @@ public class Debug {
             entityDestroyPacket.send(player);
 
             // Spawn and remove EntityPlayer
-            EntityPlayer entityPlayer = laivynpc().getVersion().createPlayer(laivynpc().getVersion().createGameProfile(UUID.randomUUID(), "Laivy"), player.getLocation());
+            EntityPlayer entityPlayer = EntityPlayer.getEntityPlayer(player);
 
             message.append("§7Trying to debug PlayerInfoPacket ADD_PLAYER...\n");
             PlayerInfoPacket playerInfoPacket = laivynpc().getVersion().createPlayerInfoPacket(EnumPlayerInfoActionEnum.ADD_PLAYER(), entityPlayer);

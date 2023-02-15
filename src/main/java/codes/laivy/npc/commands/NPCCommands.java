@@ -50,7 +50,7 @@ public class NPCCommands implements CommandExecutor, Listener {
     }
 
     public static boolean selectNPC(@NotNull Player player, @NotNull NPC npc) {
-        NPCSelectEvent event = new NPCSelectEvent(npc);
+        NPCSelectEvent event = new NPCSelectEvent(!Bukkit.isPrimaryThread(), npc);
         Bukkit.getPluginManager().callEvent(event);
         if (event.isCancelled()) return false;
 

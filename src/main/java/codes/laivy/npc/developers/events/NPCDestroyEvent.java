@@ -8,8 +8,8 @@ public class NPCDestroyEvent extends NPCEvent implements Cancellable {
 
     private boolean cancelled = false;
 
-    public NPCDestroyEvent(@NotNull NPC npc) {
-        super(npc);
+    public NPCDestroyEvent(boolean async, @NotNull NPC npc) {
+        super(async, npc);
     }
 
     @Override

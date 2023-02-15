@@ -12,8 +12,8 @@ public class NPCClickEvent extends NPCEvent implements Cancellable {
 
     private boolean cancelled = false;
 
-    public NPCClickEvent( @NotNull NPC npc, @NotNull Player player, @NotNull NPC.ClickType clickType) {
-        super(npc);
+    public NPCClickEvent(boolean async, @NotNull NPC npc, @NotNull Player player, @NotNull NPC.ClickType clickType) {
+        super(async, npc);
         this.player = player;
         this.clickType = clickType;
     }

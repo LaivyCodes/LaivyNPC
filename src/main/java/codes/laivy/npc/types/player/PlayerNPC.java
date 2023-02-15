@@ -10,6 +10,7 @@ import codes.laivy.npc.mappings.defaults.classes.gameprofile.PropertyMap;
 import codes.laivy.npc.mappings.defaults.classes.packets.Packet;
 import codes.laivy.npc.mappings.defaults.classes.scoreboard.Scoreboard;
 import codes.laivy.npc.mappings.defaults.classes.scoreboard.ScoreboardTeam;
+import codes.laivy.npc.mappings.versions.V1_16_R3;
 import codes.laivy.npc.mappings.versions.V1_9_R1;
 import codes.laivy.npc.types.NPC;
 import codes.laivy.npc.types.commands.NPCConfiguration;
@@ -43,9 +44,17 @@ public class PlayerNPC extends NPC {
     //
 
     public static void debug(@NotNull Location location) {
-        PlayerNPC npc = new PlayerNPC(new ArrayList<>(), location);
-        npc.debug();
-        npc.destroy();
+        if (ReflectionUtils.isCompatible(V1_16_R3.class)) {
+            Bukkit.getScheduler().runTask(laivynpc(), () -> {
+                PlayerNPC npc = new PlayerNPC(new ArrayList<>(), location);
+                npc.debug();
+                npc.destroy();
+            });
+        } else {
+            PlayerNPC npc = new PlayerNPC(new ArrayList<>(), location);
+            npc.debug();
+            npc.destroy();
+        }
     }
 
     @Override
@@ -61,6 +70,9 @@ public class PlayerNPC extends NPC {
     }
     public PlayerNPC(@NotNull List<OfflinePlayer> players, @Nullable UUID uniqueId, @NotNull Location npcLocation) {
         super(players, npcLocation);
+        if (ReflectionUtils.isCompatible(V1_16_R3.class) && !Bukkit.isPrimaryThread()) {
+            throw new UnsupportedOperationException("The player NPC couldn't be created async at 1.16.5+");
+        }
 
         if (uniqueId == null) this.uniqueId = UUIDUtils.genRandomUUID();
         else this.uniqueId = uniqueId;

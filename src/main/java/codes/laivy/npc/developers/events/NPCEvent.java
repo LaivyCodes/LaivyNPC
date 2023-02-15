@@ -11,7 +11,8 @@ public class NPCEvent extends Event {
 
     private final @NotNull NPC npc;
 
-    public NPCEvent(@NotNull NPC npc) {
+    public NPCEvent(boolean async, @NotNull NPC npc) {
+        super(async);
         this.npc = npc;
     }
 

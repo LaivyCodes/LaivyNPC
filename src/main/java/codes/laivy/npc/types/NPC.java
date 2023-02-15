@@ -202,10 +202,6 @@ public abstract class NPC {
     //
 
     public NPC(@NotNull List<OfflinePlayer> players, @NotNull Location location) {
-        if (!Bukkit.isPrimaryThread()) {
-            throw new UnsupportedOperationException("NPCs needs to be created synchronously");
-        }
-
         Set<UUID> uuids = new HashSet<>();
 
         if (players.size() > 0) {
@@ -506,7 +502,6 @@ public abstract class NPC {
     }
     public void spawn(@NotNull Player player) {
         Validation.isTrue(isDestroyed(), new IllegalStateException("This NPC is destroyed, you need to recreate it."));
-        Validation.isTrue(!Bukkit.isPrimaryThread(), new IllegalStateException("This method needs to be executed in bukkit's primary thread!"));
 
         setCanSpawn(true);
 
@@ -519,7 +514,6 @@ public abstract class NPC {
 
     public void hide(@NotNull Player player) {
         Validation.isTrue(isDestroyed(), new IllegalStateException("This NPC is destroyed, you need to recreate it."));
-        Validation.isTrue(!Bukkit.isPrimaryThread(), new IllegalStateException("This method needs to be executed in bukkit's primary thread!"));
 
         ReflectionUtils.sendPacketToPlayer(getDestroyPackets(player), player);
         getHolograms().hideHolograms(Collections.singletonList(player));
@@ -539,7 +533,7 @@ public abstract class NPC {
 
     public void destroy() {
         // Event
-        NPCDestroyEvent event = new NPCDestroyEvent(this);
+        NPCDestroyEvent event = new NPCDestroyEvent(!Bukkit.isPrimaryThread(), this);
         Bukkit.getPluginManager().callEvent(event);
         if (event.isCancelled()) return;
         //
