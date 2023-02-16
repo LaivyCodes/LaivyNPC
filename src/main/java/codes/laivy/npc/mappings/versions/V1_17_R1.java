@@ -42,6 +42,7 @@ import codes.laivy.npc.mappings.defaults.classes.gameprofile.Property;
 import codes.laivy.npc.mappings.defaults.classes.gameprofile.PropertyMap;
 import codes.laivy.npc.mappings.defaults.classes.java.BooleanObjExec;
 import codes.laivy.npc.mappings.defaults.classes.java.IntegerObjExec;
+import codes.laivy.npc.mappings.defaults.classes.java.ObjectObjExec;
 import codes.laivy.npc.mappings.defaults.classes.nbt.NBTBase;
 import codes.laivy.npc.mappings.defaults.classes.nbt.tags.*;
 import codes.laivy.npc.mappings.defaults.classes.others.chat.IChatBaseComponent;
@@ -293,6 +294,9 @@ public class V1_17_R1 extends V1_16_R3 {
                     case "Entity:world":
                         load(V1_17_R1.class, key, new FieldExecutor(getClassExec("Entity"), getClassExec("World"), "t", "Gets the world of an Entity"));
                         return false;
+
+                    case "PacketPlayInUseEntity:EnumEntityUseAction:action":
+                        return false;
                     default:
                         break;
                 }
@@ -305,6 +309,12 @@ public class V1_17_R1 extends V1_16_R3 {
         }
         
         return super.onLoad(version, key, executor);
+    }
+
+    @Override
+    public @NotNull EntityUseInPacket.ActionEnum.Action getEntityUseInPacketAction(@NotNull EntityUseInPacket packet) {
+        Object object = getFieldExec("PacketPlayInUseEntity:EnumEntityUseAction:getUseAction").invokeInstance(packet);
+        return new EntityUseInPacket.ActionEnum.Action((Enum<?>) Objects.requireNonNull(getMethodExec("PacketPlayInUseEntity:EnumEntityUseAction:action").invokeInstance(new ObjectObjExec(object))));
     }
 
     @Override
@@ -392,6 +402,7 @@ public class V1_17_R1 extends V1_16_R3 {
 
         load(V1_17_R1.class, "PacketPlayInUseEntity", new EntityUseInPacket.EntityUseInPacketClass("net.minecraft.network.protocol.game.PacketPlayInUseEntity"));
         load(V1_17_R1.class, "PacketPlayInUseEntity:EnumEntityUseAction", new EntityUseInPacket.ActionEnum.ActionClass("net.minecraft.network.protocol.game.PacketPlayInUseEntity$b"));
+        load(V1_17_R1.class, "PacketPlayInUseEntity:EnumEntityUseAction:Real", new ClassExecutor("net.minecraft.network.protocol.game.PacketPlayInUseEntity$EnumEntityUseAction"));
         //
 
         // Server
@@ -559,6 +570,20 @@ public class V1_17_R1 extends V1_16_R3 {
         load(V1_17_R1.class, "VillagerProfession", new VillagerProfessionExec.VillagerProfessionExecClass("net.minecraft.world.entity.npc.VillagerProfession"));
         load(V1_17_R1.class, "VillagerType", new VillagerType.VillagerTypeClass("net.minecraft.world.entity.npc.VillagerType"));
         //
+    }
+
+    @Override
+    public void loadMethods() {
+        super.loadMethods();
+
+        load(V1_17_R1.class, "PacketPlayInUseEntity:EnumEntityUseAction:action", new MethodExecutor(getClassExec("PacketPlayInUseEntity:EnumEntityUseAction:Real"), getEnumExec("PacketPlayInUseEntity:EnumEntityUseAction"), "a", "Gets the enum action from EnumEntityUseAction"));
+    }
+
+    @Override
+    public void loadFields() {
+        super.loadFields();
+
+        load(V1_17_R1.class, "PacketPlayInUseEntity:EnumEntityUseAction:getUseAction", new FieldExecutor(getClassExec("PacketPlayInUseEntity"), getClassExec("PacketPlayInUseEntity:EnumEntityUseAction:Real"), "b", "Gets the EnumEntityUseAction class"));
     }
 
     @Override

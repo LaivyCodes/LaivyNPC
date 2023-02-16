@@ -76,9 +76,9 @@ public abstract class Version implements VersionCompound, VersionPacket, Version
 
     public Version() {
         loadClasses();
+        loadEnums();
         loadMethods();
         loadFields();
-        loadEnums();
         loadTexts();
         loadObjects();
 
@@ -86,12 +86,10 @@ public abstract class Version implements VersionCompound, VersionPacket, Version
     }
 
     protected void load(@NotNull Class<? extends Version> version, @NotNull String key, @NotNull Executor executor) {
-        Executor f = executor;
         if (onLoad(version, key, executor)) {
             executor.load();
 
             if (executor instanceof EnumExecutor) {
-                f =
                 enums.put(key, (EnumExecutor) executor);
             } else if (executor instanceof ClassExecutor) {
                 classes.put(key, (ClassExecutor) executor);

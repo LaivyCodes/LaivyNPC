@@ -656,12 +656,12 @@ public abstract class NPC {
     //
 
     // Packets
-    public void sendUpdatePackets(Set<UUID> players, boolean scoreboard, boolean equipments, boolean metadata, boolean location, boolean holograms, boolean movement) {
+    public final void sendUpdatePackets(@NotNull Set<@NotNull UUID> players, boolean scoreboard, boolean equipments, boolean metadata, boolean location, boolean holograms, boolean movement) {
         for (UUID uuid : players) {
             this.sendUpdatePackets(Bukkit.getPlayer(uuid), scoreboard, equipments, metadata, location, holograms, movement);
         }
     }
-    public void sendUpdatePackets(Player player, boolean scoreboard, boolean equipments, boolean metadata, boolean location, boolean holograms, boolean movement) {
+    public void sendUpdatePackets(@NotNull Player player, boolean scoreboard, boolean equipments, boolean metadata, boolean location, boolean holograms, boolean movement) {
         if (!player.isOnline()) {
             return;
         } if (isDestroyed()) {

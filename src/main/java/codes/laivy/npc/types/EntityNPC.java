@@ -1,5 +1,6 @@
 package codes.laivy.npc.types;
 
+import codes.laivy.npc.mappings.defaults.classes.enums.EnumItemSlotEnum;
 import codes.laivy.npc.mappings.instances.classes.ClassExecutor;
 import codes.laivy.npc.mappings.instances.MethodExecutor;
 import codes.laivy.npc.mappings.instances.ObjectExecutor;
@@ -19,6 +20,7 @@ import org.bukkit.*;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.MemorySection;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
@@ -137,7 +139,17 @@ public abstract class EntityNPC extends NPC {
 
     @Override
     public @NotNull List<@NotNull Packet> getEquipmentsUpdatePackets(@NotNull Player player) {
-        return new LinkedList<>(laivynpc().getVersion().createEquipmentPacket(getEntity(), getEquipments()));
+        if (!getEquipments().isEmpty()) {
+            return new LinkedList<>(laivynpc().getVersion().createEquipmentPacket(getEntity(), getEquipments()));
+        }
+        return new LinkedList<>(laivynpc().getVersion().createEquipmentPacket(getEntity(), new HashMap<EnumItemSlotEnum.EnumItemSlot, ItemStack>() {{
+            put(EnumItemSlotEnum.EnumItemSlot.HEAD, new ItemStack(Material.AIR));
+            put(EnumItemSlotEnum.EnumItemSlot.CHEST, new ItemStack(Material.AIR));
+            put(EnumItemSlotEnum.EnumItemSlot.LEGS, new ItemStack(Material.AIR));
+            put(EnumItemSlotEnum.EnumItemSlot.FEET, new ItemStack(Material.AIR));
+            put(EnumItemSlotEnum.EnumItemSlot.MAINHAND, new ItemStack(Material.AIR));
+            put(EnumItemSlotEnum.EnumItemSlot.OFFHAND, new ItemStack(Material.AIR));
+        }}));
     }
 
     // Serializators

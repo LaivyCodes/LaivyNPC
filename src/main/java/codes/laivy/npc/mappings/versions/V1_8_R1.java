@@ -1008,7 +1008,7 @@ public class V1_8_R1 extends Version {
     @Override
     public boolean putInPropertyMap(@NotNull PropertyMap propertyMap, @NotNull String string, @NotNull Property property) {
         //noinspection unchecked,DataFlowIssue
-        ((Multimap<String, Object>) new MethodExecutor(getClassExec("PropertyMap"), new ClassExecutor(Multimap.class), "delegate", "Gets the properties from a PropertyMap").invokeInstance(propertyMap)).put(string, property.getValue());
+        ((Multimap<String, Object>) getMethodExec("PropertyMap:delegate").invokeInstance(propertyMap)).put(string, property.getValue());
         return true;
     }
 
@@ -1170,10 +1170,7 @@ public class V1_8_R1 extends Version {
 
     @Override
     public @NotNull EntityUseInPacket.ActionEnum.Action getEntityUseInPacketAction(@NotNull EntityUseInPacket packet) {
-        FieldExecutor field = new FieldExecutor(getClassExec("PacketPlayInUseEntity"), getEnumExec("PacketPlayInUseEntity:EnumEntityUseAction"), "action", "Gets the action from entity in use packet");
-        field.load();
-
-        return new EntityUseInPacket.ActionEnum.Action((Enum<?>) Objects.requireNonNull(field.invokeInstance(packet)));
+        return new EntityUseInPacket.ActionEnum.Action((Enum<?>) Objects.requireNonNull(getFieldExec("PacketPlayInUseEntity:EnumEntityUseAction:action").invokeInstance(packet)));
     }
 
     @SuppressWarnings("DataFlowIssue")
@@ -1503,6 +1500,7 @@ public class V1_8_R1 extends Version {
         // GameProfile
         load(V1_8_R1.class, "GameProfile:getProperties", new MethodExecutor(getClassExec("GameProfile"), getClassExec("PropertyMap"), "getProperties", "Gets the properties of a GameProfile"));
         load(V1_8_R1.class, "GameProfile:getName", new MethodExecutor(getClassExec("GameProfile"), ClassExecutor.STRING, "getName", "Gets the name of a GameProfile"));
+        load(V1_8_R1.class, "PropertyMap:delegate", new MethodExecutor(getClassExec("PropertyMap"), new ClassExecutor(Multimap.class), "delegate", "Gets the properties from a PropertyMap"));
         //
 
         // Location
@@ -1565,6 +1563,7 @@ public class V1_8_R1 extends Version {
 
         // PacketPlayInUseEntity
         load(V1_8_R1.class, "PacketPlayInUseEntity:entityId", new FieldExecutor(getClassExec("PacketPlayInUseEntity"), ClassExecutor.INT, "a", "Get the entity id of a PacketPlayInUseEntity"));
+        load(V1_8_R1.class, "PacketPlayInUseEntity:EnumEntityUseAction:action", new FieldExecutor(getClassExec("PacketPlayInUseEntity"), getEnumExec("PacketPlayInUseEntity:EnumEntityUseAction"), "action", "Gets the action from entity in use packet"));
         //
 
         // ArmorStand
