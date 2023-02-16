@@ -158,12 +158,9 @@ public class V1_11_R1 extends V1_10_R1 {
                         break;
                 }
             } else if (executor instanceof FieldExecutor) {
-                switch (key) {
-                    case "Metadata:Guardian:Target":
-                        load(V1_11_R1.class, key, new FieldExecutor(getClassExec("Entity:Guardian"), getClassExec("DataWatcherObject"), "bA", "Gets the Guardian target DataWatcherObject"));
-                        return false;
-                    default:
-                        break;
+                if (key.equals("Metadata:Guardian:Target")) {
+                    load(V1_11_R1.class, key, new FieldExecutor(getClassExec("Entity:Guardian"), getClassExec("DataWatcherObject"), "bA", "Gets the Guardian target DataWatcherObject"));
+                    return false;
                 }
             }
         }

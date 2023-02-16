@@ -60,8 +60,6 @@ import codes.laivy.npc.mappings.instances.classes.ClassExecutor;
 import org.bukkit.Bukkit;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Map;
-
 public class V1_16_R3 extends V1_16_R2 {
 
     @Override
@@ -70,12 +68,9 @@ public class V1_16_R3 extends V1_16_R2 {
             if (executor instanceof ClassExecutor && !(executor instanceof EnumExecutor)) {
                 return false;
             } else if (executor instanceof MethodExecutor) {
-                switch (key) {
-                    case "Entity:isGlowing":
-                        load(V1_16_R3.class, key, new MethodExecutor(getClassExec("Entity"), ClassExecutor.BOOLEAN, "bE", "Gets the glowing state of a Entity"));
-                        return false;
-                    default:
-                        break;
+                if (key.equals("Entity:isGlowing")) {
+                    load(V1_16_R3.class, key, new MethodExecutor(getClassExec("Entity"), ClassExecutor.BOOLEAN, "bE", "Gets the glowing state of a Entity"));
+                    return false;
                 }
             }
         }

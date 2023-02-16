@@ -137,12 +137,9 @@ public class V1_15_R1 extends V1_14_R1 {
             }
         } else if (version == V1_10_R1.class) {
             if (executor instanceof FieldExecutor) {
-                switch (key) {
-                    case "DataWatcher:map":
-                        load(V1_15_R1.class, key, new FieldExecutor(getClassExec("DataWatcher"), new ClassExecutor(Map.class), "entries", "Gets the values of the data"));
-                        return false;
-                    default:
-                        break;
+                if (key.equals("DataWatcher:map")) {
+                    load(V1_15_R1.class, key, new FieldExecutor(getClassExec("DataWatcher"), new ClassExecutor(Map.class), "entries", "Gets the values of the data"));
+                    return false;
                 }
             }
         }
@@ -359,12 +356,10 @@ public class V1_15_R1 extends V1_14_R1 {
     }
 
     @Override
-    public @NotNull Map<String, Object> getObjects() {
-        Map<String, Object> map = super.getObjects();
+    public void loadObjects() {
+        super.loadObjects();
 
         super.getObjects().put("Metadata:Player:SkinParts", 17);
-
-        return map;
     }
 
     @Override

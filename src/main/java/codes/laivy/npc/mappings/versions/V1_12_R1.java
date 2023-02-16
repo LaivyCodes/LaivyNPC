@@ -56,7 +56,6 @@ import codes.laivy.npc.mappings.instances.classes.ClassExecutor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Map;
 import java.util.Objects;
 
 public class V1_12_R1 extends V1_11_R1 {
@@ -112,22 +111,16 @@ public class V1_12_R1 extends V1_11_R1 {
             }
         } else if (version == V1_8_R1.class) {
             if (executor instanceof MethodExecutor) {
-                switch (key) {
-                    case "ScoreboardTeam:setColor":
-                        load(V1_12_R1.class, key, new MethodExecutor(getClassExec("ScoreboardTeam"), ClassExecutor.VOID, "setColor", "Sets the color of a ScoreboardTeam", getClassExec("EnumChatFormat")));
-                        return false;
-                    default:
-                        break;
+                if (key.equals("ScoreboardTeam:setColor")) {
+                    load(V1_12_R1.class, key, new MethodExecutor(getClassExec("ScoreboardTeam"), ClassExecutor.VOID, "setColor", "Sets the color of a ScoreboardTeam", getClassExec("EnumChatFormat")));
+                    return false;
                 }
             }
         } else if (version == V1_10_R1.class) {
             if (executor instanceof MethodExecutor) {
-                switch (key) {
-                    case "Entity:isGlowing":
-                        load(V1_12_R1.class, key, new MethodExecutor(getClassExec("Entity"), ClassExecutor.BOOLEAN, "aW", "Gets the glowing state of a Entity"));
-                        return false;
-                    default:
-                        break;
+                if (key.equals("Entity:isGlowing")) {
+                    load(V1_12_R1.class, key, new MethodExecutor(getClassExec("Entity"), ClassExecutor.BOOLEAN, "aW", "Gets the glowing state of a Entity"));
+                    return false;
                 }
             }
         }

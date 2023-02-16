@@ -22,7 +22,6 @@ import org.bukkit.*;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.MemorySection;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -212,64 +211,61 @@ public class PlayerNPC extends NPC {
     }
     @Override
     public @NotNull List<Packet> getDestroyPackets(@NotNull Player player) {
-        List<@NotNull Packet> packets = new LinkedList<>();
-
-        packets.addAll(laivynpc().getVersion().createDestroyPacket(getEntity()));
+        List<@NotNull Packet> packets = new LinkedList<>(laivynpc().getVersion().createDestroyPacket(getEntity()));
         packets.add(laivynpc().getVersion().createPlayerInfoPacket(EnumPlayerInfoActionEnum.REMOVE_PLAYER(), getEntity()));
-
         return packets;
     }
     @Override
     public @NotNull List<Packet> getMetadataUpdatePackets(@NotNull Player player) {
         List<Packet> packets = new LinkedList<>();
 
-        try {
-            DataWatcher data = getEntity().getDataWatcher();
-
-            //noinspection DataFlowIssue
-            byte b = (byte) data.get(0);
-
-            if (isOnFire()) b = (byte) (b | 1);
-            else b = (byte) (b & (~(1)));
-
-            data.set(0, b);
-
-            packets.add(laivynpc().getVersion().createMetadataPacket(getEntity(), data, true));
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
-
-        try {
-            DataWatcher watcher = getEntity().getDataWatcher();
-
-            byte b = 0;
-            PlayerNPCSkin.Parts parts = getSkin().getParts();
-            if (parts.hasCape()) b = (byte) (b | 0x1);
-            if (parts.hasJacket()) b = (byte) (b | 0x2);
-            if (parts.hasLeftSleeve()) b = (byte) (b | 0x4);
-            if (parts.hasRightSleeve()) b = (byte) (b | 0x8);
-            if (parts.hasLeftPants()) b = (byte) (b | 0x10);
-            if (parts.hasRightPants()) b = (byte) (b | 0x20);
-            if (parts.hasHat()) b = (byte) (b | 0x40);
-
-            // TODO: 26/12/2022 1.14 Parrots
-//            // PARROTS
-//            for (ParrotShoulder.ShoulderPosition position : ParrotShoulder.ShoulderPosition.values()) {
-//                @NotNull Map<ParrotShoulder.ShoulderPosition, ParrotShoulder> map = controller.getNPC().getParrotShoulderMap();
+//        try {
+//            DataWatcher data = getEntity().getDataWatcher();
 //
-//                if (map.containsKey(position)) {
-//                    dataWatcherController.setByIndex(position.getShoulderPosition(), map.get(position).getParrotData());
-//                } else {
-//                    dataWatcherController.setByIndex(position.getShoulderPosition(), ReflectionUtils.construct(ReflectionUtils.getVersion().NBTTagCompound));
-//                }
-//            }
-//            // PARROTS
-
-            watcher.set((int) laivynpc().getVersion().getObject("Metadata:Player:SkinParts"), b);
-            packets.add(laivynpc().getVersion().createMetadataPacket(getEntity(), watcher, true));
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+//            //noinspection DataFlowIssue
+//            byte b = (byte) data.get(0);
+//
+//            if (isOnFire()) b = (byte) (b | 1);
+//            else b = (byte) (b & (~(1)));
+//
+//            data.set(0, b);
+//
+//            packets.add(laivynpc().getVersion().createMetadataPacket(getEntity(), data, true));
+//        } catch (Throwable e) {
+//            throw new RuntimeException(e);
+//        }
+//
+//        try {
+//            DataWatcher watcher = getEntity().getDataWatcher();
+//
+//            byte b = 0;
+//            PlayerNPCSkin.Parts parts = getSkin().getParts();
+//            if (parts.hasCape()) b = (byte) (b | 0x1);
+//            if (parts.hasJacket()) b = (byte) (b | 0x2);
+//            if (parts.hasLeftSleeve()) b = (byte) (b | 0x4);
+//            if (parts.hasRightSleeve()) b = (byte) (b | 0x8);
+//            if (parts.hasLeftPants()) b = (byte) (b | 0x10);
+//            if (parts.hasRightPants()) b = (byte) (b | 0x20);
+//            if (parts.hasHat()) b = (byte) (b | 0x40);
+//
+//            // TODO: 26/12/2022 1.14 Parrots
+////            // PARROTS
+////            for (ParrotShoulder.ShoulderPosition position : ParrotShoulder.ShoulderPosition.values()) {
+////                @NotNull Map<ParrotShoulder.ShoulderPosition, ParrotShoulder> map = controller.getNPC().getParrotShoulderMap();
+////
+////                if (map.containsKey(position)) {
+////                    dataWatcherController.setByIndex(position.getShoulderPosition(), map.get(position).getParrotData());
+////                } else {
+////                    dataWatcherController.setByIndex(position.getShoulderPosition(), ReflectionUtils.construct(ReflectionUtils.getVersion().NBTTagCompound));
+////                }
+////            }
+////            // PARROTS
+//
+//            watcher.set((int) laivynpc().getVersion().getObject("Metadata:Player:SkinParts"), b);
+//            packets.add(laivynpc().getVersion().createMetadataPacket(getEntity(), watcher, true));
+//        } catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
 
         return packets;
     }

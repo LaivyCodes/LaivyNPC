@@ -48,8 +48,6 @@ import codes.laivy.npc.mappings.defaults.classes.scoreboard.ScoreboardTeam;
 import io.netty.channel.Channel;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Map;
-
 public class V1_8_R3 extends V1_8_R2 {
 
     @Override
@@ -58,12 +56,9 @@ public class V1_8_R3 extends V1_8_R2 {
             if (executor instanceof ClassExecutor && !(executor instanceof EnumExecutor)) {
                 return false;
             } else if (executor instanceof FieldExecutor) {
-                switch (key) {
-                    case "NetworkManager:channel":
-                        load(V1_8_R3.class, key, new FieldExecutor(getClassExec("NetworkManager"), new ClassExecutor(Channel.class) { }, "channel", "Gets the channel of the player"));
-                        return false;
-                    default:
-                        break;
+                if (key.equals("NetworkManager:channel")) {
+                    load(V1_8_R3.class, key, new FieldExecutor(getClassExec("NetworkManager"), new ClassExecutor(Channel.class) { }, "channel", "Gets the channel of the player"));
+                    return false;
                 }
             }
         }

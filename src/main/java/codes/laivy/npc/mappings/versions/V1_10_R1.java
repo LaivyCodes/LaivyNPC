@@ -112,12 +112,9 @@ public class V1_10_R1 extends V1_9_R2 {
                         break;
                 }
             } else if (executor instanceof FieldExecutor) {
-                switch (key) {
-                    case "DataWatcher:map":
-                        load(V1_10_R1.class, key, new FieldExecutor(getClassExec("DataWatcher"), new ClassExecutor(Map.class), "d", "Gets the values of the data"));
-                        return false;
-                    default:
-                        break;
+                if (key.equals("DataWatcher:map")) {
+                    load(V1_10_R1.class, key, new FieldExecutor(getClassExec("DataWatcher"), new ClassExecutor(Map.class), "d", "Gets the values of the data"));
+                    return false;
                 }
             }
         } else if (version == V1_8_R1.class) {
@@ -376,14 +373,12 @@ public class V1_10_R1 extends V1_9_R2 {
     }
 
     @Override
-    public @NotNull Map<String, String> getTexts() {
-        Map<String, String> map = super.getTexts();
+    public void loadTexts() {
+        super.loadTexts();
 
-        map.put("EnumSkeletonType:NORMAL", "NORMAL");
-        map.put("EnumSkeletonType:WITHER", "WITHER");
-        map.put("EnumSkeletonType:STRAY", "STRAY");
-
-        return map;
+        super.getTexts().put("EnumSkeletonType:NORMAL", "NORMAL");
+        super.getTexts().put("EnumSkeletonType:WITHER", "WITHER");
+        super.getTexts().put("EnumSkeletonType:STRAY", "STRAY");
     }
 
     @Override

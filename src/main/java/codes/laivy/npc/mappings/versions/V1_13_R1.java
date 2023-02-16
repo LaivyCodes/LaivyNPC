@@ -60,7 +60,6 @@ import codes.laivy.npc.mappings.instances.classes.ClassExecutor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
@@ -112,32 +111,23 @@ public class V1_13_R1 extends V1_12_R1 {
                         break;
                 }
             } else if (executor instanceof MethodExecutor) {
-                switch (key) {
-                    case "Entity:isGlowing":
-                        load(V1_13_R1.class, key, new MethodExecutor(getClassExec("Entity"), ClassExecutor.BOOLEAN, "bc", "Gets the glowing state of a Entity"));
-                        return false;
-                    default:
-                        break;
+                if (key.equals("Entity:isGlowing")) {
+                    load(V1_13_R1.class, key, new MethodExecutor(getClassExec("Entity"), ClassExecutor.BOOLEAN, "bc", "Gets the glowing state of a Entity"));
+                    return false;
                 }
             }
         } else if (version == V1_11_R1.class) {
             if (executor instanceof FieldExecutor) {
-                switch (key) {
-                    case "Metadata:Zombie:Villager:Profession":
-                        load(V1_13_R1.class, key, new FieldExecutor(getClassExec("Entity:Zombie:Villager"), getClassExec("DataWatcherObject"), "b", "Gets the zombie villager profession DataWatcherObject"));
-                        return false;
-                    default:
-                        break;
+                if (key.equals("Metadata:Zombie:Villager:Profession")) {
+                    load(V1_13_R1.class, key, new FieldExecutor(getClassExec("Entity:Zombie:Villager"), getClassExec("DataWatcherObject"), "b", "Gets the zombie villager profession DataWatcherObject"));
+                    return false;
                 }
             }
         } else if (version == V1_10_R1.class) {
             if (executor instanceof MethodExecutor) {
-                switch (key) {
-                    case "Entity:setGlowing":
-                        load(V1_13_R1.class, key, new MethodExecutor(getClassExec("Entity"), ClassExecutor.VOID, "h", "Sets the glowing state of a Entity", ClassExecutor.BOOLEAN));
-                        return false;
-                    default:
-                        break;
+                if (key.equals("Entity:setGlowing")) {
+                    load(V1_13_R1.class, key, new MethodExecutor(getClassExec("Entity"), ClassExecutor.VOID, "h", "Sets the glowing state of a Entity", ClassExecutor.BOOLEAN));
+                    return false;
                 }
             }
         } else if (version == V1_8_R1.class) {

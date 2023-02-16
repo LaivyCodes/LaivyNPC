@@ -262,6 +262,10 @@ public class NPCCommands implements CommandExecutor, Listener {
                         sender.sendMessage(translate(null, "npc.general_command.only_players"));
                     } else {
                         Debug debug = new Debug(player);
+                        for (DebugLog log : debug.getResult().getLogs()) {
+                            // TODO: 03/02/2023 Better debug system
+                            Bukkit.broadcastMessage(log.getMessage());
+                        }
                     }
                 } else {
                     sender.sendMessage("§cWrong arguments!");

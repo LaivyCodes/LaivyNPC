@@ -56,7 +56,6 @@ import codes.laivy.npc.mappings.instances.FieldExecutor;
 import codes.laivy.npc.mappings.instances.classes.ClassExecutor;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Map;
 import java.util.Objects;
 
 import static codes.laivy.npc.LaivyNPC.laivynpc;
@@ -69,12 +68,9 @@ public class V1_13_R2 extends V1_13_R1 {
             if (executor instanceof ClassExecutor && !(executor instanceof EnumExecutor)) {
                 return false;
             } else if (executor instanceof FieldExecutor) {
-                switch (key) {
-                    case "Metadata:PufferFish:PuffState":
-                        load(V1_13_R2.class, key, new FieldExecutor(getClassExec("Entity:PufferFish"), getClassExec("DataWatcherObject"), "a", "Gets the puffer fish's puff state DataWatcherObject"));
-                        return false;
-                    default:
-                        break;
+                if (key.equals("Metadata:PufferFish:PuffState")) {
+                    load(V1_13_R2.class, key, new FieldExecutor(getClassExec("Entity:PufferFish"), getClassExec("DataWatcherObject"), "a", "Gets the puffer fish's puff state DataWatcherObject"));
+                    return false;
                 }
             }
         }

@@ -77,438 +77,6 @@ public class V1_8_R1 extends Version {
     }
 
     @Override
-    public void loadClasses() {
-        // NBT
-        load(V1_8_R1.class, "NBTBase", new NBTBase.NBTBaseClass("net.minecraft.server.v1_8_R1.NBTBase"));
-
-        load(V1_8_R1.class, "NBTBase:NBTTagByte", new NBTTagByte.NBTTagByteClass("net.minecraft.server.v1_8_R1.NBTTagByte"));
-        load(V1_8_R1.class, "NBTBase:NBTTagByteArray", new NBTTagByteArray.NBTTagByteArrayClass("net.minecraft.server.v1_8_R1.NBTTagByteArray"));
-        load(V1_8_R1.class, "NBTBase:NBTTagCompound", new NBTTagCompound.NBTTagCompoundClass("net.minecraft.server.v1_8_R1.NBTTagCompound"));
-        load(V1_8_R1.class, "NBTBase:NBTTagDouble", new NBTTagDouble.NBTTagDoubleClass("net.minecraft.server.v1_8_R1.NBTTagDouble"));
-        load(V1_8_R1.class, "NBTBase:NBTTagFloat", new NBTTagFloat.NBTTagFloatClass("net.minecraft.server.v1_8_R1.NBTTagFloat"));
-        load(V1_8_R1.class, "NBTBase:NBTTagInt", new NBTTagInt.NBTTagIntClass("net.minecraft.server.v1_8_R1.NBTTagInt"));
-        load(V1_8_R1.class, "NBTBase:NBTTagIntArray", new NBTTagIntArray.NBTTagIntArrayClass("net.minecraft.server.v1_8_R1.NBTTagIntArray"));
-        load(V1_8_R1.class, "NBTBase:NBTTagList", new NBTTagList.NBTTagListClass("net.minecraft.server.v1_8_R1.NBTTagList"));
-        load(V1_8_R1.class, "NBTBase:NBTTagLong", new NBTTagLong.NBTTagLongClass("net.minecraft.server.v1_8_R1.NBTTagLong"));
-        load(V1_8_R1.class, "NBTBase:NBTTagShort", new NBTTagShort.NBTTagShortClass("net.minecraft.server.v1_8_R1.NBTTagShort"));
-        load(V1_8_R1.class, "NBTBase:NBTTagString", new NBTTagString.NBTTagStringClass("net.minecraft.server.v1_8_R1.NBTTagString"));
-        //
-
-        // Packets
-        load(V1_8_R1.class, "Packet", new Packet.PacketClass("net.minecraft.server.v1_8_R1.Packet"));
-        load(V1_8_R1.class, "PacketPlayOutSpawnEntity", new EntitySpawnPacket.EntitySpawnPacketClass("net.minecraft.server.v1_8_R1.PacketPlayOutSpawnEntity"));
-        load(V1_8_R1.class, "PacketPlayOutEntityDestroy", new EntityDestroyPacket.EntityDestroyPacketClass("net.minecraft.server.v1_8_R1.PacketPlayOutEntityDestroy"));
-        load(V1_8_R1.class, "PacketPlayOutAnimation", new EntityAnimationPacket.EntityAnimationPacketClass("net.minecraft.server.v1_8_R1.PacketPlayOutAnimation"));
-        load(V1_8_R1.class, "PacketPlayOutSpawnEntityLiving", new EntityLivingSpawnPacket.EntityLivingSpawnPacketClass("net.minecraft.server.v1_8_R1.PacketPlayOutSpawnEntityLiving"));
-        load(V1_8_R1.class, "PacketPlayOutEntityMetadata", new EntityMetadataPacket.EntityMetadataPacketClass("net.minecraft.server.v1_8_R1.PacketPlayOutEntityMetadata"));
-        load(V1_8_R1.class, "PacketPlayOutNamedEntitySpawn", new EntityNamedSpawnPacket.EntityNamedSpawnPacketClass("net.minecraft.server.v1_8_R1.PacketPlayOutNamedEntitySpawn"));
-        load(V1_8_R1.class, "PacketPlayOutPlayerInfo", new PlayerInfoPacket.PlayerInfoPacketClass("net.minecraft.server.v1_8_R1.PacketPlayOutPlayerInfo"));
-        load(V1_8_R1.class, "PacketPlayOutPlayerInfo:EnumPlayerInfoAction", new EnumPlayerInfoActionEnum.EnumPlayerInfoActionClass("net.minecraft.server.v1_8_R1.EnumPlayerInfoAction"));
-        load(V1_8_R1.class, "PacketPlayOutScoreboardTeam", new ScoreboardTeamPacket.ScoreboardTeamPacketClass("net.minecraft.server.v1_8_R1.PacketPlayOutScoreboardTeam"));
-        load(V1_8_R1.class, "PacketPlayOutEntityEquipment", new EntityEquipmentPacket.EntityEquipmentPacketClass("net.minecraft.server.v1_8_R1.PacketPlayOutEntityEquipment"));
-        load(V1_8_R1.class, "PacketPlayOutEntityTeleport", new EntityTeleportPacket.EntityTeleportPacketClass("net.minecraft.server.v1_8_R1.PacketPlayOutEntityTeleport"));
-        load(V1_8_R1.class, "PacketPlayOutEntityHeadRotation", new EntityHeadRotationPacket.EntityHeadRotationPacketClass("net.minecraft.server.v1_8_R1.PacketPlayOutEntityHeadRotation"));
-        load(V1_8_R1.class, "PacketPlayOutEntityLook", new EntityLookPacket.EntityLookPacketClass("net.minecraft.server.v1_8_R1.PacketPlayOutEntityLook"));
-
-        load(V1_8_R1.class, "PacketPlayInUseEntity", new EntityUseInPacket.EntityUseInPacketClass("net.minecraft.server.v1_8_R1.PacketPlayInUseEntity"));
-        load(V1_8_R1.class, "PacketPlayInUseEntity:EnumEntityUseAction", new EntityUseInPacket.ActionEnum.ActionClass("net.minecraft.server.v1_8_R1.EnumEntityUseAction"));
-        //
-
-        // Server
-        load(V1_8_R1.class, "MinecraftServer", new MinecraftServer.MinecraftServerClass("net.minecraft.server.v1_8_R1.MinecraftServer"));
-        load(V1_8_R1.class, "WorldServer", new WorldServer.WorldServerClass("net.minecraft.server.v1_8_R1.WorldServer"));
-        load(V1_8_R1.class, "CraftServer", new CraftServer.CraftServerClass("org.bukkit.craftbukkit.v1_8_R1.CraftServer"));
-        //
-
-        // Entity
-        load(V1_8_R1.class, "Entity", new Entity.EntityClass("net.minecraft.server.v1_8_R1.Entity"));
-        load(V1_8_R1.class, "EntityLiving", new EntityLiving.EntityLivingClass("net.minecraft.server.v1_8_R1.EntityLiving"));
-        load(V1_8_R1.class, "Entity:Human", new Entity.EntityClass("net.minecraft.server.v1_8_R1.EntityHuman"));
-        load(V1_8_R1.class, "CraftPlayer", new CraftPlayer.CraftPlayerClass("org.bukkit.craftbukkit.v1_8_R1.entity.CraftPlayer"));
-        load(V1_8_R1.class, "EntityPlayer", new EntityPlayer.EntityPlayerClass("net.minecraft.server.v1_8_R1.EntityPlayer"));
-
-        load(V1_8_R1.class, "Entity:ArmorStand", new ArmorStand.ArmorStandClass("net.minecraft.server.v1_8_R1.EntityArmorStand"));
-        load(V1_8_R1.class, "Entity:Pig", new Pig.PigClass("net.minecraft.server.v1_8_R1.EntityPig"));
-        load(V1_8_R1.class, "Entity:Cow", new Cow.CowClass("net.minecraft.server.v1_8_R1.EntityCow"));
-        load(V1_8_R1.class, "Entity:Ocelot", new Ocelot.OcelotClass("net.minecraft.server.v1_8_R1.EntityOcelot"));
-        load(V1_8_R1.class, "Entity:Bat", new Bat.BatClass("net.minecraft.server.v1_8_R1.EntityBat"));
-        load(V1_8_R1.class, "Entity:Egg", new Egg.EggClass("net.minecraft.server.v1_8_R1.EntityEgg"));
-        load(V1_8_R1.class, "Entity:Chicken", new Chicken.ChickenClass("net.minecraft.server.v1_8_R1.EntityChicken"));
-        load(V1_8_R1.class, "Entity:Horse", new AbstractHorse.AbstractHorseClass("net.minecraft.server.v1_8_R1.EntityHorse"));
-        load(V1_8_R1.class, "Entity:IronGolem", new IronGolem.IronGolemClass("net.minecraft.server.v1_8_R1.EntityIronGolem"));
-        load(V1_8_R1.class, "Entity:Rabbit", new Rabbit.RabbitClass("net.minecraft.server.v1_8_R1.EntityRabbit"));
-        load(V1_8_R1.class, "Entity:Sheep", new Sheep.SheepClass("net.minecraft.server.v1_8_R1.EntitySheep"));
-        load(V1_8_R1.class, "Entity:Snowman", new Snowman.SnowmanClass("net.minecraft.server.v1_8_R1.EntitySnowman"));
-        load(V1_8_R1.class, "Entity:Squid", new Squid.SquidClass("net.minecraft.server.v1_8_R1.EntitySquid"));
-        load(V1_8_R1.class, "Entity:Wolf", new Wolf.WolfClass("net.minecraft.server.v1_8_R1.EntityWolf"));
-        load(V1_8_R1.class, "Entity:ItemFrame", new ItemFrame.ItemFrameClass("net.minecraft.server.v1_8_R1.EntityItemFrame"));
-        load(V1_8_R1.class, "Entity:LeashKnot", new LeashKnot.LeashKnotClass("net.minecraft.server.v1_8_R1.EntityLeash"));
-        load(V1_8_R1.class, "Entity:FallingBlock", new FallingBlock.FallingBlockClass("net.minecraft.server.v1_8_R1.EntityFallingBlock"));
-        load(V1_8_R1.class, "Entity:Item", new Item.ItemClass("net.minecraft.server.v1_8_R1.EntityItem"));
-        load(V1_8_R1.class, "Entity:EnderDragon", new EnderDragon.EnderDragonClass("net.minecraft.server.v1_8_R1.EntityEnderDragon"));
-        load(V1_8_R1.class, "Entity:EnderSignal", new EnderSignal.EnderSignalClass("net.minecraft.server.v1_8_R1.EntityEnderSignal"));
-        load(V1_8_R1.class, "Entity:Wither", new Wither.WitherClass("net.minecraft.server.v1_8_R1.EntityWither"));
-        load(V1_8_R1.class, "Entity:WitherSkull", new WitherSkull.WitherSkullClass("net.minecraft.server.v1_8_R1.EntityWitherSkull"));
-        load(V1_8_R1.class, "Entity:Blaze", new Blaze.BlazeClass("net.minecraft.server.v1_8_R1.EntityBlaze"));
-        load(V1_8_R1.class, "Entity:Creeper", new Creeper.CreeperClass("net.minecraft.server.v1_8_R1.EntityCreeper"));
-        load(V1_8_R1.class, "Entity:Enderman", new Enderman.EndermanClass("net.minecraft.server.v1_8_R1.EntityEnderman"));
-        load(V1_8_R1.class, "Entity:Ghast", new Ghast.GhastClass("net.minecraft.server.v1_8_R1.EntityGhast"));
-        load(V1_8_R1.class, "Entity:Guardian", new Guardian.GuardianClass("net.minecraft.server.v1_8_R1.EntityGuardian"));
-        load(V1_8_R1.class, "Entity:Silverfish", new Silverfish.SilverfishClass("net.minecraft.server.v1_8_R1.EntitySilverfish"));
-        load(V1_8_R1.class, "Entity:Skeleton", new Skeleton.SkeletonClass("net.minecraft.server.v1_8_R1.EntitySkeleton"));
-        load(V1_8_R1.class, "Entity:Slime", new Slime.SlimeClass("net.minecraft.server.v1_8_R1.EntitySlime"));
-        load(V1_8_R1.class, "Entity:Spider", new Spider.SpiderClass("net.minecraft.server.v1_8_R1.EntitySpider"));
-        load(V1_8_R1.class, "Entity:Witch", new Witch.WitchClass("net.minecraft.server.v1_8_R1.EntityWitch"));
-        load(V1_8_R1.class, "Entity:Zombie", new Zombie.ZombieClass("net.minecraft.server.v1_8_R1.EntityZombie"));
-        load(V1_8_R1.class, "Entity:Villager", new Villager.VillagerClass("net.minecraft.server.v1_8_R1.EntityVillager"));
-        load(V1_8_R1.class, "Entity:Boat", new Boat.BoatClass("net.minecraft.server.v1_8_R1.EntityBoat"));
-        load(V1_8_R1.class, "Entity:CaveSpider", new CaveSpider.CaveSpiderClass("net.minecraft.server.v1_8_R1.EntityCaveSpider"));
-
-        load(V1_8_R1.class, "Entity:Ageable", new AgeableEntityLiving.AgeableEntityLivingClass("net.minecraft.server.v1_8_R1.EntityAgeable"));
-        load(V1_8_R1.class, "Entity:Tameable", new TameableEntityLiving.TameableEntityLivingClass("net.minecraft.server.v1_8_R1.EntityTameableAnimal"));
-        // EntityPlayer
-        load(V1_8_R1.class, "GameProfile", new GameProfile.GameProfileClass("com.mojang.authlib.GameProfile"));
-        load(V1_8_R1.class, "PropertyMap", new PropertyMap.PropertyMapClass("com.mojang.authlib.properties.PropertyMap"));
-        load(V1_8_R1.class, "Property", new Property.PropertyClass("com.mojang.authlib.properties.Property"));
-        //
-
-        // Managers
-        load(V1_8_R1.class, "PlayerInteractManager", new PlayerInteractManager.PlayerInteractManagerClass("net.minecraft.server.v1_8_R1.PlayerInteractManager"));
-        //
-
-        // DataWatcher
-        load(V1_8_R1.class, "DataWatcher", new DataWatcher.DataWatcherClass("net.minecraft.server.v1_8_R1.DataWatcher"));
-        load(V1_8_R1.class, "WatchableObject", new WatchableObject.WatchableObjectClass("net.minecraft.server.v1_8_R1.WatchableObject"));
-        //
-
-        // Scoreboard
-        load(V1_8_R1.class, "CraftScoreboard", new CraftScoreboard.CraftScoreboardClass("org.bukkit.craftbukkit.v1_8_R1.scoreboard.CraftScoreboard"));
-        load(V1_8_R1.class, "Scoreboard", new Scoreboard.ScoreboardClass("net.minecraft.server.v1_8_R1.Scoreboard"));
-        load(V1_8_R1.class, "ScoreboardTeam", new ScoreboardTeam.ScoreboardTeamClass("net.minecraft.server.v1_8_R1.ScoreboardTeam"));
-
-        load(V1_8_R1.class, "ScoreboardTeamBase:EnumNameTagVisibility", new EnumNameTagVisibilityEnum.EnumNameTagVisibilityClass("net.minecraft.server.v1_8_R1.EnumNameTagVisibility"));
-        //
-
-        // Others
-        load(V1_8_R1.class, "PlayerConnection", new PlayerConnection.PlayerConnectionClass("net.minecraft.server.v1_8_R1.PlayerConnection"));
-        load(V1_8_R1.class, "NetworkManager", new NetworkManager.NetworkManagerClass("net.minecraft.server.v1_8_R1.NetworkManager"));
-
-        load(V1_8_R1.class, "EnumChatFormat", new EnumChatFormatEnum.EnumChatFormatClass("net.minecraft.server.v1_8_R1.EnumChatFormat"));
-        load(V1_8_R1.class, "EnumColor", new EnumColorEnum.EnumColorClass("net.minecraft.server.v1_8_R1.EnumColor"));
-        //
-
-        // Chat
-        load(V1_8_R1.class, "IChatBaseComponent", new IChatBaseComponent.IChatBaseComponentClass("net.minecraft.server.v1_8_R1.IChatBaseComponent"));
-        load(V1_8_R1.class, "ChatSerializer", new IChatBaseComponent.ChatSerializerClass("net.minecraft.server.v1_8_R1.ChatSerializer"));
-        //
-
-        // Objects
-        load(V1_8_R1.class, "CraftWorld", new CraftWorld.CraftWorldClass("org.bukkit.craftbukkit.v1_8_R1.CraftWorld"));
-        load(V1_8_R1.class, "World", new World.WorldClass("net.minecraft.server.v1_8_R1.World"));
-        load(V1_8_R1.class, "Vector3f", new Vector3f.Vector3fClass("net.minecraft.server.v1_8_R1.Vector3f"));
-        load(V1_8_R1.class, "Vec3D", new Vec3D.Vec3DClass("net.minecraft.server.v1_8_R1.Vec3D"));
-        load(V1_8_R1.class, "BlockPosition", new BlockPosition.BlockPositionClass("net.minecraft.server.v1_8_R1.BlockPosition"));
-        load(V1_8_R1.class, "CraftBlock", new CraftBlock.CraftBlockClass("org.bukkit.craftbukkit.v1_8_R1.block.CraftBlock"));
-        load(V1_8_R1.class, "IBlockData", new IBlockData.IBlockDataClass("net.minecraft.server.v1_8_R1.IBlockData"));
-        load(V1_8_R1.class, "Block", new codes.laivy.npc.mappings.defaults.classes.others.objects.Block.BlockClass("net.minecraft.server.v1_8_R1.Block"));
-        load(V1_8_R1.class, "CraftMagicNumbers", new ClassExecutor("org.bukkit.craftbukkit.v1_8_R1.util.CraftMagicNumbers"));
-        //
-
-        // Items
-        load(V1_8_R1.class, "ItemStack", new ItemStackClass("net.minecraft.server.v1_8_R1.ItemStack"));
-        load(V1_8_R1.class, "CraftItemStack", new CraftItemStack.CraftItemStackClass("org.bukkit.craftbukkit.v1_8_R1.inventory.CraftItemStack"));
-        //
-    }
-
-    @Override
-    public void loadMethods() {
-        // NBT
-        load(V1_8_R1.class, "NBTTagCompound:set", new MethodExecutor(getClassExec("NBTBase:NBTTagCompound"), ClassExecutor.VOID, "set", "Sets a value inside a NBTTagCompound", ClassExecutor.STRING, getClassExec("NBTBase")));
-        load(V1_8_R1.class, "NBTTagCompound:get", new MethodExecutor(getClassExec("NBTBase:NBTTagCompound"), getClassExec("NBTBase"), "get", "Gets a value inside a NBTTagCompound", ClassExecutor.STRING));
-        load(V1_8_R1.class, "NBTTagCompound:remove", new MethodExecutor(getClassExec("NBTBase:NBTTagCompound"), ClassExecutor.VOID, "remove", "Removes a value from a NBTTagCompound", ClassExecutor.STRING));
-        load(V1_8_R1.class, "NBTTagCompound:contains", new MethodExecutor(getClassExec("NBTBase:NBTTagCompound"), ClassExecutor.BOOLEAN, "hasKey", "Check if a NBTTagCompound contains a key", ClassExecutor.STRING));
-        load(V1_8_R1.class, "NBTTagCompound:isEmpty", new MethodExecutor(getClassExec("NBTBase:NBTTagCompound"), ClassExecutor.BOOLEAN, "isEmpty", "Check if a NBTTagCompound is empty"));
-        load(V1_8_R1.class, "NBTTagCompound:keySet", new MethodExecutor(getClassExec("NBTBase:NBTTagCompound"), new ClassExecutor(Set.class) {}, "c", "Gets a NBTTagCompound's keys"));
-        //
-
-        // Entity
-        load(V1_8_R1.class, "Entity:CraftPlayer:getHandle", new MethodExecutor(getClassExec("CraftPlayer"), getClassExec("EntityPlayer"), "getHandle", "Gets the NMS EntityPlayer from a CraftPlayer"));
-        load(V1_8_R1.class, "Entity:Entity:getId", new MethodExecutor(getClassExec("Entity"), ClassExecutor.INT, "getId", "Gets the entity id of a Entity"));
-        load(V1_8_R1.class, "Entity:Entity:getDataWatcher", new MethodExecutor(getClassExec("Entity"), getClassExec("DataWatcher"), "getDataWatcher", "Gets the DataWatcher of a Entity"));
-        load(V1_8_R1.class, "Entity:Entity:setLocation", new MethodExecutor(getClassExec("Entity"), ClassExecutor.VOID, "setLocation", "Sets the Entity's location", ClassExecutor.DOUBLE, ClassExecutor.DOUBLE, ClassExecutor.DOUBLE, ClassExecutor.FLOAT, ClassExecutor.FLOAT));
-        load(V1_8_R1.class, "Entity:Entity:getName", new MethodExecutor(getClassExec("Entity"), ClassExecutor.STRING, "getName", "Gets the Entity's name"));
-        load(V1_8_R1.class, "Entity:Entity:getCustomName", new MethodExecutor(getClassExec("Entity"), ClassExecutor.STRING, "getCustomName", "Gets the custom name of a Entity"));
-        load(V1_8_R1.class, "Entity:Entity:setCustomName", new MethodExecutor(getClassExec("Entity"), ClassExecutor.VOID, "setCustomName", "Sets the custom name of a Entity", ClassExecutor.STRING));
-        load(V1_8_R1.class, "Entity:Entity:isCustomNameVisible", new MethodExecutor(getClassExec("Entity"), ClassExecutor.BOOLEAN, "getCustomNameVisible", "Check if the Entity's custom name is visible"));
-        load(V1_8_R1.class, "Entity:Entity:setCustomNameVisible", new MethodExecutor(getClassExec("Entity"), ClassExecutor.VOID, "setCustomNameVisible", "Sets the Entity's custom name visibility", ClassExecutor.BOOLEAN));
-        load(V1_8_R1.class, "Entity:Entity:isInvisible", new MethodExecutor(getClassExec("Entity"), ClassExecutor.BOOLEAN, "isInvisible", "Checks if the entity is invisible"));
-        load(V1_8_R1.class, "Entity:Entity:setInvisible", new MethodExecutor(getClassExec("Entity"), ClassExecutor.VOID, "setInvisible", "Sets the Entity's visibility mode", ClassExecutor.BOOLEAN));
-        load(V1_8_R1.class, "Entity:EntityPlayer:getProfile", new MethodExecutor(getClassExec("EntityPlayer"), getClassExec("GameProfile"), "getProfile", "Gets the EntityPlayer's GameProfile"));
-        // ArmorStand
-        load(V1_8_R1.class, "Entity:ArmorStand:setBasePlate", new MethodExecutor(getClassExec("Entity:ArmorStand"), ClassExecutor.VOID, "setBasePlate", "Sets the base plate of a ArmorStand", ClassExecutor.BOOLEAN));
-        load(V1_8_R1.class, "Entity:ArmorStand:hasBasePlate", new MethodExecutor(getClassExec("Entity:ArmorStand"), ClassExecutor.BOOLEAN, "hasBasePlate", "Checks if ArmorStand has base plate"));
-        load(V1_8_R1.class, "Entity:ArmorStand:setArms", new MethodExecutor(getClassExec("Entity:ArmorStand"), ClassExecutor.VOID, "setArms", "Sets the arms of a ArmorStand", ClassExecutor.BOOLEAN));
-        load(V1_8_R1.class, "Entity:ArmorStand:hasArms", new MethodExecutor(getClassExec("Entity:ArmorStand"), ClassExecutor.BOOLEAN, "hasArms", "Checks if ArmorStand has arms"));
-        load(V1_8_R1.class, "Entity:ArmorStand:setSmall", new MethodExecutor(getClassExec("Entity:ArmorStand"), ClassExecutor.VOID, "setSmall", "Sets the small state of a ArmorStand", ClassExecutor.BOOLEAN));
-        load(V1_8_R1.class, "Entity:ArmorStand:isSmall", new MethodExecutor(getClassExec("Entity:ArmorStand"), ClassExecutor.BOOLEAN, "isSmall", "Checks if ArmorStand is small"));
-        // Ageable
-        load(V1_8_R1.class, "Entity:Ageable:isBaby", new MethodExecutor(getClassExec("Entity:Ageable"), ClassExecutor.BOOLEAN, "isBaby", "Checks if a entity is a baby"));
-        load(V1_8_R1.class, "Entity:Ageable:setAge", new MethodExecutor(getClassExec("Entity:Ageable"), ClassExecutor.VOID, "setAge", "Sets the baby state of a entity", ClassExecutor.INT));
-        // Tameable
-        load(V1_8_R1.class, "Entity:Tameable:isTamed", new MethodExecutor(getClassExec("Entity:Tameable"), ClassExecutor.BOOLEAN, "isTamed", "Checks if a animal is tamed"));
-        load(V1_8_R1.class, "Entity:Tameable:setTamed", new MethodExecutor(getClassExec("Entity:Tameable"), ClassExecutor.VOID, "setTamed", "Sets the tamed state of an animal", ClassExecutor.BOOLEAN));
-        load(V1_8_R1.class, "Entity:Tameable:isSitting", new MethodExecutor(getClassExec("Entity:Tameable"), ClassExecutor.BOOLEAN, "isSitting", "Checks if a animal is sitting"));
-        load(V1_8_R1.class, "Entity:Tameable:setSitting", new MethodExecutor(getClassExec("Entity:Tameable"), ClassExecutor.VOID, "setSitting", "Sets the sitting state of an animal", ClassExecutor.BOOLEAN));
-        // Pig
-        load(V1_8_R1.class, "Entity:Pig:hasSaddle", new MethodExecutor(getClassExec("Entity:Pig"), ClassExecutor.BOOLEAN, "hasSaddle", "Checks if a pig has a saddle"));
-        load(V1_8_R1.class, "Entity:Pig:setSaddle", new MethodExecutor(getClassExec("Entity:Pig"), ClassExecutor.VOID, "setSaddle", "Sets the saddle state of a pig", ClassExecutor.BOOLEAN));
-        // Ocelot
-        load(V1_8_R1.class, "Entity:Ocelot:getCatType", new MethodExecutor(getClassExec("Entity:Ocelot"), ClassExecutor.INT, "getCatType", "Gets the cat type of a Ocelot"));
-        load(V1_8_R1.class, "Entity:Ocelot:setCatType", new MethodExecutor(getClassExec("Entity:Ocelot"), ClassExecutor.VOID, "setCatType", "Sets the cat type of a Ocelot", ClassExecutor.INT));
-        // Rabbit
-        load(V1_8_R1.class, "Entity:Rabbit:getVariant", new MethodExecutor(getClassExec("Entity:Rabbit"), ClassExecutor.INT, "cl", "Gets the variant of a Rabbit"));
-        load(V1_8_R1.class, "Entity:Rabbit:setVariant", new MethodExecutor(getClassExec("Entity:Rabbit"), ClassExecutor.VOID, "r", "Sets the variant of a Rabbit", ClassExecutor.INT));
-        // Sheep
-        load(V1_8_R1.class, "Entity:Sheep:getColor", new MethodExecutor(getClassExec("Entity:Sheep"), getClassExec("EnumColor"), "getColor", "Gets the color of a Sheep"));
-        load(V1_8_R1.class, "Entity:Sheep:setColor", new MethodExecutor(getClassExec("Entity:Sheep"), ClassExecutor.VOID, "setColor", "Sets the color of a Sheep", getClassExec("EnumColor")));
-
-        load(V1_8_R1.class, "Entity:Sheep:isSheared", new MethodExecutor(getClassExec("Entity:Sheep"), ClassExecutor.BOOLEAN, "isSheared", "Checks if a sheep is sheared"));
-        load(V1_8_R1.class, "Entity:Sheep:setSheared", new MethodExecutor(getClassExec("Entity:Sheep"), ClassExecutor.VOID, "setSheared", "Sets the sheared state of a Sheep", ClassExecutor.BOOLEAN));
-        // Wolf
-        load(V1_8_R1.class, "Entity:Wolf:getCollarColor", new MethodExecutor(getClassExec("Entity:Wolf"), getClassExec("EnumColor"), "getCollarColor", "Gets the collar color of a wolf"));
-        load(V1_8_R1.class, "Entity:Wolf:setCollarColor", new MethodExecutor(getClassExec("Entity:Wolf"), ClassExecutor.VOID, "setCollarColor", "Sets the collar color of a wolf", getClassExec("EnumColor")));
-
-        load(V1_8_R1.class, "Entity:Wolf:isAngry", new MethodExecutor(getClassExec("Entity:Wolf"), ClassExecutor.BOOLEAN, "isAngry", "Checks if a wolf is angry"));
-        load(V1_8_R1.class, "Entity:Wolf:setAngry", new MethodExecutor(getClassExec("Entity:Wolf"), ClassExecutor.VOID, "setAngry", "Sets the angry state of a wolf", ClassExecutor.BOOLEAN));
-        // ItemFrame
-        load(V1_8_R1.class, "Entity:ItemFrame:getItem", new MethodExecutor(getClassExec("Entity:ItemFrame"), getClassExec("ItemStack"), "getItem", "Gets the item of the ItemFrame"));
-        load(V1_8_R1.class, "Entity:ItemFrame:setItem", new MethodExecutor(getClassExec("Entity:ItemFrame"), ClassExecutor.VOID, "setItem", "Sets the item of a ItemFrame", getClassExec("ItemStack")));
-        load(V1_8_R1.class, "Entity:ItemFrame:getRotation", new MethodExecutor(getClassExec("Entity:ItemFrame"), ClassExecutor.INT, "getRotation", "Gets the rotation of a ItemFrame"));
-        load(V1_8_R1.class, "Entity:ItemFrame:setRotation", new MethodExecutor(getClassExec("Entity:ItemFrame"), ClassExecutor.VOID, "setRotation", "Sets the rotation of a ItemFrame", ClassExecutor.INT));
-        // Item
-        load(V1_8_R1.class, "Entity:Item:getItemStack", new MethodExecutor(getClassExec("Entity:Item"), getClassExec("ItemStack"), "getItemStack", "Gets the item of the Item"));
-        load(V1_8_R1.class, "Entity:Item:setItemStack", new MethodExecutor(getClassExec("Entity:Item"), ClassExecutor.VOID, "setItemStack", "Sets the item of a Item", getClassExec("ItemStack")));
-        // WitherSkull
-        load(V1_8_R1.class, "Entity:WitherSkull:isCharged", new MethodExecutor(getClassExec("Entity:WitherSkull"), ClassExecutor.BOOLEAN, "isCharged", "Gets the charged state of the Wither skull"));
-        load(V1_8_R1.class, "Entity:WitherSkull:setCharged", new MethodExecutor(getClassExec("Entity:WitherSkull"), ClassExecutor.VOID, "setCharged", "Sets the charged state of a Wither skull", ClassExecutor.BOOLEAN));
-        // Blaze
-        load(V1_8_R1.class, "Entity:Blaze:isCharging", new MethodExecutor(getClassExec("Entity:Blaze"), ClassExecutor.BOOLEAN, "n", "Gets the charged state of the Blaze"));
-        load(V1_8_R1.class, "Entity:Blaze:setCharging", new MethodExecutor(getClassExec("Entity:Blaze"), ClassExecutor.VOID, "a", "Sets the charged state of a Blaze", ClassExecutor.BOOLEAN));
-        // Creeper
-        load(V1_8_R1.class, "Entity:Creeper:isPowered", new MethodExecutor(getClassExec("Entity:Creeper"), ClassExecutor.BOOLEAN, "isPowered", "Gets the powered state of the Creeper"));
-        load(V1_8_R1.class, "Entity:Creeper:setPowered", new MethodExecutor(getClassExec("Entity:Creeper"), ClassExecutor.VOID, "setPowered", "Sets the powered state of a Creeper", ClassExecutor.BOOLEAN));
-        // Enderman
-        load(V1_8_R1.class, "Entity:Enderman:getCarried", new MethodExecutor(getClassExec("Entity:Enderman"), getClassExec("IBlockData"), "getCarried", "Gets the block of a Enderman"));
-        load(V1_8_R1.class, "Entity:Enderman:setCarried", new MethodExecutor(getClassExec("Entity:Enderman"), ClassExecutor.VOID, "setCarried", "Sets the block of a Enderman", getClassExec("IBlockData")));
-        load(V1_8_R1.class, "Entity:Enderman:isScreaming", new MethodExecutor(getClassExec("Entity:Enderman"), ClassExecutor.BOOLEAN, "cm", "Gets the screaming state of a Enderman"));
-        load(V1_8_R1.class, "Entity:Enderman:setScreaming", new MethodExecutor(getClassExec("Entity:Enderman"), ClassExecutor.VOID, "a", "Sets the screaming state of a Enderman", ClassExecutor.BOOLEAN));
-        // Skeleton
-        load(V1_8_R1.class, "Entity:Skeleton:getSkeletonType", new MethodExecutor(getClassExec("Entity:Skeleton"), ClassExecutor.INT, "getSkeletonType", "Gets the skeleton type of the Skeleton"));
-        load(V1_8_R1.class, "Entity:Skeleton:setSkeletonType", new MethodExecutor(getClassExec("Entity:Skeleton"), ClassExecutor.VOID, "setSkeletonType", "Sets the skeleton type of a Skeleton", ClassExecutor.INT));
-        // ArmorStand
-        load(V1_8_R1.class, "Entity:ArmorStand:setHeadPose", new MethodExecutor(getClassExec("Entity:ArmorStand"), ClassExecutor.VOID, "setHeadPose", "Sets the head pose of the armor stand", getClassExec("Vector3f")));
-        load(V1_8_R1.class, "Entity:ArmorStand:setBodyPose", new MethodExecutor(getClassExec("Entity:ArmorStand"), ClassExecutor.VOID, "setBodyPose", "Sets the body pose of the armor stand", getClassExec("Vector3f")));
-        load(V1_8_R1.class, "Entity:ArmorStand:setLeftArmPose", new MethodExecutor(getClassExec("Entity:ArmorStand"), ClassExecutor.VOID, "setLeftArmPose", "Sets the left arm pose of the armor stand", getClassExec("Vector3f")));
-        load(V1_8_R1.class, "Entity:ArmorStand:setRightArmPose", new MethodExecutor(getClassExec("Entity:ArmorStand"), ClassExecutor.VOID, "setRightArmPose", "Sets the right arm pose of the armor stand", getClassExec("Vector3f")));
-        load(V1_8_R1.class, "Entity:ArmorStand:setLeftLegPose", new MethodExecutor(getClassExec("Entity:ArmorStand"), ClassExecutor.VOID, "setLeftLegPose", "Sets the head left leg of the armor stand", getClassExec("Vector3f")));
-        load(V1_8_R1.class, "Entity:ArmorStand:setRightLegPose", new MethodExecutor(getClassExec("Entity:ArmorStand"), ClassExecutor.VOID, "setRightLegPose", "Sets the head right leg of the armor stand", getClassExec("Vector3f")));
-        // Bat
-        load(V1_8_R1.class, "Entity:Bat:isAsleep", new MethodExecutor(getClassExec("Entity:Bat"), ClassExecutor.BOOLEAN, "isAsleep", "Check if a bat is sleeping"));
-        load(V1_8_R1.class, "Entity:Bat:setAsleep", new MethodExecutor(getClassExec("Entity:Bat"), ClassExecutor.VOID, "setAsleep", "Sets the sleeping state of a bat", ClassExecutor.BOOLEAN));
-        // Horse
-        load(V1_8_R1.class, "Entity:Horse:getType", new MethodExecutor(getClassExec("Entity:Horse"), ClassExecutor.INT, "getType", "Gets the horse type"));
-        load(V1_8_R1.class, "Entity:Horse:setType", new MethodExecutor(getClassExec("Entity:Horse"), ClassExecutor.VOID, "setType", "Sets the horse type", ClassExecutor.INT));
-        load(V1_8_R1.class, "Entity:Horse:setHasChest", new MethodExecutor(getClassExec("Entity:Horse"), ClassExecutor.VOID, "setHasChest", "Sets the chest state of a Horse", ClassExecutor.BOOLEAN));
-        load(V1_8_R1.class, "Entity:Horse:hasChest", new MethodExecutor(getClassExec("Entity:Horse"), ClassExecutor.BOOLEAN, "hasChest", "Gets the chest state of a Horse"));
-        load(V1_8_R1.class, "Entity:Horse:setVariant", new MethodExecutor(getClassExec("Entity:Horse"), ClassExecutor.VOID, "setVariant", "Sets the variant of a Horse", ClassExecutor.INT));
-        load(V1_8_R1.class, "Entity:Horse:getVariant", new MethodExecutor(getClassExec("Entity:Horse"), ClassExecutor.INT, "getVariant", "Gets the variant of a Horse"));
-        // Slime
-        load(V1_8_R1.class, "Entity:Slime:getSize", new MethodExecutor(getClassExec("Entity:Slime"), ClassExecutor.INT, "getSize", "Gets the slime size"));
-        load(V1_8_R1.class, "Entity:Slime:setSize", new MethodExecutor(getClassExec("Entity:Slime"), ClassExecutor.VOID, "setSize", "Sets the slime size", ClassExecutor.INT));
-        // Spider
-        load(V1_8_R1.class, "Entity:Spider:isClimbing", new MethodExecutor(getClassExec("Entity:Spider"), ClassExecutor.BOOLEAN, "n", "Gets the spider climbing state"));
-        load(V1_8_R1.class, "Entity:Spider:setClimbing", new MethodExecutor(getClassExec("Entity:Spider"), ClassExecutor.VOID, "a", "Sets the spider climbing state", ClassExecutor.BOOLEAN));
-        // Zombie
-        load(V1_8_R1.class, "Entity:Zombie:setVillagerType", new MethodExecutor(getClassExec("Entity:Zombie"), ClassExecutor.VOID, "setVillager", "Sets the villager state of a Zombie", ClassExecutor.BOOLEAN));
-
-        load(V1_8_R1.class, "Entity:Zombie:isBaby", new MethodExecutor(getClassExec("Entity:Zombie"), ClassExecutor.BOOLEAN, "isBaby", "Checks if a zombie is a baby"));
-        load(V1_8_R1.class, "Entity:Zombie:setBaby", new MethodExecutor(getClassExec("Entity:Zombie"), ClassExecutor.VOID, "setBaby", "Sets the baby state of a zombie", ClassExecutor.BOOLEAN));
-        // Villager
-        load(V1_8_R1.class, "Entity:Villager:getProfession", new MethodExecutor(getClassExec("Entity:Villager"), ClassExecutor.INT, "getProfession", "Gets the profession of a Villager"));
-        load(V1_8_R1.class, "Entity:Villager:setProfession", new MethodExecutor(getClassExec("Entity:Villager"), ClassExecutor.VOID, "setProfession", "Sets the profession of a Villager", ClassExecutor.INT));
-        //
-
-        // CraftItemStack
-        load(V1_8_R1.class, "CraftItemStack:asCraftMirror", new MethodExecutor(getClassExec("CraftItemStack"), getClassExec("CraftItemStack"), "asCraftMirror", "Gets the CraftItemStack from a NMS ItemStack", getClassExec("ItemStack")));
-        //
-
-        // Scoreboard
-        load(V1_8_R1.class, "Entity:EntityPlayer:getScoreboard", new MethodExecutor(getClassExec("EntityPlayer"), getClassExec("Scoreboard"), "getScoreboard", "Gets the Scoreboard from the EntityPlayer"));
-        load(V1_8_R1.class, "Scoreboard:getTeam", new MethodExecutor(getClassExec("Scoreboard"), getClassExec("ScoreboardTeam"), "getTeam", "Gets a ScoreboardTeam from a Scoreboard", ClassExecutor.STRING));
-        load(V1_8_R1.class, "Scoreboard:addToTeam", new MethodExecutor(getClassExec("Scoreboard"), ClassExecutor.BOOLEAN, "addPlayerToTeam", "Adds a EntityPlayer to a ScoreboardTeam", ClassExecutor.STRING, ClassExecutor.STRING));
-        load(V1_8_R1.class, "Scoreboard:createTeam", new MethodExecutor(getClassExec("Scoreboard"), getClassExec("ScoreboardTeam"), "createTeam", "Creates a new team on a Scoreboard", ClassExecutor.STRING));
-        // Team
-        load(V1_8_R1.class, "ScoreboardTeam:getPlayerNameSet", new MethodExecutor(getClassExec("ScoreboardTeam"), ClassExecutor.COLLECTION, "getPlayerNameSet", "Gets the player's list of this ScoreboardTeam"));
-        load(V1_8_R1.class, "ScoreboardTeam:setNameTagVisibity", new MethodExecutor(getClassExec("ScoreboardTeam"), ClassExecutor.VOID, "a", "Sets the nametag visibility of a ScoreboardTeam", getClassExec("ScoreboardTeamBase:EnumNameTagVisibility")));
-        load(V1_8_R1.class, "ScoreboardTeam:setColor", new MethodExecutor(getClassExec("ScoreboardTeam"), ClassExecutor.VOID, "a", "Sets the color of a ScoreboardTeam", getClassExec("EnumChatFormat")));
-        load(V1_8_R1.class, "ScoreboardTeam:setPrefix", new MethodExecutor(getClassExec("ScoreboardTeam"), ClassExecutor.VOID, "setPrefix", "Sets the prefix of a ScoreboardTeam", ClassExecutor.STRING));
-        load(V1_8_R1.class, "ScoreboardTeam:getName", new MethodExecutor(getClassExec("ScoreboardTeam"), ClassExecutor.STRING, "getName", "Gets the name of a ScoreboardTeam"));
-        //
-
-        // GameProfile
-        load(V1_8_R1.class, "GameProfile:getProperties", new MethodExecutor(getClassExec("GameProfile"), getClassExec("PropertyMap"), "getProperties", "Gets the properties of a GameProfile"));
-        load(V1_8_R1.class, "GameProfile:getName", new MethodExecutor(getClassExec("GameProfile"), ClassExecutor.STRING, "getName", "Gets the name of a GameProfile"));
-        //
-
-        // Location
-        load(V1_8_R1.class, "CraftWorld:getHandle", new MethodExecutor(getClassExec("CraftWorld"), getClassExec("WorldServer"), "getHandle", "Gets the NMS WorldServer from a CraftWorld"));
-        //
-
-        // PlayerConnection & NetworkManager
-        load(V1_8_R1.class, "PlayerConnection:sendPacket", new MethodExecutor(getClassExec("PlayerConnection"), ClassExecutor.VOID, "sendPacket", "Sends a packet to a player", getClassExec("Packet")));
-        load(V1_8_R1.class, "NetworkManager:getNetworkManager", new MethodExecutor(getClassExec("PlayerConnection"), getClassExec("NetworkManager"), "a", "Gets the NetworkManager from a PlayerConnection"));
-        //
-
-        // DataWatcher
-        load(V1_8_R1.class, "WatchableObject:getValue", new MethodExecutor(getClassExec("WatchableObject"), ClassExecutor.OBJECT, "b", "Gets the object from a WatchableObject"));
-        load(V1_8_R1.class, "WatchableObject:setValue", new MethodExecutor(getClassExec("WatchableObject"), ClassExecutor.VOID, "a", "Sets the object from a WatchableObject", ClassExecutor.OBJECT));
-        //
-
-        // Objects
-        load(V1_8_R1.class, "CraftBlock:getNMSBlock", new MethodExecutor(getClassExec("CraftBlock"), getClassExec("Block"), "getNMSBlock", "Gets the NMS Block from a CraftBlock"));
-        load(V1_8_R1.class, "CraftMagicNumbers:getBlock", new MethodExecutor(getClassExec("CraftMagicNumbers"), getClassExec("Block"), "getBlock", "Gets the NMS Block from a Bukkit Material", new ClassExecutor(Material.class)));
-        load(V1_8_R1.class, "CraftMagicNumbers:getMaterial", new MethodExecutor(getClassExec("CraftMagicNumbers"), new ClassExecutor(Material.class), "getMaterial", "Gets the Bukkit material from a NMS Block", getClassExec("Block")));
-        load(V1_8_R1.class, "Block:getData", new MethodExecutor(getClassExec("Block"), getClassExec("IBlockData"), "getBlockData", "Gets the data of a block"));
-        load(V1_8_R1.class, "IBlockData:getBlock", new MethodExecutor(getClassExec("IBlockData"), getClassExec("Block"), "getBlock", "Gets the block of a data"));
-        //
-
-        // EnumColor
-        load(V1_8_R1.class, "EnumColor:getColorIndex", new MethodExecutor(getClassExec("EnumColor"), ClassExecutor.INT, "getColorIndex", "Gets the color index of a EnumColor"));
-        load(V1_8_R1.class, "EnumColor:fromColorIndex", new MethodExecutor(getClassExec("EnumColor"), getClassExec("EnumColor"), "fromColorIndex", "Gets the color enum from the index of a EnumColor", ClassExecutor.INT));
-        //
-
-        // World
-        load(V1_8_R1.class, "World:getEntityById", new MethodExecutor(getClassExec("World"), getClassExec("Entity"), "a", "Gets a entity by its ID", ClassExecutor.INT));
-        //
-
-        // Location
-        load(V1_8_R1.class, "Vector3f:getX", new MethodExecutor(getClassExec("Vector3f"), ClassExecutor.FLOAT, "getX", "Gets the X align of a Vector3f"));
-        load(V1_8_R1.class, "Vector3f:getY", new MethodExecutor(getClassExec("Vector3f"), ClassExecutor.FLOAT, "getY", "Gets the Y align of a Vector3f"));
-        load(V1_8_R1.class, "Vector3f:getZ", new MethodExecutor(getClassExec("Vector3f"), ClassExecutor.FLOAT, "getZ", "Gets the Z align of a Vector3f"));
-        //
-
-        // BlockPosition
-        load(V1_8_R1.class, "BlockPosition:getX", new MethodExecutor(getClassExec("BlockPosition"), ClassExecutor.INT, "getX", "Gets the X position of a BlockPosition"));
-        load(V1_8_R1.class, "BlockPosition:getY", new MethodExecutor(getClassExec("BlockPosition"), ClassExecutor.INT, "getY", "Gets the Y position of a BlockPosition"));
-        load(V1_8_R1.class, "BlockPosition:getZ", new MethodExecutor(getClassExec("BlockPosition"), ClassExecutor.INT, "getZ", "Gets the Z position of a BlockPosition"));
-        //
-    }
-
-    @Override
-    public void loadFields() {
-        // NBT
-        load(V1_8_R1.class, "NBTTagList:list", new FieldExecutor(getClassExec("NBTBase:NBTTagList"), new ClassExecutor(List.class) {}, "list", "Gets the list of a NBTTagList"));
-        //
-
-        // CraftPlayer
-        load(V1_8_R1.class, "EntityPlayer:playerConnection", new FieldExecutor(getClassExec("EntityPlayer"), getClassExec("PlayerConnection"), "playerConnection", "Gets the PlayerConnection from the player"));
-        //
-
-        // NetworkManager
-        load(V1_8_R1.class, "NetworkManager:channel", new FieldExecutor(getClassExec("NetworkManager"), new ClassExecutor(Channel.class) {}, "i", "Gets the channel of the player"));
-        //
-
-        // PacketPlayInUseEntity
-        load(V1_8_R1.class, "PacketPlayInUseEntity:entityId", new FieldExecutor(getClassExec("PacketPlayInUseEntity"), ClassExecutor.INT, "a", "Get the entity id of a PacketPlayInUseEntity"));
-        //
-
-        // ArmorStand
-        load(V1_8_R1.class, "Entity:ArmorStand:headPose", new FieldExecutor(getClassExec("Entity:ArmorStand"), getClassExec("Vector3f"), "headPose", "Gets the head pose of an ArmorStand"));
-        load(V1_8_R1.class, "Entity:ArmorStand:bodyPose", new FieldExecutor(getClassExec("Entity:ArmorStand"), getClassExec("Vector3f"), "bodyPose", "Gets the body pose of an ArmorStand"));
-        load(V1_8_R1.class, "Entity:ArmorStand:leftArmPose", new FieldExecutor(getClassExec("Entity:ArmorStand"), getClassExec("Vector3f"), "leftArmPose", "Gets the left arm pose of an ArmorStand"));
-        load(V1_8_R1.class, "Entity:ArmorStand:rightArmPose", new FieldExecutor(getClassExec("Entity:ArmorStand"), getClassExec("Vector3f"), "rightArmPose", "Gets the right arm pose of an ArmorStand"));
-        load(V1_8_R1.class, "Entity:ArmorStand:leftLegPose", new FieldExecutor(getClassExec("Entity:ArmorStand"), getClassExec("Vector3f"), "rightLegPose", "Gets the left leg pose of an ArmorStand"));
-        load(V1_8_R1.class, "Entity:ArmorStand:rightLegPose", new FieldExecutor(getClassExec("Entity:ArmorStand"), getClassExec("Vector3f"), "leftLegPose", "Gets the right leg pose of an ArmorStand"));
-        //
-
-        // Location
-        load(V1_8_R1.class, "Entity:world", new FieldExecutor(getClassExec("Entity"), getClassExec("World"), "world", "Gets the world of an Entity"));
-        load(V1_8_R1.class, "Entity:locX", new FieldExecutor(getClassExec("Entity"), ClassExecutor.DOUBLE, "locX", "Gets the X position of an Entity"));
-        load(V1_8_R1.class, "Entity:locY", new FieldExecutor(getClassExec("Entity"), ClassExecutor.DOUBLE, "locY", "Gets the Y position of an Entity"));
-        load(V1_8_R1.class, "Entity:locZ", new FieldExecutor(getClassExec("Entity"), ClassExecutor.DOUBLE, "locZ", "Gets the Z position of an Entity"));
-        //
-
-        // DataWatcher
-        load(V1_8_R1.class, "DataWatcher:map", new FieldExecutor(getClassExec("DataWatcher"), new ClassExecutor(Map.class), "d", "Gets the values of the data"));
-        //
-    }
-
-    @Override
-    public void loadEnums() {
-        // EnumPlayerInfoAction
-        System.out.println("Debug: '" + (getClassExec("PacketPlayOutPlayerInfo:EnumPlayerInfoAction").getName()) + "'");
-        load(V1_8_R1.class, "PacketPlayOutPlayerInfo:EnumPlayerInfoAction", new EnumPlayerInfoActionEnum(getClassExec("PacketPlayOutPlayerInfo:EnumPlayerInfoAction")));
-        //
-
-        // EnumNameTagVisilibityEnum
-        load(V1_8_R1.class, "EnumNameTagVisibilityEnum:EnumNameTagVisibility", new EnumNameTagVisibilityEnum(getClassExec("ScoreboardTeamBase:EnumNameTagVisibility")));
-        //
-
-        // PacketPlayInUseEntity
-        load(V1_8_R1.class, "PacketPlayInUseEntity:EnumEntityUseAction", new EntityUseInPacket.ActionEnum(getClassExec("PacketPlayInUseEntity:EnumEntityUseAction")));
-        //
-
-        load(V1_8_R1.class, "EnumColor", new EnumColorEnum(getClassExec("EnumColor")));
-
-        load(V1_8_R1.class, "EnumChatFormat", new EnumChatFormatEnum(getClassExec("EnumChatFormat")));
-
-    }
-
-    @Override
-    public @NotNull Map<String, String> getTexts() {
-        if (super.getTexts().isEmpty()) {
-            // EnumPlayerInfoAction
-            super.getTexts().put("PacketPlayOutPlayerInfo:EnumPlayerInfoAction:ADD_PLAYER", "ADD_PLAYER");
-            super.getTexts().put("PacketPlayOutPlayerInfo:EnumPlayerInfoAction:REMOVE_PLAYER", "REMOVE_PLAYER");
-            //
-
-            // EnumNameTagVisibility
-            super.getTexts().put("ScoreboardTeamBase:EnumNameTagVisibility:NEVER", "NEVER");
-            //
-
-            // PacketPlayInUseEntity
-            super.getTexts().put("PacketPlayInUseEntity:EnumEntityUseAction:INTERACT", "INTERACT");
-            super.getTexts().put("PacketPlayInUseEntity:EnumEntityUseAction:ATTACK", "ATTACK");
-            super.getTexts().put("PacketPlayInUseEntity:EnumEntityUseAction:INTERACT_AT", "INTERACT_AT");
-            //
-
-            // EnumTeamPush
-            super.getTexts().put("ScoreboardTeam:EnumTeamPush:NEVER", "NEVER");
-            super.getTexts().put("ScoreboardTeam:EnumTeamPush:ALWAYS", "ALWAYS");
-            //
-        }
-
-        return super.getTexts();
-    }
-    @Override
-    public @NotNull Map<String, Object> getObjects() {
-        if (super.getObjects().isEmpty()) {
-            super.getObjects().put("Metadata:Player:SkinParts", 10);
-            super.getObjects().put("Metadata:Horse:Armor", 22);
-            super.getObjects().put("Metadata:Ghast:Attacking", 16);
-            super.getObjects().put("Metadata:Guardian:Target", 17);
-            super.getObjects().put("Metadata:Creeper:Ignited", 18);
-        }
-
-        return super.getObjects();
-    }
-
-    @Override
-    public @NotNull String getName() {
-        return "v1_8_R1";
-    }
-
-    @Override
     public boolean isEntityTypeSupported(Entity.@NotNull EntityType type) {
         return ClassUtils.isInstanceOf(getClass(), type.getSince());
     }
@@ -1625,18 +1193,12 @@ public class V1_8_R1 extends Version {
 
     @Override
     public @NotNull IChatBaseComponent stringToBaseComponent(@NotNull String string) {
-        MethodExecutor method = new MethodExecutor(getClassExec("ChatSerializer"), getClassExec("IChatBaseComponent"), "a", "Converts a string to a IChatBaseComponent", ClassExecutor.STRING);
-        method.load();
-
-        return new IChatBaseComponent(method.invokeStatic(new StringObjExec("{\"text\":\"" + string + "\"}")));
+        return new IChatBaseComponent(getMethodExec("ChatSerializer:convertToComponent").invokeStatic(new StringObjExec("{\"text\":\"" + string + "\"}")));
     }
 
     @Override
     public @NotNull String baseComponentToString(@NotNull IChatBaseComponent iChatBaseComponent) {
-        MethodExecutor method = new MethodExecutor(getClassExec("ChatSerializer"), ClassExecutor.STRING, "getText", "Converts a IChatBaseComponent to a string", getClassExec("IChatBaseComponent"));
-        method.load();
-
-        return (String) Objects.requireNonNull(method.invokeInstance(iChatBaseComponent));
+        return (String) Objects.requireNonNull(getMethodExec("ChatSerializer:convertToString").invokeInstance(iChatBaseComponent));
     }
 
     @Override
@@ -1651,6 +1213,435 @@ public class V1_8_R1 extends Version {
         }
 
         return map;
+    }
+
+    @Override
+    public void loadClasses() {
+        // NBT
+        load(V1_8_R1.class, "NBTBase", new NBTBase.NBTBaseClass("net.minecraft.server.v1_8_R1.NBTBase"));
+
+        load(V1_8_R1.class, "NBTBase:NBTTagByte", new NBTTagByte.NBTTagByteClass("net.minecraft.server.v1_8_R1.NBTTagByte"));
+        load(V1_8_R1.class, "NBTBase:NBTTagByteArray", new NBTTagByteArray.NBTTagByteArrayClass("net.minecraft.server.v1_8_R1.NBTTagByteArray"));
+        load(V1_8_R1.class, "NBTBase:NBTTagCompound", new NBTTagCompound.NBTTagCompoundClass("net.minecraft.server.v1_8_R1.NBTTagCompound"));
+        load(V1_8_R1.class, "NBTBase:NBTTagDouble", new NBTTagDouble.NBTTagDoubleClass("net.minecraft.server.v1_8_R1.NBTTagDouble"));
+        load(V1_8_R1.class, "NBTBase:NBTTagFloat", new NBTTagFloat.NBTTagFloatClass("net.minecraft.server.v1_8_R1.NBTTagFloat"));
+        load(V1_8_R1.class, "NBTBase:NBTTagInt", new NBTTagInt.NBTTagIntClass("net.minecraft.server.v1_8_R1.NBTTagInt"));
+        load(V1_8_R1.class, "NBTBase:NBTTagIntArray", new NBTTagIntArray.NBTTagIntArrayClass("net.minecraft.server.v1_8_R1.NBTTagIntArray"));
+        load(V1_8_R1.class, "NBTBase:NBTTagList", new NBTTagList.NBTTagListClass("net.minecraft.server.v1_8_R1.NBTTagList"));
+        load(V1_8_R1.class, "NBTBase:NBTTagLong", new NBTTagLong.NBTTagLongClass("net.minecraft.server.v1_8_R1.NBTTagLong"));
+        load(V1_8_R1.class, "NBTBase:NBTTagShort", new NBTTagShort.NBTTagShortClass("net.minecraft.server.v1_8_R1.NBTTagShort"));
+        load(V1_8_R1.class, "NBTBase:NBTTagString", new NBTTagString.NBTTagStringClass("net.minecraft.server.v1_8_R1.NBTTagString"));
+        //
+
+        // Packets
+        load(V1_8_R1.class, "Packet", new Packet.PacketClass("net.minecraft.server.v1_8_R1.Packet"));
+        load(V1_8_R1.class, "PacketPlayOutSpawnEntity", new EntitySpawnPacket.EntitySpawnPacketClass("net.minecraft.server.v1_8_R1.PacketPlayOutSpawnEntity"));
+        load(V1_8_R1.class, "PacketPlayOutEntityDestroy", new EntityDestroyPacket.EntityDestroyPacketClass("net.minecraft.server.v1_8_R1.PacketPlayOutEntityDestroy"));
+        load(V1_8_R1.class, "PacketPlayOutAnimation", new EntityAnimationPacket.EntityAnimationPacketClass("net.minecraft.server.v1_8_R1.PacketPlayOutAnimation"));
+        load(V1_8_R1.class, "PacketPlayOutSpawnEntityLiving", new EntityLivingSpawnPacket.EntityLivingSpawnPacketClass("net.minecraft.server.v1_8_R1.PacketPlayOutSpawnEntityLiving"));
+        load(V1_8_R1.class, "PacketPlayOutEntityMetadata", new EntityMetadataPacket.EntityMetadataPacketClass("net.minecraft.server.v1_8_R1.PacketPlayOutEntityMetadata"));
+        load(V1_8_R1.class, "PacketPlayOutNamedEntitySpawn", new EntityNamedSpawnPacket.EntityNamedSpawnPacketClass("net.minecraft.server.v1_8_R1.PacketPlayOutNamedEntitySpawn"));
+        load(V1_8_R1.class, "PacketPlayOutPlayerInfo", new PlayerInfoPacket.PlayerInfoPacketClass("net.minecraft.server.v1_8_R1.PacketPlayOutPlayerInfo"));
+        load(V1_8_R1.class, "PacketPlayOutPlayerInfo:EnumPlayerInfoAction", new EnumPlayerInfoActionEnum.EnumPlayerInfoActionClass("net.minecraft.server.v1_8_R1.EnumPlayerInfoAction"));
+        load(V1_8_R1.class, "PacketPlayOutScoreboardTeam", new ScoreboardTeamPacket.ScoreboardTeamPacketClass("net.minecraft.server.v1_8_R1.PacketPlayOutScoreboardTeam"));
+        load(V1_8_R1.class, "PacketPlayOutEntityEquipment", new EntityEquipmentPacket.EntityEquipmentPacketClass("net.minecraft.server.v1_8_R1.PacketPlayOutEntityEquipment"));
+        load(V1_8_R1.class, "PacketPlayOutEntityTeleport", new EntityTeleportPacket.EntityTeleportPacketClass("net.minecraft.server.v1_8_R1.PacketPlayOutEntityTeleport"));
+        load(V1_8_R1.class, "PacketPlayOutEntityHeadRotation", new EntityHeadRotationPacket.EntityHeadRotationPacketClass("net.minecraft.server.v1_8_R1.PacketPlayOutEntityHeadRotation"));
+        load(V1_8_R1.class, "PacketPlayOutEntityLook", new EntityLookPacket.EntityLookPacketClass("net.minecraft.server.v1_8_R1.PacketPlayOutEntityLook"));
+
+        load(V1_8_R1.class, "PacketPlayInUseEntity", new EntityUseInPacket.EntityUseInPacketClass("net.minecraft.server.v1_8_R1.PacketPlayInUseEntity"));
+        load(V1_8_R1.class, "PacketPlayInUseEntity:EnumEntityUseAction", new EntityUseInPacket.ActionEnum.ActionClass("net.minecraft.server.v1_8_R1.EnumEntityUseAction"));
+        //
+
+        // Server
+        load(V1_8_R1.class, "MinecraftServer", new MinecraftServer.MinecraftServerClass("net.minecraft.server.v1_8_R1.MinecraftServer"));
+        load(V1_8_R1.class, "WorldServer", new WorldServer.WorldServerClass("net.minecraft.server.v1_8_R1.WorldServer"));
+        load(V1_8_R1.class, "CraftServer", new CraftServer.CraftServerClass("org.bukkit.craftbukkit.v1_8_R1.CraftServer"));
+        //
+
+        // Entity
+        load(V1_8_R1.class, "Entity", new Entity.EntityClass("net.minecraft.server.v1_8_R1.Entity"));
+        load(V1_8_R1.class, "EntityLiving", new EntityLiving.EntityLivingClass("net.minecraft.server.v1_8_R1.EntityLiving"));
+        load(V1_8_R1.class, "Entity:Human", new Entity.EntityClass("net.minecraft.server.v1_8_R1.EntityHuman"));
+        load(V1_8_R1.class, "CraftPlayer", new CraftPlayer.CraftPlayerClass("org.bukkit.craftbukkit.v1_8_R1.entity.CraftPlayer"));
+        load(V1_8_R1.class, "EntityPlayer", new EntityPlayer.EntityPlayerClass("net.minecraft.server.v1_8_R1.EntityPlayer"));
+
+        load(V1_8_R1.class, "Entity:ArmorStand", new ArmorStand.ArmorStandClass("net.minecraft.server.v1_8_R1.EntityArmorStand"));
+        load(V1_8_R1.class, "Entity:Pig", new Pig.PigClass("net.minecraft.server.v1_8_R1.EntityPig"));
+        load(V1_8_R1.class, "Entity:Cow", new Cow.CowClass("net.minecraft.server.v1_8_R1.EntityCow"));
+        load(V1_8_R1.class, "Entity:Ocelot", new Ocelot.OcelotClass("net.minecraft.server.v1_8_R1.EntityOcelot"));
+        load(V1_8_R1.class, "Entity:Bat", new Bat.BatClass("net.minecraft.server.v1_8_R1.EntityBat"));
+        load(V1_8_R1.class, "Entity:Egg", new Egg.EggClass("net.minecraft.server.v1_8_R1.EntityEgg"));
+        load(V1_8_R1.class, "Entity:Chicken", new Chicken.ChickenClass("net.minecraft.server.v1_8_R1.EntityChicken"));
+        load(V1_8_R1.class, "Entity:Horse", new AbstractHorse.AbstractHorseClass("net.minecraft.server.v1_8_R1.EntityHorse"));
+        load(V1_8_R1.class, "Entity:IronGolem", new IronGolem.IronGolemClass("net.minecraft.server.v1_8_R1.EntityIronGolem"));
+        load(V1_8_R1.class, "Entity:Rabbit", new Rabbit.RabbitClass("net.minecraft.server.v1_8_R1.EntityRabbit"));
+        load(V1_8_R1.class, "Entity:Sheep", new Sheep.SheepClass("net.minecraft.server.v1_8_R1.EntitySheep"));
+        load(V1_8_R1.class, "Entity:Snowman", new Snowman.SnowmanClass("net.minecraft.server.v1_8_R1.EntitySnowman"));
+        load(V1_8_R1.class, "Entity:Squid", new Squid.SquidClass("net.minecraft.server.v1_8_R1.EntitySquid"));
+        load(V1_8_R1.class, "Entity:Wolf", new Wolf.WolfClass("net.minecraft.server.v1_8_R1.EntityWolf"));
+        load(V1_8_R1.class, "Entity:ItemFrame", new ItemFrame.ItemFrameClass("net.minecraft.server.v1_8_R1.EntityItemFrame"));
+        load(V1_8_R1.class, "Entity:LeashKnot", new LeashKnot.LeashKnotClass("net.minecraft.server.v1_8_R1.EntityLeash"));
+        load(V1_8_R1.class, "Entity:FallingBlock", new FallingBlock.FallingBlockClass("net.minecraft.server.v1_8_R1.EntityFallingBlock"));
+        load(V1_8_R1.class, "Entity:Item", new Item.ItemClass("net.minecraft.server.v1_8_R1.EntityItem"));
+        load(V1_8_R1.class, "Entity:EnderDragon", new EnderDragon.EnderDragonClass("net.minecraft.server.v1_8_R1.EntityEnderDragon"));
+        load(V1_8_R1.class, "Entity:EnderSignal", new EnderSignal.EnderSignalClass("net.minecraft.server.v1_8_R1.EntityEnderSignal"));
+        load(V1_8_R1.class, "Entity:Wither", new Wither.WitherClass("net.minecraft.server.v1_8_R1.EntityWither"));
+        load(V1_8_R1.class, "Entity:WitherSkull", new WitherSkull.WitherSkullClass("net.minecraft.server.v1_8_R1.EntityWitherSkull"));
+        load(V1_8_R1.class, "Entity:Blaze", new Blaze.BlazeClass("net.minecraft.server.v1_8_R1.EntityBlaze"));
+        load(V1_8_R1.class, "Entity:Creeper", new Creeper.CreeperClass("net.minecraft.server.v1_8_R1.EntityCreeper"));
+        load(V1_8_R1.class, "Entity:Enderman", new Enderman.EndermanClass("net.minecraft.server.v1_8_R1.EntityEnderman"));
+        load(V1_8_R1.class, "Entity:Ghast", new Ghast.GhastClass("net.minecraft.server.v1_8_R1.EntityGhast"));
+        load(V1_8_R1.class, "Entity:Guardian", new Guardian.GuardianClass("net.minecraft.server.v1_8_R1.EntityGuardian"));
+        load(V1_8_R1.class, "Entity:Silverfish", new Silverfish.SilverfishClass("net.minecraft.server.v1_8_R1.EntitySilverfish"));
+        load(V1_8_R1.class, "Entity:Skeleton", new Skeleton.SkeletonClass("net.minecraft.server.v1_8_R1.EntitySkeleton"));
+        load(V1_8_R1.class, "Entity:Slime", new Slime.SlimeClass("net.minecraft.server.v1_8_R1.EntitySlime"));
+        load(V1_8_R1.class, "Entity:Spider", new Spider.SpiderClass("net.minecraft.server.v1_8_R1.EntitySpider"));
+        load(V1_8_R1.class, "Entity:Witch", new Witch.WitchClass("net.minecraft.server.v1_8_R1.EntityWitch"));
+        load(V1_8_R1.class, "Entity:Zombie", new Zombie.ZombieClass("net.minecraft.server.v1_8_R1.EntityZombie"));
+        load(V1_8_R1.class, "Entity:Villager", new Villager.VillagerClass("net.minecraft.server.v1_8_R1.EntityVillager"));
+        load(V1_8_R1.class, "Entity:Boat", new Boat.BoatClass("net.minecraft.server.v1_8_R1.EntityBoat"));
+        load(V1_8_R1.class, "Entity:CaveSpider", new CaveSpider.CaveSpiderClass("net.minecraft.server.v1_8_R1.EntityCaveSpider"));
+
+        load(V1_8_R1.class, "Entity:Ageable", new AgeableEntityLiving.AgeableEntityLivingClass("net.minecraft.server.v1_8_R1.EntityAgeable"));
+        load(V1_8_R1.class, "Entity:Tameable", new TameableEntityLiving.TameableEntityLivingClass("net.minecraft.server.v1_8_R1.EntityTameableAnimal"));
+        // EntityPlayer
+        load(V1_8_R1.class, "GameProfile", new GameProfile.GameProfileClass("com.mojang.authlib.GameProfile"));
+        load(V1_8_R1.class, "PropertyMap", new PropertyMap.PropertyMapClass("com.mojang.authlib.properties.PropertyMap"));
+        load(V1_8_R1.class, "Property", new Property.PropertyClass("com.mojang.authlib.properties.Property"));
+        //
+
+        // Managers
+        load(V1_8_R1.class, "PlayerInteractManager", new PlayerInteractManager.PlayerInteractManagerClass("net.minecraft.server.v1_8_R1.PlayerInteractManager"));
+        //
+
+        // DataWatcher
+        load(V1_8_R1.class, "DataWatcher", new DataWatcher.DataWatcherClass("net.minecraft.server.v1_8_R1.DataWatcher"));
+        load(V1_8_R1.class, "WatchableObject", new WatchableObject.WatchableObjectClass("net.minecraft.server.v1_8_R1.WatchableObject"));
+        //
+
+        // Scoreboard
+        load(V1_8_R1.class, "CraftScoreboard", new CraftScoreboard.CraftScoreboardClass("org.bukkit.craftbukkit.v1_8_R1.scoreboard.CraftScoreboard"));
+        load(V1_8_R1.class, "Scoreboard", new Scoreboard.ScoreboardClass("net.minecraft.server.v1_8_R1.Scoreboard"));
+        load(V1_8_R1.class, "ScoreboardTeam", new ScoreboardTeam.ScoreboardTeamClass("net.minecraft.server.v1_8_R1.ScoreboardTeam"));
+
+        load(V1_8_R1.class, "ScoreboardTeamBase:EnumNameTagVisibility", new EnumNameTagVisibilityEnum.EnumNameTagVisibilityClass("net.minecraft.server.v1_8_R1.EnumNameTagVisibility"));
+        //
+
+        // Others
+        load(V1_8_R1.class, "PlayerConnection", new PlayerConnection.PlayerConnectionClass("net.minecraft.server.v1_8_R1.PlayerConnection"));
+        load(V1_8_R1.class, "NetworkManager", new NetworkManager.NetworkManagerClass("net.minecraft.server.v1_8_R1.NetworkManager"));
+
+        load(V1_8_R1.class, "EnumChatFormat", new EnumChatFormatEnum.EnumChatFormatClass("net.minecraft.server.v1_8_R1.EnumChatFormat"));
+        load(V1_8_R1.class, "EnumColor", new EnumColorEnum.EnumColorClass("net.minecraft.server.v1_8_R1.EnumColor"));
+        //
+
+        // Chat
+        load(V1_8_R1.class, "IChatBaseComponent", new IChatBaseComponent.IChatBaseComponentClass("net.minecraft.server.v1_8_R1.IChatBaseComponent"));
+        load(V1_8_R1.class, "ChatSerializer", new IChatBaseComponent.ChatSerializerClass("net.minecraft.server.v1_8_R1.ChatSerializer"));
+        //
+
+        // Objects
+        load(V1_8_R1.class, "CraftWorld", new CraftWorld.CraftWorldClass("org.bukkit.craftbukkit.v1_8_R1.CraftWorld"));
+        load(V1_8_R1.class, "World", new World.WorldClass("net.minecraft.server.v1_8_R1.World"));
+        load(V1_8_R1.class, "Vector3f", new Vector3f.Vector3fClass("net.minecraft.server.v1_8_R1.Vector3f"));
+        load(V1_8_R1.class, "Vec3D", new Vec3D.Vec3DClass("net.minecraft.server.v1_8_R1.Vec3D"));
+        load(V1_8_R1.class, "BlockPosition", new BlockPosition.BlockPositionClass("net.minecraft.server.v1_8_R1.BlockPosition"));
+        load(V1_8_R1.class, "CraftBlock", new CraftBlock.CraftBlockClass("org.bukkit.craftbukkit.v1_8_R1.block.CraftBlock"));
+        load(V1_8_R1.class, "IBlockData", new IBlockData.IBlockDataClass("net.minecraft.server.v1_8_R1.IBlockData"));
+        load(V1_8_R1.class, "Block", new codes.laivy.npc.mappings.defaults.classes.others.objects.Block.BlockClass("net.minecraft.server.v1_8_R1.Block"));
+        load(V1_8_R1.class, "CraftMagicNumbers", new ClassExecutor("org.bukkit.craftbukkit.v1_8_R1.util.CraftMagicNumbers"));
+        //
+
+        // Items
+        load(V1_8_R1.class, "ItemStack", new ItemStackClass("net.minecraft.server.v1_8_R1.ItemStack"));
+        load(V1_8_R1.class, "CraftItemStack", new CraftItemStack.CraftItemStackClass("org.bukkit.craftbukkit.v1_8_R1.inventory.CraftItemStack"));
+        //
+    }
+
+    @Override
+    public void loadMethods() {
+        // NBT
+        load(V1_8_R1.class, "NBTTagCompound:set", new MethodExecutor(getClassExec("NBTBase:NBTTagCompound"), ClassExecutor.VOID, "set", "Sets a value inside a NBTTagCompound", ClassExecutor.STRING, getClassExec("NBTBase")));
+        load(V1_8_R1.class, "NBTTagCompound:get", new MethodExecutor(getClassExec("NBTBase:NBTTagCompound"), getClassExec("NBTBase"), "get", "Gets a value inside a NBTTagCompound", ClassExecutor.STRING));
+        load(V1_8_R1.class, "NBTTagCompound:remove", new MethodExecutor(getClassExec("NBTBase:NBTTagCompound"), ClassExecutor.VOID, "remove", "Removes a value from a NBTTagCompound", ClassExecutor.STRING));
+        load(V1_8_R1.class, "NBTTagCompound:contains", new MethodExecutor(getClassExec("NBTBase:NBTTagCompound"), ClassExecutor.BOOLEAN, "hasKey", "Check if a NBTTagCompound contains a key", ClassExecutor.STRING));
+        load(V1_8_R1.class, "NBTTagCompound:isEmpty", new MethodExecutor(getClassExec("NBTBase:NBTTagCompound"), ClassExecutor.BOOLEAN, "isEmpty", "Check if a NBTTagCompound is empty"));
+        load(V1_8_R1.class, "NBTTagCompound:keySet", new MethodExecutor(getClassExec("NBTBase:NBTTagCompound"), new ClassExecutor(Set.class) {}, "c", "Gets a NBTTagCompound's keys"));
+        //
+
+        // Entity
+        load(V1_8_R1.class, "Entity:CraftPlayer:getHandle", new MethodExecutor(getClassExec("CraftPlayer"), getClassExec("EntityPlayer"), "getHandle", "Gets the NMS EntityPlayer from a CraftPlayer"));
+        load(V1_8_R1.class, "Entity:Entity:getId", new MethodExecutor(getClassExec("Entity"), ClassExecutor.INT, "getId", "Gets the entity id of a Entity"));
+        load(V1_8_R1.class, "Entity:Entity:getDataWatcher", new MethodExecutor(getClassExec("Entity"), getClassExec("DataWatcher"), "getDataWatcher", "Gets the DataWatcher of a Entity"));
+        load(V1_8_R1.class, "Entity:Entity:setLocation", new MethodExecutor(getClassExec("Entity"), ClassExecutor.VOID, "setLocation", "Sets the Entity's location", ClassExecutor.DOUBLE, ClassExecutor.DOUBLE, ClassExecutor.DOUBLE, ClassExecutor.FLOAT, ClassExecutor.FLOAT));
+        load(V1_8_R1.class, "Entity:Entity:getName", new MethodExecutor(getClassExec("Entity"), ClassExecutor.STRING, "getName", "Gets the Entity's name"));
+        load(V1_8_R1.class, "Entity:Entity:getCustomName", new MethodExecutor(getClassExec("Entity"), ClassExecutor.STRING, "getCustomName", "Gets the custom name of a Entity"));
+        load(V1_8_R1.class, "Entity:Entity:setCustomName", new MethodExecutor(getClassExec("Entity"), ClassExecutor.VOID, "setCustomName", "Sets the custom name of a Entity", ClassExecutor.STRING));
+        load(V1_8_R1.class, "Entity:Entity:isCustomNameVisible", new MethodExecutor(getClassExec("Entity"), ClassExecutor.BOOLEAN, "getCustomNameVisible", "Check if the Entity's custom name is visible"));
+        load(V1_8_R1.class, "Entity:Entity:setCustomNameVisible", new MethodExecutor(getClassExec("Entity"), ClassExecutor.VOID, "setCustomNameVisible", "Sets the Entity's custom name visibility", ClassExecutor.BOOLEAN));
+        load(V1_8_R1.class, "Entity:Entity:isInvisible", new MethodExecutor(getClassExec("Entity"), ClassExecutor.BOOLEAN, "isInvisible", "Checks if the entity is invisible"));
+        load(V1_8_R1.class, "Entity:Entity:setInvisible", new MethodExecutor(getClassExec("Entity"), ClassExecutor.VOID, "setInvisible", "Sets the Entity's visibility mode", ClassExecutor.BOOLEAN));
+        load(V1_8_R1.class, "Entity:EntityPlayer:getProfile", new MethodExecutor(getClassExec("EntityPlayer"), getClassExec("GameProfile"), "getProfile", "Gets the EntityPlayer's GameProfile"));
+        // ArmorStand
+        load(V1_8_R1.class, "Entity:ArmorStand:setBasePlate", new MethodExecutor(getClassExec("Entity:ArmorStand"), ClassExecutor.VOID, "setBasePlate", "Sets the base plate of a ArmorStand", ClassExecutor.BOOLEAN));
+        load(V1_8_R1.class, "Entity:ArmorStand:hasBasePlate", new MethodExecutor(getClassExec("Entity:ArmorStand"), ClassExecutor.BOOLEAN, "hasBasePlate", "Checks if ArmorStand has base plate"));
+        load(V1_8_R1.class, "Entity:ArmorStand:setArms", new MethodExecutor(getClassExec("Entity:ArmorStand"), ClassExecutor.VOID, "setArms", "Sets the arms of a ArmorStand", ClassExecutor.BOOLEAN));
+        load(V1_8_R1.class, "Entity:ArmorStand:hasArms", new MethodExecutor(getClassExec("Entity:ArmorStand"), ClassExecutor.BOOLEAN, "hasArms", "Checks if ArmorStand has arms"));
+        load(V1_8_R1.class, "Entity:ArmorStand:setSmall", new MethodExecutor(getClassExec("Entity:ArmorStand"), ClassExecutor.VOID, "setSmall", "Sets the small state of a ArmorStand", ClassExecutor.BOOLEAN));
+        load(V1_8_R1.class, "Entity:ArmorStand:isSmall", new MethodExecutor(getClassExec("Entity:ArmorStand"), ClassExecutor.BOOLEAN, "isSmall", "Checks if ArmorStand is small"));
+        // Ageable
+        load(V1_8_R1.class, "Entity:Ageable:isBaby", new MethodExecutor(getClassExec("Entity:Ageable"), ClassExecutor.BOOLEAN, "isBaby", "Checks if a entity is a baby"));
+        load(V1_8_R1.class, "Entity:Ageable:setAge", new MethodExecutor(getClassExec("Entity:Ageable"), ClassExecutor.VOID, "setAge", "Sets the baby state of a entity", ClassExecutor.INT));
+        // Tameable
+        load(V1_8_R1.class, "Entity:Tameable:isTamed", new MethodExecutor(getClassExec("Entity:Tameable"), ClassExecutor.BOOLEAN, "isTamed", "Checks if a animal is tamed"));
+        load(V1_8_R1.class, "Entity:Tameable:setTamed", new MethodExecutor(getClassExec("Entity:Tameable"), ClassExecutor.VOID, "setTamed", "Sets the tamed state of an animal", ClassExecutor.BOOLEAN));
+        load(V1_8_R1.class, "Entity:Tameable:isSitting", new MethodExecutor(getClassExec("Entity:Tameable"), ClassExecutor.BOOLEAN, "isSitting", "Checks if a animal is sitting"));
+        load(V1_8_R1.class, "Entity:Tameable:setSitting", new MethodExecutor(getClassExec("Entity:Tameable"), ClassExecutor.VOID, "setSitting", "Sets the sitting state of an animal", ClassExecutor.BOOLEAN));
+        // Pig
+        load(V1_8_R1.class, "Entity:Pig:hasSaddle", new MethodExecutor(getClassExec("Entity:Pig"), ClassExecutor.BOOLEAN, "hasSaddle", "Checks if a pig has a saddle"));
+        load(V1_8_R1.class, "Entity:Pig:setSaddle", new MethodExecutor(getClassExec("Entity:Pig"), ClassExecutor.VOID, "setSaddle", "Sets the saddle state of a pig", ClassExecutor.BOOLEAN));
+        // Ocelot
+        load(V1_8_R1.class, "Entity:Ocelot:getCatType", new MethodExecutor(getClassExec("Entity:Ocelot"), ClassExecutor.INT, "getCatType", "Gets the cat type of a Ocelot"));
+        load(V1_8_R1.class, "Entity:Ocelot:setCatType", new MethodExecutor(getClassExec("Entity:Ocelot"), ClassExecutor.VOID, "setCatType", "Sets the cat type of a Ocelot", ClassExecutor.INT));
+        // Rabbit
+        load(V1_8_R1.class, "Entity:Rabbit:getVariant", new MethodExecutor(getClassExec("Entity:Rabbit"), ClassExecutor.INT, "cl", "Gets the variant of a Rabbit"));
+        load(V1_8_R1.class, "Entity:Rabbit:setVariant", new MethodExecutor(getClassExec("Entity:Rabbit"), ClassExecutor.VOID, "r", "Sets the variant of a Rabbit", ClassExecutor.INT));
+        // Sheep
+        load(V1_8_R1.class, "Entity:Sheep:getColor", new MethodExecutor(getClassExec("Entity:Sheep"), getClassExec("EnumColor"), "getColor", "Gets the color of a Sheep"));
+        load(V1_8_R1.class, "Entity:Sheep:setColor", new MethodExecutor(getClassExec("Entity:Sheep"), ClassExecutor.VOID, "setColor", "Sets the color of a Sheep", getClassExec("EnumColor")));
+
+        load(V1_8_R1.class, "Entity:Sheep:isSheared", new MethodExecutor(getClassExec("Entity:Sheep"), ClassExecutor.BOOLEAN, "isSheared", "Checks if a sheep is sheared"));
+        load(V1_8_R1.class, "Entity:Sheep:setSheared", new MethodExecutor(getClassExec("Entity:Sheep"), ClassExecutor.VOID, "setSheared", "Sets the sheared state of a Sheep", ClassExecutor.BOOLEAN));
+        // Wolf
+        load(V1_8_R1.class, "Entity:Wolf:getCollarColor", new MethodExecutor(getClassExec("Entity:Wolf"), getClassExec("EnumColor"), "getCollarColor", "Gets the collar color of a wolf"));
+        load(V1_8_R1.class, "Entity:Wolf:setCollarColor", new MethodExecutor(getClassExec("Entity:Wolf"), ClassExecutor.VOID, "setCollarColor", "Sets the collar color of a wolf", getClassExec("EnumColor")));
+
+        load(V1_8_R1.class, "Entity:Wolf:isAngry", new MethodExecutor(getClassExec("Entity:Wolf"), ClassExecutor.BOOLEAN, "isAngry", "Checks if a wolf is angry"));
+        load(V1_8_R1.class, "Entity:Wolf:setAngry", new MethodExecutor(getClassExec("Entity:Wolf"), ClassExecutor.VOID, "setAngry", "Sets the angry state of a wolf", ClassExecutor.BOOLEAN));
+        // ItemFrame
+        load(V1_8_R1.class, "Entity:ItemFrame:getItem", new MethodExecutor(getClassExec("Entity:ItemFrame"), getClassExec("ItemStack"), "getItem", "Gets the item of the ItemFrame"));
+        load(V1_8_R1.class, "Entity:ItemFrame:setItem", new MethodExecutor(getClassExec("Entity:ItemFrame"), ClassExecutor.VOID, "setItem", "Sets the item of a ItemFrame", getClassExec("ItemStack")));
+        load(V1_8_R1.class, "Entity:ItemFrame:getRotation", new MethodExecutor(getClassExec("Entity:ItemFrame"), ClassExecutor.INT, "getRotation", "Gets the rotation of a ItemFrame"));
+        load(V1_8_R1.class, "Entity:ItemFrame:setRotation", new MethodExecutor(getClassExec("Entity:ItemFrame"), ClassExecutor.VOID, "setRotation", "Sets the rotation of a ItemFrame", ClassExecutor.INT));
+        // Item
+        load(V1_8_R1.class, "Entity:Item:getItemStack", new MethodExecutor(getClassExec("Entity:Item"), getClassExec("ItemStack"), "getItemStack", "Gets the item of the Item"));
+        load(V1_8_R1.class, "Entity:Item:setItemStack", new MethodExecutor(getClassExec("Entity:Item"), ClassExecutor.VOID, "setItemStack", "Sets the item of a Item", getClassExec("ItemStack")));
+        // WitherSkull
+        load(V1_8_R1.class, "Entity:WitherSkull:isCharged", new MethodExecutor(getClassExec("Entity:WitherSkull"), ClassExecutor.BOOLEAN, "isCharged", "Gets the charged state of the Wither skull"));
+        load(V1_8_R1.class, "Entity:WitherSkull:setCharged", new MethodExecutor(getClassExec("Entity:WitherSkull"), ClassExecutor.VOID, "setCharged", "Sets the charged state of a Wither skull", ClassExecutor.BOOLEAN));
+        // Blaze
+        load(V1_8_R1.class, "Entity:Blaze:isCharging", new MethodExecutor(getClassExec("Entity:Blaze"), ClassExecutor.BOOLEAN, "n", "Gets the charged state of the Blaze"));
+        load(V1_8_R1.class, "Entity:Blaze:setCharging", new MethodExecutor(getClassExec("Entity:Blaze"), ClassExecutor.VOID, "a", "Sets the charged state of a Blaze", ClassExecutor.BOOLEAN));
+        // Creeper
+        load(V1_8_R1.class, "Entity:Creeper:isPowered", new MethodExecutor(getClassExec("Entity:Creeper"), ClassExecutor.BOOLEAN, "isPowered", "Gets the powered state of the Creeper"));
+        load(V1_8_R1.class, "Entity:Creeper:setPowered", new MethodExecutor(getClassExec("Entity:Creeper"), ClassExecutor.VOID, "setPowered", "Sets the powered state of a Creeper", ClassExecutor.BOOLEAN));
+        // Enderman
+        load(V1_8_R1.class, "Entity:Enderman:getCarried", new MethodExecutor(getClassExec("Entity:Enderman"), getClassExec("IBlockData"), "getCarried", "Gets the block of a Enderman"));
+        load(V1_8_R1.class, "Entity:Enderman:setCarried", new MethodExecutor(getClassExec("Entity:Enderman"), ClassExecutor.VOID, "setCarried", "Sets the block of a Enderman", getClassExec("IBlockData")));
+        load(V1_8_R1.class, "Entity:Enderman:isScreaming", new MethodExecutor(getClassExec("Entity:Enderman"), ClassExecutor.BOOLEAN, "cm", "Gets the screaming state of a Enderman"));
+        load(V1_8_R1.class, "Entity:Enderman:setScreaming", new MethodExecutor(getClassExec("Entity:Enderman"), ClassExecutor.VOID, "a", "Sets the screaming state of a Enderman", ClassExecutor.BOOLEAN));
+        // Skeleton
+        load(V1_8_R1.class, "Entity:Skeleton:getSkeletonType", new MethodExecutor(getClassExec("Entity:Skeleton"), ClassExecutor.INT, "getSkeletonType", "Gets the skeleton type of the Skeleton"));
+        load(V1_8_R1.class, "Entity:Skeleton:setSkeletonType", new MethodExecutor(getClassExec("Entity:Skeleton"), ClassExecutor.VOID, "setSkeletonType", "Sets the skeleton type of a Skeleton", ClassExecutor.INT));
+        // ArmorStand
+        load(V1_8_R1.class, "Entity:ArmorStand:setHeadPose", new MethodExecutor(getClassExec("Entity:ArmorStand"), ClassExecutor.VOID, "setHeadPose", "Sets the head pose of the armor stand", getClassExec("Vector3f")));
+        load(V1_8_R1.class, "Entity:ArmorStand:setBodyPose", new MethodExecutor(getClassExec("Entity:ArmorStand"), ClassExecutor.VOID, "setBodyPose", "Sets the body pose of the armor stand", getClassExec("Vector3f")));
+        load(V1_8_R1.class, "Entity:ArmorStand:setLeftArmPose", new MethodExecutor(getClassExec("Entity:ArmorStand"), ClassExecutor.VOID, "setLeftArmPose", "Sets the left arm pose of the armor stand", getClassExec("Vector3f")));
+        load(V1_8_R1.class, "Entity:ArmorStand:setRightArmPose", new MethodExecutor(getClassExec("Entity:ArmorStand"), ClassExecutor.VOID, "setRightArmPose", "Sets the right arm pose of the armor stand", getClassExec("Vector3f")));
+        load(V1_8_R1.class, "Entity:ArmorStand:setLeftLegPose", new MethodExecutor(getClassExec("Entity:ArmorStand"), ClassExecutor.VOID, "setLeftLegPose", "Sets the head left leg of the armor stand", getClassExec("Vector3f")));
+        load(V1_8_R1.class, "Entity:ArmorStand:setRightLegPose", new MethodExecutor(getClassExec("Entity:ArmorStand"), ClassExecutor.VOID, "setRightLegPose", "Sets the head right leg of the armor stand", getClassExec("Vector3f")));
+        // Bat
+        load(V1_8_R1.class, "Entity:Bat:isAsleep", new MethodExecutor(getClassExec("Entity:Bat"), ClassExecutor.BOOLEAN, "isAsleep", "Check if a bat is sleeping"));
+        load(V1_8_R1.class, "Entity:Bat:setAsleep", new MethodExecutor(getClassExec("Entity:Bat"), ClassExecutor.VOID, "setAsleep", "Sets the sleeping state of a bat", ClassExecutor.BOOLEAN));
+        // Horse
+        load(V1_8_R1.class, "Entity:Horse:getType", new MethodExecutor(getClassExec("Entity:Horse"), ClassExecutor.INT, "getType", "Gets the horse type"));
+        load(V1_8_R1.class, "Entity:Horse:setType", new MethodExecutor(getClassExec("Entity:Horse"), ClassExecutor.VOID, "setType", "Sets the horse type", ClassExecutor.INT));
+        load(V1_8_R1.class, "Entity:Horse:setHasChest", new MethodExecutor(getClassExec("Entity:Horse"), ClassExecutor.VOID, "setHasChest", "Sets the chest state of a Horse", ClassExecutor.BOOLEAN));
+        load(V1_8_R1.class, "Entity:Horse:hasChest", new MethodExecutor(getClassExec("Entity:Horse"), ClassExecutor.BOOLEAN, "hasChest", "Gets the chest state of a Horse"));
+        load(V1_8_R1.class, "Entity:Horse:setVariant", new MethodExecutor(getClassExec("Entity:Horse"), ClassExecutor.VOID, "setVariant", "Sets the variant of a Horse", ClassExecutor.INT));
+        load(V1_8_R1.class, "Entity:Horse:getVariant", new MethodExecutor(getClassExec("Entity:Horse"), ClassExecutor.INT, "getVariant", "Gets the variant of a Horse"));
+        // Slime
+        load(V1_8_R1.class, "Entity:Slime:getSize", new MethodExecutor(getClassExec("Entity:Slime"), ClassExecutor.INT, "getSize", "Gets the slime size"));
+        load(V1_8_R1.class, "Entity:Slime:setSize", new MethodExecutor(getClassExec("Entity:Slime"), ClassExecutor.VOID, "setSize", "Sets the slime size", ClassExecutor.INT));
+        // Spider
+        load(V1_8_R1.class, "Entity:Spider:isClimbing", new MethodExecutor(getClassExec("Entity:Spider"), ClassExecutor.BOOLEAN, "n", "Gets the spider climbing state"));
+        load(V1_8_R1.class, "Entity:Spider:setClimbing", new MethodExecutor(getClassExec("Entity:Spider"), ClassExecutor.VOID, "a", "Sets the spider climbing state", ClassExecutor.BOOLEAN));
+        // Zombie
+        load(V1_8_R1.class, "Entity:Zombie:setVillagerType", new MethodExecutor(getClassExec("Entity:Zombie"), ClassExecutor.VOID, "setVillager", "Sets the villager state of a Zombie", ClassExecutor.BOOLEAN));
+
+        load(V1_8_R1.class, "Entity:Zombie:isBaby", new MethodExecutor(getClassExec("Entity:Zombie"), ClassExecutor.BOOLEAN, "isBaby", "Checks if a zombie is a baby"));
+        load(V1_8_R1.class, "Entity:Zombie:setBaby", new MethodExecutor(getClassExec("Entity:Zombie"), ClassExecutor.VOID, "setBaby", "Sets the baby state of a zombie", ClassExecutor.BOOLEAN));
+        // Villager
+        load(V1_8_R1.class, "Entity:Villager:getProfession", new MethodExecutor(getClassExec("Entity:Villager"), ClassExecutor.INT, "getProfession", "Gets the profession of a Villager"));
+        load(V1_8_R1.class, "Entity:Villager:setProfession", new MethodExecutor(getClassExec("Entity:Villager"), ClassExecutor.VOID, "setProfession", "Sets the profession of a Villager", ClassExecutor.INT));
+        //
+
+        // CraftItemStack
+        load(V1_8_R1.class, "CraftItemStack:asCraftMirror", new MethodExecutor(getClassExec("CraftItemStack"), getClassExec("CraftItemStack"), "asCraftMirror", "Gets the CraftItemStack from a NMS ItemStack", getClassExec("ItemStack")));
+        //
+
+        // Scoreboard
+        load(V1_8_R1.class, "Entity:EntityPlayer:getScoreboard", new MethodExecutor(getClassExec("EntityPlayer"), getClassExec("Scoreboard"), "getScoreboard", "Gets the Scoreboard from the EntityPlayer"));
+        load(V1_8_R1.class, "Scoreboard:getTeam", new MethodExecutor(getClassExec("Scoreboard"), getClassExec("ScoreboardTeam"), "getTeam", "Gets a ScoreboardTeam from a Scoreboard", ClassExecutor.STRING));
+        load(V1_8_R1.class, "Scoreboard:addToTeam", new MethodExecutor(getClassExec("Scoreboard"), ClassExecutor.BOOLEAN, "addPlayerToTeam", "Adds a EntityPlayer to a ScoreboardTeam", ClassExecutor.STRING, ClassExecutor.STRING));
+        load(V1_8_R1.class, "Scoreboard:createTeam", new MethodExecutor(getClassExec("Scoreboard"), getClassExec("ScoreboardTeam"), "createTeam", "Creates a new team on a Scoreboard", ClassExecutor.STRING));
+        load(V1_8_R1.class, "CraftScoreboard:getHandle", new MethodExecutor(getClassExec("CraftScoreboard"), getClassExec("Scoreboard"), "getHandle", "Gets the NMS Scoreboard from a CraftScoreboard"));
+        // Team
+        load(V1_8_R1.class, "ScoreboardTeam:getPlayerNameSet", new MethodExecutor(getClassExec("ScoreboardTeam"), ClassExecutor.COLLECTION, "getPlayerNameSet", "Gets the player's list of this ScoreboardTeam"));
+        load(V1_8_R1.class, "ScoreboardTeam:setNameTagVisibity", new MethodExecutor(getClassExec("ScoreboardTeam"), ClassExecutor.VOID, "a", "Sets the nametag visibility of a ScoreboardTeam", getClassExec("ScoreboardTeamBase:EnumNameTagVisibility")));
+        load(V1_8_R1.class, "ScoreboardTeam:setColor", new MethodExecutor(getClassExec("ScoreboardTeam"), ClassExecutor.VOID, "a", "Sets the color of a ScoreboardTeam", getClassExec("EnumChatFormat")));
+        load(V1_8_R1.class, "ScoreboardTeam:setPrefix", new MethodExecutor(getClassExec("ScoreboardTeam"), ClassExecutor.VOID, "setPrefix", "Sets the prefix of a ScoreboardTeam", ClassExecutor.STRING));
+        load(V1_8_R1.class, "ScoreboardTeam:getName", new MethodExecutor(getClassExec("ScoreboardTeam"), ClassExecutor.STRING, "getName", "Gets the name of a ScoreboardTeam"));
+        //
+
+        // ChatSerializer
+        load(V1_8_R1.class, "ChatSerializer:convertToString", new MethodExecutor(getClassExec("ChatSerializer"), ClassExecutor.STRING, "getText", "Converts a IChatBaseComponent to a string", getClassExec("IChatBaseComponent")));
+        load(V1_8_R1.class, "ChatSerializer:convertToComponent", new MethodExecutor(getClassExec("ChatSerializer"), getClassExec("IChatBaseComponent"), "a", "Converts a string to a IChatBaseComponent", ClassExecutor.STRING));
+        //
+
+        // GameProfile
+        load(V1_8_R1.class, "GameProfile:getProperties", new MethodExecutor(getClassExec("GameProfile"), getClassExec("PropertyMap"), "getProperties", "Gets the properties of a GameProfile"));
+        load(V1_8_R1.class, "GameProfile:getName", new MethodExecutor(getClassExec("GameProfile"), ClassExecutor.STRING, "getName", "Gets the name of a GameProfile"));
+        //
+
+        // Location
+        load(V1_8_R1.class, "CraftWorld:getHandle", new MethodExecutor(getClassExec("CraftWorld"), getClassExec("WorldServer"), "getHandle", "Gets the NMS WorldServer from a CraftWorld"));
+        load(V1_8_R1.class, "World:getEntityById", new MethodExecutor(getClassExec("World"), getClassExec("Entity"), "a", "Gets a entity by its ID", ClassExecutor.INT));
+        load(V1_8_R1.class, "World:getCraftWorld", new MethodExecutor(getClassExec("World"), getClassExec("CraftWorld"), "getWorld", "Gets the CraftWorld of a NMS World"));
+        //
+
+        // PlayerConnection & NetworkManager
+        load(V1_8_R1.class, "PlayerConnection:sendPacket", new MethodExecutor(getClassExec("PlayerConnection"), ClassExecutor.VOID, "sendPacket", "Sends a packet to a player", getClassExec("Packet")));
+        load(V1_8_R1.class, "NetworkManager:getNetworkManager", new MethodExecutor(getClassExec("PlayerConnection"), getClassExec("NetworkManager"), "a", "Gets the NetworkManager from a PlayerConnection"));
+        //
+
+        // DataWatcher
+        load(V1_8_R1.class, "WatchableObject:getValue", new MethodExecutor(getClassExec("WatchableObject"), ClassExecutor.OBJECT, "b", "Gets the object from a WatchableObject"));
+        load(V1_8_R1.class, "WatchableObject:setValue", new MethodExecutor(getClassExec("WatchableObject"), ClassExecutor.VOID, "a", "Sets the object from a WatchableObject", ClassExecutor.OBJECT));
+        //
+
+        // Objects
+        load(V1_8_R1.class, "CraftBlock:getNMSBlock", new MethodExecutor(getClassExec("CraftBlock"), getClassExec("Block"), "getNMSBlock", "Gets the NMS Block from a CraftBlock"));
+        load(V1_8_R1.class, "CraftMagicNumbers:getBlock", new MethodExecutor(getClassExec("CraftMagicNumbers"), getClassExec("Block"), "getBlock", "Gets the NMS Block from a Bukkit Material", new ClassExecutor(Material.class)));
+        load(V1_8_R1.class, "CraftMagicNumbers:getMaterial", new MethodExecutor(getClassExec("CraftMagicNumbers"), new ClassExecutor(Material.class), "getMaterial", "Gets the Bukkit material from a NMS Block", getClassExec("Block")));
+        load(V1_8_R1.class, "Block:getData", new MethodExecutor(getClassExec("Block"), getClassExec("IBlockData"), "getBlockData", "Gets the data of a block"));
+        load(V1_8_R1.class, "IBlockData:getBlock", new MethodExecutor(getClassExec("IBlockData"), getClassExec("Block"), "getBlock", "Gets the block of a data"));
+        load(V1_8_R1.class, "CraftItemStack:asNMSCopy", new MethodExecutor(getClassExec("CraftItemStack"), getClassExec("ItemStack"), "asNMSCopy", "Gets a NMS ItemStack from a Craft ItemStack", ClassExecutor.ITEMSTACK));
+        load(V1_8_R1.class, "CraftServer:getServer", new MethodExecutor(getClassExec("CraftServer"), getClassExec("MinecraftServer"), "getServer", "Gets the NMS MinecraftServer from a CraftServer"));
+        //
+
+        // EnumColor
+        load(V1_8_R1.class, "EnumColor:getColorIndex", new MethodExecutor(getClassExec("EnumColor"), ClassExecutor.INT, "getColorIndex", "Gets the color index of a EnumColor"));
+        load(V1_8_R1.class, "EnumColor:fromColorIndex", new MethodExecutor(getClassExec("EnumColor"), getClassExec("EnumColor"), "fromColorIndex", "Gets the color enum from the index of a EnumColor", ClassExecutor.INT));
+        //
+
+        // Location
+        load(V1_8_R1.class, "Vector3f:getX", new MethodExecutor(getClassExec("Vector3f"), ClassExecutor.FLOAT, "getX", "Gets the X align of a Vector3f"));
+        load(V1_8_R1.class, "Vector3f:getY", new MethodExecutor(getClassExec("Vector3f"), ClassExecutor.FLOAT, "getY", "Gets the Y align of a Vector3f"));
+        load(V1_8_R1.class, "Vector3f:getZ", new MethodExecutor(getClassExec("Vector3f"), ClassExecutor.FLOAT, "getZ", "Gets the Z align of a Vector3f"));
+        //
+
+        // BlockPosition
+        load(V1_8_R1.class, "BlockPosition:getX", new MethodExecutor(getClassExec("BlockPosition"), ClassExecutor.INT, "getX", "Gets the X position of a BlockPosition"));
+        load(V1_8_R1.class, "BlockPosition:getY", new MethodExecutor(getClassExec("BlockPosition"), ClassExecutor.INT, "getY", "Gets the Y position of a BlockPosition"));
+        load(V1_8_R1.class, "BlockPosition:getZ", new MethodExecutor(getClassExec("BlockPosition"), ClassExecutor.INT, "getZ", "Gets the Z position of a BlockPosition"));
+        //
+    }
+
+    @Override
+    public void loadFields() {
+        // NBT
+        load(V1_8_R1.class, "NBTTagList:list", new FieldExecutor(getClassExec("NBTBase:NBTTagList"), new ClassExecutor(List.class) {}, "list", "Gets the list of a NBTTagList"));
+        //
+
+        // CraftPlayer
+        load(V1_8_R1.class, "EntityPlayer:playerConnection", new FieldExecutor(getClassExec("EntityPlayer"), getClassExec("PlayerConnection"), "playerConnection", "Gets the PlayerConnection from the player"));
+        //
+
+        // NetworkManager
+        load(V1_8_R1.class, "NetworkManager:channel", new FieldExecutor(getClassExec("NetworkManager"), new ClassExecutor(Channel.class) {}, "i", "Gets the channel of the player"));
+        //
+
+        // PacketPlayInUseEntity
+        load(V1_8_R1.class, "PacketPlayInUseEntity:entityId", new FieldExecutor(getClassExec("PacketPlayInUseEntity"), ClassExecutor.INT, "a", "Get the entity id of a PacketPlayInUseEntity"));
+        //
+
+        // ArmorStand
+        load(V1_8_R1.class, "Entity:ArmorStand:headPose", new FieldExecutor(getClassExec("Entity:ArmorStand"), getClassExec("Vector3f"), "headPose", "Gets the head pose of an ArmorStand"));
+        load(V1_8_R1.class, "Entity:ArmorStand:bodyPose", new FieldExecutor(getClassExec("Entity:ArmorStand"), getClassExec("Vector3f"), "bodyPose", "Gets the body pose of an ArmorStand"));
+        load(V1_8_R1.class, "Entity:ArmorStand:leftArmPose", new FieldExecutor(getClassExec("Entity:ArmorStand"), getClassExec("Vector3f"), "leftArmPose", "Gets the left arm pose of an ArmorStand"));
+        load(V1_8_R1.class, "Entity:ArmorStand:rightArmPose", new FieldExecutor(getClassExec("Entity:ArmorStand"), getClassExec("Vector3f"), "rightArmPose", "Gets the right arm pose of an ArmorStand"));
+        load(V1_8_R1.class, "Entity:ArmorStand:leftLegPose", new FieldExecutor(getClassExec("Entity:ArmorStand"), getClassExec("Vector3f"), "rightLegPose", "Gets the left leg pose of an ArmorStand"));
+        load(V1_8_R1.class, "Entity:ArmorStand:rightLegPose", new FieldExecutor(getClassExec("Entity:ArmorStand"), getClassExec("Vector3f"), "leftLegPose", "Gets the right leg pose of an ArmorStand"));
+        //
+
+        // Location
+        load(V1_8_R1.class, "Entity:world", new FieldExecutor(getClassExec("Entity"), getClassExec("World"), "world", "Gets the world of an Entity"));
+        load(V1_8_R1.class, "Entity:locX", new FieldExecutor(getClassExec("Entity"), ClassExecutor.DOUBLE, "locX", "Gets the X position of an Entity"));
+        load(V1_8_R1.class, "Entity:locY", new FieldExecutor(getClassExec("Entity"), ClassExecutor.DOUBLE, "locY", "Gets the Y position of an Entity"));
+        load(V1_8_R1.class, "Entity:locZ", new FieldExecutor(getClassExec("Entity"), ClassExecutor.DOUBLE, "locZ", "Gets the Z position of an Entity"));
+        //
+
+        // DataWatcher
+        load(V1_8_R1.class, "DataWatcher:map", new FieldExecutor(getClassExec("DataWatcher"), new ClassExecutor(Map.class), "d", "Gets the values of the data"));
+        //
+    }
+
+    @Override
+    public void loadEnums() {
+        // EnumPlayerInfoAction
+        load(V1_8_R1.class, "PacketPlayOutPlayerInfo:EnumPlayerInfoAction", new EnumPlayerInfoActionEnum(getClassExec("PacketPlayOutPlayerInfo:EnumPlayerInfoAction")));
+        //
+
+        // EnumNameTagVisilibityEnum
+        load(V1_8_R1.class, "EnumNameTagVisibilityEnum:EnumNameTagVisibility", new EnumNameTagVisibilityEnum(getClassExec("ScoreboardTeamBase:EnumNameTagVisibility")));
+        //
+
+        // PacketPlayInUseEntity
+        load(V1_8_R1.class, "PacketPlayInUseEntity:EnumEntityUseAction", new EntityUseInPacket.ActionEnum(getClassExec("PacketPlayInUseEntity:EnumEntityUseAction")));
+        //
+
+        load(V1_8_R1.class, "EnumColor", new EnumColorEnum(getClassExec("EnumColor")));
+
+        load(V1_8_R1.class, "EnumChatFormat", new EnumChatFormatEnum(getClassExec("EnumChatFormat")));
+
+    }
+
+    @Override
+    public void loadTexts() {
+        // EnumPlayerInfoAction
+        super.getTexts().put("PacketPlayOutPlayerInfo:EnumPlayerInfoAction:ADD_PLAYER", "ADD_PLAYER");
+        super.getTexts().put("PacketPlayOutPlayerInfo:EnumPlayerInfoAction:REMOVE_PLAYER", "REMOVE_PLAYER");
+        //
+
+        // EnumNameTagVisibility
+        super.getTexts().put("ScoreboardTeamBase:EnumNameTagVisibility:NEVER", "NEVER");
+        //
+
+        // PacketPlayInUseEntity
+        super.getTexts().put("PacketPlayInUseEntity:EnumEntityUseAction:INTERACT", "INTERACT");
+        super.getTexts().put("PacketPlayInUseEntity:EnumEntityUseAction:ATTACK", "ATTACK");
+        super.getTexts().put("PacketPlayInUseEntity:EnumEntityUseAction:INTERACT_AT", "INTERACT_AT");
+        //
+
+        // EnumTeamPush
+        super.getTexts().put("ScoreboardTeam:EnumTeamPush:NEVER", "NEVER");
+        super.getTexts().put("ScoreboardTeam:EnumTeamPush:ALWAYS", "ALWAYS");
+    }
+
+    @Override
+    public void loadObjects() {
+        super.getObjects().put("Metadata:Player:SkinParts", 10);
+        super.getObjects().put("Metadata:Horse:Armor", 22);
+        super.getObjects().put("Metadata:Ghast:Attacking", 16);
+        super.getObjects().put("Metadata:Guardian:Target", 17);
+        super.getObjects().put("Metadata:Creeper:Ignited", 18);
+    }
+
+    @Override
+    public @NotNull String getName() {
+        return "v1_8_R1";
     }
 
 }

@@ -118,22 +118,16 @@ public class V1_16_R1 extends V1_15_R1 {
             }
         } else if (version == V1_14_R1.class) {
             if (executor instanceof MethodExecutor) {
-                switch (key) {
-                    case "Entity:isGlowing":
-                        load(V1_16_R1.class, key, new MethodExecutor(getClassExec("Entity"), ClassExecutor.BOOLEAN, "bA", "Gets the glowing state of a Entity"));
-                        return false;
-                    default:
-                        break;
+                if (key.equals("Entity:isGlowing")) {
+                    load(V1_16_R1.class, key, new MethodExecutor(getClassExec("Entity"), ClassExecutor.BOOLEAN, "bA", "Gets the glowing state of a Entity"));
+                    return false;
                 }
             }
         } else if (version == V1_13_R1.class) {
             if (executor instanceof MethodExecutor) {
-                switch (key) {
-                    case "Entity:setGlowing":
-                        load(V1_16_R1.class, key, new MethodExecutor(getClassExec("Entity"), ClassExecutor.VOID, "i", "Sets the glowing state of a Entity", ClassExecutor.BOOLEAN));
-                        return false;
-                    default:
-                        break;
+                if (key.equals("Entity:setGlowing")) {
+                    load(V1_16_R1.class, key, new MethodExecutor(getClassExec("Entity"), ClassExecutor.VOID, "i", "Sets the glowing state of a Entity", ClassExecutor.BOOLEAN));
+                    return false;
                 }
             }
         } else if (version == V1_8_R1.class) {

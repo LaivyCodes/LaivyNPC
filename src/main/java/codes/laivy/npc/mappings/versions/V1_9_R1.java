@@ -54,8 +54,6 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
-import static codes.laivy.npc.mappings.defaults.classes.others.objects.ItemStack.getNMSItemStack;
-
 public class V1_9_R1 extends V1_8_R3 {
 
     @Override
@@ -104,12 +102,9 @@ public class V1_9_R1 extends V1_8_R3 {
                         break;
                 }
             } else if (executor instanceof FieldExecutor) {
-                switch (key) {
-                    case "DataWatcher:map":
-                        load(V1_9_R1.class, key, new FieldExecutor(getClassExec("DataWatcher"), new ClassExecutor(Map.class), "c", "Gets the values of the data"));
-                        return false;
-                    default:
-                        break;
+                if (key.equals("DataWatcher:map")) {
+                    load(V1_9_R1.class, key, new FieldExecutor(getClassExec("DataWatcher"), new ClassExecutor(Map.class), "c", "Gets the values of the data"));
+                    return false;
                 }
             }
         }
@@ -285,6 +280,69 @@ public class V1_9_R1 extends V1_8_R3 {
         items.forEach((key, value) -> packets.add(new EntityEquipmentPacket(constructor.newInstance(new IntegerObjExec(entity.getId()), key.getEnum(), ItemStack.getNMSItemStack(value)))));
 
         return packets;
+    }
+
+    @Override
+    public boolean isEntityCreeperPowered(@NotNull Creeper creeper) {
+        //noinspection DataFlowIssue
+        return (boolean) creeper.getDataWatcher().get(Creeper.POWERED_METADATA());
+    }
+
+    @Override
+    public void setEntityCreeperPowered(@NotNull Creeper creeper, boolean powered) {
+        creeper.getDataWatcher().set(Creeper.POWERED_METADATA(), new BooleanObjExec(powered));
+    }
+
+    @Override
+    public @NotNull VillagerProfession getEntityZombieVillagerProfession(@NotNull ZombieVillager zombieVillager) {
+        DataWatcherObject object = new DataWatcherObject(getFieldExec("Metadata:Zombie:Villager:Profession").invokeStatic());
+        //noinspection DataFlowIssue
+        return new VillagerProfession(VillagerProfession.Type.getById((int) zombieVillager.getDataWatcher().get(object)), 1);
+    }
+    @Override
+    public void setEntityZombieVillagerProfession(@NotNull ZombieVillager zombieVillager, @NotNull VillagerProfession profession) {
+        DataWatcherObject object = new DataWatcherObject(getFieldExec("Metadata:Zombie:Villager:Profession").invokeStatic());
+        zombieVillager.getDataWatcher().set(object, new IntegerObjExec(profession.getType().getId()));
+    }
+
+    @Override
+    public boolean hasEntityPigSaddle(@NotNull Pig pig) {
+        //noinspection DataFlowIssue
+        return (boolean) pig.getDataWatcher().get(Pig.SADDLE_METADATA());
+    }
+    @Override
+    public void setEntityPigSaddle(@NotNull Pig pig, boolean saddle) {
+        pig.getDataWatcher().set(Pig.SADDLE_METADATA(), new BooleanObjExec(saddle));
+    }
+
+    @Override
+    public boolean isEntityWolfAngry(@NotNull Wolf wolf) {
+        //noinspection DataFlowIssue
+        return (boolean) wolf.getDataWatcher().get(Wolf.ANGRY_METADATA());
+    }
+    @Override
+    public void setEntityWolfAngry(@NotNull Wolf wolf, boolean angry) {
+        wolf.getDataWatcher().set(Wolf.ANGRY_METADATA(), new BooleanObjExec(angry));
+    }
+
+    @Override
+    public @NotNull EnumColorEnum.EnumColor getEntityWolfCollarColor(@NotNull Wolf wolf) {
+        //noinspection DataFlowIssue
+        return EnumColorEnum.fromColorIndex((int) wolf.getDataWatcher().get(Wolf.COLLAR_COLOR_METADATA()));
+    }
+    @Override
+    public void setEntityWolfCollarColor(@NotNull Wolf wolf, EnumColorEnum.@NotNull EnumColor color) {
+        wolf.getDataWatcher().set(Wolf.COLLAR_COLOR_METADATA(), new IntegerObjExec(color.getColorIndex()));
+    }
+
+    @Override
+    public int getEntityHorseVariant(@NotNull Horse horse) {
+        //noinspection DataFlowIssue
+        return (int) horse.getDataWatcher().get(Horse.VARIANT_METADATA());
+    }
+    @Override
+    public void setEntityHorseVariant(@NotNull Horse horse, int variant) {
+        horse.getDataWatcher().set(Horse.VARIANT_METADATA(), new IntegerObjExec(variant));
     }
 
     @Override
@@ -506,95 +564,28 @@ public class V1_9_R1 extends V1_8_R3 {
     }
 
     @Override
-    public boolean isEntityCreeperPowered(@NotNull Creeper creeper) {
-        //noinspection DataFlowIssue
-        return (boolean) creeper.getDataWatcher().get(Creeper.POWERED_METADATA());
+    public void loadTexts() {
+        super.loadTexts();
+
+        super.getTexts().put("EnumHorseType:HORSE", "HORSE");
+        super.getTexts().put("EnumHorseType:DONKEY", "DONKEY");
+        super.getTexts().put("EnumHorseType:MULE", "MULE");
+        super.getTexts().put("EnumHorseType:ZOMBIE", "ZOMBIE");
+        super.getTexts().put("EnumHorseType:SKELETON", "SKELETON");
+
+        super.getTexts().put("EnumItemSlot:MAINHAND", "MAINHAND");
+        super.getTexts().put("EnumItemSlot:OFFHAND", "OFFHAND");
+        super.getTexts().put("EnumItemSlot:HEAD", "HEAD");
+        super.getTexts().put("EnumItemSlot:CHEST", "CHEST");
+        super.getTexts().put("EnumItemSlot:LEGS", "LEGS");
+        super.getTexts().put("EnumItemSlot:FEET", "FEET");
     }
 
     @Override
-    public void setEntityCreeperPowered(@NotNull Creeper creeper, boolean powered) {
-        creeper.getDataWatcher().set(Creeper.POWERED_METADATA(), new BooleanObjExec(powered));
-    }
-
-    @Override
-    public @NotNull VillagerProfession getEntityZombieVillagerProfession(@NotNull ZombieVillager zombieVillager) {
-        DataWatcherObject object = new DataWatcherObject(getFieldExec("Metadata:Zombie:Villager:Profession").invokeStatic());
-        //noinspection DataFlowIssue
-        return new VillagerProfession(VillagerProfession.Type.getById((int) zombieVillager.getDataWatcher().get(object)), 1);
-    }
-    @Override
-    public void setEntityZombieVillagerProfession(@NotNull ZombieVillager zombieVillager, @NotNull VillagerProfession profession) {
-        DataWatcherObject object = new DataWatcherObject(getFieldExec("Metadata:Zombie:Villager:Profession").invokeStatic());
-        zombieVillager.getDataWatcher().set(object, new IntegerObjExec(profession.getType().getId()));
-    }
-
-    @Override
-    public boolean hasEntityPigSaddle(@NotNull Pig pig) {
-        //noinspection DataFlowIssue
-        return (boolean) pig.getDataWatcher().get(Pig.SADDLE_METADATA());
-    }
-    @Override
-    public void setEntityPigSaddle(@NotNull Pig pig, boolean saddle) {
-        pig.getDataWatcher().set(Pig.SADDLE_METADATA(), new BooleanObjExec(saddle));
-    }
-
-    @Override
-    public boolean isEntityWolfAngry(@NotNull Wolf wolf) {
-        //noinspection DataFlowIssue
-        return (boolean) wolf.getDataWatcher().get(Wolf.ANGRY_METADATA());
-    }
-    @Override
-    public void setEntityWolfAngry(@NotNull Wolf wolf, boolean angry) {
-        wolf.getDataWatcher().set(Wolf.ANGRY_METADATA(), new BooleanObjExec(angry));
-    }
-
-    @Override
-    public @NotNull EnumColorEnum.EnumColor getEntityWolfCollarColor(@NotNull Wolf wolf) {
-        //noinspection DataFlowIssue
-        return EnumColorEnum.fromColorIndex((int) wolf.getDataWatcher().get(Wolf.COLLAR_COLOR_METADATA()));
-    }
-    @Override
-    public void setEntityWolfCollarColor(@NotNull Wolf wolf, EnumColorEnum.@NotNull EnumColor color) {
-        wolf.getDataWatcher().set(Wolf.COLLAR_COLOR_METADATA(), new IntegerObjExec(color.getColorIndex()));
-    }
-
-    @Override
-    public int getEntityHorseVariant(@NotNull Horse horse) {
-        //noinspection DataFlowIssue
-        return (int) horse.getDataWatcher().get(Horse.VARIANT_METADATA());
-    }
-    @Override
-    public void setEntityHorseVariant(@NotNull Horse horse, int variant) {
-        horse.getDataWatcher().set(Horse.VARIANT_METADATA(), new IntegerObjExec(variant));
-    }
-
-    @Override
-    public @NotNull Map<String, String> getTexts() {
-        if (!super.getTexts().containsKey("EnumHorseType:HORSE")) {
-            super.getTexts().put("EnumHorseType:HORSE", "HORSE");
-            super.getTexts().put("EnumHorseType:DONKEY", "DONKEY");
-            super.getTexts().put("EnumHorseType:MULE", "MULE");
-            super.getTexts().put("EnumHorseType:ZOMBIE", "ZOMBIE");
-            super.getTexts().put("EnumHorseType:SKELETON", "SKELETON");
-
-            super.getTexts().put("EnumItemSlot:MAINHAND", "MAINHAND");
-            super.getTexts().put("EnumItemSlot:OFFHAND", "OFFHAND");
-            super.getTexts().put("EnumItemSlot:HEAD", "HEAD");
-            super.getTexts().put("EnumItemSlot:CHEST", "CHEST");
-            super.getTexts().put("EnumItemSlot:LEGS", "LEGS");
-            super.getTexts().put("EnumItemSlot:FEET", "FEET");
-        }
-
-        return super.getTexts();
-    }
-
-    @Override
-    public @NotNull Map<String, Object> getObjects() {
-        Map<String, Object> map = super.getObjects();
+    public void loadObjects() {
+        super.loadObjects();
 
         super.getObjects().put("Metadata:Player:SkinParts", 13);
-
-        return map;
     }
 
     @Override

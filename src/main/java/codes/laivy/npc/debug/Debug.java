@@ -41,21 +41,11 @@ public class Debug {
 
     public Debug(@NotNull Player player) {
         result = new DebugResult();
-
-        long time = System.currentTimeMillis();
-        Bukkit.getScheduler().runTaskAsynchronously(laivynpc(), () -> {
-            result.getLogs().add(version());
-            result.getLogs().add(nbt());
-            result.getLogs().add(packets(player));
-            result.getLogs().add(npcs(player));
-            result.finish();
-
-            for (DebugLog log : result.getLogs()) {
-                // TODO: 03/02/2023 Better debug system
-                Bukkit.broadcastMessage(log.getMessage());
-            }
-            System.out.println("Performed in " + ((System.currentTimeMillis() - time) / 1000D) + " seconds.");
-        });
+        result.getLogs().add(version());
+        result.getLogs().add(nbt());
+        result.getLogs().add(packets(player));
+        result.getLogs().add(npcs(player));
+        result.finish();
     }
 
     @NotNull
@@ -143,12 +133,14 @@ public class Debug {
             Pig pig = (Pig) laivynpc().getVersion().createEntity(Entity.EntityType.PIG, player.getLocation());
             EntityLivingSpawnPacket entityLivingSpawnPacket = laivynpc().getVersion().createSpawnLivingPacket(pig);
             entityLivingSpawnPacket.send(player);
-            Set<EntityDestroyPacket> destroyPackets = laivynpc().getVersion().createDestroyPacket(pig);
+
             // TODO: 15/02/2023 A better system to send the destroy packets list
+            Set<EntityDestroyPacket> destroyPackets = laivynpc().getVersion().createDestroyPacket(pig);
             for (EntityDestroyPacket packet : destroyPackets) packet.send(player);
+            //
 
             // Spawn and remove EntityPlayer
-            EntityPlayer entityPlayer = EntityPlayer.getEntityPlayer(player);
+            EntityPlayer entityPlayer = laivynpc().getVersion().createPlayer(laivynpc().getVersion().createGameProfile(UUID.randomUUID(), "Laivy"), player.getLocation());
 
             message.append("§7Trying to debug PlayerInfoPacket ADD_PLAYER...\n");
             PlayerInfoPacket playerInfoPacket = laivynpc().getVersion().createPlayerInfoPacket(EnumPlayerInfoActionEnum.ADD_PLAYER(), entityPlayer);
@@ -164,22 +156,23 @@ public class Debug {
             ScoreboardTeamPacket scoreboardTeamPacket = laivynpc().getVersion().createScoreboardTeamPacket(team, false);
             scoreboardTeamPacket.send(player);
 
-            destroyPackets = laivynpc().getVersion().createDestroyPacket(entityPlayer);
             // TODO: 15/02/2023 A better system to send the destroy packets list
+            destroyPackets = laivynpc().getVersion().createDestroyPacket(entityPlayer);
             for (EntityDestroyPacket packet : destroyPackets) packet.send(player);
+            //
+
             message.append("§7Trying to debug PlayerInfoPacket REMOVE_PLAYER...\n");
             playerInfoPacket = laivynpc().getVersion().createPlayerInfoPacket(EnumPlayerInfoActionEnum.REMOVE_PLAYER(), entityPlayer);
-            playerInfoPacket.send(player);
-
-            // Add again
-            playerInfoPacket = laivynpc().getVersion().createPlayerInfoPacket(EnumPlayerInfoActionEnum.ADD_PLAYER(), entityPlayer);
             playerInfoPacket.send(player);
             //
 
             message.append("§7Trying to debug EntityDestroyPacket...\n");
-            destroyPackets = laivynpc().getVersion().createDestroyPacket(stand);
+
             // TODO: 15/02/2023 A better system to send the destroy packets list
+            destroyPackets = laivynpc().getVersion().createDestroyPacket(stand);
             for (EntityDestroyPacket packet : destroyPackets) packet.send(player);
+            //
+
             message.append("§aSuccess!\n");
         } catch (Throwable e) {
             throw new RuntimeException(e);
@@ -195,7 +188,7 @@ public class Debug {
         StringBuilder message = new StringBuilder("§8-----\n§7Debugging NPCs:\n");
 
         try {
-            final ObjectExecutor playerObjectExec = new ObjectExecutor(player.getLocation()) {
+            ObjectExecutor playerObjExecutor = new ObjectExecutor(player.getLocation()) {
                 @Override
                 public @NotNull ClassExecutor getClassExecutor() {
                     return new ClassExecutor(Location.class);
@@ -208,7 +201,7 @@ public class Debug {
                 if (MethodExecutor.hasMethodWithReturn(npc, "debug", void.class, Location.class)) {
                     new MethodExecutor(new ClassExecutor(npc), ClassExecutor.VOID, "debug", "Gets the debug method from a NPC class", new ClassExecutor(Location.class)) {{
                         load();
-                        invokeStatic(playerObjectExec);
+                        invokeStatic(playerObjExecutor);
                     }};
                 } else {
                     message.append("§cCannot debug ").append(npc.getSimpleName()).append(" because this NPC class doesn't have a debug method");

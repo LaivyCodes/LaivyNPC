@@ -106,12 +106,9 @@ public class V1_16_R2 extends V1_16_R1 {
                         break;
                 }
             } else if (executor instanceof MethodExecutor) {
-                switch (key) {
-                    case "Entity:isGlowing":
-                        load(V1_16_R2.class, key, new MethodExecutor(getClassExec("Entity"), ClassExecutor.BOOLEAN, "bD", "Gets the glowing state of a Entity"));
-                        return false;
-                    default:
-                        break;
+                if (key.equals("Entity:isGlowing")) {
+                    load(V1_16_R2.class, key, new MethodExecutor(getClassExec("Entity"), ClassExecutor.BOOLEAN, "bD", "Gets the glowing state of a Entity"));
+                    return false;
                 }
             }
         }

@@ -3,6 +3,7 @@ package codes.laivy.npc.mappings.defaults.classes.others.server;
 import codes.laivy.npc.mappings.instances.classes.ClassExecutor;
 import codes.laivy.npc.mappings.instances.MethodExecutor;
 import codes.laivy.npc.mappings.instances.ObjectExecutor;
+import codes.laivy.npc.mappings.versions.V1_8_R1;
 import org.bukkit.Server;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -23,10 +24,7 @@ public class CraftServer extends ObjectExecutor {
     }
 
     public MinecraftServer getServer() {
-        MethodExecutor method = new MethodExecutor(laivynpc().getVersion().getClassExec("CraftServer"), laivynpc().getVersion().getClassExec("MinecraftServer"), "getServer", "Gets the NMS MinecraftServer from a CraftServer");
-        method.load();
-
-        return new MinecraftServer(method.invokeInstance(this));
+        return new MinecraftServer(laivynpc().getVersion().getMethodExec("CraftServer:getServer").invokeInstance(this));
     }
 
     @Override

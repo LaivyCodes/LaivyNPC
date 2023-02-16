@@ -4,6 +4,7 @@ import codes.laivy.npc.mappings.instances.classes.ClassExecutor;
 import codes.laivy.npc.mappings.instances.MethodExecutor;
 import codes.laivy.npc.mappings.instances.ObjectExecutor;
 import codes.laivy.npc.mappings.defaults.classes.java.IntegerObjExec;
+import codes.laivy.npc.mappings.versions.V1_8_R1;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -15,10 +16,7 @@ public class World extends ObjectExecutor {
     }
 
     public @NotNull CraftWorld getCraftWorld() {
-        MethodExecutor method = new MethodExecutor(getClassExecutor(), laivynpc().getVersion().getClassExec("CraftWorld"), "getWorld", "Gets the CraftWorld of a NMS World");
-        method.load();
-
-        return new CraftWorld(method.invokeInstance(this));
+        return new CraftWorld(laivynpc().getVersion().getMethodExec("World:getCraftWorld").invokeInstance(this));
     }
 
     public @Nullable Object getEntityById(int id) {

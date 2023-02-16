@@ -3,6 +3,7 @@ package codes.laivy.npc.mappings.defaults.classes.scoreboard;
 import codes.laivy.npc.mappings.instances.classes.ClassExecutor;
 import codes.laivy.npc.mappings.instances.MethodExecutor;
 import codes.laivy.npc.mappings.instances.ObjectExecutor;
+import codes.laivy.npc.mappings.versions.V1_8_R1;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -16,10 +17,7 @@ public class CraftScoreboard extends ObjectExecutor {
     }
 
     public @NotNull Scoreboard getHandle() {
-        MethodExecutor method = new MethodExecutor(getClassExecutor(), laivynpc().getVersion().getClassExec("Scoreboard"), "getHandle", "Gets the NMS Scoreboard from a CraftScoreboard");
-        method.load();
-
-        return new Scoreboard(Objects.requireNonNull(method.invokeInstance(this)));
+        return new Scoreboard(Objects.requireNonNull(laivynpc().getVersion().getMethodExec("CraftScoreboard:getHandle").invokeInstance(this)));
     }
 
     @Override

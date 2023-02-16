@@ -3,6 +3,7 @@ package codes.laivy.npc.mappings.defaults.classes.others.location;
 import codes.laivy.npc.mappings.instances.classes.ClassExecutor;
 import codes.laivy.npc.mappings.instances.MethodExecutor;
 import codes.laivy.npc.mappings.instances.ObjectExecutor;
+import codes.laivy.npc.mappings.versions.V1_8_R1;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -21,10 +22,7 @@ public class CraftWorld extends ObjectExecutor {
     }
 
     public WorldServer getHandle() {
-        MethodExecutor method = new MethodExecutor(laivynpc().getVersion().getClassExec("CraftWorld"), laivynpc().getVersion().getClassExec("WorldServer"), "getHandle", "Gets the NMS WorldServer from a CraftWorld");
-        method.load();
-
-        return new WorldServer(method.invokeInstance(this));
+        return new WorldServer(laivynpc().getVersion().getMethodExec("CraftWorld:getHandle").invokeInstance(this));
     }
 
     @Override

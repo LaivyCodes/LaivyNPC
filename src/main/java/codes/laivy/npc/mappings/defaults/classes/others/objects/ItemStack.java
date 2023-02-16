@@ -1,7 +1,6 @@
 package codes.laivy.npc.mappings.defaults.classes.others.objects;
 
 import codes.laivy.npc.mappings.instances.classes.ClassExecutor;
-import codes.laivy.npc.mappings.instances.MethodExecutor;
 import codes.laivy.npc.mappings.instances.ObjectExecutor;
 import codes.laivy.npc.mappings.defaults.classes.java.ItemStackObjExec;
 import org.jetbrains.annotations.NotNull;
@@ -14,10 +13,7 @@ import static codes.laivy.npc.LaivyNPC.*;
 public class ItemStack extends ObjectExecutor {
     @NotNull
     public static ItemStack getNMSItemStack(@NotNull org.bukkit.inventory.ItemStack item) {
-        MethodExecutor method = new MethodExecutor(laivynpc().getVersion().getClassExec("CraftItemStack"), laivynpc().getVersion().getClassExec("ItemStack"), "asNMSCopy", "Gets a NMS ItemStack from a Craft ItemStack", ClassExecutor.ITEMSTACK);
-        method.load();
-
-        return new ItemStack(method.invokeStatic(new ItemStackObjExec(item)));
+        return new ItemStack(laivynpc().getVersion().getMethodExec("CraftItemStack:asNMSCopy").invokeStatic(new ItemStackObjExec(item)));
     }
 
     public ItemStack(@Nullable Object value) {

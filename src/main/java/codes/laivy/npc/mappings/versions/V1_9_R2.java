@@ -46,8 +46,6 @@ import codes.laivy.npc.mappings.defaults.classes.scoreboard.Scoreboard;
 import codes.laivy.npc.mappings.defaults.classes.scoreboard.ScoreboardTeam;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Map;
-
 public class V1_9_R2 extends V1_9_R1 {
 
     @Override
