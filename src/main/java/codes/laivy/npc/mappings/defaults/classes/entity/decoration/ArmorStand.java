@@ -3,6 +3,7 @@ package codes.laivy.npc.mappings.defaults.classes.entity.decoration;
 import codes.laivy.npc.mappings.defaults.classes.entity.Entity;
 import codes.laivy.npc.mappings.defaults.classes.java.BooleanObjExec;
 import codes.laivy.npc.mappings.defaults.classes.others.location.Vector3f;
+import org.bukkit.util.EulerAngle;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -13,46 +14,46 @@ public class ArmorStand extends Entity {
         super(value);
     }
 
-    public void setHeadPose(@NotNull Vector3f angle) {
-        laivynpc().getVersion().setArmorStandPose(Pose.HEAD, this, angle);
+    public void setHeadPose(@NotNull EulerAngle angle) {
+        laivynpc().getVersion().setArmorStandPose(Pose.HEAD, this, Vector3f.getByEulerAngle(angle));
     }
-    public @NotNull Vector3f getHeadPose() {
-        return laivynpc().getVersion().getArmorStandPose(Pose.HEAD, this);
-    }
-
-    public void setBodyPose(@NotNull Vector3f angle) {
-        laivynpc().getVersion().setArmorStandPose(Pose.BODY, this, angle);
-    }
-    public @NotNull Vector3f getBodyPose() {
-        return laivynpc().getVersion().getArmorStandPose(Pose.BODY, this);
+    public @NotNull EulerAngle getHeadPose() {
+        return laivynpc().getVersion().getArmorStandPose(Pose.HEAD, this).getEulerAngle();
     }
 
-    public void setLeftArmPose(@NotNull Vector3f angle) {
-        laivynpc().getVersion().setArmorStandPose(Pose.LEFT_ARM, this, angle);
+    public void setBodyPose(@NotNull EulerAngle angle) {
+        laivynpc().getVersion().setArmorStandPose(Pose.BODY, this, Vector3f.getByEulerAngle(angle));
     }
-    public @NotNull Vector3f getLeftArmPose() {
-        return laivynpc().getVersion().getArmorStandPose(Pose.LEFT_ARM, this);
-    }
-
-    public void setRightArmPose(@NotNull Vector3f angle) {
-        laivynpc().getVersion().setArmorStandPose(Pose.RIGHT_ARM, this, angle);
-    }
-    public @NotNull Vector3f getRightArmPose() {
-        return laivynpc().getVersion().getArmorStandPose(Pose.RIGHT_ARM, this);
+    public @NotNull EulerAngle getBodyPose() {
+        return laivynpc().getVersion().getArmorStandPose(Pose.BODY, this).getEulerAngle();
     }
 
-    public void setLeftLegPose(@NotNull Vector3f angle) {
-        laivynpc().getVersion().setArmorStandPose(Pose.LEFT_LEG, this, angle);
+    public void setLeftArmPose(@NotNull EulerAngle angle) {
+        laivynpc().getVersion().setArmorStandPose(Pose.LEFT_ARM, this, Vector3f.getByEulerAngle(angle));
     }
-    public @NotNull Vector3f getLeftLegPose() {
-        return laivynpc().getVersion().getArmorStandPose(Pose.LEFT_LEG, this);
+    public @NotNull EulerAngle getLeftArmPose() {
+        return laivynpc().getVersion().getArmorStandPose(Pose.LEFT_ARM, this).getEulerAngle();
     }
 
-    public void setRightLegPose(@NotNull Vector3f angle) {
-        laivynpc().getVersion().setArmorStandPose(Pose.RIGHT_LEG, this, angle);
+    public void setRightArmPose(@NotNull EulerAngle angle) {
+        laivynpc().getVersion().setArmorStandPose(Pose.RIGHT_ARM, this, Vector3f.getByEulerAngle(angle));
     }
-    public @NotNull Vector3f getRightLegPose() {
-        return laivynpc().getVersion().getArmorStandPose(Pose.RIGHT_LEG, this);
+    public @NotNull EulerAngle getRightArmPose() {
+        return laivynpc().getVersion().getArmorStandPose(Pose.RIGHT_ARM, this).getEulerAngle();
+    }
+
+    public void setLeftLegPose(@NotNull EulerAngle angle) {
+        laivynpc().getVersion().setArmorStandPose(Pose.LEFT_LEG, this, Vector3f.getByEulerAngle(angle));
+    }
+    public @NotNull EulerAngle getLeftLegPose() {
+        return laivynpc().getVersion().getArmorStandPose(Pose.LEFT_LEG, this).getEulerAngle();
+    }
+
+    public void setRightLegPose(@NotNull EulerAngle angle) {
+        laivynpc().getVersion().setArmorStandPose(Pose.RIGHT_LEG, this, Vector3f.getByEulerAngle(angle));
+    }
+    public @NotNull EulerAngle getRightLegPose() {
+        return laivynpc().getVersion().getArmorStandPose(Pose.RIGHT_LEG, this).getEulerAngle();
     }
 
     public void setBasePlate(boolean flag) {

@@ -67,7 +67,17 @@ public abstract class Version implements VersionCompound, VersionPacket, Version
 
     protected abstract boolean onLoad(@NotNull Class<? extends Version> version, @NotNull String key, @NotNull Executor executor);
 
+    public abstract void loadClasses();
+    public abstract void loadMethods();
+    public abstract void loadFields();
+    public abstract void loadEnums();
+
     public Version() {
+        loadClasses();
+        loadMethods();
+        loadFields();
+        loadEnums();
+
         laivynpc().log("§7Loaded: " + getClasses().size() + " classes, " + getMethods().size() + " methods, " + getFields().size() + " fields, " + getEnums().size() + " enums, " + getTexts().size() + " texts and " + getObjects().size() + " objects.");
 
         if (laivynpc().isDebug()) {
@@ -82,52 +92,59 @@ public abstract class Version implements VersionCompound, VersionPacket, Version
                     classes += getClasses().size();
                     row++;
                 }
+                laivynpc().log("Performed '" + (classes) + "' classes tests in " + ((System.currentTimeMillis() - time1) / 1000D) + " seconds.");
+
                 long time2 = System.currentTimeMillis();
                 row = 0;
                 while (row < 100) {
                     methods += getMethods().size();
                     row++;
                 }
+                laivynpc().log("Performed '" + (methods) + "' methods tests in " + ((System.currentTimeMillis() - time2) / 1000D) + " seconds.");
+
                 long time3 = System.currentTimeMillis();
                 row = 0;
                 while (row < 100) {
                     fields += getFields().size();
                     row++;
                 }
+                laivynpc().log("Performed '" + (fields) + "' fields tests in " + ((System.currentTimeMillis() - time3) / 1000D) + " seconds.");
+
                 long time4 = System.currentTimeMillis();
                 row = 0;
                 while (row < 100) {
                     enums += getEnums().size();
                     row++;
                 }
+                laivynpc().log("Performed '" + (enums) + "' enums tests in " + ((System.currentTimeMillis() - time4) / 1000D) + " seconds.");
+
                 long time5 = System.currentTimeMillis();
                 row = 0;
                 while (row < 100) {
                     texts += getTexts().size();
                     row++;
                 }
+                laivynpc().log("Performed '" + (texts) + "' texts tests in " + ((System.currentTimeMillis() - time5) / 1000D) + " seconds.");
+
                 long time6 = System.currentTimeMillis();
                 row = 0;
                 while (row < 100) {
                     objects += getObjects().size();
                     row++;
                 }
-
-                laivynpc().log("Performed '" + (classes) + "' classes tests in " + ((System.currentTimeMillis() - time1) / 1000D) + " seconds.");
-                laivynpc().log("Performed '" + (methods) + "' methods tests in " + ((System.currentTimeMillis() - time2) / 1000D) + " seconds.");
-                laivynpc().log("Performed '" + (fields) + "' fields tests in " + ((System.currentTimeMillis() - time3) / 1000D) + " seconds.");
-                laivynpc().log("Performed '" + (enums) + "' enums tests in " + ((System.currentTimeMillis() - time4) / 1000D) + " seconds.");
-                laivynpc().log("Performed '" + (texts) + "' texts tests in " + ((System.currentTimeMillis() - time5) / 1000D) + " seconds.");
                 laivynpc().log("Performed '" + (objects) + "' objects tests in " + ((System.currentTimeMillis() - time6) / 1000D) + " seconds.");
+
             }).start();
         }
     }
 
     protected void load(@NotNull Class<? extends Version> version, @NotNull String key, @NotNull Executor executor) {
+        Executor f = executor;
         if (onLoad(version, key, executor)) {
             executor.load();
 
             if (executor instanceof EnumExecutor) {
+                f =
                 enums.put(key, (EnumExecutor) executor);
             } else if (executor instanceof ClassExecutor) {
                 classes.put(key, (ClassExecutor) executor);
@@ -141,19 +158,19 @@ public abstract class Version implements VersionCompound, VersionPacket, Version
         }
     }
 
-    public @NotNull Map<String, ClassExecutor> getClasses() {
+    public final @NotNull Map<String, ClassExecutor> getClasses() {
         return classes;
     }
 
-    public @NotNull Map<String, MethodExecutor> getMethods() {
+    public final @NotNull Map<String, MethodExecutor> getMethods() {
         return methods;
     }
 
-    public @NotNull Map<String, FieldExecutor> getFields() {
+    public final @NotNull Map<String, FieldExecutor> getFields() {
         return fields;
     }
 
-    public @NotNull Map<String, EnumExecutor> getEnums() {
+    public final @NotNull Map<String, EnumExecutor> getEnums() {
         return enums;
     }
 

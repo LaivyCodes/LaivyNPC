@@ -56,7 +56,6 @@ import codes.laivy.npc.types.utils.NPCHologramText;
 import codes.laivy.npc.types.workers.NPCHolograms;
 import codes.laivy.npc.utils.ReflectionUtils;
 import codes.laivy.npc.utils.Validation;
-import com.avaje.ebean.validation.NotEmpty;
 import org.bukkit.*;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.MemorySection;
@@ -703,7 +702,7 @@ public abstract class NPC {
         sendUpdatePackets(getSpawnedPlayers(), false, false, true, false, false, false);
     }
 
-    public @NotNull @NotEmpty String getCustomName() {
+    public @NotNull String getCustomName() {
         return getEntity().getCustomName();
     }
     public void setCustomName(@NotNull String name) {
@@ -725,10 +724,7 @@ public abstract class NPC {
         location.setPitch(pitch);
         location.setYaw(yaw);
         setLocation(location, false);
-
-        for (UUID uuid : getVisiblePlayers()) {
-            sendUpdatePackets(Bukkit.getPlayer(uuid), false, false, false, false, false, true);
-        }
+        sendUpdatePackets(getVisiblePlayers(), false, false, false, false, false, true);
     }
     public void setHeadRotation(@Nullable NPCHeadRotation headRotation) {
         this.headRotation = headRotation;

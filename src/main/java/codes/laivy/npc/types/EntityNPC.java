@@ -6,7 +6,6 @@ import codes.laivy.npc.mappings.instances.ObjectExecutor;
 import codes.laivy.npc.mappings.defaults.classes.datawatcher.DataWatcher;
 import codes.laivy.npc.mappings.defaults.classes.entity.Entity;
 import codes.laivy.npc.mappings.defaults.classes.enums.EnumChatFormatEnum;
-import codes.laivy.npc.mappings.defaults.classes.enums.EnumItemSlotEnum;
 import codes.laivy.npc.mappings.defaults.classes.enums.EnumNameTagVisibilityEnum;
 import codes.laivy.npc.mappings.defaults.classes.enums.EnumTeamPushEnum;
 import codes.laivy.npc.mappings.defaults.classes.java.ObjectObjExec;
@@ -20,9 +19,7 @@ import org.bukkit.*;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.MemorySection;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
@@ -66,9 +63,7 @@ public abstract class EntityNPC extends NPC {
 
     @Override
     public @NotNull List<@NotNull Packet> getDestroyPackets(@NotNull Player player) {
-        List<@NotNull Packet> packets = new LinkedList<>();
-        packets.addAll(laivynpc().getVersion().createDestroyPacket(getEntity()));
-        return packets;
+        return new LinkedList<>(laivynpc().getVersion().createDestroyPacket(getEntity()));
     }
 
     @Override

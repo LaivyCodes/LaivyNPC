@@ -59,51 +59,51 @@ public class ArmorStandNPC extends EntityNPC {
     }
 
     public void setHeadPose(@NotNull EulerAngle angle) {
-        getEntity().setHeadPose(Vector3f.getByEulerAngle(angle));
+        getEntity().setHeadPose(angle);
         sendUpdatePackets(getSpawnedPlayers(), false, false, true, false, false, false);
     }
     public @NotNull EulerAngle getHeadPose() {
-        return getEntity().getHeadPose().getEulerAngle();
+        return getEntity().getHeadPose();
     }
 
     public void setBodyPose(@NotNull EulerAngle angle) {
-        getEntity().setBodyPose(Vector3f.getByEulerAngle(angle));
+        getEntity().setBodyPose(angle);
         sendUpdatePackets(getSpawnedPlayers(), false, false, true, false, false, false);
     }
     public @NotNull EulerAngle getBodyPose() {
-        return getEntity().getBodyPose().getEulerAngle();
+        return getEntity().getBodyPose();
     }
 
     public void setLeftArmPose(@NotNull EulerAngle angle) {
-        getEntity().setLeftArmPose(Vector3f.getByEulerAngle(angle));
+        getEntity().setLeftArmPose(angle);
         sendUpdatePackets(getSpawnedPlayers(), false, false, true, false, false, false);
     }
     public @NotNull EulerAngle getLeftArmPose() {
-        return getEntity().getLeftArmPose().getEulerAngle();
+        return getEntity().getLeftArmPose();
     }
 
     public void setRightArmPose(@NotNull EulerAngle angle) {
-        getEntity().setRightArmPose(Vector3f.getByEulerAngle(angle));
+        getEntity().setRightArmPose(angle);
         sendUpdatePackets(getSpawnedPlayers(), false, false, true, false, false, false);
     }
     public @NotNull EulerAngle getRightArmPose() {
-        return getEntity().getRightArmPose().getEulerAngle();
+        return getEntity().getRightArmPose();
     }
 
     public void setLeftLegPose(@NotNull EulerAngle angle) {
-        getEntity().setLeftLegPose(Vector3f.getByEulerAngle(angle));
+        getEntity().setLeftLegPose(angle);
         sendUpdatePackets(getSpawnedPlayers(), false, false, true, false, false, false);
     }
     public @NotNull EulerAngle getLeftLegPose() {
-        return getEntity().getLeftLegPose().getEulerAngle();
+        return getEntity().getLeftLegPose();
     }
 
     public void setRightLegPose(@NotNull EulerAngle angle) {
-        getEntity().setRightLegPose(Vector3f.getByEulerAngle(angle));
+        getEntity().setRightLegPose(angle);
         sendUpdatePackets(getSpawnedPlayers(), false, false, true, false, false, false);
     }
     public @NotNull EulerAngle getRightLegPose() {
-        return getEntity().getRightLegPose().getEulerAngle();
+        return getEntity().getRightLegPose();
     }
 
     public void setBasePlate(boolean flag) {
@@ -228,12 +228,12 @@ public class ArmorStandNPC extends EntityNPC {
             put("Small", isSmall());
 
             put("Poses", new LinkedHashMap<String, Object>() {{
-                put("Head", getEntity().getHeadPose().serialize());
-                put("Body", getEntity().getBodyPose().serialize());
-                put("Left Arm", getEntity().getLeftArmPose().serialize());
-                put("Right Arm", getEntity().getRightArmPose().serialize());
-                put("Left Leg", getEntity().getLeftLegPose().serialize());
-                put("Right Leg", getEntity().getRightLegPose().serialize());
+                put("Head", Vector3f.getByEulerAngle(getEntity().getHeadPose()).serialize());
+                put("Body", Vector3f.getByEulerAngle(getEntity().getBodyPose()).serialize());
+                put("Left Arm", Vector3f.getByEulerAngle(getEntity().getLeftArmPose()).serialize());
+                put("Right Arm", Vector3f.getByEulerAngle(getEntity().getRightArmPose()).serialize());
+                put("Left Leg", Vector3f.getByEulerAngle(getEntity().getLeftLegPose()).serialize());
+                put("Right Leg", Vector3f.getByEulerAngle(getEntity().getRightLegPose()).serialize());
             }});
         }});
 
@@ -249,12 +249,12 @@ public class ArmorStandNPC extends EntityNPC {
         npc.setSmall(section.getBoolean("Small"));
 
         ConfigurationSection poses = section.getConfigurationSection("Poses");
-        npc.getEntity().setHeadPose(Vector3f.deserialize(poses.getConfigurationSection("Head").getValues(true)));
-        npc.getEntity().setBodyPose(Vector3f.deserialize(poses.getConfigurationSection("Body").getValues(true)));
-        npc.getEntity().setLeftArmPose(Vector3f.deserialize(poses.getConfigurationSection("Left Arm").getValues(true)));
-        npc.getEntity().setRightArmPose(Vector3f.deserialize(poses.getConfigurationSection("Right Arm").getValues(true)));
-        npc.getEntity().setLeftLegPose(Vector3f.deserialize(poses.getConfigurationSection("Left Leg").getValues(true)));
-        npc.getEntity().setRightLegPose(Vector3f.deserialize(poses.getConfigurationSection("Right Leg").getValues(true)));
+        npc.getEntity().setHeadPose(Vector3f.deserialize(poses.getConfigurationSection("Head").getValues(true)).getEulerAngle());
+        npc.getEntity().setBodyPose(Vector3f.deserialize(poses.getConfigurationSection("Body").getValues(true)).getEulerAngle());
+        npc.getEntity().setLeftArmPose(Vector3f.deserialize(poses.getConfigurationSection("Left Arm").getValues(true)).getEulerAngle());
+        npc.getEntity().setRightArmPose(Vector3f.deserialize(poses.getConfigurationSection("Right Arm").getValues(true)).getEulerAngle());
+        npc.getEntity().setLeftLegPose(Vector3f.deserialize(poses.getConfigurationSection("Left Leg").getValues(true)).getEulerAngle());
+        npc.getEntity().setRightLegPose(Vector3f.deserialize(poses.getConfigurationSection("Right Leg").getValues(true)).getEulerAngle());
 
         return npc;
     }

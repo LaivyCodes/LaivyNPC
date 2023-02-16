@@ -41,8 +41,6 @@ import codes.laivy.npc.mappings.defaults.classes.gameprofile.GameProfile;
 import codes.laivy.npc.mappings.defaults.classes.gameprofile.Property;
 import codes.laivy.npc.mappings.defaults.classes.gameprofile.PropertyMap;
 import codes.laivy.npc.mappings.defaults.classes.java.BooleanObjExec;
-import codes.laivy.npc.mappings.defaults.classes.java.DoubleObjExec;
-import codes.laivy.npc.mappings.defaults.classes.java.FloatObjExec;
 import codes.laivy.npc.mappings.defaults.classes.java.IntegerObjExec;
 import codes.laivy.npc.mappings.defaults.classes.nbt.NBTBase;
 import codes.laivy.npc.mappings.defaults.classes.nbt.tags.*;
@@ -71,8 +69,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import static codes.laivy.npc.LaivyNPC.laivynpc;
 
 public class V1_17_R1 extends V1_16_R3 {
 
@@ -249,12 +245,9 @@ public class V1_17_R1 extends V1_16_R3 {
                         break;
                 }
             } else if (executor instanceof MethodExecutor) {
-                switch (key) {
-                    case "VillagerData:getType":
-                        load(V1_17_R1.class, key, new MethodExecutor(getClassExec("VillagerData"), getClassExec("VillagerType"), "getType", "Gets the type of a villager data"));
-                        return false;
-                    default:
-                        break;
+                if (key.equals("VillagerData:getType")) {
+                    load(V1_17_R1.class, key, new MethodExecutor(getClassExec("VillagerData"), getClassExec("VillagerType"), "getType", "Gets the type of a villager data"));
+                    return false;
                 }
             }
         } else if (version == V1_12_R1.class) {
@@ -313,216 +306,252 @@ public class V1_17_R1 extends V1_16_R3 {
     }
 
     @Override
-    public @NotNull Map<String, ClassExecutor> getClasses() {
-        if (super.getClasses().isEmpty()) {
-            load(V1_17_R1.class, "WatchableObject", new ClassExecutor.BrokenClassExecutor());
-            load(V1_17_R1.class, "EnumSkeletonType", new ClassExecutor.BrokenClassExecutor());
-            load(V1_17_R1.class, "EnumHorseType", new ClassExecutor.BrokenClassExecutor());
-            load(V1_17_R1.class, "EnumZombieType", new ClassExecutor.BrokenClassExecutor());
+    public @NotNull Set<EntityDestroyPacket> createDestroyPacket(@NotNull Entity... entities) {
+        Set<EntityDestroyPacket> packets = new HashSet<>();
+        ClassConstructor constructor = getClassExec("PacketPlayOutEntityDestroy").getConstructor(ClassExecutor.INT);
 
-            load(V1_17_R1.class, "NBTBase", new NBTBase.NBTBaseClass("net.minecraft.nbt.NBTBase"));
-
-            load(V1_17_R1.class, "NBTBase:NBTTagByte", new NBTTagByte.NBTTagByteClass("net.minecraft.nbt.NBTTagByte"));
-            load(V1_17_R1.class, "NBTBase:NBTTagByteArray", new NBTTagByteArray.NBTTagByteArrayClass("net.minecraft.nbt.NBTTagByteArray"));
-            load(V1_17_R1.class, "NBTBase:NBTTagCompound", new NBTTagCompound.NBTTagCompoundClass("net.minecraft.nbt.NBTTagCompound"));
-            load(V1_17_R1.class, "NBTBase:NBTTagDouble", new NBTTagDouble.NBTTagDoubleClass("net.minecraft.nbt.NBTTagDouble"));
-            load(V1_17_R1.class, "NBTBase:NBTTagFloat", new NBTTagFloat.NBTTagFloatClass("net.minecraft.nbt.NBTTagFloat"));
-            load(V1_17_R1.class, "NBTBase:NBTTagInt", new NBTTagInt.NBTTagIntClass("net.minecraft.nbt.NBTTagInt"));
-            load(V1_17_R1.class, "NBTBase:NBTTagIntArray", new NBTTagIntArray.NBTTagIntArrayClass("net.minecraft.nbt.NBTTagIntArray"));
-            load(V1_17_R1.class, "NBTBase:NBTTagList", new NBTTagList.NBTTagListClass("net.minecraft.nbt.NBTTagList"));
-            load(V1_17_R1.class, "NBTBase:NBTTagLong", new NBTTagLong.NBTTagLongClass("net.minecraft.nbt.NBTTagLong"));
-            load(V1_17_R1.class, "NBTBase:NBTTagShort", new NBTTagShort.NBTTagShortClass("net.minecraft.nbt.NBTTagShort"));
-            load(V1_17_R1.class, "NBTBase:NBTTagString", new NBTTagString.NBTTagStringClass("net.minecraft.nbt.NBTTagString"));
-            //
-
-            // Packets
-            load(V1_17_R1.class, "Packet", new Packet.PacketClass("net.minecraft.network.protocol.Packet"));
-            load(V1_17_R1.class, "PacketPlayOutSpawnEntity", new EntitySpawnPacket.EntitySpawnPacketClass("net.minecraft.network.protocol.game.PacketPlayOutSpawnEntity"));
-            load(V1_17_R1.class, "PacketPlayOutEntityDestroy", new EntityDestroyPacket.EntityDestroyPacketClass("net.minecraft.network.protocol.game.PacketPlayOutEntityDestroy"));
-            load(V1_17_R1.class, "PacketPlayOutAnimation", new EntityAnimationPacket.EntityAnimationPacketClass("net.minecraft.network.protocol.game.PacketPlayOutAnimation"));
-            load(V1_17_R1.class, "PacketPlayOutSpawnEntityLiving", new EntityLivingSpawnPacket.EntityLivingSpawnPacketClass("net.minecraft.network.protocol.game.PacketPlayOutSpawnEntityLiving"));
-            load(V1_17_R1.class, "PacketPlayOutEntityMetadata", new EntityMetadataPacket.EntityMetadataPacketClass("net.minecraft.network.protocol.game.PacketPlayOutEntityMetadata"));
-            load(V1_17_R1.class, "PacketPlayOutNamedEntitySpawn", new EntityNamedSpawnPacket.EntityNamedSpawnPacketClass("net.minecraft.network.protocol.game.PacketPlayOutNamedEntitySpawn"));
-            load(V1_17_R1.class, "PacketPlayOutPlayerInfo", new PlayerInfoPacket.PlayerInfoPacketClass("net.minecraft.network.protocol.game.PacketPlayOutPlayerInfo"));
-            load(V1_17_R1.class, "PacketPlayOutPlayerInfo:EnumPlayerInfoAction", new EnumPlayerInfoActionEnum.EnumPlayerInfoActionClass("net.minecraft.network.protocol.game.PacketPlayOutPlayerInfo$EnumPlayerInfoAction"));
-            load(V1_17_R1.class, "PacketPlayOutScoreboardTeam", new ScoreboardTeamPacket.ScoreboardTeamPacketClass("net.minecraft.network.protocol.game.PacketPlayOutScoreboardTeam"));
-            load(V1_17_R1.class, "PacketPlayOutEntityEquipment", new EntityEquipmentPacket.EntityEquipmentPacketClass("net.minecraft.network.protocol.game.PacketPlayOutEntityEquipment"));
-            load(V1_17_R1.class, "PacketPlayOutEntityTeleport", new EntityTeleportPacket.EntityTeleportPacketClass("net.minecraft.network.protocol.game.PacketPlayOutEntityTeleport"));
-            load(V1_17_R1.class, "PacketPlayOutEntityHeadRotation", new EntityHeadRotationPacket.EntityHeadRotationPacketClass("net.minecraft.network.protocol.game.PacketPlayOutEntityHeadRotation"));
-            load(V1_17_R1.class, "PacketPlayOutEntityLook", new EntityLookPacket.EntityLookPacketClass("net.minecraft.network.protocol.game.PacketPlayOutEntity$PacketPlayOutEntityLook"));
-
-            load(V1_17_R1.class, "PacketPlayInUseEntity", new EntityUseInPacket.EntityUseInPacketClass("net.minecraft.network.protocol.game.PacketPlayInUseEntity"));
-            load(V1_17_R1.class, "PacketPlayInUseEntity:EnumEntityUseAction", new EntityUseInPacket.ActionEnum.ActionClass("net.minecraft.network.protocol.game.PacketPlayInUseEntity$b"));
-            //
-
-            // Server
-            load(V1_17_R1.class, "MinecraftServer", new MinecraftServer.MinecraftServerClass("net.minecraft.server.MinecraftServer"));
-            load(V1_17_R1.class, "WorldServer", new WorldServer.WorldServerClass("net.minecraft.server.level.WorldServer"));
-            load(V1_17_R1.class, "CraftServer", new CraftServer.CraftServerClass("org.bukkit.craftbukkit.v1_17_R1.CraftServer"));
-            //
-
-            // Entity
-            load(V1_17_R1.class, "EntityTypes", new EntityTypes.EntityTypesClass("net.minecraft.world.entity.EntityTypes"));
-
-            load(V1_17_R1.class, "Entity", new Entity.EntityClass("net.minecraft.world.entity.Entity"));
-            load(V1_17_R1.class, "EntityLiving", new EntityLiving.EntityLivingClass("net.minecraft.world.entity.EntityLiving"));
-            load(V1_17_R1.class, "Entity:Human", new Entity.EntityClass("net.minecraft.world.entity.player.EntityHuman"));
-            load(V1_17_R1.class, "CraftPlayer", new CraftPlayer.CraftPlayerClass("org.bukkit.craftbukkit.v1_17_R1.entity.CraftPlayer"));
-            load(V1_17_R1.class, "EntityPlayer", new EntityPlayer.EntityPlayerClass("net.minecraft.server.level.EntityPlayer"));
-
-            load(V1_17_R1.class, "Entity:ArmorStand", new ArmorStand.ArmorStandClass("net.minecraft.world.entity.decoration.EntityArmorStand"));
-            load(V1_17_R1.class, "Entity:Pig", new Pig.PigClass("net.minecraft.world.entity.animal.EntityPig"));
-            load(V1_17_R1.class, "Entity:Cow", new Cow.CowClass("net.minecraft.world.entity.animal.EntityCow"));
-            load(V1_17_R1.class, "Entity:Ocelot", new Ocelot.OcelotClass("net.minecraft.world.entity.animal.EntityOcelot"));
-            load(V1_17_R1.class, "Entity:Bat", new Bat.BatClass("net.minecraft.world.entity.ambient.EntityBat"));
-            load(V1_17_R1.class, "Entity:Egg", new Egg.EggClass("net.minecraft.world.entity.projectile.EntityEgg"));
-            load(V1_17_R1.class, "Entity:Chicken", new Chicken.ChickenClass("net.minecraft.world.entity.animal.EntityChicken"));
-            load(V1_17_R1.class, "Entity:Horse", new AbstractHorse.AbstractHorseClass("net.minecraft.world.entity.animal.horse.EntityHorse"));
-            load(V1_17_R1.class, "Entity:IronGolem", new IronGolem.IronGolemClass("net.minecraft.world.entity.animal.EntityIronGolem"));
-            load(V1_17_R1.class, "Entity:Rabbit", new Rabbit.RabbitClass("net.minecraft.world.entity.animal.EntityRabbit"));
-            load(V1_17_R1.class, "Entity:Sheep", new Sheep.SheepClass("net.minecraft.world.entity.animal.EntitySheep"));
-            load(V1_17_R1.class, "Entity:Snowman", new Snowman.SnowmanClass("net.minecraft.world.entity.animal.EntitySnowman"));
-            load(V1_17_R1.class, "Entity:Squid", new Squid.SquidClass("net.minecraft.world.entity.animal.EntitySquid"));
-            load(V1_17_R1.class, "Entity:Wolf", new Wolf.WolfClass("net.minecraft.world.entity.animal.EntityWolf"));
-            load(V1_17_R1.class, "Entity:ItemFrame", new ItemFrame.ItemFrameClass("net.minecraft.world.entity.decoration.EntityItemFrame"));
-            load(V1_17_R1.class, "Entity:LeashKnot", new LeashKnot.LeashKnotClass("net.minecraft.world.entity.decoration.EntityLeash"));
-            load(V1_17_R1.class, "Entity:FallingBlock", new FallingBlock.FallingBlockClass("net.minecraft.world.entity.item.EntityFallingBlock"));
-            load(V1_17_R1.class, "Entity:Item", new Item.ItemClass("net.minecraft.world.entity.item.EntityItem"));
-            load(V1_17_R1.class, "Entity:EnderDragon", new EnderDragon.EnderDragonClass("net.minecraft.world.entity.boss.enderdragon.EntityEnderDragon"));
-            load(V1_17_R1.class, "Entity:EnderSignal", new EnderSignal.EnderSignalClass("net.minecraft.world.entity.projectile.EntityEnderSignal"));
-            load(V1_17_R1.class, "Entity:Wither", new Wither.WitherClass("net.minecraft.world.entity.boss.wither.EntityWither"));
-            load(V1_17_R1.class, "Entity:WitherSkull", new WitherSkull.WitherSkullClass("net.minecraft.world.entity.projectile.EntityWitherSkull"));
-            load(V1_17_R1.class, "Entity:Blaze", new Blaze.BlazeClass("net.minecraft.world.entity.monster.EntityBlaze"));
-            load(V1_17_R1.class, "Entity:Creeper", new Creeper.CreeperClass("net.minecraft.world.entity.monster.EntityCreeper"));
-            load(V1_17_R1.class, "Entity:Enderman", new Enderman.EndermanClass("net.minecraft.world.entity.monster.EntityEnderman"));
-            load(V1_17_R1.class, "Entity:Ghast", new Ghast.GhastClass("net.minecraft.world.entity.monster.EntityGhast"));
-            load(V1_17_R1.class, "Entity:Guardian", new Guardian.GuardianClass("net.minecraft.world.entity.monster.EntityGuardian"));
-            load(V1_17_R1.class, "Entity:Silverfish", new Silverfish.SilverfishClass("net.minecraft.world.entity.monster.EntitySilverfish"));
-            load(V1_17_R1.class, "Entity:Skeleton", new Skeleton.SkeletonClass("net.minecraft.world.entity.monster.EntitySkeleton"));
-            load(V1_17_R1.class, "Entity:Slime", new Slime.SlimeClass("net.minecraft.world.entity.monster.EntitySlime"));
-            load(V1_17_R1.class, "Entity:Spider", new Spider.SpiderClass("net.minecraft.world.entity.monster.EntitySpider"));
-            load(V1_17_R1.class, "Entity:Witch", new Witch.WitchClass("net.minecraft.world.entity.monster.EntityWitch"));
-            load(V1_17_R1.class, "Entity:Zombie", new Zombie.ZombieClass("net.minecraft.world.entity.monster.EntityZombie"));
-            load(V1_17_R1.class, "Entity:Villager", new Villager.VillagerClass("net.minecraft.world.entity.npc.EntityVillager"));
-            load(V1_17_R1.class, "Entity:Shulker", new Shulker.ShulkerClass("net.minecraft.world.entity.monster.EntityShulker"));
-            load(V1_17_R1.class, "Entity:PolarBear", new PolarBear.PolarBearClass("net.minecraft.world.entity.animal.EntityPolarBear"));
-            load(V1_17_R1.class, "Entity:Boat", new Boat.BoatClass("net.minecraft.world.entity.vehicle.EntityBoat"));
-            load(V1_17_R1.class, "Entity:CaveSpider", new CaveSpider.CaveSpiderClass("net.minecraft.world.entity.monster.EntityCaveSpider"));
-
-            load(V1_17_R1.class, "Entity:Ageable", new AgeableEntityLiving.AgeableEntityLivingClass("net.minecraft.world.entity.EntityAgeable"));
-            load(V1_17_R1.class, "Entity:Tameable", new TameableEntityLiving.TameableEntityLivingClass("net.minecraft.world.entity.EntityTameableAnimal"));
-            // EntityPlayer
-            load(V1_17_R1.class, "GameProfile", new GameProfile.GameProfileClass("com.mojang.authlib.GameProfile"));
-            load(V1_17_R1.class, "PropertyMap", new PropertyMap.PropertyMapClass("com.mojang.authlib.properties.PropertyMap"));
-            load(V1_17_R1.class, "Property", new Property.PropertyClass("com.mojang.authlib.properties.Property"));
-            //
-
-            // Managers
-            load(V1_17_R1.class, "PlayerInteractManager", new PlayerInteractManager.PlayerInteractManagerClass("net.minecraft.server.level.PlayerInteractManager"));
-            //
-
-            // DataWatcher
-            load(V1_17_R1.class, "DataWatcher", new DataWatcher.DataWatcherClass("net.minecraft.network.syncher.DataWatcher"));
-            load(V1_17_R1.class, "DataWatcherObject", new DataWatcherObject.DataWatcherObjectClass("net.minecraft.network.syncher.DataWatcherObject"));
-            load(V1_17_R1.class, "DataWatcher:Item", new DataWatcherItem.DataWatcherItemClass("net.minecraft.network.syncher.DataWatcher$Item"));
-            //
-
-            // Scoreboard
-            load(V1_17_R1.class, "CraftScoreboard", new CraftScoreboard.CraftScoreboardClass("org.bukkit.craftbukkit.v1_17_R1.scoreboard.CraftScoreboard"));
-            load(V1_17_R1.class, "Scoreboard", new Scoreboard.ScoreboardClass("net.minecraft.world.scores.Scoreboard"));
-
-            load(V1_17_R1.class, "ScoreboardTeam", new ScoreboardTeam.ScoreboardTeamClass("net.minecraft.world.scores.ScoreboardTeam"));
-            load(V1_17_R1.class, "ScoreboardTeam:EnumTeamPush", new EnumTeamPushEnum.EnumTeamPushClass("net.minecraft.world.scores.ScoreboardTeamBase$EnumTeamPush"));
-
-            load(V1_17_R1.class, "ScoreboardTeamBase:EnumNameTagVisibility", new EnumNameTagVisibilityEnum.EnumNameTagVisibilityClass("net.minecraft.world.scores.ScoreboardTeamBase$EnumNameTagVisibility"));
-            //
-
-            // Others
-            load(V1_17_R1.class, "PlayerConnection", new PlayerConnection.PlayerConnectionClass("net.minecraft.server.network.PlayerConnection"));
-            load(V1_17_R1.class, "NetworkManager", new NetworkManager.NetworkManagerClass("net.minecraft.network.NetworkManager"));
-
-            load(V1_17_R1.class, "EnumChatFormat", new EnumChatFormatEnum.EnumChatFormatClass("net.minecraft.EnumChatFormat"));
-            load(V1_17_R1.class, "EnumColor", new EnumColorEnum.EnumColorClass("net.minecraft.world.item.EnumColor"));
-            load(V1_17_R1.class, "EnumItemSlot", new EnumItemSlotEnum.EnumItemSlotClass("net.minecraft.world.entity.EnumItemSlot"));
-            load(V1_17_R1.class, "EnumDirection", new EnumDirectionEnum.EnumDirectionClass("net.minecraft.core.EnumDirection"));
-            //
-
-            // Chat
-            load(V1_17_R1.class, "IChatBaseComponent", new IChatBaseComponent.IChatBaseComponentClass("net.minecraft.network.chat.IChatBaseComponent"));
-            load(V1_17_R1.class, "ChatSerializer", new IChatBaseComponent.ChatSerializerClass("net.minecraft.network.chat.IChatBaseComponent$ChatSerializer"));
-            //
-
-            // Objects
-            load(V1_17_R1.class, "CraftWorld", new CraftWorld.CraftWorldClass("org.bukkit.craftbukkit.v1_17_R1.CraftWorld"));
-            load(V1_17_R1.class, "World", new World.WorldClass("net.minecraft.world.level.World"));
-            load(V1_17_R1.class, "Vector3f", new Vector3f.Vector3fClass("net.minecraft.core.Vector3f"));
-            load(V1_17_R1.class, "Vec3D", new Vec3D.Vec3DClass("net.minecraft.world.phys.Vec3D"));
-            load(V1_17_R1.class, "BlockPosition", new BlockPosition.BlockPositionClass("net.minecraft.core.BlockPosition"));
-            load(V1_17_R1.class, "CraftBlock", new CraftBlock.CraftBlockClass("org.bukkit.craftbukkit.v1_17_R1.block.CraftBlock"));
-            load(V1_17_R1.class, "IBlockData", new IBlockData.IBlockDataClass("net.minecraft.world.level.block.state.IBlockData"));
-            load(V1_17_R1.class, "Block", new Block.BlockClass("net.minecraft.world.level.block.Block"));
-            load(V1_17_R1.class, "CraftMagicNumbers", new ClassExecutor("org.bukkit.craftbukkit.v1_17_R1.util.CraftMagicNumbers"));
-            load(V1_17_R1.class, "Pair", new Pair.PairClass("com.mojang.datafixers.util.Pair"));
-
-            load(V1_17_R1.class, "InventorySubcontainer", new InventorySubcontainer.InventorySubcontainerClass("net.minecraft.world.InventorySubcontainer"));
-            //
-
-            // Items
-            load(V1_17_R1.class, "ItemStack", new ItemStack.ItemStackClass("net.minecraft.world.item.ItemStack"));
-            load(V1_17_R1.class, "CraftItemStack", new CraftItemStack.CraftItemStackClass("org.bukkit.craftbukkit.v1_17_R1.inventory.CraftItemStack"));
-            //
-
-            // Entity horse
-            load(V1_17_R1.class, "Entity:Horse:Abstract", new AbstractHorse.AbstractHorseClass("net.minecraft.world.entity.animal.horse.EntityHorseAbstract"));
-            load(V1_17_R1.class, "Entity:Horse:Abstract:Chested", new AbstractChestedHorse.AbstractChestedHorseClass("net.minecraft.world.entity.animal.horse.EntityHorseChestedAbstract"));
-            load(V1_17_R1.class, "Entity:Horse:Donkey", new HorseDonkey.HorseDonkeyClass("net.minecraft.world.entity.animal.horse.EntityHorseDonkey"));
-            load(V1_17_R1.class, "Entity:Horse:Mule", new HorseMule.HorseMuleClass("net.minecraft.world.entity.animal.horse.EntityHorseMule"));
-            load(V1_17_R1.class, "Entity:Horse:Skeleton", new HorseSkeleton.HorseSkeletonClass("net.minecraft.world.entity.animal.horse.EntityHorseSkeleton"));
-            load(V1_17_R1.class, "Entity:Horse:Zombie", new HorseZombie.HorseZombieClass("net.minecraft.world.entity.animal.horse.EntityHorseZombie"));
-            // Entity skeleton
-            load(V1_17_R1.class, "Entity:Skeleton:Wither", new SkeletonWither.SkeletonWitherClass("net.minecraft.world.entity.monster.EntitySkeletonWither"));
-            load(V1_17_R1.class, "Entity:Skeleton:Stray", new SkeletonStray.SkeletonStrayClass("net.minecraft.world.entity.monster.EntitySkeletonStray"));
-            // Entity zombie
-            load(V1_17_R1.class, "Entity:Zombie:Villager", new ZombieVillager.ZombieVillagerClass("net.minecraft.world.entity.monster.EntityZombieVillager"));
-            load(V1_17_R1.class, "Entity:Zombie:Husk", new ZombieHusk.ZombieHuskClass("net.minecraft.world.entity.monster.EntityZombieHusk"));
-            load(V1_17_R1.class, "Entity:Zombie:Drowned", new ZombieDrowned.ZombieDrownedClass("net.minecraft.world.entity.monster.EntityDrowned"));
-            // Entity vindicator
-            load(V1_17_R1.class, "Entity:Vindicator", new Vindicator.VindicatorClass("net.minecraft.world.entity.monster.EntityVindicator"));
-            // Entity evoker
-            load(V1_17_R1.class, "Entity:Evoker", new Evoker.EvokerClass("net.minecraft.world.entity.monster.EntityEvoker"));
-            // Entity vex
-            load(V1_17_R1.class, "Entity:Vex", new Vex.VexClass("net.minecraft.world.entity.monster.EntityVex"));
-            // Entity llama
-            load(V1_17_R1.class, "Entity:Llama", new Llama.LlamaClass("net.minecraft.world.entity.animal.horse.EntityLlama"));
-            // Entity illager illusioner
-            load(V1_17_R1.class, "Entity:Illusioner", new Illusioner.IllusionerClass("net.minecraft.world.entity.monster.EntityIllagerIllusioner"));
-            // Entity illager wizard
-            load(V1_17_R1.class, "Entity:IllagerWizard", new IllagerWizard.IllagerWizardClass("net.minecraft.world.entity.monster.EntityIllagerWizard"));
-            load(V1_17_R1.class, "Entity:IllagerWizard:Spell", new EnumSpellEnum.EnumSpellClass("net.minecraft.world.entity.monster.EntityIllagerWizard$Spell"));
-            // Entity parrot
-            load(V1_17_R1.class, "Entity:Parrot", new Parrot.ParrotClass("net.minecraft.world.entity.animal.EntityParrot"));
-            // Entity dolphin
-            load(V1_17_R1.class, "Entity:Dolphin", new Dolphin.DolphinClass("net.minecraft.world.entity.animal.EntityDolphin"));
-            // Entity fish
-            load(V1_17_R1.class, "Entity:Fish", new Fish.FishClass("net.minecraft.world.entity.animal.EntityFish"));
-            load(V1_17_R1.class, "Entity:Cod", new Cod.CodClass("net.minecraft.world.entity.animal.EntityCod"));
-            load(V1_17_R1.class, "Entity:Salmon", new Salmon.SalmonClass("net.minecraft.world.entity.animal.EntitySalmon"));
-            load(V1_17_R1.class, "Entity:PufferFish", new Pufferfish.PufferfishClass("net.minecraft.world.entity.animal.EntityPufferFish"));
-            load(V1_17_R1.class, "Entity:TropicalFish", new Tropicalfish.TropicalfishClass("net.minecraft.world.entity.animal.EntityTropicalFish"));
-            // Entity phantom
-            load(V1_17_R1.class, "Entity:Phantom", new Phantom.PhantomClass("net.minecraft.world.entity.monster.EntityPhantom"));
-            // Entity turtle
-            load(V1_17_R1.class, "Entity:Turtle", new Turtle.TurtleClass("net.minecraft.world.entity.animal.EntityTurtle"));
-            // Entity cat
-            load(V1_17_R1.class, "Entity:Cat", new Cat.CatClass("net.minecraft.world.entity.animal.EntityCat"));
-            // Entity villager
-            load(V1_17_R1.class, "VillagerData", new VillagerData.VillagerDataClass("net.minecraft.world.entity.npc.VillagerData"));
-            load(V1_17_R1.class, "VillagerProfession", new VillagerProfessionExec.VillagerProfessionExecClass("net.minecraft.world.entity.npc.VillagerProfession"));
-            load(V1_17_R1.class, "VillagerType", new VillagerType.VillagerTypeClass("net.minecraft.world.entity.npc.VillagerType"));
-            //
+        for (Entity entity : entities) {
+            packets.add(new EntityDestroyPacket(constructor.newInstance(new IntegerObjExec(entity.getId()))));
         }
 
-        return super.getClasses();
+        return packets;
+    }
+
+    @Override
+    public @NotNull ScoreboardTeamPacket createScoreboardTeamPacket(@NotNull ScoreboardTeam team, boolean b) {
+        MethodExecutor method = new MethodExecutor(getClassExec("PacketPlayOutScoreboardTeam"), getClassExec("PacketPlayOutScoreboardTeam"), "a", "Gets a new scoreboard team packet instance", getClassExec("ScoreboardTeam"), ClassExecutor.BOOLEAN) {{
+            load();
+        }};
+
+        return new ScoreboardTeamPacket(method.invokeStatic(team, new BooleanObjExec(b)));
+    }
+
+    @Override
+    public @NotNull EntityPlayer createPlayer(@NotNull GameProfile profile, @NotNull org.bukkit.Location location) {
+        if (location.getWorld() == null) {
+            throw new NullPointerException("This location's world is null!");
+        }
+
+        EntityPlayer player = new EntityPlayer(getClassExec("EntityPlayer").getConstructor(
+                getClassExec("MinecraftServer"),
+                getClassExec("WorldServer"),
+                getClassExec("GameProfile")
+        ).newInstance(
+                CraftServer.getCraftServer(Bukkit.getServer()).getServer(),
+                CraftWorld.getCraftWorld(location.getWorld()).getHandle(),
+                profile
+        ));
+        player.setLocation(location);
+        return player;
+    }
+
+    @Override
+    public void loadClasses() {
+        load(V1_17_R1.class, "WatchableObject", new ClassExecutor.BrokenClassExecutor());
+        load(V1_17_R1.class, "EnumSkeletonType", new ClassExecutor.BrokenClassExecutor());
+        load(V1_17_R1.class, "EnumHorseType", new ClassExecutor.BrokenClassExecutor());
+        load(V1_17_R1.class, "EnumZombieType", new ClassExecutor.BrokenClassExecutor());
+
+        load(V1_17_R1.class, "NBTBase", new NBTBase.NBTBaseClass("net.minecraft.nbt.NBTBase"));
+
+        load(V1_17_R1.class, "NBTBase:NBTTagByte", new NBTTagByte.NBTTagByteClass("net.minecraft.nbt.NBTTagByte"));
+        load(V1_17_R1.class, "NBTBase:NBTTagByteArray", new NBTTagByteArray.NBTTagByteArrayClass("net.minecraft.nbt.NBTTagByteArray"));
+        load(V1_17_R1.class, "NBTBase:NBTTagCompound", new NBTTagCompound.NBTTagCompoundClass("net.minecraft.nbt.NBTTagCompound"));
+        load(V1_17_R1.class, "NBTBase:NBTTagDouble", new NBTTagDouble.NBTTagDoubleClass("net.minecraft.nbt.NBTTagDouble"));
+        load(V1_17_R1.class, "NBTBase:NBTTagFloat", new NBTTagFloat.NBTTagFloatClass("net.minecraft.nbt.NBTTagFloat"));
+        load(V1_17_R1.class, "NBTBase:NBTTagInt", new NBTTagInt.NBTTagIntClass("net.minecraft.nbt.NBTTagInt"));
+        load(V1_17_R1.class, "NBTBase:NBTTagIntArray", new NBTTagIntArray.NBTTagIntArrayClass("net.minecraft.nbt.NBTTagIntArray"));
+        load(V1_17_R1.class, "NBTBase:NBTTagList", new NBTTagList.NBTTagListClass("net.minecraft.nbt.NBTTagList"));
+        load(V1_17_R1.class, "NBTBase:NBTTagLong", new NBTTagLong.NBTTagLongClass("net.minecraft.nbt.NBTTagLong"));
+        load(V1_17_R1.class, "NBTBase:NBTTagShort", new NBTTagShort.NBTTagShortClass("net.minecraft.nbt.NBTTagShort"));
+        load(V1_17_R1.class, "NBTBase:NBTTagString", new NBTTagString.NBTTagStringClass("net.minecraft.nbt.NBTTagString"));
+        //
+
+        // Packets
+        load(V1_17_R1.class, "Packet", new Packet.PacketClass("net.minecraft.network.protocol.Packet"));
+        load(V1_17_R1.class, "PacketPlayOutSpawnEntity", new EntitySpawnPacket.EntitySpawnPacketClass("net.minecraft.network.protocol.game.PacketPlayOutSpawnEntity"));
+        load(V1_17_R1.class, "PacketPlayOutEntityDestroy", new EntityDestroyPacket.EntityDestroyPacketClass("net.minecraft.network.protocol.game.PacketPlayOutEntityDestroy"));
+        load(V1_17_R1.class, "PacketPlayOutAnimation", new EntityAnimationPacket.EntityAnimationPacketClass("net.minecraft.network.protocol.game.PacketPlayOutAnimation"));
+        load(V1_17_R1.class, "PacketPlayOutSpawnEntityLiving", new EntityLivingSpawnPacket.EntityLivingSpawnPacketClass("net.minecraft.network.protocol.game.PacketPlayOutSpawnEntityLiving"));
+        load(V1_17_R1.class, "PacketPlayOutEntityMetadata", new EntityMetadataPacket.EntityMetadataPacketClass("net.minecraft.network.protocol.game.PacketPlayOutEntityMetadata"));
+        load(V1_17_R1.class, "PacketPlayOutNamedEntitySpawn", new EntityNamedSpawnPacket.EntityNamedSpawnPacketClass("net.minecraft.network.protocol.game.PacketPlayOutNamedEntitySpawn"));
+        load(V1_17_R1.class, "PacketPlayOutPlayerInfo", new PlayerInfoPacket.PlayerInfoPacketClass("net.minecraft.network.protocol.game.PacketPlayOutPlayerInfo"));
+        load(V1_17_R1.class, "PacketPlayOutPlayerInfo:EnumPlayerInfoAction", new EnumPlayerInfoActionEnum.EnumPlayerInfoActionClass("net.minecraft.network.protocol.game.PacketPlayOutPlayerInfo$EnumPlayerInfoAction"));
+        load(V1_17_R1.class, "PacketPlayOutScoreboardTeam", new ScoreboardTeamPacket.ScoreboardTeamPacketClass("net.minecraft.network.protocol.game.PacketPlayOutScoreboardTeam"));
+        load(V1_17_R1.class, "PacketPlayOutEntityEquipment", new EntityEquipmentPacket.EntityEquipmentPacketClass("net.minecraft.network.protocol.game.PacketPlayOutEntityEquipment"));
+        load(V1_17_R1.class, "PacketPlayOutEntityTeleport", new EntityTeleportPacket.EntityTeleportPacketClass("net.minecraft.network.protocol.game.PacketPlayOutEntityTeleport"));
+        load(V1_17_R1.class, "PacketPlayOutEntityHeadRotation", new EntityHeadRotationPacket.EntityHeadRotationPacketClass("net.minecraft.network.protocol.game.PacketPlayOutEntityHeadRotation"));
+        load(V1_17_R1.class, "PacketPlayOutEntityLook", new EntityLookPacket.EntityLookPacketClass("net.minecraft.network.protocol.game.PacketPlayOutEntity$PacketPlayOutEntityLook"));
+
+        load(V1_17_R1.class, "PacketPlayInUseEntity", new EntityUseInPacket.EntityUseInPacketClass("net.minecraft.network.protocol.game.PacketPlayInUseEntity"));
+        load(V1_17_R1.class, "PacketPlayInUseEntity:EnumEntityUseAction", new EntityUseInPacket.ActionEnum.ActionClass("net.minecraft.network.protocol.game.PacketPlayInUseEntity$b"));
+        //
+
+        // Server
+        load(V1_17_R1.class, "MinecraftServer", new MinecraftServer.MinecraftServerClass("net.minecraft.server.MinecraftServer"));
+        load(V1_17_R1.class, "WorldServer", new WorldServer.WorldServerClass("net.minecraft.server.level.WorldServer"));
+        load(V1_17_R1.class, "CraftServer", new CraftServer.CraftServerClass("org.bukkit.craftbukkit.v1_17_R1.CraftServer"));
+        //
+
+        // Entity
+        load(V1_17_R1.class, "EntityTypes", new EntityTypes.EntityTypesClass("net.minecraft.world.entity.EntityTypes"));
+
+        load(V1_17_R1.class, "Entity", new Entity.EntityClass("net.minecraft.world.entity.Entity"));
+        load(V1_17_R1.class, "EntityLiving", new EntityLiving.EntityLivingClass("net.minecraft.world.entity.EntityLiving"));
+        load(V1_17_R1.class, "Entity:Human", new Entity.EntityClass("net.minecraft.world.entity.player.EntityHuman"));
+        load(V1_17_R1.class, "CraftPlayer", new CraftPlayer.CraftPlayerClass("org.bukkit.craftbukkit.v1_17_R1.entity.CraftPlayer"));
+        load(V1_17_R1.class, "EntityPlayer", new EntityPlayer.EntityPlayerClass("net.minecraft.server.level.EntityPlayer"));
+
+        load(V1_17_R1.class, "Entity:ArmorStand", new ArmorStand.ArmorStandClass("net.minecraft.world.entity.decoration.EntityArmorStand"));
+        load(V1_17_R1.class, "Entity:Pig", new Pig.PigClass("net.minecraft.world.entity.animal.EntityPig"));
+        load(V1_17_R1.class, "Entity:Cow", new Cow.CowClass("net.minecraft.world.entity.animal.EntityCow"));
+        load(V1_17_R1.class, "Entity:Ocelot", new Ocelot.OcelotClass("net.minecraft.world.entity.animal.EntityOcelot"));
+        load(V1_17_R1.class, "Entity:Bat", new Bat.BatClass("net.minecraft.world.entity.ambient.EntityBat"));
+        load(V1_17_R1.class, "Entity:Egg", new Egg.EggClass("net.minecraft.world.entity.projectile.EntityEgg"));
+        load(V1_17_R1.class, "Entity:Chicken", new Chicken.ChickenClass("net.minecraft.world.entity.animal.EntityChicken"));
+        load(V1_17_R1.class, "Entity:Horse", new AbstractHorse.AbstractHorseClass("net.minecraft.world.entity.animal.horse.EntityHorse"));
+        load(V1_17_R1.class, "Entity:IronGolem", new IronGolem.IronGolemClass("net.minecraft.world.entity.animal.EntityIronGolem"));
+        load(V1_17_R1.class, "Entity:Rabbit", new Rabbit.RabbitClass("net.minecraft.world.entity.animal.EntityRabbit"));
+        load(V1_17_R1.class, "Entity:Sheep", new Sheep.SheepClass("net.minecraft.world.entity.animal.EntitySheep"));
+        load(V1_17_R1.class, "Entity:Snowman", new Snowman.SnowmanClass("net.minecraft.world.entity.animal.EntitySnowman"));
+        load(V1_17_R1.class, "Entity:Squid", new Squid.SquidClass("net.minecraft.world.entity.animal.EntitySquid"));
+        load(V1_17_R1.class, "Entity:Wolf", new Wolf.WolfClass("net.minecraft.world.entity.animal.EntityWolf"));
+        load(V1_17_R1.class, "Entity:ItemFrame", new ItemFrame.ItemFrameClass("net.minecraft.world.entity.decoration.EntityItemFrame"));
+        load(V1_17_R1.class, "Entity:LeashKnot", new LeashKnot.LeashKnotClass("net.minecraft.world.entity.decoration.EntityLeash"));
+        load(V1_17_R1.class, "Entity:FallingBlock", new FallingBlock.FallingBlockClass("net.minecraft.world.entity.item.EntityFallingBlock"));
+        load(V1_17_R1.class, "Entity:Item", new Item.ItemClass("net.minecraft.world.entity.item.EntityItem"));
+        load(V1_17_R1.class, "Entity:EnderDragon", new EnderDragon.EnderDragonClass("net.minecraft.world.entity.boss.enderdragon.EntityEnderDragon"));
+        load(V1_17_R1.class, "Entity:EnderSignal", new EnderSignal.EnderSignalClass("net.minecraft.world.entity.projectile.EntityEnderSignal"));
+        load(V1_17_R1.class, "Entity:Wither", new Wither.WitherClass("net.minecraft.world.entity.boss.wither.EntityWither"));
+        load(V1_17_R1.class, "Entity:WitherSkull", new WitherSkull.WitherSkullClass("net.minecraft.world.entity.projectile.EntityWitherSkull"));
+        load(V1_17_R1.class, "Entity:Blaze", new Blaze.BlazeClass("net.minecraft.world.entity.monster.EntityBlaze"));
+        load(V1_17_R1.class, "Entity:Creeper", new Creeper.CreeperClass("net.minecraft.world.entity.monster.EntityCreeper"));
+        load(V1_17_R1.class, "Entity:Enderman", new Enderman.EndermanClass("net.minecraft.world.entity.monster.EntityEnderman"));
+        load(V1_17_R1.class, "Entity:Ghast", new Ghast.GhastClass("net.minecraft.world.entity.monster.EntityGhast"));
+        load(V1_17_R1.class, "Entity:Guardian", new Guardian.GuardianClass("net.minecraft.world.entity.monster.EntityGuardian"));
+        load(V1_17_R1.class, "Entity:Silverfish", new Silverfish.SilverfishClass("net.minecraft.world.entity.monster.EntitySilverfish"));
+        load(V1_17_R1.class, "Entity:Skeleton", new Skeleton.SkeletonClass("net.minecraft.world.entity.monster.EntitySkeleton"));
+        load(V1_17_R1.class, "Entity:Slime", new Slime.SlimeClass("net.minecraft.world.entity.monster.EntitySlime"));
+        load(V1_17_R1.class, "Entity:Spider", new Spider.SpiderClass("net.minecraft.world.entity.monster.EntitySpider"));
+        load(V1_17_R1.class, "Entity:Witch", new Witch.WitchClass("net.minecraft.world.entity.monster.EntityWitch"));
+        load(V1_17_R1.class, "Entity:Zombie", new Zombie.ZombieClass("net.minecraft.world.entity.monster.EntityZombie"));
+        load(V1_17_R1.class, "Entity:Villager", new Villager.VillagerClass("net.minecraft.world.entity.npc.EntityVillager"));
+        load(V1_17_R1.class, "Entity:Shulker", new Shulker.ShulkerClass("net.minecraft.world.entity.monster.EntityShulker"));
+        load(V1_17_R1.class, "Entity:PolarBear", new PolarBear.PolarBearClass("net.minecraft.world.entity.animal.EntityPolarBear"));
+        load(V1_17_R1.class, "Entity:Boat", new Boat.BoatClass("net.minecraft.world.entity.vehicle.EntityBoat"));
+        load(V1_17_R1.class, "Entity:CaveSpider", new CaveSpider.CaveSpiderClass("net.minecraft.world.entity.monster.EntityCaveSpider"));
+
+        load(V1_17_R1.class, "Entity:Ageable", new AgeableEntityLiving.AgeableEntityLivingClass("net.minecraft.world.entity.EntityAgeable"));
+        load(V1_17_R1.class, "Entity:Tameable", new TameableEntityLiving.TameableEntityLivingClass("net.minecraft.world.entity.EntityTameableAnimal"));
+        // EntityPlayer
+        load(V1_17_R1.class, "GameProfile", new GameProfile.GameProfileClass("com.mojang.authlib.GameProfile"));
+        load(V1_17_R1.class, "PropertyMap", new PropertyMap.PropertyMapClass("com.mojang.authlib.properties.PropertyMap"));
+        load(V1_17_R1.class, "Property", new Property.PropertyClass("com.mojang.authlib.properties.Property"));
+        //
+
+        // Managers
+        load(V1_17_R1.class, "PlayerInteractManager", new PlayerInteractManager.PlayerInteractManagerClass("net.minecraft.server.level.PlayerInteractManager"));
+        //
+
+        // DataWatcher
+        load(V1_17_R1.class, "DataWatcher", new DataWatcher.DataWatcherClass("net.minecraft.network.syncher.DataWatcher"));
+        load(V1_17_R1.class, "DataWatcherObject", new DataWatcherObject.DataWatcherObjectClass("net.minecraft.network.syncher.DataWatcherObject"));
+        load(V1_17_R1.class, "DataWatcher:Item", new DataWatcherItem.DataWatcherItemClass("net.minecraft.network.syncher.DataWatcher$Item"));
+        //
+
+        // Scoreboard
+        load(V1_17_R1.class, "CraftScoreboard", new CraftScoreboard.CraftScoreboardClass("org.bukkit.craftbukkit.v1_17_R1.scoreboard.CraftScoreboard"));
+        load(V1_17_R1.class, "Scoreboard", new Scoreboard.ScoreboardClass("net.minecraft.world.scores.Scoreboard"));
+
+        load(V1_17_R1.class, "ScoreboardTeam", new ScoreboardTeam.ScoreboardTeamClass("net.minecraft.world.scores.ScoreboardTeam"));
+        load(V1_17_R1.class, "ScoreboardTeam:EnumTeamPush", new EnumTeamPushEnum.EnumTeamPushClass("net.minecraft.world.scores.ScoreboardTeamBase$EnumTeamPush"));
+
+        load(V1_17_R1.class, "ScoreboardTeamBase:EnumNameTagVisibility", new EnumNameTagVisibilityEnum.EnumNameTagVisibilityClass("net.minecraft.world.scores.ScoreboardTeamBase$EnumNameTagVisibility"));
+        //
+
+        // Others
+        load(V1_17_R1.class, "PlayerConnection", new PlayerConnection.PlayerConnectionClass("net.minecraft.server.network.PlayerConnection"));
+        load(V1_17_R1.class, "NetworkManager", new NetworkManager.NetworkManagerClass("net.minecraft.network.NetworkManager"));
+
+        load(V1_17_R1.class, "EnumChatFormat", new EnumChatFormatEnum.EnumChatFormatClass("net.minecraft.EnumChatFormat"));
+        load(V1_17_R1.class, "EnumColor", new EnumColorEnum.EnumColorClass("net.minecraft.world.item.EnumColor"));
+        load(V1_17_R1.class, "EnumItemSlot", new EnumItemSlotEnum.EnumItemSlotClass("net.minecraft.world.entity.EnumItemSlot"));
+        load(V1_17_R1.class, "EnumDirection", new EnumDirectionEnum.EnumDirectionClass("net.minecraft.core.EnumDirection"));
+        //
+
+        // Chat
+        load(V1_17_R1.class, "IChatBaseComponent", new IChatBaseComponent.IChatBaseComponentClass("net.minecraft.network.chat.IChatBaseComponent"));
+        load(V1_17_R1.class, "ChatSerializer", new IChatBaseComponent.ChatSerializerClass("net.minecraft.network.chat.IChatBaseComponent$ChatSerializer"));
+        //
+
+        // Objects
+        load(V1_17_R1.class, "CraftWorld", new CraftWorld.CraftWorldClass("org.bukkit.craftbukkit.v1_17_R1.CraftWorld"));
+        load(V1_17_R1.class, "World", new World.WorldClass("net.minecraft.world.level.World"));
+        load(V1_17_R1.class, "Vector3f", new Vector3f.Vector3fClass("net.minecraft.core.Vector3f"));
+        load(V1_17_R1.class, "Vec3D", new Vec3D.Vec3DClass("net.minecraft.world.phys.Vec3D"));
+        load(V1_17_R1.class, "BlockPosition", new BlockPosition.BlockPositionClass("net.minecraft.core.BlockPosition"));
+        load(V1_17_R1.class, "CraftBlock", new CraftBlock.CraftBlockClass("org.bukkit.craftbukkit.v1_17_R1.block.CraftBlock"));
+        load(V1_17_R1.class, "IBlockData", new IBlockData.IBlockDataClass("net.minecraft.world.level.block.state.IBlockData"));
+        load(V1_17_R1.class, "Block", new Block.BlockClass("net.minecraft.world.level.block.Block"));
+        load(V1_17_R1.class, "CraftMagicNumbers", new ClassExecutor("org.bukkit.craftbukkit.v1_17_R1.util.CraftMagicNumbers"));
+        load(V1_17_R1.class, "Pair", new Pair.PairClass("com.mojang.datafixers.util.Pair"));
+
+        load(V1_17_R1.class, "InventorySubcontainer", new InventorySubcontainer.InventorySubcontainerClass("net.minecraft.world.InventorySubcontainer"));
+        //
+
+        // Items
+        load(V1_17_R1.class, "ItemStack", new ItemStack.ItemStackClass("net.minecraft.world.item.ItemStack"));
+        load(V1_17_R1.class, "CraftItemStack", new CraftItemStack.CraftItemStackClass("org.bukkit.craftbukkit.v1_17_R1.inventory.CraftItemStack"));
+        //
+
+        // Entity horse
+        load(V1_17_R1.class, "Entity:Horse:Abstract", new AbstractHorse.AbstractHorseClass("net.minecraft.world.entity.animal.horse.EntityHorseAbstract"));
+        load(V1_17_R1.class, "Entity:Horse:Abstract:Chested", new AbstractChestedHorse.AbstractChestedHorseClass("net.minecraft.world.entity.animal.horse.EntityHorseChestedAbstract"));
+        load(V1_17_R1.class, "Entity:Horse:Donkey", new HorseDonkey.HorseDonkeyClass("net.minecraft.world.entity.animal.horse.EntityHorseDonkey"));
+        load(V1_17_R1.class, "Entity:Horse:Mule", new HorseMule.HorseMuleClass("net.minecraft.world.entity.animal.horse.EntityHorseMule"));
+        load(V1_17_R1.class, "Entity:Horse:Skeleton", new HorseSkeleton.HorseSkeletonClass("net.minecraft.world.entity.animal.horse.EntityHorseSkeleton"));
+        load(V1_17_R1.class, "Entity:Horse:Zombie", new HorseZombie.HorseZombieClass("net.minecraft.world.entity.animal.horse.EntityHorseZombie"));
+        // Entity skeleton
+        load(V1_17_R1.class, "Entity:Skeleton:Wither", new SkeletonWither.SkeletonWitherClass("net.minecraft.world.entity.monster.EntitySkeletonWither"));
+        load(V1_17_R1.class, "Entity:Skeleton:Stray", new SkeletonStray.SkeletonStrayClass("net.minecraft.world.entity.monster.EntitySkeletonStray"));
+        // Entity zombie
+        load(V1_17_R1.class, "Entity:Zombie:Villager", new ZombieVillager.ZombieVillagerClass("net.minecraft.world.entity.monster.EntityZombieVillager"));
+        load(V1_17_R1.class, "Entity:Zombie:Husk", new ZombieHusk.ZombieHuskClass("net.minecraft.world.entity.monster.EntityZombieHusk"));
+        load(V1_17_R1.class, "Entity:Zombie:Drowned", new ZombieDrowned.ZombieDrownedClass("net.minecraft.world.entity.monster.EntityDrowned"));
+        // Entity vindicator
+        load(V1_17_R1.class, "Entity:Vindicator", new Vindicator.VindicatorClass("net.minecraft.world.entity.monster.EntityVindicator"));
+        // Entity evoker
+        load(V1_17_R1.class, "Entity:Evoker", new Evoker.EvokerClass("net.minecraft.world.entity.monster.EntityEvoker"));
+        // Entity vex
+        load(V1_17_R1.class, "Entity:Vex", new Vex.VexClass("net.minecraft.world.entity.monster.EntityVex"));
+        // Entity llama
+        load(V1_17_R1.class, "Entity:Llama", new Llama.LlamaClass("net.minecraft.world.entity.animal.horse.EntityLlama"));
+        // Entity illager illusioner
+        load(V1_17_R1.class, "Entity:Illusioner", new Illusioner.IllusionerClass("net.minecraft.world.entity.monster.EntityIllagerIllusioner"));
+        // Entity illager wizard
+        load(V1_17_R1.class, "Entity:IllagerWizard", new IllagerWizard.IllagerWizardClass("net.minecraft.world.entity.monster.EntityIllagerWizard"));
+        load(V1_17_R1.class, "Entity:IllagerWizard:Spell", new EnumSpellEnum.EnumSpellClass("net.minecraft.world.entity.monster.EntityIllagerWizard$Spell"));
+        // Entity parrot
+        load(V1_17_R1.class, "Entity:Parrot", new Parrot.ParrotClass("net.minecraft.world.entity.animal.EntityParrot"));
+        // Entity dolphin
+        load(V1_17_R1.class, "Entity:Dolphin", new Dolphin.DolphinClass("net.minecraft.world.entity.animal.EntityDolphin"));
+        // Entity fish
+        load(V1_17_R1.class, "Entity:Fish", new Fish.FishClass("net.minecraft.world.entity.animal.EntityFish"));
+        load(V1_17_R1.class, "Entity:Cod", new Cod.CodClass("net.minecraft.world.entity.animal.EntityCod"));
+        load(V1_17_R1.class, "Entity:Salmon", new Salmon.SalmonClass("net.minecraft.world.entity.animal.EntitySalmon"));
+        load(V1_17_R1.class, "Entity:PufferFish", new Pufferfish.PufferfishClass("net.minecraft.world.entity.animal.EntityPufferFish"));
+        load(V1_17_R1.class, "Entity:TropicalFish", new Tropicalfish.TropicalfishClass("net.minecraft.world.entity.animal.EntityTropicalFish"));
+        // Entity phantom
+        load(V1_17_R1.class, "Entity:Phantom", new Phantom.PhantomClass("net.minecraft.world.entity.monster.EntityPhantom"));
+        // Entity turtle
+        load(V1_17_R1.class, "Entity:Turtle", new Turtle.TurtleClass("net.minecraft.world.entity.animal.EntityTurtle"));
+        // Entity cat
+        load(V1_17_R1.class, "Entity:Cat", new Cat.CatClass("net.minecraft.world.entity.animal.EntityCat"));
+        // Entity villager
+        load(V1_17_R1.class, "VillagerData", new VillagerData.VillagerDataClass("net.minecraft.world.entity.npc.VillagerData"));
+        load(V1_17_R1.class, "VillagerProfession", new VillagerProfessionExec.VillagerProfessionExecClass("net.minecraft.world.entity.npc.VillagerProfession"));
+        load(V1_17_R1.class, "VillagerType", new VillagerType.VillagerTypeClass("net.minecraft.world.entity.npc.VillagerType"));
+        //
     }
 
     @Override
@@ -625,48 +654,8 @@ public class V1_17_R1 extends V1_16_R3 {
     }
 
     @Override
-    public void setEntityLocation(@NotNull Entity entity, @NotNull org.bukkit.Location location) {
-        laivynpc().getVersion().getMethodExec("Entity:Entity:setLocation").invokeInstance(entity, new DoubleObjExec(location.getX()), new DoubleObjExec(location.getY()), new DoubleObjExec(location.getZ()), new FloatObjExec(location.getYaw()), new FloatObjExec(location.getPitch()));
-    }
-
-    @Override
-    public @NotNull Set<EntityDestroyPacket> createDestroyPacket(@NotNull Entity... entities) {
-        Set<EntityDestroyPacket> packets = new HashSet<>();
-        ClassConstructor constructor = getClassExec("PacketPlayOutEntityDestroy").getConstructor(ClassExecutor.INT);
-
-        for (Entity entity : entities) {
-            packets.add(new EntityDestroyPacket(constructor.newInstance(new IntegerObjExec(entity.getId()))));
-        }
-
-        return packets;
-    }
-
-    @Override
-    public @NotNull ScoreboardTeamPacket createScoreboardTeamPacket(@NotNull ScoreboardTeam team, boolean b) {
-        MethodExecutor method = new MethodExecutor(getClassExec("PacketPlayOutScoreboardTeam"), getClassExec("PacketPlayOutScoreboardTeam"), "a", "Gets a new scoreboard team packet instance", getClassExec("ScoreboardTeam"), ClassExecutor.BOOLEAN) {{
-            load();
-        }};
-
-        return new ScoreboardTeamPacket(method.invokeStatic(team, new BooleanObjExec(b)));
-    }
-
-    @Override
-    public @NotNull EntityPlayer createPlayer(@NotNull GameProfile profile, @NotNull org.bukkit.Location location) {
-        if (location.getWorld() == null) {
-            throw new NullPointerException("This location's world is null!");
-        }
-
-        EntityPlayer player = new EntityPlayer(getClassExec("EntityPlayer").getConstructor(
-                getClassExec("MinecraftServer"),
-                getClassExec("WorldServer"),
-                getClassExec("GameProfile")
-        ).newInstance(
-                CraftServer.getCraftServer(Bukkit.getServer()).getServer(),
-                CraftWorld.getCraftWorld(location.getWorld()).getHandle(),
-                profile
-        ));
-        player.setLocation(location);
-        return player;
+    public @NotNull String getName() {
+        return "v1_17_R1";
     }
 
 }

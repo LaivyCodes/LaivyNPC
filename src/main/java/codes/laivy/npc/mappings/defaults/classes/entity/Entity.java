@@ -74,7 +74,6 @@ import codes.laivy.npc.types.list.npc.VillagerNPC;
 import codes.laivy.npc.types.list.vehicle.BoatNPC;
 import codes.laivy.npc.utils.ClassUtils;
 import codes.laivy.npc.utils.ReflectionUtils;
-import com.avaje.ebean.validation.NotEmpty;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
@@ -111,7 +110,7 @@ public class Entity extends ObjectExecutor {
         return (String) Objects.requireNonNull(laivynpc().getVersion().getMethodExec("Entity:Entity:getName").invokeInstance(this));
     }
 
-    public @NotNull @NotEmpty String getCustomName() {
+    public @NotNull String getCustomName() {
         return laivynpc().getVersion().getEntityCustomName(this);
     }
     public void setCustomName(@NotNull String customName) {
