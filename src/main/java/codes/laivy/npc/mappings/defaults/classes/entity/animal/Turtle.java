@@ -13,7 +13,7 @@ public class Turtle extends AgeableEntityLiving {
 
     public static @NotNull DataWatcherObject EGG_METADATA() {
         if (ReflectionUtils.isCompatible(V1_13_R1.class)) {
-            return new DataWatcherObject(laivynpc().getVersion().getFieldExec("Entity:Turtle:Egg").invokeStatic());
+            return new DataWatcherObject(laivynpc().getVersion().getFieldExec("Metadata:Turtle:Egg").invokeStatic());
         } else {
             throw new IllegalStateException("This metadata object is only compatible at 1.13+");
         }

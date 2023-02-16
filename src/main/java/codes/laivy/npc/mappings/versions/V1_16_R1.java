@@ -73,7 +73,7 @@ public class V1_16_R1 extends V1_15_R1 {
                 return false;
             } else if (executor instanceof FieldExecutor) {
                 switch (key) {
-                    case "Entity:Turtle:Egg":
+                    case "Metadata:Turtle:Egg":
                         load(V1_16_R1.class, key, new FieldExecutor(getClassExec("Entity:Turtle"), getClassExec("DataWatcherObject"), "bx", "Gets the turtle's egg DataWatcherObject", false, true));
                         return false;   
                     case "Metadata:Zombie:Baby":

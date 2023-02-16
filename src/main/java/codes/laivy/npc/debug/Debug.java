@@ -13,7 +13,6 @@ import codes.laivy.npc.mappings.defaults.classes.nbt.tags.*;
 import codes.laivy.npc.mappings.defaults.classes.packets.*;
 import codes.laivy.npc.mappings.defaults.classes.scoreboard.ScoreboardTeam;
 import codes.laivy.npc.types.NPC;
-import codes.laivy.npc.types.list.npc.VillagerNPC;
 import codes.laivy.npc.types.player.PlayerNPC;
 import codes.laivy.npc.utils.ReflectionUtils;
 import org.bukkit.Bukkit;
@@ -144,8 +143,9 @@ public class Debug {
             Pig pig = (Pig) laivynpc().getVersion().createEntity(Entity.EntityType.PIG, player.getLocation());
             EntityLivingSpawnPacket entityLivingSpawnPacket = laivynpc().getVersion().createSpawnLivingPacket(pig);
             entityLivingSpawnPacket.send(player);
-            EntityDestroyPacket entityDestroyPacket = laivynpc().getVersion().createDestroyPacket(pig);
-            entityDestroyPacket.send(player);
+            Set<EntityDestroyPacket> destroyPackets = laivynpc().getVersion().createDestroyPacket(pig);
+            // TODO: 15/02/2023 A better system to send the destroy packets list
+            for (EntityDestroyPacket packet : destroyPackets) packet.send(player);
 
             // Spawn and remove EntityPlayer
             EntityPlayer entityPlayer = EntityPlayer.getEntityPlayer(player);
@@ -164,16 +164,22 @@ public class Debug {
             ScoreboardTeamPacket scoreboardTeamPacket = laivynpc().getVersion().createScoreboardTeamPacket(team, false);
             scoreboardTeamPacket.send(player);
 
-            entityDestroyPacket = laivynpc().getVersion().createDestroyPacket(entityPlayer);
-            entityDestroyPacket.send(player);
+            destroyPackets = laivynpc().getVersion().createDestroyPacket(entityPlayer);
+            // TODO: 15/02/2023 A better system to send the destroy packets list
+            for (EntityDestroyPacket packet : destroyPackets) packet.send(player);
             message.append("§7Trying to debug PlayerInfoPacket REMOVE_PLAYER...\n");
             playerInfoPacket = laivynpc().getVersion().createPlayerInfoPacket(EnumPlayerInfoActionEnum.REMOVE_PLAYER(), entityPlayer);
+            playerInfoPacket.send(player);
+
+            // Add again
+            playerInfoPacket = laivynpc().getVersion().createPlayerInfoPacket(EnumPlayerInfoActionEnum.ADD_PLAYER(), entityPlayer);
             playerInfoPacket.send(player);
             //
 
             message.append("§7Trying to debug EntityDestroyPacket...\n");
-            entityDestroyPacket = laivynpc().getVersion().createDestroyPacket(stand);
-            entityDestroyPacket.send(player);
+            destroyPackets = laivynpc().getVersion().createDestroyPacket(stand);
+            // TODO: 15/02/2023 A better system to send the destroy packets list
+            for (EntityDestroyPacket packet : destroyPackets) packet.send(player);
             message.append("§aSuccess!\n");
         } catch (Throwable e) {
             throw new RuntimeException(e);

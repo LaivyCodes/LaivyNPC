@@ -70,7 +70,7 @@ public class V1_15_R1 extends V1_14_R1 {
                 return false;
             } else if (executor instanceof FieldExecutor) {
                 switch (key) {
-                    case "Entity:Turtle:Egg":
+                    case "Metadata:Turtle:Egg":
                         load(V1_15_R1.class, key, new FieldExecutor(getClassExec("Entity:Turtle"), getClassExec("DataWatcherObject"), "by", "Gets the turtle's egg DataWatcherObject", false, true));
                         return false;
                     case "Metadata:Zombie:Baby":
@@ -111,25 +111,25 @@ public class V1_15_R1 extends V1_14_R1 {
                         return false;
 
                     case "VillagerType:Desert":
-                        load(V1_15_R1.class, "VillagerType:Desert", new FieldExecutor(getClassExec("VillagerType"), getClassExec("VillagerType"), "DESERT", "Gets the villager's desert type"));
+                        load(V1_15_R1.class, key, new FieldExecutor(getClassExec("VillagerType"), getClassExec("VillagerType"), "DESERT", "Gets the villager's desert type"));
                         return false;
                     case "VillagerType:Jungle":
-                        load(V1_15_R1.class, "VillagerType:Jungle", new FieldExecutor(getClassExec("VillagerType"), getClassExec("VillagerType"), "JUNGLE", "Gets the villager's jungle type"));
+                        load(V1_15_R1.class, key, new FieldExecutor(getClassExec("VillagerType"), getClassExec("VillagerType"), "JUNGLE", "Gets the villager's jungle type"));
                         return false;
                     case "VillagerType:Plains":
-                        load(V1_15_R1.class, "VillagerType:Plains", new FieldExecutor(getClassExec("VillagerType"), getClassExec("VillagerType"), "PLAINS", "Gets the villager's plains type"));
+                        load(V1_15_R1.class, key, new FieldExecutor(getClassExec("VillagerType"), getClassExec("VillagerType"), "PLAINS", "Gets the villager's plains type"));
                         return false;
                     case "VillagerType:Savanna":
-                        load(V1_15_R1.class, "VillagerType:Savanna", new FieldExecutor(getClassExec("VillagerType"), getClassExec("VillagerType"), "SAVANNA", "Gets the villager's savanna type"));
+                        load(V1_15_R1.class, key, new FieldExecutor(getClassExec("VillagerType"), getClassExec("VillagerType"), "SAVANNA", "Gets the villager's savanna type"));
                         return false;
                     case "VillagerType:Snow":
-                        load(V1_15_R1.class, "VillagerType:Snow", new FieldExecutor(getClassExec("VillagerType"), getClassExec("VillagerType"), "SNOW", "Gets the villager's snow type"));
+                        load(V1_15_R1.class, key, new FieldExecutor(getClassExec("VillagerType"), getClassExec("VillagerType"), "SNOW", "Gets the villager's snow type"));
                         return false;
                     case "VillagerType:Swamp":
-                        load(V1_15_R1.class, "VillagerType:Swamp", new FieldExecutor(getClassExec("VillagerType"), getClassExec("VillagerType"), "SWAMP", "Gets the villager's swamp type"));
+                        load(V1_15_R1.class, key, new FieldExecutor(getClassExec("VillagerType"), getClassExec("VillagerType"), "SWAMP", "Gets the villager's swamp type"));
                         return false;
                     case "VillagerType:Taiga":
-                        load(V1_15_R1.class, "VillagerType:Taiga", new FieldExecutor(getClassExec("VillagerType"), getClassExec("VillagerType"), "TAIGA", "Gets the villager's taiga type"));
+                        load(V1_15_R1.class, key, new FieldExecutor(getClassExec("VillagerType"), getClassExec("VillagerType"), "TAIGA", "Gets the villager's taiga type"));
                         return false;
                     default:
                         break;

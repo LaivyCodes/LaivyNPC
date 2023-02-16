@@ -13,7 +13,7 @@ public class Phantom extends EntityLiving {
 
     public static @NotNull DataWatcherObject SIZE_METADATA() {
         if (ReflectionUtils.isCompatible(V1_9_R1.class)) {
-            return new DataWatcherObject(laivynpc().getVersion().getFieldExec("Entity:Phantom:Size").invokeStatic());
+            return new DataWatcherObject(laivynpc().getVersion().getFieldExec("Metadata:Phantom:Size").invokeStatic());
         } else {
             throw new IllegalStateException("Metadata objects is compatible only at 1.9+");
         }

@@ -29,7 +29,7 @@ public interface VersionPacket {
     @NotNull EntityLivingSpawnPacket createSpawnLivingPacket(@NotNull EntityLiving entity);
     @NotNull EntityNamedSpawnPacket createSpawnNamedPacket(@NotNull EntityHuman entity);
 
-    @NotNull EntityDestroyPacket createDestroyPacket(@NotNull Entity... entity);
+    @NotNull Set<EntityDestroyPacket> createDestroyPacket(@NotNull Entity... entity);
     @NotNull EntityMetadataPacket createMetadataPacket(@NotNull Entity entity, @NotNull DataWatcher dataWatcher, boolean b);
     @NotNull PlayerInfoPacket createPlayerInfoPacket(@NotNull EnumPlayerInfoActionEnum.EnumPlayerInfoAction action, @NotNull EntityPlayer player);
     @NotNull ScoreboardTeamPacket createScoreboardTeamPacket(@NotNull ScoreboardTeam team, boolean b);

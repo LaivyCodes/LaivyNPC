@@ -214,7 +214,7 @@ public class PlayerNPC extends NPC {
     public @NotNull List<Packet> getDestroyPackets(@NotNull Player player) {
         List<@NotNull Packet> packets = new LinkedList<>();
 
-        packets.add(laivynpc().getVersion().createDestroyPacket(getEntity()));
+        packets.addAll(laivynpc().getVersion().createDestroyPacket(getEntity()));
         packets.add(laivynpc().getVersion().createPlayerInfoPacket(EnumPlayerInfoActionEnum.REMOVE_PLAYER(), getEntity()));
 
         return packets;

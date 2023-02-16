@@ -18,8 +18,10 @@ public class PlayerConnection extends ObjectExecutor {
         return (PlayerConnectionClass) laivynpc().getVersion().getClassExec("PlayerConnection");
     }
 
-    public void sendPacket(@NotNull Packet packet) {
-        laivynpc().getVersion().sendPacket(packet, this);
+    public void sendPacket(@NotNull Packet... packets) {
+        for (Packet packet : packets) {
+            laivynpc().getVersion().sendPacket(packet, this);
+        }
     }
 
     @NotNull

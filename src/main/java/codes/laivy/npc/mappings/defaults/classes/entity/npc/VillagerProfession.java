@@ -1,5 +1,7 @@
 package codes.laivy.npc.mappings.defaults.classes.entity.npc;
 
+import codes.laivy.npc.mappings.instances.FieldExecutor;
+import codes.laivy.npc.mappings.versions.V1_14_R1;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.LinkedHashMap;

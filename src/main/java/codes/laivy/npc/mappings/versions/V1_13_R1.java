@@ -492,12 +492,12 @@ public class V1_13_R1 extends V1_12_R1 {
 
     @Override
     public @NotNull Map<String, FieldExecutor> getFields() {
-        if (!super.getFields().containsKey("Entity:Dolphin:hasFish")) {
-            load(V1_13_R1.class, "Entity:Dolphin:hasFish", new FieldExecutor(getClassExec("Entity:Dolphin"), getClassExec("DataWatcherObject"), "c", "Gets the dolphin's hasFish DataWatcherObject"));
-            load(V1_13_R1.class, "Entity:PufferFish:PuffState", new FieldExecutor(getClassExec("Entity:PufferFish"), getClassExec("DataWatcherObject"), "b", "Gets the puffer fish's puff state DataWatcherObject"));
-            load(V1_13_R1.class, "Entity:TropicalFish:Variant", new FieldExecutor(getClassExec("Entity:TropicalFish"), getClassExec("DataWatcherObject"), "b", "Gets the tropical fish's variant DataWatcherObject"));
-            load(V1_13_R1.class, "Entity:Phantom:Size", new FieldExecutor(getClassExec("Entity:Phantom"), getClassExec("DataWatcherObject"), "a", "Gets the phantom's size DataWatcherObject"));
-            load(V1_13_R1.class, "Entity:Turtle:Egg", new FieldExecutor(getClassExec("Entity:Turtle"), getClassExec("DataWatcherObject"), "bE", "Gets the turtle's egg DataWatcherObject", false, true));
+        if (!super.getFields().containsKey("Metadata:Dolphin:hasFish")) {
+            load(V1_13_R1.class, "Metadata:Dolphin:hasFish", new FieldExecutor(getClassExec("Entity:Dolphin"), getClassExec("DataWatcherObject"), "c", "Gets the dolphin's hasFish DataWatcherObject"));
+            load(V1_13_R1.class, "Metadata:PufferFish:PuffState", new FieldExecutor(getClassExec("Entity:PufferFish"), getClassExec("DataWatcherObject"), "b", "Gets the puffer fish's puff state DataWatcherObject"));
+            load(V1_13_R1.class, "Metadata:TropicalFish:Variant", new FieldExecutor(getClassExec("Entity:TropicalFish"), getClassExec("DataWatcherObject"), "b", "Gets the tropical fish's variant DataWatcherObject"));
+            load(V1_13_R1.class, "Metadata:Phantom:Size", new FieldExecutor(getClassExec("Entity:Phantom"), getClassExec("DataWatcherObject"), "a", "Gets the phantom's size DataWatcherObject"));
+            load(V1_13_R1.class, "Metadata:Turtle:Egg", new FieldExecutor(getClassExec("Entity:Turtle"), getClassExec("DataWatcherObject"), "bE", "Gets the turtle's egg DataWatcherObject", false, true));
         }
 
         return super.getFields();

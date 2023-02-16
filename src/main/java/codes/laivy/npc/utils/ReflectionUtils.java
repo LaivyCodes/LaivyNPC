@@ -53,7 +53,7 @@ public class ReflectionUtils {
         }
     }
 
-    public static void sendPacketToPlayer(@NotNull List<@NotNull Packet> packets, @NotNull UUID... players) {
+    public static void sendPacketToPlayer(@NotNull Collection<@NotNull Packet> packets, @NotNull UUID... players) {
         for (UUID uuid : players) {
             Player player = Bukkit.getPlayer(uuid);
 
@@ -65,7 +65,7 @@ public class ReflectionUtils {
             }
         }
     }
-    public static void sendPacketToPlayer(@NotNull List<@NotNull Packet> packets, @NotNull Player... players) {
+    public static void sendPacketToPlayer(@NotNull Collection<@NotNull Packet> packets, @NotNull Player... players) {
         Set<UUID> uuids = new LinkedHashSet<>();
         for (Player player : players) {
             uuids.add(player.getUniqueId());

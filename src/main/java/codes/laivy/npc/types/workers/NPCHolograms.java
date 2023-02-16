@@ -1,11 +1,14 @@
 package codes.laivy.npc.types.workers;
 
 import codes.laivy.npc.mappings.defaults.classes.entity.Entity;
+import codes.laivy.npc.mappings.defaults.classes.entity.EntityPlayer;
 import codes.laivy.npc.mappings.defaults.classes.entity.decoration.ArmorStand;
+import codes.laivy.npc.mappings.defaults.classes.others.objects.PlayerConnection;
 import codes.laivy.npc.mappings.defaults.classes.packets.EntityDestroyPacket;
 import codes.laivy.npc.mappings.defaults.classes.packets.Packet;
 import codes.laivy.npc.types.NPC;
 import codes.laivy.npc.types.utils.NPCHologramText;
+import codes.laivy.npc.utils.ReflectionUtils;
 import codes.laivy.npc.utils.Validation;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -61,9 +64,11 @@ public class NPCHolograms {
     private void removeLine(@Range(from = 0, to = 999) int line) {
         if (npcHologramTextMap.containsKey(line)) {
             NPCHologramText text = npcHologramTextMap.get(line);
-            EntityDestroyPacket packet = laivynpc().getVersion().createDestroyPacket(text.getArmorStands().toArray(new Entity[0]));
+            @NotNull Set<EntityDestroyPacket> packets = laivynpc().getVersion().createDestroyPacket(text.getArmorStands().toArray(new Entity[0]));
             for (@NotNull UUID uuid : getNPC().getSpawnedPlayers()) {
-                packet.send(Bukkit.getPlayer(uuid));
+                for (EntityDestroyPacket packet : packets) {
+                    packet.send(Bukkit.getPlayer(uuid));
+                }
             }
             npcHologramTextMap.remove(line);
         }
@@ -80,7 +85,10 @@ public class NPCHolograms {
         }
 
         if (entities.size() != 0) {
-            laivynpc().getVersion().createDestroyPacket(entities.toArray(new ArmorStand[0])).send(players.toArray(new Player[0]));
+            for (Player player : players) {
+                PlayerConnection conn = EntityPlayer.getEntityPlayer(player).getPlayerConnection();
+                conn.sendPacket(laivynpc().getVersion().createDestroyPacket(entities.toArray(new ArmorStand[0])).toArray(new Packet[0]));
+            }
         }
     }
     @NotNull

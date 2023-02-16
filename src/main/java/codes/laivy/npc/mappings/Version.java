@@ -234,7 +234,7 @@ public abstract class Version implements VersionCompound, VersionPacket, Version
 
     // ENTITY
     //
-    public final @NotNull Entity createEntity(@NotNull Entity.EntityType type, @NotNull Location location) {
+    public @NotNull Entity createEntity(@NotNull Entity.EntityType type, @NotNull Location location) {
         if (location.getWorld() == null) {
             throw new NullPointerException("This location's world is null!");
         }
@@ -253,6 +253,7 @@ public abstract class Version implements VersionCompound, VersionPacket, Version
     public abstract void setPose(@NotNull Entity entity, @NotNull EntityPose pose);
 
     public abstract @NotNull Location getEntityLocation(@NotNull Entity entity);
+    public abstract void setEntityLocation(@NotNull Entity entity, @NotNull Location location);
     //
     // ENTITY
 

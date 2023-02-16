@@ -55,14 +55,12 @@ import codes.laivy.npc.mappings.defaults.classes.scoreboard.Scoreboard;
 import codes.laivy.npc.mappings.defaults.classes.scoreboard.ScoreboardTeam;
 import codes.laivy.npc.mappings.instances.EnumExecutor;
 import codes.laivy.npc.mappings.instances.Executor;
-import codes.laivy.npc.mappings.instances.FieldExecutor;
 import codes.laivy.npc.mappings.instances.MethodExecutor;
 import codes.laivy.npc.mappings.instances.classes.ClassExecutor;
 import org.bukkit.Bukkit;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
-import java.util.Objects;
 
 public class V1_16_R3 extends V1_16_R2 {
 

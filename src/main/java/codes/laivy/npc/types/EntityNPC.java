@@ -67,7 +67,7 @@ public abstract class EntityNPC extends NPC {
     @Override
     public @NotNull List<@NotNull Packet> getDestroyPackets(@NotNull Player player) {
         List<@NotNull Packet> packets = new LinkedList<>();
-        packets.add(laivynpc().getVersion().createDestroyPacket(getEntity()));
+        packets.addAll(laivynpc().getVersion().createDestroyPacket(getEntity()));
         return packets;
     }
 

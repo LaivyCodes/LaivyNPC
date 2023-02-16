@@ -70,7 +70,7 @@ public class V1_13_R2 extends V1_13_R1 {
                 return false;
             } else if (executor instanceof FieldExecutor) {
                 switch (key) {
-                    case "Entity:PufferFish:PuffState":
+                    case "Metadata:PufferFish:PuffState":
                         load(V1_13_R2.class, key, new FieldExecutor(getClassExec("Entity:PufferFish"), getClassExec("DataWatcherObject"), "a", "Gets the puffer fish's puff state DataWatcherObject"));
                         return false;
                     default:

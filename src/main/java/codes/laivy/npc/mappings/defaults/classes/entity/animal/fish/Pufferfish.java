@@ -12,7 +12,7 @@ public class Pufferfish extends Fish {
 
     public static @NotNull DataWatcherObject PUFF_STATE_METADATA() {
         if (ReflectionUtils.isCompatible(V1_13_R1.class)) {
-            return new DataWatcherObject(laivynpc().getVersion().getFieldExec("Entity:PufferFish:PuffState").invokeStatic());
+            return new DataWatcherObject(laivynpc().getVersion().getFieldExec("Metadata:PufferFish:PuffState").invokeStatic());
         } else {
             throw new IllegalStateException("This metadata object is compatible only with 1.13+");
         }

@@ -76,7 +76,7 @@ public class V1_16_R2 extends V1_16_R1 {
                 return false;
             } else if (executor instanceof FieldExecutor) {
                 switch (key) {
-                    case "Entity:Turtle:Egg":
+                    case "Metadata:Turtle:Egg":
                         load(V1_16_R2.class, key, new FieldExecutor(getClassExec("Entity:Turtle"), getClassExec("DataWatcherObject"), "bq", "Gets the turtle's egg DataWatcherObject", false, true));
                         return false;
                     case "Metadata:Llama:Variant":
@@ -337,21 +337,6 @@ public class V1_16_R2 extends V1_16_R1 {
         }
 
         return super.getClasses();
-    }
-
-    @Override
-    public @NotNull Map<String, FieldExecutor> getFields() {
-        if (!super.getFields().containsKey("Entity:loc")) {
-            load(V1_16_R2.class, "Entity:loc", new FieldExecutor(getClassExec("Entity"), getClassExec("Vec3D"), "loc", "Gets the Vec3D loc of an entity"));
-        }
-
-        return super.getFields();
-    }
-
-    @Override
-    public org.bukkit.@NotNull Location getEntityLocation(@NotNull Entity entity) {
-        org.bukkit.World world = (org.bukkit.World) Objects.requireNonNull(new World(getFieldExec("Entity:world").invokeInstance(entity)).getCraftWorld().getValue());
-        return new Vec3D(getFieldExec("Entity:loc").invokeInstance(entity)).toLocation(world);
     }
 
     @Override

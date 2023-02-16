@@ -431,19 +431,19 @@ public class V1_8_R1 extends Version {
             //
 
             // ArmorStand
-            load(V1_8_R1.class, "Entity:ArmorStand:headPose", new FieldExecutor(getClassExec("Entity:ArmorStand"), getClassExec("Vector3f"), "headPose", "Gets the head pose of a ArmorStand"));
-            load(V1_8_R1.class, "Entity:ArmorStand:bodyPose", new FieldExecutor(getClassExec("Entity:ArmorStand"), getClassExec("Vector3f"), "bodyPose", "Gets the body pose of a ArmorStand"));
-            load(V1_8_R1.class, "Entity:ArmorStand:leftArmPose", new FieldExecutor(getClassExec("Entity:ArmorStand"), getClassExec("Vector3f"), "leftArmPose", "Gets the left arm pose of a ArmorStand"));
-            load(V1_8_R1.class, "Entity:ArmorStand:rightArmPose", new FieldExecutor(getClassExec("Entity:ArmorStand"), getClassExec("Vector3f"), "rightArmPose", "Gets the right arm pose of a ArmorStand"));
-            load(V1_8_R1.class, "Entity:ArmorStand:leftLegPose", new FieldExecutor(getClassExec("Entity:ArmorStand"), getClassExec("Vector3f"), "rightLegPose", "Gets the left leg pose of a ArmorStand"));
-            load(V1_8_R1.class, "Entity:ArmorStand:rightLegPose", new FieldExecutor(getClassExec("Entity:ArmorStand"), getClassExec("Vector3f"), "leftLegPose", "Gets the right leg pose of a ArmorStand"));
+            load(V1_8_R1.class, "Entity:ArmorStand:headPose", new FieldExecutor(getClassExec("Entity:ArmorStand"), getClassExec("Vector3f"), "headPose", "Gets the head pose of an ArmorStand"));
+            load(V1_8_R1.class, "Entity:ArmorStand:bodyPose", new FieldExecutor(getClassExec("Entity:ArmorStand"), getClassExec("Vector3f"), "bodyPose", "Gets the body pose of an ArmorStand"));
+            load(V1_8_R1.class, "Entity:ArmorStand:leftArmPose", new FieldExecutor(getClassExec("Entity:ArmorStand"), getClassExec("Vector3f"), "leftArmPose", "Gets the left arm pose of an ArmorStand"));
+            load(V1_8_R1.class, "Entity:ArmorStand:rightArmPose", new FieldExecutor(getClassExec("Entity:ArmorStand"), getClassExec("Vector3f"), "rightArmPose", "Gets the right arm pose of an ArmorStand"));
+            load(V1_8_R1.class, "Entity:ArmorStand:leftLegPose", new FieldExecutor(getClassExec("Entity:ArmorStand"), getClassExec("Vector3f"), "rightLegPose", "Gets the left leg pose of an ArmorStand"));
+            load(V1_8_R1.class, "Entity:ArmorStand:rightLegPose", new FieldExecutor(getClassExec("Entity:ArmorStand"), getClassExec("Vector3f"), "leftLegPose", "Gets the right leg pose of an ArmorStand"));
             //
 
             // Location
-            load(V1_8_R1.class, "Entity:world", new FieldExecutor(getClassExec("Entity"), getClassExec("World"), "world", "Gets the world of a Entity"));
-            load(V1_8_R1.class, "Entity:locX", new FieldExecutor(getClassExec("Entity"), ClassExecutor.DOUBLE, "locX", "Gets the X position of a Entity"));
-            load(V1_8_R1.class, "Entity:locY", new FieldExecutor(getClassExec("Entity"), ClassExecutor.DOUBLE, "locY", "Gets the X position of a Entity"));
-            load(V1_8_R1.class, "Entity:locZ", new FieldExecutor(getClassExec("Entity"), ClassExecutor.DOUBLE, "locZ", "Gets the X position of a Entity"));
+            load(V1_8_R1.class, "Entity:world", new FieldExecutor(getClassExec("Entity"), getClassExec("World"), "world", "Gets the world of an Entity"));
+            load(V1_8_R1.class, "Entity:locX", new FieldExecutor(getClassExec("Entity"), ClassExecutor.DOUBLE, "locX", "Gets the X position of an Entity"));
+            load(V1_8_R1.class, "Entity:locY", new FieldExecutor(getClassExec("Entity"), ClassExecutor.DOUBLE, "locY", "Gets the Y position of an Entity"));
+            load(V1_8_R1.class, "Entity:locZ", new FieldExecutor(getClassExec("Entity"), ClassExecutor.DOUBLE, "locZ", "Gets the Z position of an Entity"));
             //
 
             // DataWatcher
@@ -964,6 +964,11 @@ public class V1_8_R1 extends Version {
                 (double) getFieldExec("Entity:locY").invokeInstance(entity),
                 (double) getFieldExec("Entity:locZ").invokeInstance(entity)
         );
+    }
+
+    @Override
+    public void setEntityLocation(@NotNull Entity entity, @NotNull Location location) {
+        laivynpc().getVersion().getMethodExec("Entity:Entity:setLocation").invokeInstance(entity, new DoubleObjExec(location.getX()), new DoubleObjExec(location.getY()), new DoubleObjExec(location.getZ()), new FloatObjExec(location.getYaw()), new FloatObjExec(location.getPitch()));
     }
 
     @Override
@@ -1521,7 +1526,7 @@ public class V1_8_R1 extends Version {
     }
 
     @Override
-    public @NotNull EntityDestroyPacket createDestroyPacket(@NotNull Entity... entities) {
+    public @NotNull Set<EntityDestroyPacket> createDestroyPacket(@NotNull Entity... entities) {
         int[] ids = new int[entities.length];
         int row = 0;
         for (Entity entity : entities) {
@@ -1530,7 +1535,9 @@ public class V1_8_R1 extends Version {
         }
 
         Object packet = getClassExec("PacketPlayOutEntityDestroy").getConstructor(ClassExecutor.INT_ARRAY).newInstance(new IntegerArrayObjExec(ids));
-        return new EntityDestroyPacket(packet);
+        return new HashSet<EntityDestroyPacket>() {{
+            new EntityDestroyPacket(packet);
+        }};
     }
 
     @Override

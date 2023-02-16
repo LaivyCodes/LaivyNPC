@@ -168,7 +168,7 @@ public class Entity extends ObjectExecutor {
      * @param location the new x, y, z, yaw and pitch
      */
     public void setLocation(@NotNull Location location) {
-        laivynpc().getVersion().getMethodExec("Entity:Entity:setLocation").invokeInstance(this, new DoubleObjExec(location.getX()), new DoubleObjExec(location.getY()), new DoubleObjExec(location.getZ()), new FloatObjExec(location.getYaw()), new FloatObjExec(location.getPitch()));
+        laivynpc().getVersion().setEntityLocation(this, location);
     }
 
     public @NotNull Location getLocation() {
