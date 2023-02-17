@@ -20,7 +20,7 @@ public class IChatBaseComponent extends ObjectExecutor {
         super(value);
     }
 
-    public @NotNull String getString() {
+    public @Nullable String getString() {
         return convert(this);
     }
 

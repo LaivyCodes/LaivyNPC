@@ -29,10 +29,10 @@ public class MethodExecutor implements Executor {
 
     private final @NotNull ClassExecutor methodClass;
     private final @NotNull ClassExecutor returnType;
+    private final @NotNull ClassExecutor[] parameters;
 
     private final @NotNull String name;
     private final @NotNull String means;
-    private final @NotNull ClassExecutor[] parameters;
 
     private @Nullable Method method;
 

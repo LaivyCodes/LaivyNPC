@@ -94,15 +94,6 @@ public class V1_13_R2 extends V1_13_R1 {
     }
 
     @Override
-    public @NotNull String getEntityCustomName(@NotNull Entity entity) {
-        return new IChatBaseComponent(Objects.requireNonNull(getMethodExec("Entity:Entity:getCustomName").invokeInstance(entity))).getString();
-    }
-    @Override
-    public void setEntityCustomName(@NotNull Entity entity, @NotNull String customName) {
-        getMethodExec("Entity:Entity:setCustomName").invokeInstance(entity, stringToBaseComponent(customName));
-    }
-
-    @Override
     public void loadClasses() {
         load(V1_13_R2.class, "WatchableObject", new ClassExecutor.BrokenClassExecutor());
         load(V1_13_R2.class, "EnumSkeletonType", new ClassExecutor.BrokenClassExecutor());

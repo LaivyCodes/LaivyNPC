@@ -19,11 +19,13 @@ import codes.laivy.npc.types.utils.NPCHeadRotation;
 import codes.laivy.npc.utils.ReflectionUtils;
 import codes.laivy.npc.utils.SkinUtils;
 import codes.laivy.npc.utils.UUIDUtils;
+import codes.laivy.npc.utils.Validation;
 import org.bukkit.*;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.MemorySection;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -41,7 +43,6 @@ public class PlayerNPC extends NPC {
 
     // Appearance
     private boolean showOnTablist = false;
-    private String tablistName = null;
     //
 
     public static void debug(@NotNull Location location) {
@@ -83,8 +84,13 @@ public class PlayerNPC extends NPC {
         player = getNewEntity();
     }
 
-    private @NotNull EntityPlayer getNewEntity() {
-        return laivynpc().getVersion().createPlayer(laivynpc().getVersion().createGameProfile(getUniqueId(), ""), getLocation());
+    protected @NotNull EntityPlayer getNewEntity() {
+        return laivynpc().getVersion().createPlayer(laivynpc().getVersion().createGameProfile(getUniqueId(), generateRandomName()), getLocation());
+    }
+    @ApiStatus.Internal
+    @ApiStatus.Experimental
+    protected @NotNull String generateRandomName() {
+        return String.valueOf(hashCode());
     }
 
     public @NotNull PlayerNPCSkin getSkin() {
@@ -133,40 +139,91 @@ public class PlayerNPC extends NPC {
         hide();
         player = getNewEntity();
     }
+
+    @Override
+    public void respawn() {
+        if (canSpawn()) {
+            hide();
+            spawn();
+        }
+    }
+
+    // TODO: 17/02/2023 Recreate whole spawn system
     @Override
     public void spawn(@NotNull Player player) {
         setCanSpawn(true);
 
-        ReflectionUtils.sendPacketToPlayer(getSpawnPackets(player), player);
-        getSpawnedPlayers().add(player.getUniqueId());
+        Bukkit.getScheduler().runTaskLater(laivynpc(), () -> {
+            ReflectionUtils.sendPacketToPlayer(getSpawnPackets(player), player);
 
-        NPCHeadRotation current = getHeadRotation();
-        if (current != null) setHeadRotation(new NPCHeadRotation(this, current.getInterval(), current.getEntityType()));
+            if (!getSpawnedPlayers().contains(player.getUniqueId())) {
+                getSpawnedPlayers().add(player.getUniqueId());
+                getHolograms().hideHolograms(Collections.singletonList(player));
+                ReflectionUtils.sendPacketToPlayer(getHologramsUpdatePackets(player), player);
+            }
 
-        Bukkit.getScheduler().runTaskLater(laivynpc(), () -> ReflectionUtils.sendPacketToPlayer(removeFromTablist(), player), 40);
+            sendUpdatePackets(player, true, true, false, true, false, true);
 
-        sendUpdatePackets(player, true, true, true, true, true, true);
+            NPCHeadRotation current = getHeadRotation();
+            if (current != null) setHeadRotation(new NPCHeadRotation(this, current.getInterval(), current.getEntityType()));
+
+            Bukkit.getScheduler().runTaskLater(laivynpc(), () -> {
+                ReflectionUtils.sendPacketToPlayer(removeFromTablist(), player);
+            }, 20);
+        }, 20);
+    }
+
+    public void sendUpdatePackets(@NotNull Player player, boolean scoreboard, boolean equipments, boolean metadata, boolean location, final boolean holograms, boolean movement) {
+        if (!player.isOnline()) {
+            return;
+        } if (isDestroyed()) {
+            return;
+        }
+
+        Set<Packet> packetList = new LinkedHashSet<>();
+
+        if (scoreboard) packetList.addAll(getScoreboardUpdatePackets(player));
+        if (equipments) packetList.addAll(getEquipmentsUpdatePackets(player));
+        if (metadata) packetList.addAll(getMetadataUpdatePackets(player));
+        if (location) packetList.addAll(getLocationUpdatePackets());
+        if (holograms) packetList.addAll(getHologramsUpdatePackets(player));
+        if (movement) packetList.addAll(getMovementUpdatePackets());
+
+        PlayerConnection conn = EntityPlayer.getEntityPlayer(player).getPlayerConnection();
+        for (Packet packet : packetList) {
+            conn.sendPacket(packet);
+        }
+    }
+
+    @Override
+    public void hide(@NotNull Player player) {
+        Validation.isTrue(isDestroyed(), new IllegalStateException("This NPC is destroyed, you need to recreate it."));
+
+        ReflectionUtils.sendPacketToPlayer(getDestroyPackets(player), player);
+        getHolograms().hideHolograms(Collections.singletonList(player));
+
+        getSpawnedPlayers().remove(player.getUniqueId());
     }
 
     public boolean isShowOnTablist() {
         return showOnTablist;
     }
     public void setShowOnTablist(boolean showOnTablist) {
-        if (showOnTablist && tablistName == null) {
+        if (showOnTablist && getTablistName() == null) {
             throw new NullPointerException("The tablist name cannot be null in that case!");
         }
 
         this.showOnTablist = showOnTablist;
-        sendUpdatePackets(getSpawnedPlayers(), true, false, false, false, false, false);
+        respawn();
     }
 
     @Nullable
     public String getTablistName() {
-        return tablistName;
+        return getEntity().getTablistName();
     }
     public void setTablistName(@Nullable String tablistName) {
-        this.tablistName = tablistName;
-        sendUpdatePackets(getSpawnedPlayers(), true, false, false, false, false, false);
+        getEntity().setTablistName(tablistName);
+        respawn();
     }
 
     @Override
@@ -199,8 +256,11 @@ public class PlayerNPC extends NPC {
     public @NotNull List<Packet> getSpawnPackets(@NotNull Player player) {
         List<@NotNull Packet> packets = new LinkedList<>();
 
-        packets.add(laivynpc().getVersion().createPlayerInfoPacket(EnumPlayerInfoActionEnum.ADD_PLAYER(), getEntity()));
-        packets.add(laivynpc().getVersion().createSpawnNamedPacket(getEntity()));
+        if (!getSpawnedPlayers().contains(player.getUniqueId())) {
+            packets.add(laivynpc().getVersion().createPlayerInfoPacket(EnumPlayerInfoActionEnum.ADD_PLAYER(), getEntity()));
+            packets.add(laivynpc().getVersion().createSpawnNamedPacket(getEntity()));
+        }
+        packets.add(laivynpc().getVersion().createPlayerInfoPacket(EnumPlayerInfoActionEnum.UPDATE_DISPLAY_NAME(), getEntity()));
 
         // TODO: 26/12/2022 1.14 poses
 //        if (getPose() == EntityPose.CROUCHING) setPose(EntityPose.CROUCHING);
@@ -213,32 +273,10 @@ public class PlayerNPC extends NPC {
     }
     @Override
     public @NotNull List<Packet> getDestroyPackets(@NotNull Player player) {
-        List<@NotNull Packet> packets = new LinkedList<>(laivynpc().getVersion().createDestroyPacket(getEntity()));
+        List<@NotNull Packet> packets = new LinkedList<>();
         packets.add(laivynpc().getVersion().createPlayerInfoPacket(EnumPlayerInfoActionEnum.REMOVE_PLAYER(), getEntity()));
+        packets.addAll(laivynpc().getVersion().createDestroyPacket(getEntity()));
         return packets;
-    }
-
-    @Override
-    public void sendUpdatePackets(@NotNull Player player, boolean scoreboard, boolean equipments, boolean metadata, boolean location, boolean holograms, boolean movement) {
-        if (!player.isOnline()) {
-            return;
-        } if (isDestroyed()) {
-            return;
-        }
-
-        Set<Packet> packetList = new LinkedHashSet<>();
-
-//        if (scoreboard) packetList.addAll(getScoreboardUpdatePackets(player));
-        if (equipments) packetList.addAll(getEquipmentsUpdatePackets(player));
-//        if (metadata) packetList.addAll(getMetadataUpdatePackets(player));
-//        if (location) packetList.addAll(getLocationUpdatePackets());
-//        if (holograms) packetList.addAll(getHologramsUpdatePackets(player));
-//        if (movement) packetList.addAll(getMovementUpdatePackets());
-
-        PlayerConnection conn = EntityPlayer.getEntityPlayer(player).getPlayerConnection();
-        for (Packet packet : packetList) {
-            conn.sendPacket(packet);
-        }
     }
 
     @Override
@@ -246,25 +284,20 @@ public class PlayerNPC extends NPC {
         List<Packet> packets = new LinkedList<>();
 
         try {
-            DataWatcher data = getEntity().getDataWatcher();
+            DataWatcher watcher = getEntity().getDataWatcher();
 
+            // Fire
             //noinspection DataFlowIssue
-            byte b = (byte) data.get(0);
+            byte b = (byte) watcher.get(0);
 
             if (isOnFire()) b = (byte) (b | 1);
             else b = (byte) (b & (~(1)));
+            //
 
-            data.set(0, b);
+            // Skin Parts
+            watcher.set(0, b);
 
-            packets.add(laivynpc().getVersion().createMetadataPacket(getEntity(), data, true));
-        } catch (Throwable e) {
-            throw new RuntimeException(e);
-        }
-
-        try {
-            DataWatcher watcher = getEntity().getDataWatcher();
-
-            byte b = 0;
+            b = 0;
             PlayerNPCSkin.Parts parts = getSkin().getParts();
             if (parts.hasCape()) b = (byte) (b | 0x1);
             if (parts.hasJacket()) b = (byte) (b | 0x2);
@@ -273,6 +306,7 @@ public class PlayerNPC extends NPC {
             if (parts.hasLeftPants()) b = (byte) (b | 0x10);
             if (parts.hasRightPants()) b = (byte) (b | 0x20);
             if (parts.hasHat()) b = (byte) (b | 0x40);
+            //
 
             // TODO: 26/12/2022 1.14 Parrots
 //            // PARROTS
@@ -289,7 +323,7 @@ public class PlayerNPC extends NPC {
 
             watcher.set((int) laivynpc().getVersion().getObject("Metadata:Player:SkinParts"), b);
             packets.add(laivynpc().getVersion().createMetadataPacket(getEntity(), watcher, true));
-        } catch (Exception e) {
+        } catch (Throwable e) {
             throw new RuntimeException(e);
         }
 
@@ -328,13 +362,15 @@ public class PlayerNPC extends NPC {
             }
             //
 
-            // TabList name
-            if (isShowOnTablist()) {
-                if (getTablistName() != null) {
-                    team.setPrefix(getTablistName());
-                }
-            }
-            // TabList name
+//          TODO: 17/02/2023 REMOVE THIS
+//          Not necessary anymore.
+//            // TabList name
+//            if (isShowOnTablist()) {
+//                if (getTablistName() != null) {
+//                    team.setPrefix(getTablistName());
+//                }
+//            }
+//            // TabList name
 
             scoreboard.addToTeam(team, getEntity());
 
@@ -358,7 +394,9 @@ public class PlayerNPC extends NPC {
             put(EnumItemSlotEnum.EnumItemSlot.LEGS, new ItemStack(Material.AIR));
             put(EnumItemSlotEnum.EnumItemSlot.FEET, new ItemStack(Material.AIR));
             put(EnumItemSlotEnum.EnumItemSlot.MAINHAND, new ItemStack(Material.AIR));
-            put(EnumItemSlotEnum.EnumItemSlot.OFFHAND, new ItemStack(Material.AIR));
+            if (ReflectionUtils.isCompatible(V1_9_R1.class)) {
+                put(EnumItemSlotEnum.EnumItemSlot.OFFHAND, new ItemStack(Material.AIR));
+            }
         }}));
     }
 
@@ -400,7 +438,6 @@ public class PlayerNPC extends NPC {
                 playerNPC.setShowOnTablist(false);
                 sender.sendMessage(translate(sender, "npc.player.tablist.removed"));
             }
-
             playerNPC.respawn();
         }
     };

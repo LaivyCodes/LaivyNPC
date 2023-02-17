@@ -174,7 +174,9 @@ public class V1_13_R1 extends V1_12_R1 {
 
     @Override
     public @NotNull String getEntityCustomName(@NotNull Entity entity) {
-        return new IChatBaseComponent(Objects.requireNonNull(getMethodExec("Entity:Entity:getCustomName").invokeInstance(entity))).getString();
+        String str = new IChatBaseComponent(getMethodExec("Entity:Entity:getCustomName").invokeInstance(entity)).getString();
+        if (str == null) str = "";
+        return str;
     }
     @Override
     public void setEntityCustomName(@NotNull Entity entity, @NotNull String customName) {

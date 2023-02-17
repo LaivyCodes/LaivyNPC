@@ -1006,6 +1006,22 @@ public class V1_8_R1 extends Version {
     }
 
     @Override
+    public @Nullable String getPlayerTablistName(@NotNull EntityPlayer player) {
+        Object object = getFieldExec("EntityPlayer:listName").invokeInstance(player);
+
+        if (object == null) {
+            return null;
+        }
+
+        return new IChatBaseComponent(object).getString();
+    }
+
+    @Override
+    public void setPlayerTablistName(@NotNull EntityPlayer player, @Nullable String string) {
+        getFieldExec("EntityPlayer:listName").set(player, (string != null ? IChatBaseComponent.convert(string).getValue() : null));
+    }
+
+    @Override
     public boolean putInPropertyMap(@NotNull PropertyMap propertyMap, @NotNull String string, @NotNull Property property) {
         //noinspection unchecked,DataFlowIssue
         ((Multimap<String, Object>) getMethodExec("PropertyMap:delegate").invokeInstance(propertyMap)).put(string, property.getValue());
@@ -1092,8 +1108,9 @@ public class V1_8_R1 extends Version {
         }
 
         Object packet = getClassExec("PacketPlayOutEntityDestroy").getConstructor(ClassExecutor.INT_ARRAY).newInstance(new IntegerArrayObjExec(ids));
+
         return new HashSet<EntityDestroyPacket>() {{
-            new EntityDestroyPacket(packet);
+            add(new EntityDestroyPacket(packet));
         }};
     }
 
@@ -1493,7 +1510,7 @@ public class V1_8_R1 extends Version {
         //
 
         // ChatSerializer
-        load(V1_8_R1.class, "ChatSerializer:convertToString", new MethodExecutor(getClassExec("ChatSerializer"), ClassExecutor.STRING, "getText", "Converts a IChatBaseComponent to a string", getClassExec("IChatBaseComponent")));
+        load(V1_8_R1.class, "ChatSerializer:convertToString", new MethodExecutor(getClassExec("IChatBaseComponent"), ClassExecutor.STRING, "getText", "Converts a IChatBaseComponent to a string"));
         load(V1_8_R1.class, "ChatSerializer:convertToComponent", new MethodExecutor(getClassExec("ChatSerializer"), getClassExec("IChatBaseComponent"), "a", "Converts a string to a IChatBaseComponent", ClassExecutor.STRING));
         //
 
@@ -1553,8 +1570,9 @@ public class V1_8_R1 extends Version {
         load(V1_8_R1.class, "NBTTagList:list", new FieldExecutor(getClassExec("NBTBase:NBTTagList"), new ClassExecutor(List.class) {}, "list", "Gets the list of a NBTTagList"));
         //
 
-        // CraftPlayer
+        // Player
         load(V1_8_R1.class, "EntityPlayer:playerConnection", new FieldExecutor(getClassExec("EntityPlayer"), getClassExec("PlayerConnection"), "playerConnection", "Gets the PlayerConnection from the player"));
+        load(V1_8_R1.class, "EntityPlayer:listName", new FieldExecutor(getClassExec("EntityPlayer"), getClassExec("IChatBaseComponent"), "listName", "Gets the entity player's tablist name"));
         //
 
         // NetworkManager
@@ -1612,6 +1630,7 @@ public class V1_8_R1 extends Version {
         // EnumPlayerInfoAction
         super.getTexts().put("PacketPlayOutPlayerInfo:EnumPlayerInfoAction:ADD_PLAYER", "ADD_PLAYER");
         super.getTexts().put("PacketPlayOutPlayerInfo:EnumPlayerInfoAction:REMOVE_PLAYER", "REMOVE_PLAYER");
+        super.getTexts().put("PacketPlayOutPlayerInfo:EnumPlayerInfoAction:UPDATE_DISPLAY_NAME", "UPDATE_DISPLAY_NAME");
         //
 
         // EnumNameTagVisibility

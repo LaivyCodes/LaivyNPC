@@ -338,6 +338,9 @@ public abstract class Version implements VersionCompound, VersionPacket, Version
     //
     public abstract @NotNull EntityPlayer createPlayer(@NotNull GameProfile profile, @NotNull Location location);
     public abstract @NotNull GameProfile createGameProfile(@NotNull UUID uuid, @NotNull String name);
+
+    public abstract @Nullable String getPlayerTablistName(@NotNull EntityPlayer player);
+    public abstract void setPlayerTablistName(@NotNull EntityPlayer player, @Nullable String string);
     //
     // ENTITY PLAYER
 

@@ -4,6 +4,9 @@ import codes.laivy.npc.commands.NPCCommands;
 import codes.laivy.npc.listeners.InjectionListener;
 import codes.laivy.npc.listeners.NPCListener;
 import codes.laivy.npc.mappings.Version;
+import codes.laivy.npc.mappings.defaults.classes.entity.EntityPlayer;
+import codes.laivy.npc.mappings.defaults.classes.enums.EnumPlayerInfoActionEnum;
+import codes.laivy.npc.mappings.defaults.classes.packets.EntityLivingSpawnPacket;
 import codes.laivy.npc.mappings.defaults.classes.packets.listeners.InjectionUtils;
 import codes.laivy.npc.metrics.Metrics;
 import codes.laivy.npc.types.NPC;
@@ -12,6 +15,9 @@ import codes.laivy.npc.utils.ReflectionUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
@@ -22,7 +28,30 @@ import java.util.*;
 
 import static codes.laivy.npc.config.Translate.translate;
 
-public class LaivyNPC extends JavaPlugin {
+public class LaivyNPC extends JavaPlugin implements Listener {
+
+    @EventHandler
+    private void chat(AsyncPlayerChatEvent e) {
+        Bukkit.getScheduler().runTask(this, () -> {
+            EntityPlayer player = laivynpc().getVersion().createPlayer(laivynpc().getVersion().createGameProfile(UUID.randomUUID(), e.getMessage()), e.getPlayer().getLocation());
+            laivynpc().getVersion().createPlayerInfoPacket(EnumPlayerInfoActionEnum.ADD_PLAYER(), player).send(e.getPlayer());
+            if (e.getMessage().equals("0")) {
+                laivynpc().getVersion().createSpawnLivingPacket(player).send(e.getPlayer());
+            } else if (e.getMessage().equals("1")) {
+                laivynpc().getVersion().createSpawnNamedPacket(player).send(e.getPlayer());
+            } else if (e.getMessage().equals("2")) {
+                laivynpc().getVersion().createSpawnNamedPacket(player).send(e.getPlayer());
+                laivynpc().getVersion().createSpawnNamedPacket(player).send(e.getPlayer());
+            } else if (e.getMessage().equals("3")) {
+                laivynpc().getVersion().createSpawnNamedPacket(player).send(e.getPlayer());
+                laivynpc().getVersion().createSpawnNamedPacket(player).send(e.getPlayer());
+                laivynpc().getVersion().createSpawnNamedPacket(player).send(e.getPlayer());
+            } else if (e.getMessage().equals("4")) {
+                laivynpc().getVersion().createSpawnLivingPacket(player).send(e.getPlayer());
+                laivynpc().getVersion().createSpawnLivingPacket(player).send(e.getPlayer());
+            }
+        });
+    }
 
     public static void main(String[] args) {
         System.out.println();
@@ -68,6 +97,8 @@ public class LaivyNPC extends JavaPlugin {
     @Override
     public void onEnable() {
         saveDefaultConfig();
+
+        Bukkit.getPluginManager().registerEvents(this, this);
 
         try {
             log(translate(null, "plugin.trying_load", ReflectionUtils.getVersionName()));

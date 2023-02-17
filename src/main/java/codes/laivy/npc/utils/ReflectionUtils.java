@@ -53,24 +53,13 @@ public class ReflectionUtils {
         }
     }
 
-    public static void sendPacketToPlayer(@NotNull Collection<@NotNull Packet> packets, @NotNull UUID... players) {
-        for (UUID uuid : players) {
-            Player player = Bukkit.getPlayer(uuid);
-
-            if (player == null) continue;
-
+    public static void sendPacketToPlayer(@NotNull Collection<@NotNull Packet> packets, @NotNull Player... players) {
+        for (Player player : players) {
             PlayerConnection conn = getEntityPlayer(player).getPlayerConnection();
             for (Packet packet : packets) {
                 conn.sendPacket(packet);
             }
         }
-    }
-    public static void sendPacketToPlayer(@NotNull Collection<@NotNull Packet> packets, @NotNull Player... players) {
-        Set<UUID> uuids = new LinkedHashSet<>();
-        for (Player player : players) {
-            uuids.add(player.getUniqueId());
-        }
-        sendPacketToPlayer(packets, uuids.toArray(new UUID[0]));
     }
 
 }

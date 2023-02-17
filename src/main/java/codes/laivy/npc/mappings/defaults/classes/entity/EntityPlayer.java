@@ -39,6 +39,13 @@ public class EntityPlayer extends EntityHuman {
         return new GameProfile(laivynpc().getVersion().getMethodExec("Entity:EntityPlayer:getProfile").invokeInstance(this));
     }
 
+    public @Nullable String getTablistName() {
+        return laivynpc().getVersion().getPlayerTablistName(this);
+    }
+    public void setTablistName(@Nullable String name) {
+        laivynpc().getVersion().setPlayerTablistName(this, name);
+    }
+
     @Override
     public @NotNull EntityPlayerClass getClassExecutor() {
         return (EntityPlayerClass) laivynpc().getVersion().getClassExec("EntityPlayer");

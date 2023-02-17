@@ -148,7 +148,9 @@ public abstract class EntityNPC extends NPC {
             put(EnumItemSlotEnum.EnumItemSlot.LEGS, new ItemStack(Material.AIR));
             put(EnumItemSlotEnum.EnumItemSlot.FEET, new ItemStack(Material.AIR));
             put(EnumItemSlotEnum.EnumItemSlot.MAINHAND, new ItemStack(Material.AIR));
-            put(EnumItemSlotEnum.EnumItemSlot.OFFHAND, new ItemStack(Material.AIR));
+            if (ReflectionUtils.isCompatible(V1_9_R1.class)) {
+                put(EnumItemSlotEnum.EnumItemSlot.OFFHAND, new ItemStack(Material.AIR));
+            }
         }}));
     }
 

@@ -318,11 +318,6 @@ public class V1_17_R1 extends V1_16_R3 {
     }
 
     @Override
-    public @NotNull String baseComponentToString(@NotNull IChatBaseComponent iChatBaseComponent) {
-        return (String) Objects.requireNonNull(getMethodExec("ChatSerializer:convertToString").invokeInstance(iChatBaseComponent));
-    }
-
-    @Override
     public @NotNull Set<EntityDestroyPacket> createDestroyPacket(@NotNull Entity... entities) {
         Set<EntityDestroyPacket> packets = new HashSet<>();
         ClassConstructor constructor = getClassExec("PacketPlayOutEntityDestroy").getConstructor(ClassExecutor.INT);

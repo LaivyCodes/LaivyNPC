@@ -236,6 +236,9 @@ public abstract class NPC {
             public void run() {
                 if (!hasSomePlayerOnline()) {
                     return;
+                } if (isDestroyed()) {
+                    this.cancel();
+                    return;
                 }
 
                 if (canSpawn()) {
@@ -522,7 +525,7 @@ public abstract class NPC {
 
     public void spawn() {
         for (@NotNull UUID player : getVisiblePlayers()) {
-            spawn(Bukkit.getOfflinePlayer(player).getPlayer());
+            spawn(Bukkit.getPlayer(player));
         }
     }
     public void despawn() {
