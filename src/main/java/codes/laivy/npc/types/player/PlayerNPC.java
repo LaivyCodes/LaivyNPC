@@ -199,10 +199,12 @@ public class PlayerNPC extends NPC {
     public void hide(@NotNull Player player) {
         Validation.isTrue(isDestroyed(), new IllegalStateException("This NPC is destroyed, you need to recreate it."));
 
-        ReflectionUtils.sendPacketToPlayer(getDestroyPackets(player), player);
-        getHolograms().hideHolograms(Collections.singletonList(player));
-
         getSpawnedPlayers().remove(player.getUniqueId());
+
+        Bukkit.getScheduler().runTaskLater(laivynpc(), () -> {
+            ReflectionUtils.sendPacketToPlayer(getDestroyPackets(player), player);
+            getHolograms().hideHolograms(Collections.singletonList(player));
+        }, 10);
     }
 
     public boolean isShowOnTablist() {
