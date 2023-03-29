@@ -201,10 +201,8 @@ public class PlayerNPC extends NPC {
 
         getSpawnedPlayers().remove(player.getUniqueId());
 
-        Bukkit.getScheduler().runTaskLater(laivynpc(), () -> {
-            ReflectionUtils.sendPacketToPlayer(getDestroyPackets(player), player);
-            getHolograms().hideHolograms(Collections.singletonList(player));
-        }, 10);
+        ReflectionUtils.sendPacketToPlayer(getDestroyPackets(player), player);
+        getHolograms().hideHolograms(Collections.singletonList(player));
     }
 
     public boolean isShowOnTablist() {
@@ -512,9 +510,13 @@ public class PlayerNPC extends NPC {
 
         try {
             boolean shownTablist = playerNpc.getBoolean("Shown on Tablist");
-            String tablistName = playerNpc.getString("Tablist name (if shown)");
+            String tablistName = null;
+            if (playerNpc.contains("Tablist name (if shown)")) {
+                tablistName = playerNpc.getString("Tablist name (if shown)");
+            }
+
             setTablistName(tablistName);
-            setShowOnTablist(shownTablist);
+            setShowOnTablist(tablistName != null && shownTablist);
         } catch (Exception e) {
             e.printStackTrace();
             laivynpc().log("§cCouldn't save the tablist configurations of the PlayerNPC '" + getId() + "'!");
@@ -585,7 +587,9 @@ public class PlayerNPC extends NPC {
 
         try {
             playerNPC.put("Shown on Tablist", isShowOnTablist());
-            playerNPC.put("Tablist name (if shown)", (getTablistName() == null ? "" : getTablistName()));
+            if (getTablistName() != null) {
+                playerNPC.put("Tablist name (if shown)", getTablistName());
+            }
         } catch (Exception e) {
             e.printStackTrace();
             laivynpc().log("§cCouldn't serialize the pose/tablist of the PlayerNPC '" + getId() + "'!");

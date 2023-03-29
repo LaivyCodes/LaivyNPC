@@ -535,12 +535,12 @@ public class V1_8_R1 extends Version {
     }
 
     @Override
-    public @NotNull String getEntityCustomName(@NotNull Entity entity) {
-        return (String) Objects.requireNonNull(getMethodExec("Entity:Entity:getCustomName").invokeInstance(entity));
+    public @Nullable String getEntityCustomName(@NotNull Entity entity) {
+        return (String) getMethodExec("Entity:Entity:getCustomName").invokeInstance(entity);
     }
 
     @Override
-    public void setEntityCustomName(@NotNull Entity entity, @NotNull String customName) {
+    public void setEntityCustomName(@NotNull Entity entity, @Nullable String customName) {
         getMethodExec("Entity:Entity:setCustomName").invokeInstance(entity, new StringObjExec(customName));
     }
 

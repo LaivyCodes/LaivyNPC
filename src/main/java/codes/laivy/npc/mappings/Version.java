@@ -224,8 +224,8 @@ public abstract class Version implements VersionCompound, VersionPacket, Version
     //
 
     // ENTITY
-    public abstract @NotNull String getEntityCustomName(@NotNull Entity entity);
-    public abstract void setEntityCustomName(@NotNull Entity entity, @NotNull String customName);
+    public abstract @Nullable String getEntityCustomName(@NotNull Entity entity);
+    public abstract void setEntityCustomName(@NotNull Entity entity, @Nullable String customName);
     // ENTITY CAT
     public abstract @NotNull Cat.CatVariant getEntityCatVariant(@NotNull Cat cat);
     public abstract void setEntityCatVariant(@NotNull Cat cat, @NotNull Cat.CatVariant variant);

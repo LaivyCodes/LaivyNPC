@@ -173,14 +173,22 @@ public class V1_13_R1 extends V1_12_R1 {
     }
 
     @Override
-    public @NotNull String getEntityCustomName(@NotNull Entity entity) {
-        String str = new IChatBaseComponent(getMethodExec("Entity:Entity:getCustomName").invokeInstance(entity)).getString();
-        if (str == null) str = "";
-        return str;
+    public @Nullable String getEntityCustomName(@NotNull Entity entity) {
+        Object name = getMethodExec("Entity:Entity:getCustomName").invokeInstance(entity);
+
+        if (name != null) {
+            return new IChatBaseComponent(name).getString();
+        } else {
+            return null;
+        }
     }
     @Override
-    public void setEntityCustomName(@NotNull Entity entity, @NotNull String customName) {
-        getMethodExec("Entity:Entity:setCustomName").invokeInstance(entity, stringToBaseComponent(customName));
+    public void setEntityCustomName(@NotNull Entity entity, @Nullable String customName) {
+        if (customName != null) {
+            getMethodExec("Entity:Entity:setCustomName").invokeInstance(entity, stringToBaseComponent(customName));
+        } else {
+            getMethodExec("Entity:Entity:setCustomName").invokeInstance(entity, new StringObjExec(null));
+        }
     }
 
     @Override

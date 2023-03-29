@@ -705,10 +705,10 @@ public abstract class NPC {
         sendUpdatePackets(getSpawnedPlayers(), false, false, true, false, false, false);
     }
 
-    public @NotNull String getCustomName() {
+    public @Nullable String getCustomName() {
         return getEntity().getCustomName();
     }
-    public void setCustomName(@NotNull String name) {
+    public void setCustomName(@Nullable String name) {
         getEntity().setCustomName(name);
         sendUpdatePackets(getSpawnedPlayers(), false, false, true, false, false, false);
     }
@@ -1276,7 +1276,9 @@ public abstract class NPC {
 
             map.put("Location", location);
 
-            map.put("Display name", getCustomName());
+            if (getCustomName() != null) {
+                map.put("Display name", getCustomName());
+            }
             map.put("Display name visible", isCustomNameVisible());
         } catch (Exception e) {
             e.printStackTrace();
@@ -1450,7 +1452,9 @@ public abstract class NPC {
             Location location = new Location(world, x, y, z);
             setLocation(location, true);
 
-            setCustomName(map.getString("Display name"));
+            if (map.contains("Display name")) {
+                setCustomName(map.getString("Display name"));
+            }
             setCustomNameVisible(map.getBoolean("Display name visible"));
         } catch (Exception e) {
             e.printStackTrace();

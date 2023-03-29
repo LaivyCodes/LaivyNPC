@@ -110,10 +110,10 @@ public class Entity extends ObjectExecutor {
         return (String) Objects.requireNonNull(laivynpc().getVersion().getMethodExec("Entity:Entity:getName").invokeInstance(this));
     }
 
-    public @NotNull String getCustomName() {
+    public @Nullable String getCustomName() {
         return laivynpc().getVersion().getEntityCustomName(this);
     }
-    public void setCustomName(@NotNull String customName) {
+    public void setCustomName(@Nullable String customName) {
         laivynpc().getVersion().setEntityCustomName(this, customName);
     }
 

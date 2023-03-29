@@ -93,12 +93,9 @@ public class NPCHolograms {
     }
     @NotNull
     public List<Packet> getHologramSpawnPackets(@NotNull Player player) {
-        Bukkit.broadcastMessage("Holograms called 1");
         if (npcHologramTextMap.isEmpty() || !getNPC().isSpawned(player)) {
             return new LinkedList<>();
         }
-
-        Bukkit.broadcastMessage("Holograms called 2");
 
         hideHolograms(Collections.singletonList(player));
 
@@ -120,7 +117,6 @@ public class NPCHolograms {
                         stand.setLocation(new Location(l.getWorld(), l.getX(), l.getY() + actualHeight, l.getZ(), 0F, 0F));
                         stand.setInvisible(true);
 
-                        Bukkit.broadcastMessage("Holograms called 3");
                         packets.add(laivynpc().getVersion().createSpawnPacket(stand));
                         packets.add(laivynpc().getVersion().createMetadataPacket(stand, stand.getDataWatcher(), true));
                     }

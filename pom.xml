@@ -26,7 +26,7 @@
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
-            <version>2.10</version>
+            <version>2.10.1</version>
             <scope>compile</scope>
         </dependency>
 
@@ -34,7 +34,7 @@
         <dependency>
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>
-            <version>23.1.0</version>
+            <version>24.0.1</version>
             <scope>compile</scope>
         </dependency>
 
@@ -42,7 +42,7 @@
         <dependency>
             <groupId>io.netty</groupId>
             <artifactId>netty-all</artifactId>
-            <version>4.1.85.Final</version>
+            <version>4.1.90.Final</version>
             <scope>provided</scope>
         </dependency>
 
@@ -51,14 +51,6 @@
             <artifactId>spigot-api</artifactId>
             <version>1.8-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>codes.laivy</groupId>
-            <artifactId>LvMultiplesLanguages</artifactId>
-            <version>1.0</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/../LvMultiplesLanguages/LvMultiplesLanguages.jar</systemPath>
         </dependency>
     </dependencies>
 
@@ -91,7 +83,6 @@
                     <artifactSet>
                         <includes>
                             <include>org.jetbrains:annotations</include>
-                            <include>com.google.code.gson:gson</include>
                         </includes>
                     </artifactSet>
                 </configuration>

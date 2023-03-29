@@ -1,18 +1,12 @@
 package codes.laivy.npc.config;
 
-import codes.laivy.mlanguage.LvMultiplesLanguages;
-import codes.laivy.mlanguage.api.LocaleAPI;
-import codes.laivy.mlanguage.lang.Language;
-import codes.laivy.mlanguage.lang.LanguagePack;
-import codes.laivy.mlanguage.lang.Locale;
 import codes.laivy.npc.utils.JsonParser;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import org.bukkit.OfflinePlayer;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.*;
@@ -37,7 +31,9 @@ public class Translate {
             InputStream stream = laivynpc().getResource("languages/" + str);
             JsonObject object = JsonParser.parse(new InputStreamReader(stream)).getAsJsonObject();
 
-            for (String key : object.keySet()) {
+            for (Map.Entry<String, JsonElement> entry : object.entrySet()) {
+                String key = entry.getKey();
+
                 if (key.equals("info:pack_name")) {
                     packName = object.get(key).getAsString();
                 } else {
@@ -49,21 +45,21 @@ public class Translate {
         }
 
         if (laivynpc().hasMultiplesLanguagesSupport()) {
-            Language lang = new Language("General Messages", null, laivynpc().getName(), new LinkedHashSet<LanguagePack>() {{
-                for (Map.Entry<String, LangInfo> info : infos.entrySet()) {
-                LinkedHashSet<Locale> locales = new LinkedHashSet<>(Collections.singletonList(Locale.valueOf(info.getKey().replace(".json", ""))));
-                    add(new LanguagePack(locales, info.getValue().getPackName(), null, info.getValue().getMessages()));
-                }
-            }});
-            if (lang.getFile() == null || !lang.getFile().exists()) {
-                lang.register();
-            } else {
-                try {
-                    Language.createByResourceStream(laivynpc().getName(), new FileInputStream(lang.getFile()));
-                } catch (FileNotFoundException e) {
-                    throw new RuntimeException("LvML language loading", e);
-                }
-            }
+//            Language lang = new Language("General Messages", null, laivynpc().getName(), new LinkedHashSet<LanguagePack>() {{
+//                for (Map.Entry<String, LangInfo> info : infos.entrySet()) {
+//                LinkedHashSet<Locale> locales = new LinkedHashSet<>(Collections.singletonList(Locale.valueOf(info.getKey().replace(".json", ""))));
+//                    add(new LanguagePack(locales, info.getValue().getPackName(), null, info.getValue().getMessages()));
+//                }
+//            }});
+//            if (lang.getFile() == null || !lang.getFile().exists()) {
+//                lang.register();
+//            } else {
+//                try {
+//                    Language.createByResourceStream(laivynpc().getName(), new FileInputStream(lang.getFile()));
+//                } catch (FileNotFoundException e) {
+//                    throw new RuntimeException("LvML language loading", e);
+//                }
+//            }
         } else {
             messages.putAll(infos.get(DEFAULT_LANGUAGES_FILES[0]).getMessages());
         }
@@ -73,8 +69,8 @@ public class Translate {
         String message = null;
 
         if (laivynpc().hasMultiplesLanguagesSupport()) {
-            LocaleAPI api = LvMultiplesLanguages.getApi().getLocaleAPI();
-            message = api.getNullableMessage(laivynpc().getName(), code, (player != null ? api.getLocale(player.getUniqueId()) : null));
+//            LocaleAPI api = LvMultiplesLanguages.getApi().getLocaleAPI();
+//            message = api.getNullableMessage(laivynpc().getName(), code, (player != null ? api.getLocale(player.getUniqueId()) : null));
         } else {
             if (messages.containsKey(code)) {
                 message = messages.get(code);
