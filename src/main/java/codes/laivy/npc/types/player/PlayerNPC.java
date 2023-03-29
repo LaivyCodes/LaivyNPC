@@ -85,7 +85,11 @@ public class PlayerNPC extends NPC {
     }
 
     protected @NotNull EntityPlayer getNewEntity() {
-        return laivynpc().getVersion().createPlayer(laivynpc().getVersion().createGameProfile(getUniqueId(), generateRandomName()), getLocation());
+        EntityPlayer player = laivynpc().getVersion().createPlayer(laivynpc().getVersion().createGameProfile(getUniqueId(), generateRandomName()), getLocation());
+        if (isShowOnTablist()) {
+            player.setTablistName(getTablistName());
+        }
+        return player;
     }
     @ApiStatus.Internal
     @ApiStatus.Experimental
@@ -112,6 +116,7 @@ public class PlayerNPC extends NPC {
             try {
                 Set<UUID> uuids = getSpawnedPlayers();
 
+                boolean spawned = isSpawnedForSomeone();
                 reCreate();
 
                 PropertyMap propertyMap = getProfile().getProperties();
@@ -119,7 +124,8 @@ public class PlayerNPC extends NPC {
                 propertyMap.put("textures", property);
 
                 visiblePlayers = uuids;
-                spawn();
+
+                if (spawned) spawn();
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
@@ -154,18 +160,20 @@ public class PlayerNPC extends NPC {
         setCanSpawn(true);
 
         Bukkit.getScheduler().runTaskLater(laivynpc(), () -> {
-            ReflectionUtils.sendPacketToPlayer(getSpawnPackets(player), player);
+            if (canSpawn()) {
+                ReflectionUtils.sendPacketToPlayer(getSpawnPackets(player), player);
 
-            if (!getSpawnedPlayers().contains(player.getUniqueId())) {
-                getSpawnedPlayers().add(player.getUniqueId());
-                getHolograms().hideHolograms(Collections.singletonList(player));
-                ReflectionUtils.sendPacketToPlayer(getHologramsUpdatePackets(player), player);
+                if (!getSpawnedPlayers().contains(player.getUniqueId())) {
+                    getSpawnedPlayers().add(player.getUniqueId());
+                    getHolograms().hideHolograms(Collections.singletonList(player));
+                    ReflectionUtils.sendPacketToPlayer(getHologramsUpdatePackets(player), player);
+                }
+
+                sendUpdatePackets(player, true, true, false, true, false, true);
+
+                NPCHeadRotation current = getHeadRotation();
+                if (current != null) setHeadRotation(new NPCHeadRotation(this, current.getInterval(), current.getEntityType()));
             }
-
-            sendUpdatePackets(player, true, true, false, true, false, true);
-
-            NPCHeadRotation current = getHeadRotation();
-            if (current != null) setHeadRotation(new NPCHeadRotation(this, current.getInterval(), current.getEntityType()));
 
             Bukkit.getScheduler().runTaskLater(laivynpc(), () -> {
                 ReflectionUtils.sendPacketToPlayer(removeFromTablist(), player);
@@ -214,7 +222,6 @@ public class PlayerNPC extends NPC {
         }
 
         this.showOnTablist = showOnTablist;
-        respawn();
     }
 
     @Nullable
@@ -223,7 +230,6 @@ public class PlayerNPC extends NPC {
     }
     public void setTablistName(@Nullable String tablistName) {
         getEntity().setTablistName(tablistName);
-        respawn();
     }
 
     @Override
@@ -431,9 +437,11 @@ public class PlayerNPC extends NPC {
                     if (row + 1 != args.length) name.append(" ");
                 }
 
-                playerNPC.setTablistName(ChatColor.translateAlternateColorCodes('&', name.toString()));
+                String colouredName = ChatColor.translateAlternateColorCodes('&', name.toString());
+
+                playerNPC.setTablistName(colouredName);
                 playerNPC.setShowOnTablist(true);
-                sender.sendMessage(translate(sender, "npc.player.tablist.changed", name));
+                sender.sendMessage(translate(sender, "npc.player.tablist.changed", colouredName + "§f"));
             } else {
                 playerNPC.setShowOnTablist(false);
                 sender.sendMessage(translate(sender, "npc.player.tablist.removed"));
