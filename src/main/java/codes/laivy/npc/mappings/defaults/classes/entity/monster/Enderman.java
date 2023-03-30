@@ -1,11 +1,7 @@
 package codes.laivy.npc.mappings.defaults.classes.entity.monster;
 
 import codes.laivy.npc.mappings.defaults.classes.datawatcher.DataWatcherObject;
-import codes.laivy.npc.mappings.instances.classes.ClassExecutor;
-import codes.laivy.npc.mappings.instances.ObjectExecutor;
 import codes.laivy.npc.mappings.defaults.classes.entity.EntityLiving;
-import codes.laivy.npc.mappings.defaults.classes.others.objects.Block;
-import codes.laivy.npc.mappings.defaults.classes.others.objects.IBlockData;
 import codes.laivy.npc.mappings.versions.V1_9_R1;
 import codes.laivy.npc.utils.ReflectionUtils;
 import org.bukkit.Material;
@@ -28,20 +24,14 @@ public class Enderman extends EntityLiving {
         super(value);
     }
 
-    public @NotNull Material getCarried() {
-        return new IBlockData(laivynpc().getVersion().getMethodExec("Entity:Enderman:getCarried").invokeInstance(this)).getBlock().getMaterial();
+    public boolean isCarrying() {
+        return getCarrying() != null;
     }
-    public void setCarried(@NotNull Material material) {
-        if (!material.isBlock()) {
-            throw new IllegalArgumentException("This material isn't a block");
-        }
-
-        laivynpc().getVersion().getMethodExec("Entity:Enderman:setCarried").invokeInstance(this, new Block(laivynpc().getVersion().getMethodExec("CraftMagicNumbers:getBlock").invokeStatic(new ObjectExecutor(material) {
-            @Override
-            public @NotNull ClassExecutor getClassExecutor() {
-                return new ClassExecutor(Material.class);
-            }
-        })).getData());
+    public @Nullable Material getCarrying() {
+        return laivynpc().getVersion().getEntityEndermanCarryingMaterial(this);
+    }
+    public void setCarrying(@Nullable Material material) {
+        laivynpc().getVersion().setEntityEndermanCarriedMaterial(this, material);
     }
 
     public boolean isScreaming() {

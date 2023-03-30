@@ -13,11 +13,10 @@ public class WitherSkull extends Entity {
     }
 
     public boolean isCharged() {
-        //noinspection DataFlowIssue
-        return (boolean) laivynpc().getVersion().getMethodExec("Entity:WitherSkull:isCharged").invokeInstance(this);
+        return laivynpc().getVersion().isEntityWitherSkullCharged(this);
     }
     public void setCharged(boolean flag) {
-        laivynpc().getVersion().getMethodExec("Entity:WitherSkull:setCharged").invokeInstance(this, new BooleanObjExec(flag));
+        laivynpc().getVersion().setEntityWitherSkullCharged(this, flag);
     }
 
     @Override

@@ -26,7 +26,7 @@ public class PlayerConnection extends ObjectExecutor {
 
     @NotNull
     public NetworkManager getNetworkManager() {
-        return new NetworkManager(laivynpc().getVersion().getMethodExec("NetworkManager:getNetworkManager").invokeInstance(this));
+        return new NetworkManager(laivynpc().getVersion().getMethodExec("PlayerConnection:getNetworkManager").invokeInstance(this));
     }
 
     public static class PlayerConnectionClass extends ClassExecutor {

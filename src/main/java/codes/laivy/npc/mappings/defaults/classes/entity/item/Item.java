@@ -13,10 +13,10 @@ public class Item extends Entity {
     }
 
     public @NotNull ItemStack getItemStack() {
-        return new codes.laivy.npc.mappings.defaults.classes.others.objects.ItemStack(laivynpc().getVersion().getMethodExec("Entity:Item:getItemStack").invokeInstance(this)).getCraftItemStack().getItemStack();
+        return laivynpc().getVersion().getEntityItemItemStack(this);
     }
     public void setItemStack(@NotNull ItemStack item) {
-        laivynpc().getVersion().getMethodExec("Entity:Item:setItemStack").invokeInstance(this, codes.laivy.npc.mappings.defaults.classes.others.objects.ItemStack.getNMSItemStack(item));
+        laivynpc().getVersion().setEntityItemItemStack(this, item);
     }
 
     @Override

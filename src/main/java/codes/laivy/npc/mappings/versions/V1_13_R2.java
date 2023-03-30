@@ -56,8 +56,6 @@ import codes.laivy.npc.mappings.instances.FieldExecutor;
 import codes.laivy.npc.mappings.instances.classes.ClassExecutor;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Objects;
-
 import static codes.laivy.npc.LaivyNPC.laivynpc;
 
 public class V1_13_R2 extends V1_13_R1 {
@@ -86,7 +84,7 @@ public class V1_13_R2 extends V1_13_R1 {
     @Override
     public boolean addToTeam(@NotNull Scoreboard scoreboard, @NotNull ScoreboardTeam team, @NotNull Entity entity) {
         String name;
-        if (entity instanceof EntityPlayer) name = entity.getName();
+        if (entity instanceof EntityPlayer) name = ((EntityPlayer) entity).getName();
         else name = String.valueOf(entity.getId());
 
         //noinspection DataFlowIssue

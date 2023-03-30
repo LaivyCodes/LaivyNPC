@@ -21,11 +21,10 @@ public class Sheep extends AgeableEntityLiving {
     }
 
     public boolean isSheared() {
-        //noinspection DataFlowIssue
-        return (boolean) laivynpc().getVersion().getMethodExec("Entity:Sheep:isSheared").invokeInstance(this);
+        return laivynpc().getVersion().isEntitySheepSheared(this);
     }
     public void setSheared(boolean flag) {
-        laivynpc().getVersion().getMethodExec("Entity:Sheep:setSheared").invokeInstance(this, new BooleanObjExec(flag));
+        laivynpc().getVersion().setEntitySheepSheared(this, flag);
     }
 
     @Override

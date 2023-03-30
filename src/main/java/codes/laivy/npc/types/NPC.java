@@ -12,7 +12,6 @@ import codes.laivy.npc.mappings.defaults.classes.enums.EntityPose;
 import codes.laivy.npc.mappings.defaults.classes.enums.EnumChatFormatEnum;
 import codes.laivy.npc.mappings.defaults.classes.enums.EnumChatFormatEnum.EnumChatFormat;
 import codes.laivy.npc.mappings.defaults.classes.enums.EnumItemSlotEnum;
-import codes.laivy.npc.mappings.defaults.classes.packets.EntityMetadataPacket;
 import codes.laivy.npc.mappings.defaults.classes.packets.Packet;
 import codes.laivy.npc.mappings.versions.V1_9_R1;
 import codes.laivy.npc.types.clicks.CommandClickAction;

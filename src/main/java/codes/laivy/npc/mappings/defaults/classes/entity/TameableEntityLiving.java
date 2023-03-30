@@ -1,10 +1,7 @@
 package codes.laivy.npc.mappings.defaults.classes.entity;
 
-import codes.laivy.npc.mappings.defaults.classes.java.BooleanObjExec;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.Objects;
 
 import static codes.laivy.npc.LaivyNPC.laivynpc;
 
@@ -14,17 +11,17 @@ public class TameableEntityLiving extends AgeableEntityLiving {
     }
 
     public boolean isTamed() {
-        return (boolean) Objects.requireNonNull(laivynpc().getVersion().getMethodExec("Entity:Tameable:isTamed").invokeInstance(this));
+        return laivynpc().getVersion().isEntityTamed(this);
     }
     public void setTamed(boolean flag) {
-        laivynpc().getVersion().getMethodExec("Entity:Tameable:setTamed").invokeInstance(this, new BooleanObjExec(flag));
+        laivynpc().getVersion().setEntityTamed(this, flag);
     }
 
     public boolean isSitting() {
-        return (boolean) Objects.requireNonNull(laivynpc().getVersion().getMethodExec("Entity:Tameable:isSitting").invokeInstance(this));
+        return laivynpc().getVersion().isEntitySitting(this);
     }
     public void setSitting(boolean flag) {
-        laivynpc().getVersion().getMethodExec("Entity:Tameable:setSitting").invokeInstance(this, new BooleanObjExec(flag));
+        laivynpc().getVersion().setEntitySitting(this, flag);
     }
 
     @Override

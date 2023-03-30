@@ -14,18 +14,17 @@ public class ItemFrame extends Entity {
     }
 
     public @NotNull org.bukkit.inventory.ItemStack getItem() {
-        return new ItemStack(laivynpc().getVersion().getMethodExec("Entity:ItemFrame:getItem").invokeInstance(this)).getCraftItemStack().getItemStack();
+        return laivynpc().getVersion().getEntityItemFrameItem(this);
     }
     public void setItem(@NotNull org.bukkit.inventory.ItemStack item) {
-        laivynpc().getVersion().getMethodExec("Entity:ItemFrame:setItem").invokeInstance(this, ItemStack.getNMSItemStack(item));
+        laivynpc().getVersion().setEntityItemFrameItem(this, item);
     }
 
     public int getRotation() {
-        //noinspection DataFlowIssue
-        return (int) laivynpc().getVersion().getMethodExec("Entity:ItemFrame:getRotation").invokeInstance(this);
+        return laivynpc().getVersion().getEntityItemFrameRotation(this);
     }
     public void setRotation(int rotation) {
-        laivynpc().getVersion().getMethodExec("Entity:ItemFrame:setRotation").invokeInstance(this, new IntegerObjExec(rotation));
+        laivynpc().getVersion().setEntityItemFrameRotation(this, rotation);
     }
 
     @Override

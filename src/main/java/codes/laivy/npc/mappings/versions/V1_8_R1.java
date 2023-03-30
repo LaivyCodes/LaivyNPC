@@ -545,6 +545,17 @@ public class V1_8_R1 extends Version {
     }
 
     @Override
+    public boolean isEntityInvisible(@NotNull Entity entity) {
+        //noinspection DataFlowIssue
+        return (boolean) laivynpc().getVersion().getMethodExec("Entity:Entity:isInvisible").invokeInstance(entity);
+    }
+
+    @Override
+    public void setEntityInvisible(@NotNull Entity entity, boolean invisible) {
+        laivynpc().getVersion().getMethodExec("Entity:Entity:setInvisible").invokeInstance(entity, new BooleanObjExec(invisible));
+    }
+
+    @Override
     public @NotNull Cat.CatVariant getEntityCatVariant(@NotNull Cat cat) {
         //noinspection DataFlowIssue
         int id = (int) getMethodExec("Entity:Ocelot:getCatType").invokeInstance(cat);
@@ -619,6 +630,17 @@ public class V1_8_R1 extends Version {
     @Override
     public void setEntityRabbitType(@NotNull Rabbit rabbit, Rabbit.@NotNull Variant type) {
         getMethodExec("Entity:Rabbit:setVariant").invokeInstance(rabbit, new IntegerObjExec(type.getId()));
+    }
+
+    @Override
+    public boolean isEntitySheepSheared(@NotNull Sheep sheep) {
+        //noinspection DataFlowIssue
+        return (boolean) laivynpc().getVersion().getMethodExec("Entity:Sheep:isSheared").invokeInstance(sheep);
+    }
+
+    @Override
+    public void setEntitySheepSheared(@NotNull Sheep sheep, boolean sheared) {
+        laivynpc().getVersion().getMethodExec("Entity:Sheep:setSheared").invokeInstance(sheep, new BooleanObjExec(sheared));
     }
 
     @Override
@@ -713,6 +735,24 @@ public class V1_8_R1 extends Version {
     @Override
     public void setEntityEndermanScreaming(@NotNull Enderman enderman, boolean screaming) {
         getMethodExec("Entity:Enderman:setScreaming").invokeInstance(enderman, new BooleanObjExec(screaming));
+    }
+
+    @Override
+    public @Nullable Material getEntityEndermanCarryingMaterial(@NotNull Enderman enderman) {
+        return new IBlockData(laivynpc().getVersion().getMethodExec("Entity:Enderman:getCarried").invokeInstance(enderman)).getBlock().getMaterial();
+    }
+
+    @Override
+    public void setEntityEndermanCarriedMaterial(@NotNull Enderman enderman, @Nullable Material material) {
+        if (material != null && !material.isBlock()) {
+            throw new IllegalArgumentException("This material isn't a block");
+        }
+
+        if (material != null) {
+            laivynpc().getVersion().getMethodExec("Entity:Enderman:setCarried").invokeInstance(enderman, getBlockData(material));
+        } else {
+            laivynpc().getVersion().getMethodExec("Entity:Enderman:setCarried").invokeInstance(enderman, new IBlockData(null));
+        }
     }
 
     @Override
@@ -832,12 +872,12 @@ public class V1_8_R1 extends Version {
     }
 
     @Override
-    public @NotNull EnumSpellEnum.Spell getEntityWizardSpell(@NotNull IllagerWizard wizard) {
+    public @NotNull EnumSpellEnum.Spell getEntityIllagerWizardSpell(@NotNull IllagerWizard wizard) {
         throw new UnsupportedOperationException("The wizard spells is only available at 1.11+");
     }
 
     @Override
-    public void setEntityWizardSpell(@NotNull IllagerWizard wizard, EnumSpellEnum.@NotNull Spell spell) {
+    public void setEntityIllagerWizardSpell(@NotNull IllagerWizard wizard, EnumSpellEnum.@NotNull Spell spell) {
         throw new UnsupportedOperationException("The wizard spells is only available at 1.11+");
     }
 
@@ -979,6 +1019,87 @@ public class V1_8_R1 extends Version {
     }
 
     @Override
+    public @Nullable ItemStack getEntityItemFrameItem(@NotNull ItemFrame itemFrame) {
+        Object item = laivynpc().getVersion().getMethodExec("Entity:ItemFrame:getItem").invokeInstance(itemFrame);
+        if (item == null) {
+            return null;
+        }
+        return new codes.laivy.npc.mappings.defaults.classes.others.objects.ItemStack(item).getCraftItemStack().getItemStack();
+    }
+
+    @Override
+    public void setEntityItemFrameItem(@NotNull ItemFrame itemFrame, @Nullable ItemStack itemStack) {
+        if (itemStack != null) {
+            laivynpc().getVersion().getMethodExec("Entity:ItemFrame:setItem").invokeInstance(itemFrame, codes.laivy.npc.mappings.defaults.classes.others.objects.ItemStack.getNMSItemStack(itemStack));
+        } else {
+            laivynpc().getVersion().getMethodExec("Entity:ItemFrame:setItem").invokeInstance(itemFrame, new codes.laivy.npc.mappings.defaults.classes.others.objects.ItemStack(null));
+        }
+    }
+
+    @Override
+    public int getEntityItemFrameRotation(@NotNull ItemFrame itemFrame) {
+        //noinspection DataFlowIssue
+        return (int) laivynpc().getVersion().getMethodExec("Entity:ItemFrame:getRotation").invokeInstance(itemFrame);
+    }
+
+    @Override
+    public void setEntityItemFrameRotation(@NotNull ItemFrame itemFrame, int rotation) {
+        laivynpc().getVersion().getMethodExec("Entity:ItemFrame:setRotation").invokeInstance(itemFrame, new IntegerObjExec(rotation));
+    }
+
+    @Override
+    public boolean isEntityTamed(@NotNull TameableEntityLiving tameableEntity) {
+        return (boolean) Objects.requireNonNull(laivynpc().getVersion().getMethodExec("Entity:Tameable:isTamed").invokeInstance(tameableEntity));
+    }
+
+    @Override
+    public void setEntityTamed(@NotNull TameableEntityLiving tameableEntity, boolean tamed) {
+        laivynpc().getVersion().getMethodExec("Entity:Tameable:setTamed").invokeInstance(tameableEntity, new BooleanObjExec(tamed));
+    }
+
+    @Override
+    public boolean isEntitySitting(@NotNull TameableEntityLiving tameableEntity) {
+        return (boolean) Objects.requireNonNull(laivynpc().getVersion().getMethodExec("Entity:Tameable:isSitting").invokeInstance(tameableEntity));
+    }
+
+    @Override
+    public void setEntitySitting(@NotNull TameableEntityLiving tameableEntity, boolean sitting) {
+        laivynpc().getVersion().getMethodExec("Entity:Tameable:setSitting").invokeInstance(tameableEntity, new BooleanObjExec(sitting));
+    }
+
+    @Override
+    public @NotNull ItemStack getEntityItemItemStack(@NotNull Item item) {
+        return new codes.laivy.npc.mappings.defaults.classes.others.objects.ItemStack(Objects.requireNonNull(laivynpc().getVersion().getMethodExec("Entity:Item:getItemStack").invokeInstance(item))).getCraftItemStack().getItemStack();
+    }
+
+    @Override
+    public void setEntityItemItemStack(@NotNull Item entityItem, @NotNull ItemStack itemStack) {
+        laivynpc().getVersion().getMethodExec("Entity:Item:setItemStack").invokeInstance(entityItem, codes.laivy.npc.mappings.defaults.classes.others.objects.ItemStack.getNMSItemStack(itemStack));
+    }
+
+    @Override
+    public boolean isEntityWitherSkullCharged(@NotNull WitherSkull skull) {
+        //noinspection DataFlowIssue
+        return (boolean) laivynpc().getVersion().getMethodExec("Entity:WitherSkull:isCharged").invokeInstance(skull);
+    }
+
+    @Override
+    public void setEntityWitherSkullCharged(@NotNull WitherSkull skull, boolean charged) {
+        laivynpc().getVersion().getMethodExec("Entity:WitherSkull:setCharged").invokeInstance(skull, new BooleanObjExec(charged));
+    }
+
+    @Override
+    public boolean isEntityBatAsleep(@NotNull Bat bat) {
+        //noinspection DataFlowIssue
+        return (boolean) laivynpc().getVersion().getMethodExec("Entity:Bat:isAsleep").invokeInstance(bat);
+    }
+
+    @Override
+    public void setEntityBatAsleep(@NotNull Bat bat, boolean asleep) {
+        laivynpc().getVersion().getMethodExec("Entity:Bat:setAsleep").invokeInstance(bat, new BooleanObjExec(asleep));
+    }
+
+    @Override
     public @NotNull EntityPlayer createPlayer(@NotNull GameProfile profile, @NotNull Location location) {
         if (location.getWorld() == null) {
             throw new NullPointerException("This location's world is null!");
@@ -1003,6 +1124,16 @@ public class V1_8_R1 extends Version {
     @Override
     public @NotNull GameProfile createGameProfile(@NotNull UUID uuid, @NotNull String name) {
         return new GameProfile(getClassExec("GameProfile").getConstructor(ClassExecutor.UUID, ClassExecutor.STRING).newInstance(new UUIDObjExec(uuid), new StringObjExec(name)));
+    }
+
+    @Override
+    public @NotNull String getPlayerName(@NotNull EntityPlayer player) {
+        return (String) Objects.requireNonNull(laivynpc().getVersion().getMethodExec("Entity:Human:getName").invokeInstance(player));
+    }
+
+    @Override
+    public @NotNull Block getNMSBlock(@NotNull CraftBlock block) {
+        return new Block(getMethodExec("CraftBlock:getNMSBlock").invokeInstance(block));
     }
 
     @Override
@@ -1064,17 +1195,17 @@ public class V1_8_R1 extends Version {
     @Override
     public void setArmorStandPose(ArmorStand.@NotNull Pose pose, @NotNull ArmorStand stand, @NotNull Vector3f vector3f) {
         if (pose == ArmorStand.Pose.HEAD) {
-            getMethodExec("Entity:ArmorStand:setHeadPose").invokeInstance(stand, vector3f);
+            getFieldExec("Entity:ArmorStand:headPose").set(stand, vector3f);
         } else if (pose == ArmorStand.Pose.BODY) {
-            getMethodExec("Entity:ArmorStand:setBodyPose").invokeInstance(stand, vector3f);
+            getFieldExec("Entity:ArmorStand:bodyPose").set(stand, vector3f);
         } else if (pose == ArmorStand.Pose.LEFT_ARM) {
-            getMethodExec("Entity:ArmorStand:setLeftArmPose").invokeInstance(stand, vector3f);
+            getFieldExec("Entity:ArmorStand:leftArmPose").set(stand, vector3f);
         } else if (pose == ArmorStand.Pose.RIGHT_ARM) {
-            getMethodExec("Entity:ArmorStand:setRightArmPose").invokeInstance(stand, vector3f);
+            getFieldExec("Entity:ArmorStand:rightArmPose").set(stand, vector3f);
         } else if (pose == ArmorStand.Pose.LEFT_LEG) {
-            getMethodExec("Entity:ArmorStand:setLeftLegPose").invokeInstance(stand, vector3f);
+            getFieldExec("Entity:ArmorStand:leftLegPose").set(stand, vector3f);
         } else if (pose == ArmorStand.Pose.RIGHT_LEG) {
-            getMethodExec("Entity:ArmorStand:setRightLegPose").invokeInstance(stand, vector3f);
+            getFieldExec("Entity:ArmorStand:rightLegPose").set(stand, vector3f);
         } else {
             throw new UnsupportedOperationException("Couldn't set this pose type '" + pose + "'");
         }
@@ -1194,7 +1325,7 @@ public class V1_8_R1 extends Version {
     @Override
     public boolean addToTeam(@NotNull Scoreboard scoreboard, @NotNull ScoreboardTeam team, @NotNull Entity entity) {
         if (entity instanceof EntityPlayer) {
-            return (boolean) getMethodExec("Scoreboard:addToTeam").invokeInstance(scoreboard, new StringObjExec(team.getName()), new StringObjExec(entity.getName()));
+            return (boolean) getMethodExec("Scoreboard:addToTeam").invokeInstance(scoreboard, new StringObjExec(team.getName()), new StringObjExec(((EntityPlayer) entity).getName()));
         } else {
             return (boolean) getMethodExec("Scoreboard:addToTeam").invokeInstance(scoreboard, new StringObjExec(team.getName()), new StringObjExec(entity.getId() + ""));
         }
@@ -1227,6 +1358,16 @@ public class V1_8_R1 extends Version {
         }
 
         return map;
+    }
+
+    @Override
+    public @NotNull IBlockData getBlockData(@NotNull Material material) {
+        return new Block(laivynpc().getVersion().getMethodExec("CraftMagicNumbers:getBlock").invokeStatic(new ObjectExecutor(material) {
+            @Override
+            public @NotNull ClassExecutor getClassExecutor() {
+                return new ClassExecutor(Material.class);
+            }
+        })).getData();
     }
 
     @Override
@@ -1389,7 +1530,7 @@ public class V1_8_R1 extends Version {
         load(V1_8_R1.class, "Entity:Entity:getId", new MethodExecutor(getClassExec("Entity"), ClassExecutor.INT, "getId", "Gets the entity id of a Entity"));
         load(V1_8_R1.class, "Entity:Entity:getDataWatcher", new MethodExecutor(getClassExec("Entity"), getClassExec("DataWatcher"), "getDataWatcher", "Gets the DataWatcher of a Entity"));
         load(V1_8_R1.class, "Entity:Entity:setLocation", new MethodExecutor(getClassExec("Entity"), ClassExecutor.VOID, "setLocation", "Sets the Entity's location", ClassExecutor.DOUBLE, ClassExecutor.DOUBLE, ClassExecutor.DOUBLE, ClassExecutor.FLOAT, ClassExecutor.FLOAT));
-        load(V1_8_R1.class, "Entity:Entity:getName", new MethodExecutor(getClassExec("Entity"), ClassExecutor.STRING, "getName", "Gets the Entity's name"));
+        load(V1_8_R1.class, "Entity:Human:getName", new MethodExecutor(getClassExec("Entity:Human"), ClassExecutor.STRING, "getName", "Gets the Entity's name"));
         load(V1_8_R1.class, "Entity:Entity:getCustomName", new MethodExecutor(getClassExec("Entity"), ClassExecutor.STRING, "getCustomName", "Gets the custom name of a Entity"));
         load(V1_8_R1.class, "Entity:Entity:setCustomName", new MethodExecutor(getClassExec("Entity"), ClassExecutor.VOID, "setCustomName", "Sets the custom name of a Entity", ClassExecutor.STRING));
         load(V1_8_R1.class, "Entity:Entity:isCustomNameVisible", new MethodExecutor(getClassExec("Entity"), ClassExecutor.BOOLEAN, "getCustomNameVisible", "Check if the Entity's custom name is visible"));
@@ -1458,13 +1599,6 @@ public class V1_8_R1 extends Version {
         // Skeleton
         load(V1_8_R1.class, "Entity:Skeleton:getSkeletonType", new MethodExecutor(getClassExec("Entity:Skeleton"), ClassExecutor.INT, "getSkeletonType", "Gets the skeleton type of the Skeleton"));
         load(V1_8_R1.class, "Entity:Skeleton:setSkeletonType", new MethodExecutor(getClassExec("Entity:Skeleton"), ClassExecutor.VOID, "setSkeletonType", "Sets the skeleton type of a Skeleton", ClassExecutor.INT));
-        // ArmorStand
-        load(V1_8_R1.class, "Entity:ArmorStand:setHeadPose", new MethodExecutor(getClassExec("Entity:ArmorStand"), ClassExecutor.VOID, "setHeadPose", "Sets the head pose of the armor stand", getClassExec("Vector3f")));
-        load(V1_8_R1.class, "Entity:ArmorStand:setBodyPose", new MethodExecutor(getClassExec("Entity:ArmorStand"), ClassExecutor.VOID, "setBodyPose", "Sets the body pose of the armor stand", getClassExec("Vector3f")));
-        load(V1_8_R1.class, "Entity:ArmorStand:setLeftArmPose", new MethodExecutor(getClassExec("Entity:ArmorStand"), ClassExecutor.VOID, "setLeftArmPose", "Sets the left arm pose of the armor stand", getClassExec("Vector3f")));
-        load(V1_8_R1.class, "Entity:ArmorStand:setRightArmPose", new MethodExecutor(getClassExec("Entity:ArmorStand"), ClassExecutor.VOID, "setRightArmPose", "Sets the right arm pose of the armor stand", getClassExec("Vector3f")));
-        load(V1_8_R1.class, "Entity:ArmorStand:setLeftLegPose", new MethodExecutor(getClassExec("Entity:ArmorStand"), ClassExecutor.VOID, "setLeftLegPose", "Sets the head left leg of the armor stand", getClassExec("Vector3f")));
-        load(V1_8_R1.class, "Entity:ArmorStand:setRightLegPose", new MethodExecutor(getClassExec("Entity:ArmorStand"), ClassExecutor.VOID, "setRightLegPose", "Sets the head right leg of the armor stand", getClassExec("Vector3f")));
         // Bat
         load(V1_8_R1.class, "Entity:Bat:isAsleep", new MethodExecutor(getClassExec("Entity:Bat"), ClassExecutor.BOOLEAN, "isAsleep", "Check if a bat is sleeping"));
         load(V1_8_R1.class, "Entity:Bat:setAsleep", new MethodExecutor(getClassExec("Entity:Bat"), ClassExecutor.VOID, "setAsleep", "Sets the sleeping state of a bat", ClassExecutor.BOOLEAN));
@@ -1528,7 +1662,7 @@ public class V1_8_R1 extends Version {
 
         // PlayerConnection & NetworkManager
         load(V1_8_R1.class, "PlayerConnection:sendPacket", new MethodExecutor(getClassExec("PlayerConnection"), ClassExecutor.VOID, "sendPacket", "Sends a packet to a player", getClassExec("Packet")));
-        load(V1_8_R1.class, "NetworkManager:getNetworkManager", new MethodExecutor(getClassExec("PlayerConnection"), getClassExec("NetworkManager"), "a", "Gets the NetworkManager from a PlayerConnection"));
+        load(V1_8_R1.class, "PlayerConnection:getNetworkManager", new MethodExecutor(getClassExec("PlayerConnection"), getClassExec("NetworkManager"), "a", "Gets the NetworkManager from a PlayerConnection"));
         //
 
         // DataWatcher

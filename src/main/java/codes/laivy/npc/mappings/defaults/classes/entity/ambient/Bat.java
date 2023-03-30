@@ -13,11 +13,10 @@ public class Bat extends EntityLiving {
     }
 
     public boolean isAsleep() {
-        //noinspection DataFlowIssue
-        return (boolean) laivynpc().getVersion().getMethodExec("Entity:Bat:isAsleep").invokeInstance(this);
+        return laivynpc().getVersion().isEntityBatAsleep(this);
     }
     public void setAsleep(boolean flag) {
-        laivynpc().getVersion().getMethodExec("Entity:Bat:setAsleep").invokeInstance(this, new BooleanObjExec(flag));
+        laivynpc().getVersion().setEntityBatAsleep(this, flag);
     }
 
     @Override

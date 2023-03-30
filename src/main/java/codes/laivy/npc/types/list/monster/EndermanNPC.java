@@ -50,10 +50,10 @@ public class EndermanNPC extends EntityLivingNPC {
     }
 
     public @NotNull Material getCarried() {
-        return getEntity().getCarried();
+        return getEntity().getCarrying();
     }
     public void setCarried(@NotNull Material material) {
-        getEntity().setCarried(material);
+        getEntity().setCarrying(material);
         sendUpdatePackets(getSpawnedPlayers(), false, false, true, false, false, false);
     }
 

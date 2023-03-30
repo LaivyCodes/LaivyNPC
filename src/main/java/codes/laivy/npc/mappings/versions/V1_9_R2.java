@@ -56,7 +56,7 @@ public class V1_9_R2 extends V1_9_R1 {
             } else if (executor instanceof MethodExecutor) {
                 switch (key) {
                     case "ScoreboardTeam:getCollision":
-                        load(V1_9_R2.class, key, new MethodExecutor(getClassExec("ScoreboardTeam"), getClassExec("ScoreboardTeam:EnumTeamPush"), "getCollisionRule", "Gets the collision state of the ScoreboardTeam"));
+                        load(V1_9_R2.class, "ScoreboardTeam:getCollision", new MethodExecutor(getClassExec("ScoreboardTeam"), getClassExec("ScoreboardTeam:EnumTeamPush"), "getCollisionRule", "Gets the collision state of the ScoreboardTeam"));
                         return false;
                     case "ScoreboardTeam:setCollision":
                         load(V1_9_R2.class, key, new MethodExecutor(getClassExec("ScoreboardTeam"), ClassExecutor.VOID, "setCollisionRule", "Sets the collision state of the ScoreboardTeam", getClassExec("ScoreboardTeam:EnumTeamPush")));

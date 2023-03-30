@@ -36,8 +36,6 @@ import codes.laivy.npc.mappings.defaults.classes.entity.monster.zombie.ZombieVil
 import codes.laivy.npc.mappings.defaults.classes.entity.npc.Villager;
 import codes.laivy.npc.mappings.defaults.classes.enums.EntityPose;
 import codes.laivy.npc.mappings.defaults.classes.java.BooleanObjExec;
-import codes.laivy.npc.mappings.defaults.classes.java.DoubleObjExec;
-import codes.laivy.npc.mappings.defaults.classes.java.FloatObjExec;
 import codes.laivy.npc.mappings.defaults.classes.others.location.World;
 import codes.laivy.npc.mappings.versions.*;
 import codes.laivy.npc.types.EntityNPC;
@@ -105,11 +103,6 @@ public class Entity extends ObjectExecutor {
         return new DataWatcher(dataWatcher);
     }
 
-    @NotNull
-    public String getName() {
-        return (String) Objects.requireNonNull(laivynpc().getVersion().getMethodExec("Entity:Entity:getName").invokeInstance(this));
-    }
-
     public @Nullable String getCustomName() {
         return laivynpc().getVersion().getEntityCustomName(this);
     }
@@ -155,11 +148,10 @@ public class Entity extends ObjectExecutor {
     }
 
     public boolean isInvisible() {
-        //noinspection ConstantConditions
-        return (boolean) laivynpc().getVersion().getMethodExec("Entity:Entity:isInvisible").invokeInstance(this);
+        return laivynpc().getVersion().isEntityInvisible(this);
     }
     public void setInvisible(boolean invisible) {
-        laivynpc().getVersion().getMethodExec("Entity:Entity:setInvisible").invokeInstance(this, new BooleanObjExec(invisible));
+        laivynpc().getVersion().setEntityInvisible(this, invisible);
     }
 
     /**

@@ -36,7 +36,7 @@ public class DataWatcher extends ObjectExecutor {
 
         return laivynpc().getVersion().getMethodExec("DataWatcher:get:DataWatcherObject").invokeInstance(this, object);
     }
-    public void set(@NotNull DataWatcherObject object, @NotNull ObjectExecutor value) {
+    public void set(@NotNull DataWatcherObject object, @Nullable ObjectExecutor value) {
         if (!ReflectionUtils.isCompatible(V1_9_R1.class)) {
             throw new IllegalStateException("This method is compatible only with 1.9+");
         }

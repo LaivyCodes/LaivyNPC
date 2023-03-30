@@ -1,5 +1,7 @@
 package codes.laivy.npc.mappings;
 
+import codes.laivy.npc.mappings.defaults.classes.entity.TameableEntityLiving;
+import codes.laivy.npc.mappings.defaults.classes.entity.ambient.Bat;
 import codes.laivy.npc.mappings.defaults.classes.entity.animal.*;
 import codes.laivy.npc.mappings.defaults.classes.entity.animal.fish.Fish;
 import codes.laivy.npc.mappings.defaults.classes.entity.animal.fish.Pufferfish;
@@ -7,12 +9,18 @@ import codes.laivy.npc.mappings.defaults.classes.entity.animal.fish.Tropicalfish
 import codes.laivy.npc.mappings.defaults.classes.entity.animal.horse.AbstractChestedHorse;
 import codes.laivy.npc.mappings.defaults.classes.entity.animal.horse.AbstractHorse;
 import codes.laivy.npc.mappings.defaults.classes.entity.animal.horse.Llama;
+import codes.laivy.npc.mappings.defaults.classes.entity.boss.wither.WitherSkull;
 import codes.laivy.npc.mappings.defaults.classes.entity.decoration.ArmorStand;
+import codes.laivy.npc.mappings.defaults.classes.entity.decoration.ItemFrame;
+import codes.laivy.npc.mappings.defaults.classes.entity.item.Item;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.illagers.IllagerWizard;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.zombie.ZombieVillager;
 import codes.laivy.npc.mappings.defaults.classes.enums.EnumSpellEnum;
 import codes.laivy.npc.mappings.defaults.classes.enums.HorseArmor;
+import codes.laivy.npc.mappings.defaults.classes.others.location.CraftBlock;
 import codes.laivy.npc.mappings.defaults.classes.others.location.Vector3f;
+import codes.laivy.npc.mappings.defaults.classes.others.objects.Block;
+import codes.laivy.npc.mappings.defaults.classes.others.objects.IBlockData;
 import codes.laivy.npc.mappings.instances.classes.ClassExecutor;
 import codes.laivy.npc.mappings.instances.EnumExecutor;
 import codes.laivy.npc.mappings.instances.Executor;
@@ -44,6 +52,7 @@ import codes.laivy.npc.mappings.defaults.classes.scoreboard.Scoreboard;
 import codes.laivy.npc.mappings.defaults.classes.scoreboard.ScoreboardTeam;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -226,6 +235,9 @@ public abstract class Version implements VersionCompound, VersionPacket, Version
     // ENTITY
     public abstract @Nullable String getEntityCustomName(@NotNull Entity entity);
     public abstract void setEntityCustomName(@NotNull Entity entity, @Nullable String customName);
+
+    public abstract boolean isEntityInvisible(@NotNull Entity entity);
+    public abstract void setEntityInvisible(@NotNull Entity entity, boolean invisible);
     // ENTITY CAT
     public abstract @NotNull Cat.CatVariant getEntityCatVariant(@NotNull Cat cat);
     public abstract void setEntityCatVariant(@NotNull Cat cat, @NotNull Cat.CatVariant variant);
@@ -242,6 +254,9 @@ public abstract class Version implements VersionCompound, VersionPacket, Version
     public abstract @NotNull Rabbit.Variant getEntityRabbitType(@NotNull Rabbit rabbit);
     public abstract void setEntityRabbitType(@NotNull Rabbit rabbit, @NotNull Rabbit.Variant type);
     // ENTITY SHEEP
+    public abstract boolean isEntitySheepSheared(@NotNull Sheep sheep);
+    public abstract void setEntitySheepSheared(@NotNull Sheep sheep, boolean sheared);
+
     public abstract @NotNull EnumColorEnum.EnumColor getEntitySheepColor(@NotNull Sheep sheep);
     public abstract void setEntitySheepColor(@NotNull Sheep sheep, @NotNull EnumColorEnum.EnumColor color);
     // ENTITY SKELETON
@@ -260,6 +275,9 @@ public abstract class Version implements VersionCompound, VersionPacket, Version
     // ENTITY ENDERMAN
     public abstract boolean isEntityEndermanScreaming(@NotNull Enderman enderman);
     public abstract void setEntityEndermanScreaming(@NotNull Enderman enderman, boolean screaming);
+
+    public abstract @Nullable Material getEntityEndermanCarryingMaterial(@NotNull Enderman enderman);
+    public abstract void setEntityEndermanCarriedMaterial(@NotNull Enderman enderman, @Nullable Material material);
     // ENTITY ZOMBIE
     public abstract @Nullable Zombie.Type getEntityZombieType(@NotNull Zombie zombie);
     public abstract void setEntityZombieType(@NotNull Zombie zombie, @Nullable Zombie.Type type);
@@ -290,8 +308,8 @@ public abstract class Version implements VersionCompound, VersionPacket, Version
     public abstract @Nullable EnumColorEnum.EnumColor getEntityLlamaCarpetColor(@NotNull Llama llama);
     public abstract void setEntityLlamaCarpetColor(@NotNull Llama llama, @Nullable EnumColorEnum.EnumColor color);
     // ENTITY WIZARD
-    public abstract @NotNull EnumSpellEnum.Spell getEntityWizardSpell(@NotNull IllagerWizard wizard);
-    public abstract void setEntityWizardSpell(@NotNull IllagerWizard wizard, @NotNull EnumSpellEnum.Spell spell);
+    public abstract @NotNull EnumSpellEnum.Spell getEntityIllagerWizardSpell(@NotNull IllagerWizard wizard);
+    public abstract void setEntityIllagerWizardSpell(@NotNull IllagerWizard wizard, @NotNull EnumSpellEnum.Spell spell);
     // ENTITY PARROT
     public abstract @NotNull Parrot.Variant getEntityParrotVariant(@NotNull Parrot parrot);
     public abstract void setEntityParrotVariant(@NotNull Parrot parrot, @NotNull Parrot.Variant variant);
@@ -332,12 +350,37 @@ public abstract class Version implements VersionCompound, VersionPacket, Version
     public abstract void setEntityWolfAngry(@NotNull Wolf wolf, boolean angry);
     public abstract @NotNull EnumColorEnum.EnumColor getEntityWolfCollarColor(@NotNull Wolf wolf);
     public abstract void setEntityWolfCollarColor(@NotNull Wolf wolf, @NotNull EnumColorEnum.EnumColor color);
+    // ENTITY ITEM FRAME
+    public abstract @Nullable org.bukkit.inventory.ItemStack getEntityItemFrameItem(@NotNull ItemFrame itemFrame);
+    public abstract void setEntityItemFrameItem(@NotNull ItemFrame itemFrame, @Nullable org.bukkit.inventory.ItemStack itemStack);
+
+    public abstract int getEntityItemFrameRotation(@NotNull ItemFrame itemFrame);
+    public abstract void setEntityItemFrameRotation(@NotNull ItemFrame itemFrame, int rotation);
+    // ENTITY TAMEABLE
+    public abstract boolean isEntityTamed(@NotNull TameableEntityLiving tameableEntity);
+    public abstract void setEntityTamed(@NotNull TameableEntityLiving tameableEntity, boolean tamed);
+
+    public abstract boolean isEntitySitting(@NotNull TameableEntityLiving tameableEntity);
+    public abstract void setEntitySitting(@NotNull TameableEntityLiving tameableEntity, boolean sitting);
+    // ITEM
+    public abstract @NotNull ItemStack getEntityItemItemStack(@NotNull Item item);
+    public abstract void setEntityItemItemStack(@NotNull Item entityItem, @NotNull ItemStack itemStack);
+    // WITHER SKULL
+    public abstract boolean isEntityWitherSkullCharged(@NotNull WitherSkull skull);
+    public abstract void setEntityWitherSkullCharged(@NotNull WitherSkull skull, boolean charged);
+    // BAT
+    public abstract boolean isEntityBatAsleep(@NotNull Bat bat);
+    public abstract void setEntityBatAsleep(@NotNull Bat bat, boolean asleep);
     //
 
     // ENTITY PLAYER
     //
     public abstract @NotNull EntityPlayer createPlayer(@NotNull GameProfile profile, @NotNull Location location);
     public abstract @NotNull GameProfile createGameProfile(@NotNull UUID uuid, @NotNull String name);
+
+    public abstract @NotNull String getPlayerName(@NotNull EntityPlayer player);
+
+    public abstract @NotNull Block getNMSBlock(@NotNull CraftBlock block);
 
     public abstract @Nullable String getPlayerTablistName(@NotNull EntityPlayer player);
     public abstract void setPlayerTablistName(@NotNull EntityPlayer player, @Nullable String string);
@@ -370,5 +413,7 @@ public abstract class Version implements VersionCompound, VersionPacket, Version
     // DataWatcher
     public abstract @NotNull Map<@NotNull Integer, @NotNull VersionedDataWatcherObject> dataWatcherGetValues(@NotNull DataWatcher dataWatcher);
     //
+
+    public abstract @NotNull IBlockData getBlockData(@NotNull Material material);
 
 }

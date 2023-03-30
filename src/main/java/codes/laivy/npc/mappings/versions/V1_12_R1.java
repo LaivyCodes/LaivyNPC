@@ -143,11 +143,11 @@ public class V1_12_R1 extends V1_11_R1 {
     }
 
     @Override
-    public void setEntityWizardSpell(@NotNull IllagerWizard wizard, EnumSpellEnum.@NotNull Spell spell) {
+    public void setEntityIllagerWizardSpell(@NotNull IllagerWizard wizard, EnumSpellEnum.@NotNull Spell spell) {
         getMethodExec("Entity:IllagerWizard:setSpell").invokeInstance(wizard, spell.getEnum());
     }
     @Override
-    public @NotNull EnumSpellEnum.Spell getEntityWizardSpell(@NotNull IllagerWizard wizard) {
+    public @NotNull EnumSpellEnum.Spell getEntityIllagerWizardSpell(@NotNull IllagerWizard wizard) {
         return EnumSpellEnum.Spell.fromEnum(new EnumSpellEnum.EnumSpellExec((Enum<?>) Objects.requireNonNull(getMethodExec("Entity:IllagerWizard:getSpell").invokeInstance(wizard))));
     }
 

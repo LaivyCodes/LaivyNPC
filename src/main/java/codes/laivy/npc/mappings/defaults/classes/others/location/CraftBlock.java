@@ -21,7 +21,7 @@ public class CraftBlock extends ObjectExecutor {
     }
 
     public @NotNull codes.laivy.npc.mappings.defaults.classes.others.objects.Block getNMSBlock() {
-        return new codes.laivy.npc.mappings.defaults.classes.others.objects.Block(laivynpc().getVersion().getMethodExec("CraftBlock:getNMSBlock").invokeInstance(this));
+        return laivynpc().getVersion().getNMSBlock(this);
     }
 
     @Override

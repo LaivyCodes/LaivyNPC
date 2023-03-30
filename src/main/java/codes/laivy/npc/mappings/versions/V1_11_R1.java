@@ -220,7 +220,7 @@ public class V1_11_R1 extends V1_10_R1 {
     }
 
     @Override
-    public void setEntityWizardSpell(@NotNull IllagerWizard wizard, EnumSpellEnum.@NotNull Spell spell) {
+    public void setEntityIllagerWizardSpell(@NotNull IllagerWizard wizard, EnumSpellEnum.@NotNull Spell spell) {
         if (wizard instanceof Evoker) {
             wizard.getDataWatcher().set(IllagerWizard.SPELL_METADATA(), new ByteObjExec((byte) spell.getValue()));
         } else {
@@ -228,7 +228,7 @@ public class V1_11_R1 extends V1_10_R1 {
         }
     }
     @Override
-    public @NotNull EnumSpellEnum.Spell getEntityWizardSpell(@NotNull IllagerWizard wizard) {
+    public @NotNull EnumSpellEnum.Spell getEntityIllagerWizardSpell(@NotNull IllagerWizard wizard) {
         if (wizard instanceof Evoker) {
             return EnumSpellEnum.Spell.getByValue(((Byte) Objects.requireNonNull(wizard.getDataWatcher().get(IllagerWizard.SPELL_METADATA()))).intValue());
         } else {
