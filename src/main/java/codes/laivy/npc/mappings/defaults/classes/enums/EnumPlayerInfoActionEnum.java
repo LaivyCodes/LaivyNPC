@@ -3,26 +3,41 @@ package codes.laivy.npc.mappings.defaults.classes.enums;
 import codes.laivy.npc.mappings.instances.classes.ClassExecutor;
 import codes.laivy.npc.mappings.instances.EnumExecutor;
 import codes.laivy.npc.mappings.defaults.classes.java.EnumObjExec;
+import codes.laivy.npc.mappings.versions.V1_19_R2;
+import codes.laivy.npc.utils.ReflectionUtils;
 import org.bukkit.Bukkit;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import static codes.laivy.npc.LaivyNPC.laivynpc;
 
 public class EnumPlayerInfoActionEnum extends EnumExecutor {
 
-    public static @NotNull EnumPlayerInfoAction ADD_PLAYER() {
+    public static @Nullable EnumPlayerInfoAction ADD_PLAYER() {
+        if (ReflectionUtils.isCompatible(V1_19_R2.class)) {
+            return null;
+        }
+
         EnumExecutor enumExec = laivynpc().getVersion().getEnumExec("PacketPlayOutPlayerInfo:EnumPlayerInfoAction");
         String name = laivynpc().getVersion().getText("PacketPlayOutPlayerInfo:EnumPlayerInfoAction:ADD_PLAYER");
 
         return new EnumPlayerInfoAction(enumExec.valueOf(name).getValue());
     }
-    public static @NotNull EnumPlayerInfoAction REMOVE_PLAYER() {
+    public static @Nullable EnumPlayerInfoAction REMOVE_PLAYER() {
+        if (ReflectionUtils.isCompatible(V1_19_R2.class)) {
+            return null;
+        }
+
         EnumExecutor enumExec = laivynpc().getVersion().getEnumExec("PacketPlayOutPlayerInfo:EnumPlayerInfoAction");
         String name = laivynpc().getVersion().getText("PacketPlayOutPlayerInfo:EnumPlayerInfoAction:REMOVE_PLAYER");
 
         return new EnumPlayerInfoAction(enumExec.valueOf(name).getValue());
     }
-    public static @NotNull EnumPlayerInfoAction UPDATE_DISPLAY_NAME() {
+    public static @Nullable EnumPlayerInfoAction UPDATE_DISPLAY_NAME() {
+        if (ReflectionUtils.isCompatible(V1_19_R2.class)) {
+            return null;
+        }
+
         EnumExecutor enumExec = laivynpc().getVersion().getEnumExec("PacketPlayOutPlayerInfo:EnumPlayerInfoAction");
         String name = laivynpc().getVersion().getText("PacketPlayOutPlayerInfo:EnumPlayerInfoAction:UPDATE_DISPLAY_NAME");
 
@@ -42,6 +57,9 @@ public class EnumPlayerInfoActionEnum extends EnumExecutor {
     public static class EnumPlayerInfoActionClass extends ClassExecutor {
         public EnumPlayerInfoActionClass(@NotNull String className) {
             super(className);
+            if (ReflectionUtils.isCompatible(V1_19_R2.class)) {
+                throw new UnsupportedOperationException("This packet isn't available anymore since 1.19.3+");
+            }
         }
     }
 }

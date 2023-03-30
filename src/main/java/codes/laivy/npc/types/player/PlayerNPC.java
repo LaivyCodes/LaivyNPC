@@ -252,7 +252,10 @@ public class PlayerNPC extends NPC {
         List<Packet> packets = new LinkedList<>();
 
         if (!isShowOnTablist()) {
-            packets.add(laivynpc().getVersion().createPlayerInfoPacket(EnumPlayerInfoActionEnum.REMOVE_PLAYER(), getEntity()));
+            Packet packet = laivynpc().getVersion().createPlayerInfoPacket(EnumPlayerInfoActionEnum.REMOVE_PLAYER(), getEntity());
+            if (packet != null) {
+                packets.add(packet);
+            }
         }
 
         return packets;
@@ -263,10 +266,21 @@ public class PlayerNPC extends NPC {
         List<@NotNull Packet> packets = new LinkedList<>();
 
         if (!getSpawnedPlayers().contains(player.getUniqueId())) {
-            packets.add(laivynpc().getVersion().createPlayerInfoPacket(EnumPlayerInfoActionEnum.ADD_PLAYER(), getEntity()));
+            // Update add player packet
+            Packet packet = laivynpc().getVersion().createPlayerInfoPacket(EnumPlayerInfoActionEnum.ADD_PLAYER(), getEntity());
+            if (packet != null) {
+                packets.add(packet);
+            }
+            // Named spawn
             packets.add(laivynpc().getVersion().createSpawnNamedPacket(getEntity()));
         }
-        packets.add(laivynpc().getVersion().createPlayerInfoPacket(EnumPlayerInfoActionEnum.UPDATE_DISPLAY_NAME(), getEntity()));
+
+        // Update displayName packet
+        Packet packet = laivynpc().getVersion().createPlayerInfoPacket(EnumPlayerInfoActionEnum.UPDATE_DISPLAY_NAME(), getEntity());
+        if (packet != null) {
+            packets.add(packet);
+        }
+        //
 
         // TODO: 26/12/2022 1.14 poses
 //        if (getPose() == EntityPose.CROUCHING) setPose(EntityPose.CROUCHING);
@@ -280,7 +294,12 @@ public class PlayerNPC extends NPC {
     @Override
     public @NotNull List<Packet> getDestroyPackets(@NotNull Player player) {
         List<@NotNull Packet> packets = new LinkedList<>();
-        packets.add(laivynpc().getVersion().createPlayerInfoPacket(EnumPlayerInfoActionEnum.REMOVE_PLAYER(), getEntity()));
+
+        Packet packet = laivynpc().getVersion().createPlayerInfoPacket(EnumPlayerInfoActionEnum.REMOVE_PLAYER(), getEntity());
+        if (packet != null) {
+            packets.add(packet);
+        }
+
         packets.addAll(laivynpc().getVersion().createDestroyPacket(getEntity()));
         return packets;
     }

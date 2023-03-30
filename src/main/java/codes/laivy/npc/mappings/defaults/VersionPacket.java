@@ -12,6 +12,7 @@ import codes.laivy.npc.mappings.defaults.classes.packets.*;
 import codes.laivy.npc.mappings.defaults.classes.scoreboard.ScoreboardTeam;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
 import java.util.Set;
@@ -31,7 +32,7 @@ public interface VersionPacket {
 
     @NotNull Set<EntityDestroyPacket> createDestroyPacket(@NotNull Entity... entity);
     @NotNull EntityMetadataPacket createMetadataPacket(@NotNull Entity entity, @NotNull DataWatcher dataWatcher, boolean b);
-    @NotNull PlayerInfoPacket createPlayerInfoPacket(@NotNull EnumPlayerInfoActionEnum.EnumPlayerInfoAction action, @NotNull EntityPlayer player);
+    @Nullable PlayerInfoPacket createPlayerInfoPacket(@Nullable EnumPlayerInfoActionEnum.EnumPlayerInfoAction action, @NotNull EntityPlayer player);
     @NotNull ScoreboardTeamPacket createScoreboardTeamPacket(@NotNull ScoreboardTeam team, boolean b);
     @NotNull Set<EntityEquipmentPacket> createEquipmentPacket(@NotNull Entity entity, @NotNull Map<EnumItemSlotEnum.@NotNull EnumItemSlot, @NotNull ItemStack> items);
 

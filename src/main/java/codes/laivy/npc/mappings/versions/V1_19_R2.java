@@ -55,6 +55,7 @@ import codes.laivy.npc.mappings.defaults.classes.packets.*;
 import codes.laivy.npc.mappings.defaults.classes.scoreboard.CraftScoreboard;
 import codes.laivy.npc.mappings.defaults.classes.scoreboard.Scoreboard;
 import codes.laivy.npc.mappings.defaults.classes.scoreboard.ScoreboardTeam;
+import codes.laivy.npc.mappings.instances.EnumExecutor;
 import codes.laivy.npc.mappings.instances.Executor;
 import codes.laivy.npc.mappings.instances.FieldExecutor;
 import codes.laivy.npc.mappings.instances.MethodExecutor;
@@ -62,6 +63,7 @@ import codes.laivy.npc.mappings.instances.classes.ClassExecutor;
 import io.netty.channel.Channel;
 import org.bukkit.Bukkit;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
 import java.util.Set;
@@ -72,6 +74,12 @@ public class V1_19_R2 extends V1_19_R1 {
     protected boolean onLoad(@NotNull Class<? extends Version> version, @NotNull String key, @NotNull Executor executor) {
         if (version == V1_19_R1.class) {
             return false;
+        } else if (version == V1_8_R1.class) {
+            if (executor instanceof EnumExecutor) {
+                if (key.equals("PacketPlayOutPlayerInfo:EnumPlayerInfoAction")) {
+                    return false;
+                }
+            }
         }
 
         return super.onLoad(version, key, executor);
@@ -83,6 +91,7 @@ public class V1_19_R2 extends V1_19_R1 {
         load(V1_19_R2.class, "EnumSkeletonType", new ClassExecutor.BrokenClassExecutor());
         load(V1_19_R2.class, "EnumHorseType", new ClassExecutor.BrokenClassExecutor());
         load(V1_19_R2.class, "EnumZombieType", new ClassExecutor.BrokenClassExecutor());
+        load(V1_19_R2.class, "PacketPlayOutPlayerInfo:EnumPlayerInfoAction", new ClassExecutor.BrokenEnumExecutor());
 
         load(V1_19_R2.class, "NBTBase", new NBTBase.NBTBaseClass("net.minecraft.nbt.NBTBase"));
 
@@ -106,8 +115,6 @@ public class V1_19_R2 extends V1_19_R1 {
         load(V1_19_R2.class, "PacketPlayOutAnimation", new EntityAnimationPacket.EntityAnimationPacketClass("net.minecraft.network.protocol.game.PacketPlayOutAnimation"));
         load(V1_19_R2.class, "PacketPlayOutEntityMetadata", new EntityMetadataPacket.EntityMetadataPacketClass("net.minecraft.network.protocol.game.PacketPlayOutEntityMetadata"));
         load(V1_19_R2.class, "PacketPlayOutNamedEntitySpawn", new EntityNamedSpawnPacket.EntityNamedSpawnPacketClass("net.minecraft.network.protocol.game.PacketPlayOutNamedEntitySpawn"));
-        load(V1_19_R2.class, "PacketPlayOutPlayerInfo", new PlayerInfoPacket.PlayerInfoPacketClass("net.minecraft.network.protocol.game.PacketPlayOutPlayerInfo"));
-        load(V1_19_R2.class, "PacketPlayOutPlayerInfo:EnumPlayerInfoAction", new EnumPlayerInfoActionEnum.EnumPlayerInfoActionClass("net.minecraft.network.protocol.game.PacketPlayOutPlayerInfo$EnumPlayerInfoAction"));
         load(V1_19_R2.class, "PacketPlayOutScoreboardTeam", new ScoreboardTeamPacket.ScoreboardTeamPacketClass("net.minecraft.network.protocol.game.PacketPlayOutScoreboardTeam"));
         load(V1_19_R2.class, "PacketPlayOutEntityEquipment", new EntityEquipmentPacket.EntityEquipmentPacketClass("net.minecraft.network.protocol.game.PacketPlayOutEntityEquipment"));
         load(V1_19_R2.class, "PacketPlayOutEntityTeleport", new EntityTeleportPacket.EntityTeleportPacketClass("net.minecraft.network.protocol.game.PacketPlayOutEntityTeleport"));
@@ -558,6 +565,11 @@ public class V1_19_R2 extends V1_19_R1 {
         super.getTexts().put("Cat:Variant:white", "i");
         super.getTexts().put("Cat:Variant:jellie", "j");
         super.getTexts().put("Cat:Variant:all_black", "k");
+    }
+
+    @Override
+    public @Nullable PlayerInfoPacket createPlayerInfoPacket(EnumPlayerInfoActionEnum.@NotNull EnumPlayerInfoAction action, @NotNull EntityPlayer player) {
+        return null;
     }
 
     @Override

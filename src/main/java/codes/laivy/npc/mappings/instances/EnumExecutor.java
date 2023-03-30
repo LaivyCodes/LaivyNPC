@@ -3,6 +3,7 @@ package codes.laivy.npc.mappings.instances;
 import codes.laivy.npc.mappings.instances.classes.ClassExecutor;
 import codes.laivy.npc.mappings.defaults.classes.java.EnumObjExec;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -12,8 +13,8 @@ public class EnumExecutor extends ClassExecutor {
     private final Map<String, EnumObjExec> enums = new LinkedHashMap<>();
     private boolean loaded = false;
 
-    public EnumExecutor(@NotNull ClassExecutor classExecutor) {
-        super(classExecutor.getReflectionClass());
+    public EnumExecutor(@Nullable ClassExecutor classExecutor) {
+        super(classExecutor != null ? classExecutor.getReflectionClass().getName() : "");
     }
 
     @NotNull

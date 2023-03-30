@@ -143,7 +143,9 @@ public class Debug {
 
             message.append("§7Trying to debug PlayerInfoPacket ADD_PLAYER...\n");
             PlayerInfoPacket playerInfoPacket = laivynpc().getVersion().createPlayerInfoPacket(EnumPlayerInfoActionEnum.ADD_PLAYER(), entityPlayer);
-            playerInfoPacket.send(player);
+            if (playerInfoPacket != null) {
+                playerInfoPacket.send(player);
+            }
             message.append("§7Trying to debug EntityNamedSpawnPacket...\n");
             EntityNamedSpawnPacket entityNamedSpawnPacket = laivynpc().getVersion().createSpawnNamedPacket(entityPlayer);
             entityNamedSpawnPacket.send(player);
@@ -162,7 +164,9 @@ public class Debug {
 
             message.append("§7Trying to debug PlayerInfoPacket REMOVE_PLAYER...\n");
             playerInfoPacket = laivynpc().getVersion().createPlayerInfoPacket(EnumPlayerInfoActionEnum.REMOVE_PLAYER(), entityPlayer);
-            playerInfoPacket.send(player);
+            if (playerInfoPacket != null) {
+                playerInfoPacket.send(player);
+            }
             //
 
             message.append("§7Trying to debug EntityDestroyPacket...\n");

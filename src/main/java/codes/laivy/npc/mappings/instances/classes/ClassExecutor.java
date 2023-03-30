@@ -1,5 +1,6 @@
 package codes.laivy.npc.mappings.instances.classes;
 
+import codes.laivy.npc.mappings.instances.EnumExecutor;
 import codes.laivy.npc.mappings.instances.Executor;
 import codes.laivy.npc.mappings.instances.ObjectExecutor;
 import codes.laivy.npc.utils.ClassUtils;
@@ -298,6 +299,25 @@ public class ClassExecutor implements Executor {
     public static final class BrokenClassExecutor extends ClassExecutor {
         public BrokenClassExecutor() {
             super("");
+        }
+
+        @Override
+        public void load() {
+        }
+
+        @Override
+        public @NotNull Class<?> getReflectionClass() {
+            return getClass();
+        }
+
+        @Override
+        public boolean isLoaded() {
+            return true;
+        }
+    }
+    public static final class BrokenEnumExecutor extends EnumExecutor {
+        public BrokenEnumExecutor() {
+            super(null);
         }
 
         @Override
