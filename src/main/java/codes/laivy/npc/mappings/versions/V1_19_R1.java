@@ -327,7 +327,7 @@ public class V1_19_R1 extends V1_18_R2 {
         load(V1_19_R1.class, "Entity:Entity:setLocation", new MethodExecutor(getClassExec("Entity"), ClassExecutor.VOID, "a", "Sets the Entity's location", ClassExecutor.DOUBLE, ClassExecutor.DOUBLE, ClassExecutor.DOUBLE, ClassExecutor.FLOAT, ClassExecutor.FLOAT));
         load(V1_19_R1.class, "Entity:Human:getName", new MethodExecutor(getClassExec("Entity:Human"), getClassExec("IChatBaseComponent"), "X", "Gets the Entity's name"));
         load(V1_19_R1.class, "Entity:Entity:getCustomName", new MethodExecutor(getClassExec("Entity"), getClassExec("IChatBaseComponent"), "Z", "Gets the custom name of a Entity"));
-        load(V1_19_R1.class, "Entity:Entity:setCustomName", new MethodExecutor(getClassExec("Entity"), ClassExecutor.VOID, "a", "Sets the custom name of a Entity", getClassExec("IChatBaseComponent")));
+        load(V1_19_R1.class, "Entity:Entity:setCustomName", new MethodExecutor(getClassExec("Entity"), ClassExecutor.VOID, "b", "Sets the custom name of a Entity", getClassExec("IChatBaseComponent")));
         load(V1_19_R1.class, "Entity:Entity:isCustomNameVisible", new MethodExecutor(getClassExec("Entity"), ClassExecutor.BOOLEAN, "cu", "Check if the Entity's custom name is visible"));
         load(V1_19_R1.class, "Entity:Entity:setCustomNameVisible", new MethodExecutor(getClassExec("Entity"), ClassExecutor.VOID, "n", "Sets the Entity's custom name visibility", ClassExecutor.BOOLEAN));
         load(V1_19_R1.class, "Entity:Entity:EntityData", new MethodExecutor(getClassExec("Entity"), ClassExecutor.BOOLEAN, "h", "Gets the entity zero data byte", ClassExecutor.INT));
