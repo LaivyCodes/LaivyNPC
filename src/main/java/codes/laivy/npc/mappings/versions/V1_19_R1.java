@@ -332,7 +332,17 @@ public class V1_19_R1 extends V1_18_R2 {
         load(V1_19_R1.class, "Entity:Entity:setCustomNameVisible", new MethodExecutor(getClassExec("Entity"), ClassExecutor.VOID, "n", "Sets the Entity's custom name visibility", ClassExecutor.BOOLEAN));
         load(V1_19_R1.class, "Entity:Entity:EntityData", new MethodExecutor(getClassExec("Entity"), ClassExecutor.BOOLEAN, "h", "Gets the entity zero data byte", ClassExecutor.INT));
         load(V1_19_R1.class, "Entity:Entity:setInvisible", new MethodExecutor(getClassExec("Entity"), ClassExecutor.VOID, "j", "Sets the Entity's visibility mode", ClassExecutor.BOOLEAN));
-        load(V1_19_R1.class, "Entity:EntityPlayer:getProfile", new MethodExecutor(getClassExec("Entity:Human"), getClassExec("GameProfile"), "fz", "Gets the EntityPlayer's GameProfile"));
+
+        try {
+            load(V1_19_R1.class, "Entity:EntityPlayer:getProfile", new MethodExecutor(getClassExec("Entity:Human"), getClassExec("GameProfile"), "fz", "Gets the EntityPlayer's GameProfile"));
+        } catch (RuntimeException e) {
+            if (e.getCause() instanceof NoSuchMethodException) {
+                load(V1_19_R1.class, "Entity:EntityPlayer:getProfile", new MethodExecutor(getClassExec("Entity:Human"), getClassExec("GameProfile"), "fy", "Gets the EntityPlayer's GameProfile"));
+            } else {
+                throw e;
+            }
+        }
+
         load(V1_19_R1.class, "Entity:isGlowing", new MethodExecutor(getClassExec("Entity"), ClassExecutor.BOOLEAN, "bW", "Gets the glowing state of a Entity"));
         load(V1_19_R1.class, "Entity:setGlowing", new MethodExecutor(getClassExec("Entity"), ClassExecutor.VOID, "i", "Sets the glowing state of a Entity", ClassExecutor.BOOLEAN));
         // ArmorStand
