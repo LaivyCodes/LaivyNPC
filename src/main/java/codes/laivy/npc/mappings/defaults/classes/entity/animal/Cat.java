@@ -1,10 +1,14 @@
 package codes.laivy.npc.mappings.defaults.classes.entity.animal;
 
 import codes.laivy.npc.mappings.defaults.classes.datawatcher.DataWatcherObject;
+import codes.laivy.npc.mappings.instances.FieldExecutor;
 import codes.laivy.npc.mappings.versions.V1_14_R1;
+import codes.laivy.npc.mappings.versions.V1_19_R1;
 import codes.laivy.npc.utils.ReflectionUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Objects;
 
 import static codes.laivy.npc.LaivyNPC.laivynpc;
 
@@ -22,10 +26,10 @@ public class Cat extends Ocelot {
         super(value);
     }
 
-    public @NotNull CatVariant getVariant() {
+    public @NotNull Cat.Variant getVariant() {
         return laivynpc().getVersion().getEntityCatVariant(this);
     }
-    public void setVariant(@NotNull CatVariant variant) {
+    public void setVariant(@NotNull Cat.Variant variant) {
         laivynpc().getVersion().setEntityCatVariant(this, variant);
     }
 
@@ -44,7 +48,7 @@ public class Cat extends Ocelot {
         }
     }
 
-    public enum CatVariant {
+    public enum Variant {
         TABBY(0),
         BLACK(1),
         RED(2),
@@ -60,7 +64,7 @@ public class Cat extends Ocelot {
 
         private final int id;
 
-        CatVariant(int id) {
+        Variant(int id) {
             this.id = id;
         }
 
@@ -68,13 +72,30 @@ public class Cat extends Ocelot {
             return id;
         }
 
-        public static @NotNull CatVariant getById(int id) {
-            for (CatVariant variant : values()) {
+        public @NotNull Object getEnum() {
+            FieldExecutor executor = laivynpc().getVersion().getFieldExec("Cat:Variant:" + name().toLowerCase());
+            return Objects.requireNonNull(executor.invokeStatic());
+        }
+
+        public static @NotNull Cat.Variant getById(int id) {
+            for (Variant variant : values()) {
                 if (variant.getId() == id) {
                     return variant;
                 }
             }
             throw new NullPointerException("Couldn't get this cat variant id '" + id + "'");
+        }
+        public static @NotNull Cat.Variant getByEnum(@NotNull Object catVariant) {
+            if (!ReflectionUtils.isCompatible(V1_19_R1.class)) {
+                throw new UnsupportedOperationException("This method is only available at 1.19+");
+            }
+
+            for (Variant variant : values()) {
+                if (variant.getEnum().equals(catVariant)) {
+                    return variant;
+                }
+            }
+            throw new NullPointerException("Couldn't get this cat variant enum '" + catVariant + "'");
         }
     }
 }

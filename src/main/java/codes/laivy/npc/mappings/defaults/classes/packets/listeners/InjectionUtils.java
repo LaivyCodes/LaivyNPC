@@ -1,7 +1,7 @@
 package codes.laivy.npc.mappings.defaults.classes.packets.listeners;
 
 import codes.laivy.npc.developers.events.NPCClickEvent;
-import codes.laivy.npc.mappings.defaults.classes.entity.EntityPlayer;
+import codes.laivy.npc.mappings.defaults.classes.entity.player.EntityPlayer;
 import codes.laivy.npc.mappings.defaults.classes.others.objects.PlayerConnection;
 import codes.laivy.npc.mappings.defaults.classes.packets.EntityUseInPacket;
 import codes.laivy.npc.types.NPC;

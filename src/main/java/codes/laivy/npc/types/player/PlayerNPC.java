@@ -2,7 +2,7 @@ package codes.laivy.npc.types.player;
 
 import codes.laivy.npc.exceptions.NPCIllegalSkinException;
 import codes.laivy.npc.mappings.defaults.classes.datawatcher.DataWatcher;
-import codes.laivy.npc.mappings.defaults.classes.entity.EntityPlayer;
+import codes.laivy.npc.mappings.defaults.classes.entity.player.EntityPlayer;
 import codes.laivy.npc.mappings.defaults.classes.enums.*;
 import codes.laivy.npc.mappings.defaults.classes.gameprofile.GameProfile;
 import codes.laivy.npc.mappings.defaults.classes.gameprofile.Property;

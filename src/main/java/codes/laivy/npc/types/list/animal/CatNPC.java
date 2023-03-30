@@ -45,10 +45,10 @@ public class CatNPC extends TameableEntityLivingNPC {
         getHolograms().setDistanceFromNPC(-1.25D);
     }
 
-    public @NotNull Cat.CatVariant getVariant() {
+    public @NotNull Cat.Variant getVariant() {
         return getEntity().getVariant();
     }
-    public void setVariant(@NotNull Cat.CatVariant variant) {
+    public void setVariant(@NotNull Cat.Variant variant) {
         getEntity().setVariant(variant);
         sendUpdatePackets(getSpawnedPlayers(), false, false, true, false, false, false);
     }
@@ -69,7 +69,7 @@ public class CatNPC extends TameableEntityLivingNPC {
 
                 if (args.length > 0) {
                     try {
-                        Cat.CatVariant variant = Cat.CatVariant.valueOf(args[0].toUpperCase());
+                        Cat.Variant variant = Cat.Variant.valueOf(args[0].toUpperCase());
                         ocelotNPC.setVariant(variant);
                         sender.sendMessage(translate(sender, "npc.commands.general.flag_changed"));
                     } catch (IllegalArgumentException ignore) {
@@ -81,7 +81,7 @@ public class CatNPC extends TameableEntityLivingNPC {
 
                 StringBuilder builder = new StringBuilder();
                 int row = 0;
-                for (Cat.CatVariant variant : Cat.CatVariant.values()) {
+                for (Cat.Variant variant : Cat.Variant.values()) {
                     if (row != 0) builder.append("§7, ");
                     builder.append("§f").append(variant.name());
                     row++;
@@ -110,7 +110,7 @@ public class CatNPC extends TameableEntityLivingNPC {
         CatNPC npc = (CatNPC) TameableEntityLivingNPC.deserialize(section);
 
         section = section.getConfigurationSection("OcelotNPC Configuration");
-        npc.setVariant(Cat.CatVariant.valueOf(section.getString("Variant").toUpperCase()));
+        npc.setVariant(Cat.Variant.valueOf(section.getString("Variant").toUpperCase()));
 
         return npc;
     }

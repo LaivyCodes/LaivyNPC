@@ -6,7 +6,7 @@ import codes.laivy.npc.mappings.instances.classes.ClassExecutor;
 import codes.laivy.npc.mappings.instances.MethodExecutor;
 import codes.laivy.npc.mappings.instances.ObjectExecutor;
 import codes.laivy.npc.mappings.defaults.classes.entity.Entity;
-import codes.laivy.npc.mappings.defaults.classes.entity.EntityPlayer;
+import codes.laivy.npc.mappings.defaults.classes.entity.player.EntityPlayer;
 import codes.laivy.npc.mappings.defaults.classes.entity.decoration.ArmorStand;
 import codes.laivy.npc.mappings.defaults.classes.enums.EntityPose;
 import codes.laivy.npc.mappings.defaults.classes.enums.EnumChatFormatEnum;

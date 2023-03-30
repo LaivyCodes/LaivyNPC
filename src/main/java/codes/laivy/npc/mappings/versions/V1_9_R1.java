@@ -4,6 +4,7 @@ import codes.laivy.npc.mappings.Version;
 import codes.laivy.npc.mappings.defaults.classes.entity.animal.horse.AbstractHorse;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.zombie.ZombieVillager;
 import codes.laivy.npc.mappings.defaults.classes.entity.npc.VillagerProfession;
+import codes.laivy.npc.mappings.defaults.classes.entity.player.EntityPlayer;
 import codes.laivy.npc.mappings.defaults.classes.entity.vehicle.Boat;
 import codes.laivy.npc.mappings.defaults.classes.java.ByteObjExec;
 import codes.laivy.npc.mappings.instances.EnumExecutor;

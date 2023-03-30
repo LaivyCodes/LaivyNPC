@@ -4,7 +4,7 @@ import codes.laivy.npc.mappings.defaults.classes.datawatcher.DataWatcher;
 import codes.laivy.npc.mappings.defaults.classes.entity.Entity;
 import codes.laivy.npc.mappings.defaults.classes.entity.EntityHuman;
 import codes.laivy.npc.mappings.defaults.classes.entity.EntityLiving;
-import codes.laivy.npc.mappings.defaults.classes.entity.EntityPlayer;
+import codes.laivy.npc.mappings.defaults.classes.entity.player.EntityPlayer;
 import codes.laivy.npc.mappings.defaults.classes.enums.EnumItemSlotEnum;
 import codes.laivy.npc.mappings.defaults.classes.enums.EnumPlayerInfoActionEnum;
 import codes.laivy.npc.mappings.defaults.classes.others.objects.PlayerConnection;

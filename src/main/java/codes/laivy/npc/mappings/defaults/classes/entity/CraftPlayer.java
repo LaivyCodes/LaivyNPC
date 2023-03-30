@@ -1,5 +1,6 @@
 package codes.laivy.npc.mappings.defaults.classes.entity;
 
+import codes.laivy.npc.mappings.defaults.classes.entity.player.EntityPlayer;
 import codes.laivy.npc.mappings.instances.classes.ClassExecutor;
 import codes.laivy.npc.mappings.instances.ObjectExecutor;
 import org.jetbrains.annotations.NotNull;

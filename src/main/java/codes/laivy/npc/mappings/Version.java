@@ -33,7 +33,7 @@ import codes.laivy.npc.mappings.defaults.classes.datawatcher.DataWatcher;
 import codes.laivy.npc.mappings.defaults.classes.datawatcher.VersionedDataWatcherObject;
 import codes.laivy.npc.mappings.defaults.classes.entity.Entity;
 import codes.laivy.npc.mappings.defaults.classes.entity.EntityLiving;
-import codes.laivy.npc.mappings.defaults.classes.entity.EntityPlayer;
+import codes.laivy.npc.mappings.defaults.classes.entity.player.EntityPlayer;
 import codes.laivy.npc.mappings.defaults.classes.entity.animal.horse.Horse;
 import codes.laivy.npc.mappings.defaults.classes.entity.item.FallingBlock;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.*;
@@ -84,12 +84,13 @@ public abstract class Version implements VersionCompound, VersionPacket, Version
     public abstract void loadObjects();
 
     public Version() {
+        loadTexts();
+        loadObjects();
+
         loadClasses();
         loadEnums();
         loadMethods();
         loadFields();
-        loadTexts();
-        loadObjects();
 
         laivynpc().log("§7Loaded: " + getClasses().size() + " classes, " + getMethods().size() + " methods, " + getFields().size() + " fields, " + getEnums().size() + " enums, " + getTexts().size() + " texts and " + getObjects().size() + " objects.");
     }
@@ -239,8 +240,8 @@ public abstract class Version implements VersionCompound, VersionPacket, Version
     public abstract boolean isEntityInvisible(@NotNull Entity entity);
     public abstract void setEntityInvisible(@NotNull Entity entity, boolean invisible);
     // ENTITY CAT
-    public abstract @NotNull Cat.CatVariant getEntityCatVariant(@NotNull Cat cat);
-    public abstract void setEntityCatVariant(@NotNull Cat cat, @NotNull Cat.CatVariant variant);
+    public abstract @NotNull Cat.Variant getEntityCatVariant(@NotNull Cat cat);
+    public abstract void setEntityCatVariant(@NotNull Cat cat, @NotNull Cat.Variant variant);
     // ENTITY HORSE
     public abstract @NotNull Horse.Type getEntityAbstractHorseType(@NotNull AbstractHorse horse);
     public abstract void setEntityAbstractHorseType(@NotNull AbstractHorse horse, @NotNull Horse.Type type);

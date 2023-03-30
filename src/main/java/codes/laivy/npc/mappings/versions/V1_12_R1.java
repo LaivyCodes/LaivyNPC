@@ -30,6 +30,7 @@ import codes.laivy.npc.mappings.defaults.classes.entity.monster.zombie.Zombie;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.zombie.ZombieHusk;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.zombie.ZombieVillager;
 import codes.laivy.npc.mappings.defaults.classes.entity.npc.Villager;
+import codes.laivy.npc.mappings.defaults.classes.entity.player.EntityPlayer;
 import codes.laivy.npc.mappings.defaults.classes.entity.vehicle.Boat;
 import codes.laivy.npc.mappings.defaults.classes.enums.*;
 import codes.laivy.npc.mappings.defaults.classes.gameprofile.GameProfile;

@@ -4,6 +4,7 @@ import codes.laivy.npc.mappings.Version;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.illagers.Evoker;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.illagers.IllagerWizard;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.illagers.Vindicator;
+import codes.laivy.npc.mappings.defaults.classes.entity.player.EntityPlayer;
 import codes.laivy.npc.mappings.defaults.classes.entity.vehicle.Boat;
 import codes.laivy.npc.mappings.defaults.classes.java.BooleanObjExec;
 import codes.laivy.npc.mappings.defaults.classes.java.ByteObjExec;

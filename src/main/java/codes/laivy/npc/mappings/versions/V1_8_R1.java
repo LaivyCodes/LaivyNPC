@@ -8,6 +8,7 @@ import codes.laivy.npc.mappings.defaults.classes.entity.animal.horse.*;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.illagers.IllagerWizard;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.skeleton.SkeletonWither;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.zombie.ZombieVillager;
+import codes.laivy.npc.mappings.defaults.classes.entity.player.EntityPlayer;
 import codes.laivy.npc.mappings.defaults.classes.entity.vehicle.Boat;
 import codes.laivy.npc.mappings.instances.*;
 import codes.laivy.npc.mappings.instances.classes.ClassConstructor;
@@ -556,12 +557,12 @@ public class V1_8_R1 extends Version {
     }
 
     @Override
-    public @NotNull Cat.CatVariant getEntityCatVariant(@NotNull Cat cat) {
+    public @NotNull Cat.Variant getEntityCatVariant(@NotNull Cat cat) {
         //noinspection DataFlowIssue
         int id = (int) getMethodExec("Entity:Ocelot:getCatType").invokeInstance(cat);
 
-        Cat.CatVariant variant = null;
-        for (Cat.CatVariant v : Cat.CatVariant.values()) {
+        Cat.Variant variant = null;
+        for (Cat.Variant v : Cat.Variant.values()) {
             if (v.getId() == id) {
                 variant = v;
                 break;
@@ -575,7 +576,7 @@ public class V1_8_R1 extends Version {
     }
 
     @Override
-    public void setEntityCatVariant(@NotNull Cat cat, @NotNull Cat.CatVariant variant) {
+    public void setEntityCatVariant(@NotNull Cat cat, @NotNull Cat.Variant variant) {
         getMethodExec("Entity:Ocelot:setCatType").invokeInstance(cat, new IntegerObjExec(variant.getId()));
     }
 

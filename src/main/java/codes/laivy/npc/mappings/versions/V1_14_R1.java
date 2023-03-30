@@ -36,6 +36,7 @@ import codes.laivy.npc.mappings.defaults.classes.entity.npc.objs.VillagerData;
 import codes.laivy.npc.mappings.defaults.classes.entity.npc.VillagerProfession;
 import codes.laivy.npc.mappings.defaults.classes.entity.npc.objs.VillagerProfessionExec;
 import codes.laivy.npc.mappings.defaults.classes.entity.npc.objs.VillagerType;
+import codes.laivy.npc.mappings.defaults.classes.entity.player.EntityPlayer;
 import codes.laivy.npc.mappings.defaults.classes.entity.vehicle.Boat;
 import codes.laivy.npc.mappings.defaults.classes.enums.*;
 import codes.laivy.npc.mappings.defaults.classes.gameprofile.GameProfile;
@@ -574,12 +575,12 @@ public class V1_14_R1 extends V1_13_R2 {
     }
 
     @Override
-    public @NotNull Cat.CatVariant getEntityCatVariant(@NotNull Cat cat) {
+    public @NotNull Cat.Variant getEntityCatVariant(@NotNull Cat cat) {
         //noinspection DataFlowIssue
-        return Cat.CatVariant.getById((Integer) cat.getDataWatcher().get(Cat.VARIANT_METADATA()));
+        return Cat.Variant.getById((Integer) cat.getDataWatcher().get(Cat.VARIANT_METADATA()));
     }
     @Override
-    public void setEntityCatVariant(@NotNull Cat cat, Cat.@NotNull CatVariant variant) {
+    public void setEntityCatVariant(@NotNull Cat cat, Cat.@NotNull Variant variant) {
         cat.getDataWatcher().set(Cat.VARIANT_METADATA(), new IntegerObjExec(variant.getId()));
     }
 

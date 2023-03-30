@@ -1,5 +1,7 @@
-package codes.laivy.npc.mappings.defaults.classes.entity;
+package codes.laivy.npc.mappings.defaults.classes.entity.player;
 
+import codes.laivy.npc.mappings.defaults.classes.entity.CraftPlayer;
+import codes.laivy.npc.mappings.defaults.classes.entity.EntityHuman;
 import codes.laivy.npc.mappings.defaults.classes.gameprofile.GameProfile;
 import codes.laivy.npc.mappings.defaults.classes.others.objects.PlayerConnection;
 import codes.laivy.npc.mappings.defaults.classes.scoreboard.Scoreboard;

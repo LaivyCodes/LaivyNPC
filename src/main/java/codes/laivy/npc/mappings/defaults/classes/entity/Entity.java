@@ -9,6 +9,7 @@ import codes.laivy.npc.mappings.defaults.classes.entity.monster.illagers.Evoker;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.illagers.Illusioner;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.illagers.Vindicator;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.zombie.ZombieDrowned;
+import codes.laivy.npc.mappings.defaults.classes.entity.player.EntityPlayer;
 import codes.laivy.npc.mappings.defaults.classes.entity.vehicle.Boat;
 import codes.laivy.npc.mappings.instances.classes.ClassExecutor;
 import codes.laivy.npc.mappings.instances.ObjectExecutor;

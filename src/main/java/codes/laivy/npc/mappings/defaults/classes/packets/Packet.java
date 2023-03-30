@@ -3,7 +3,7 @@ package codes.laivy.npc.mappings.defaults.classes.packets;
 import codes.laivy.npc.LaivyNPC;
 import codes.laivy.npc.mappings.instances.classes.ClassExecutor;
 import codes.laivy.npc.mappings.instances.ObjectExecutor;
-import codes.laivy.npc.mappings.defaults.classes.entity.EntityPlayer;
+import codes.laivy.npc.mappings.defaults.classes.entity.player.EntityPlayer;
 import codes.laivy.npc.mappings.defaults.classes.others.objects.PlayerConnection;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;

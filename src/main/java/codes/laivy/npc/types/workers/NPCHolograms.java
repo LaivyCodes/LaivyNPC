@@ -1,14 +1,13 @@
 package codes.laivy.npc.types.workers;
 
 import codes.laivy.npc.mappings.defaults.classes.entity.Entity;
-import codes.laivy.npc.mappings.defaults.classes.entity.EntityPlayer;
+import codes.laivy.npc.mappings.defaults.classes.entity.player.EntityPlayer;
 import codes.laivy.npc.mappings.defaults.classes.entity.decoration.ArmorStand;
 import codes.laivy.npc.mappings.defaults.classes.others.objects.PlayerConnection;
 import codes.laivy.npc.mappings.defaults.classes.packets.EntityDestroyPacket;
 import codes.laivy.npc.mappings.defaults.classes.packets.Packet;
 import codes.laivy.npc.types.NPC;
 import codes.laivy.npc.types.utils.NPCHologramText;
-import codes.laivy.npc.utils.ReflectionUtils;
 import codes.laivy.npc.utils.Validation;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;

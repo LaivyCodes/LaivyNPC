@@ -5,7 +5,7 @@ import org.jetbrains.annotations.Nullable;
 
 import static codes.laivy.npc.LaivyNPC.laivynpc;
 
-public class EntitySpawnPacket extends Packet {
+public class EntitySpawnPacket extends EntityLivingSpawnPacket {
     public EntitySpawnPacket(@Nullable Object value) {
         super(value);
     }
@@ -15,7 +15,7 @@ public class EntitySpawnPacket extends Packet {
         return (EntitySpawnPacketClass) laivynpc().getVersion().getClassExec("PacketPlayOutSpawnEntity");
     }
 
-    public static class EntitySpawnPacketClass extends PacketClass {
+    public static class EntitySpawnPacketClass extends EntityLivingSpawnPacketClass {
         public EntitySpawnPacketClass(@NotNull String className) {
             super(className);
         }

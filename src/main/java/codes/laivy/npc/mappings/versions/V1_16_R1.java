@@ -35,6 +35,7 @@ import codes.laivy.npc.mappings.defaults.classes.entity.npc.Villager;
 import codes.laivy.npc.mappings.defaults.classes.entity.npc.objs.VillagerData;
 import codes.laivy.npc.mappings.defaults.classes.entity.npc.objs.VillagerProfessionExec;
 import codes.laivy.npc.mappings.defaults.classes.entity.npc.objs.VillagerType;
+import codes.laivy.npc.mappings.defaults.classes.entity.player.EntityPlayer;
 import codes.laivy.npc.mappings.defaults.classes.entity.vehicle.Boat;
 import codes.laivy.npc.mappings.defaults.classes.enums.*;
 import codes.laivy.npc.mappings.defaults.classes.gameprofile.GameProfile;
