@@ -49,10 +49,10 @@ public class EndermanNPC extends EntityLivingNPC {
         getHolograms().setDistanceFromNPC(1D);
     }
 
-    public @NotNull Material getCarried() {
+    public @Nullable Material getCarried() {
         return getEntity().getCarrying();
     }
-    public void setCarried(@NotNull Material material) {
+    public void setCarried(@Nullable Material material) {
         getEntity().setCarrying(material);
         sendUpdatePackets(getSpawnedPlayers(), false, false, true, false, false, false);
     }
@@ -106,7 +106,9 @@ public class EndermanNPC extends EntityLivingNPC {
     public @NotNull Map<@NotNull String, @NotNull Object> serialize() {
         Map<String, Object> map = super.serialize();
         map.put("EndermanNPC Configuration", new HashMap<String, Object>() {{
-            put("Carried", getCarried().name());
+            if (getCarried() != null) {
+                put("Carried", getCarried().name());
+            }
             put("Screaming", isScreaming());
         }});
 
@@ -117,7 +119,9 @@ public class EndermanNPC extends EntityLivingNPC {
         EndermanNPC npc = (EndermanNPC) EntityLivingNPC.deserialize(section);
 
         section = section.getConfigurationSection("EndermanNPC Configuration");
-        npc.setCarried(Material.valueOf(section.getString("Carried")));
+        if (section.contains("Carried")) {
+            npc.setCarried(Material.valueOf(section.getString("Carried")));
+        }
         npc.setScreaming(section.getBoolean("Screaming"));
 
         return npc;

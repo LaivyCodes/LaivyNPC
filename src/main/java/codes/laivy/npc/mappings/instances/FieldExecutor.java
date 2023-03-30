@@ -100,6 +100,13 @@ public class FieldExecutor implements Executor {
         return this.invokeInstance(null);
     }
 
+    public void set(@NotNull ObjectExecutor instance, @Nullable ObjectExecutor object) {
+        if (object != null) {
+            this.set(instance, object.getValue());
+        } else {
+            this.set(instance, null);
+        }
+    }
     public void set(@NotNull ObjectExecutor instance, @Nullable Object value) {
         if (!isLoaded()) {
             throw new NullPointerException("This FieldExecutor isn't loaded yet.");

@@ -42,6 +42,7 @@ import codes.laivy.npc.mappings.defaults.classes.gameprofile.Property;
 import codes.laivy.npc.mappings.defaults.classes.gameprofile.PropertyMap;
 import codes.laivy.npc.mappings.defaults.classes.java.BooleanObjExec;
 import codes.laivy.npc.mappings.defaults.classes.java.ByteObjExec;
+import codes.laivy.npc.mappings.defaults.classes.java.IntegerArrayObjExec;
 import codes.laivy.npc.mappings.defaults.classes.java.IntegerObjExec;
 import codes.laivy.npc.mappings.defaults.classes.nbt.NBTBase;
 import codes.laivy.npc.mappings.defaults.classes.nbt.tags.*;
@@ -57,15 +58,15 @@ import codes.laivy.npc.mappings.defaults.classes.scoreboard.CraftScoreboard;
 import codes.laivy.npc.mappings.defaults.classes.scoreboard.Scoreboard;
 import codes.laivy.npc.mappings.defaults.classes.scoreboard.ScoreboardTeam;
 import codes.laivy.npc.mappings.instances.*;
+import codes.laivy.npc.mappings.instances.classes.ClassConstructor;
 import codes.laivy.npc.mappings.instances.classes.ClassExecutor;
+import com.google.common.collect.Lists;
 import io.netty.channel.Channel;
 import org.bukkit.Material;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Objects;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 public class V1_18_R1 extends V1_17_R1 {
 
@@ -585,7 +586,7 @@ public class V1_18_R1 extends V1_17_R1 {
         load(V1_18_R1.class, "Metadata:Item:Item", new FieldExecutor(getClassExec("Entity:Item"), getClassExec("DataWatcherObject"), "c", "Gets the EntityItem's item DataWatcher object"));
         load(V1_18_R1.class, "Metadata:WitherSkull:Charge", new FieldExecutor(getClassExec("Entity:WitherSkull"), getClassExec("DataWatcherObject"), "e", "Gets the Wither skull's charged DataWatcher object"));
         load(V1_18_R1.class, "Metadata:Enderman:screaming", new FieldExecutor(getClassExec("Entity:Enderman"), getClassExec("DataWatcherObject"), "bY", "Gets the enderman's screaming datawatcher object"));
-        load(V1_18_R1.class, "Metadata:Enderman:carried", new FieldExecutor(getClassExec("Entity:Enderman"), getClassExec("DataWatcherObject"), "bZ", "Gets the enderman's carried datawatcher object"));
+        load(V1_18_R1.class, "Metadata:Enderman:carried", new FieldExecutor(getClassExec("Entity:Enderman"), getClassExec("DataWatcherObject"), "bX", "Gets the enderman's carried datawatcher object"));
         load(V1_18_R1.class, "Metadata:Horse:Chested:Chest", new FieldExecutor(getClassExec("Entity:Horse:Abstract:Chested"), getClassExec("DataWatcherObject"), "cm", "Gets the chested horse's chest datawatcher object"));
         load(V1_18_R1.class, "Metadata:Slime:Size", new FieldExecutor(getClassExec("Entity:Slime"), getClassExec("DataWatcherObject"), "bW", "Gets the slime's size datawatcher object"));
         load(V1_18_R1.class, "Metadata:Bat:Asleep", new FieldExecutor(getClassExec("Entity:Bat"), getClassExec("DataWatcherObject"), "d", "Gets the bat's asleep datawatcher object"));
@@ -611,6 +612,19 @@ public class V1_18_R1 extends V1_17_R1 {
         load(V1_18_R1.class, "Metadata:Creeper:Powered", new FieldExecutor(getClassExec("Entity:Creeper"), getClassExec("DataWatcherObject"), "c", "Gets the creeper powered DataWatcherObject"));
         load(V1_18_R1.class, "Metadata:PufferFish:PuffState", new FieldExecutor(getClassExec("Entity:PufferFish"), getClassExec("DataWatcherObject"), "e", "Gets the puffer fish's puff state DataWatcherObject"));
         load(V1_18_R1.class, "Metadata:Shulker:Color", new FieldExecutor(getClassExec("Entity:Shulker"), getClassExec("DataWatcherObject"), "d", "Gets the shulker's color DataWatcherObject"));
+    }
+
+    @Override
+    public @NotNull Set<EntityDestroyPacket> createDestroyPacket(@NotNull Entity... entities) {
+        int[] ids = new int[entities.length];
+        int row = 0;
+        for (Entity entity : entities) {
+            ids[row] = entity.getId();
+            row++;
+        }
+
+        ClassConstructor constructor = getClassExec("PacketPlayOutEntityDestroy").getConstructor(ClassExecutor.INT_ARRAY);
+        return new LinkedHashSet<>(Collections.singletonList(new EntityDestroyPacket(constructor.newInstance(new IntegerArrayObjExec(ids)))));
     }
 
     @Override
@@ -737,7 +751,12 @@ public class V1_18_R1 extends V1_17_R1 {
         DataWatcherObject object = new DataWatcherObject(getFieldExec("Metadata:Enderman:carried").invokeStatic());
 
         if (material != null) {
-            enderman.getDataWatcher().set(object, getBlockData(material));
+            enderman.getDataWatcher().set(object, new ObjectExecutor(Optional.of(Objects.requireNonNull(getBlockData(material).getValue()))) {
+                @Override
+                public @NotNull ClassExecutor getClassExecutor() {
+                    return new ClassExecutor(Optional.class);
+                }
+            });
         } else {
             enderman.getDataWatcher().set(object, null);
         }
@@ -872,7 +891,7 @@ public class V1_18_R1 extends V1_17_R1 {
 
     @Override
     public org.bukkit.inventory.@Nullable ItemStack getEntityItemFrameItem(@NotNull ItemFrame itemFrame) {
-        DataWatcherObject object = new DataWatcherObject(getFieldExec("Metadata:ItemFrame:Item").invokeInstance(itemFrame));
+        DataWatcherObject object = new DataWatcherObject(getFieldExec("Metadata:ItemFrame:Item").invokeStatic());
         Object obj = itemFrame.getDataWatcher().get(object);
 
         if (obj == null) {
@@ -883,7 +902,7 @@ public class V1_18_R1 extends V1_17_R1 {
     }
     @Override
     public void setEntityItemFrameItem(@NotNull ItemFrame itemFrame, org.bukkit.inventory.@Nullable ItemStack itemStack) {
-        DataWatcherObject object = new DataWatcherObject(getFieldExec("Metadata:ItemFrame:Item").invokeInstance(itemFrame));
+        DataWatcherObject object = new DataWatcherObject(getFieldExec("Metadata:ItemFrame:Item").invokeStatic());
 
         if (itemStack != null) {
             itemFrame.getDataWatcher().set(object, ItemStack.getNMSItemStack(itemStack));

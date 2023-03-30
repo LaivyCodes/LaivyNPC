@@ -1149,7 +1149,7 @@ public class V1_8_R1 extends Version {
 
     @Override
     public void setPlayerTablistName(@NotNull EntityPlayer player, @Nullable String string) {
-        getFieldExec("EntityPlayer:listName").set(player, (string != null ? IChatBaseComponent.convert(string).getValue() : null));
+        getFieldExec("EntityPlayer:listName").set(player, (string != null ? IChatBaseComponent.convert(string) : null));
     }
 
     @Override
