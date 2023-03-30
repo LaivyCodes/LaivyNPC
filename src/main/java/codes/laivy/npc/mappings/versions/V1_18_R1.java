@@ -60,7 +60,6 @@ import codes.laivy.npc.mappings.defaults.classes.scoreboard.ScoreboardTeam;
 import codes.laivy.npc.mappings.instances.*;
 import codes.laivy.npc.mappings.instances.classes.ClassConstructor;
 import codes.laivy.npc.mappings.instances.classes.ClassExecutor;
-import com.google.common.collect.Lists;
 import io.netty.channel.Channel;
 import org.bukkit.Material;
 import org.jetbrains.annotations.NotNull;
@@ -482,7 +481,6 @@ public class V1_18_R1 extends V1_17_R1 {
         load(V1_18_R1.class, "VillagerData", new VillagerData.VillagerDataClass("net.minecraft.world.entity.npc.VillagerData"));
         load(V1_18_R1.class, "VillagerProfession", new VillagerProfessionExec.VillagerProfessionExecClass("net.minecraft.world.entity.npc.VillagerProfession"));
         load(V1_18_R1.class, "VillagerType", new VillagerType.VillagerTypeClass("net.minecraft.world.entity.npc.VillagerType"));
-        //
     }
 
     @Override
@@ -601,7 +599,7 @@ public class V1_18_R1 extends V1_17_R1 {
         load(V1_18_R1.class, "Metadata:PolarBear:Standing", new FieldExecutor(getClassExec("Entity:PolarBear"), getClassExec("DataWatcherObject"), "bW", "Gets the polar bear's standing DataWatcherObject"));
         load(V1_18_R1.class, "Metadata:Villager:Data", new FieldExecutor(getClassExec("Entity:Villager"), getClassExec("DataWatcherObject"), "cc", "Gets the villager's data DataWatcherObject"));
         load(V1_18_R1.class, "Metadata:Cat:Type", new FieldExecutor(getClassExec("Entity:Cat"), getClassExec("DataWatcherObject"), "cp", "Gets the cat's variant DataWatcherObject"));
-        load(V1_18_R1.class, "Metadata:Wolf:Angry", new FieldExecutor(getClassExec("Entity:Wolf"), getClassExec("DataWatcherObject"), "ca", "Gets the wolf angry DataWatcherObject"));
+        load(V1_18_R1.class, "Metadata:Wolf:Angry", new FieldExecutor(getClassExec("Entity:Wolf"), getClassExec("DataWatcherObject"), "cc", "Gets the wolf angry DataWatcherObject"));
         load(V1_18_R1.class, "Metadata:Wolf:CollarColor", new FieldExecutor(getClassExec("Entity:Wolf"), getClassExec("DataWatcherObject"), "cb", "Gets the wolf collar color DataWatcherObject"));
         load(V1_18_R1.class, "Metadata:TropicalFish:Variant", new FieldExecutor(getClassExec("Entity:TropicalFish"), getClassExec("DataWatcherObject"), "bW", "Gets the tropical fish's variant DataWatcherObject"));
         load(V1_18_R1.class, "Metadata:Dolphin:hasFish", new FieldExecutor(getClassExec("Entity:Dolphin"), getClassExec("DataWatcherObject"), "e", "Gets the dolphin's hasFish DataWatcherObject"));
@@ -612,6 +610,21 @@ public class V1_18_R1 extends V1_17_R1 {
         load(V1_18_R1.class, "Metadata:Creeper:Powered", new FieldExecutor(getClassExec("Entity:Creeper"), getClassExec("DataWatcherObject"), "c", "Gets the creeper powered DataWatcherObject"));
         load(V1_18_R1.class, "Metadata:PufferFish:PuffState", new FieldExecutor(getClassExec("Entity:PufferFish"), getClassExec("DataWatcherObject"), "e", "Gets the puffer fish's puff state DataWatcherObject"));
         load(V1_18_R1.class, "Metadata:Shulker:Color", new FieldExecutor(getClassExec("Entity:Shulker"), getClassExec("DataWatcherObject"), "d", "Gets the shulker's color DataWatcherObject"));
+    }
+
+    @Override
+    public boolean isEntityWolfAngry(@NotNull Wolf wolf) {
+        //noinspection DataFlowIssue
+        int anger = (int) wolf.getDataWatcher().get(Wolf.ANGRY_METADATA());
+        return anger > 0;
+    }
+    @Override
+    public void setEntityWolfAngry(@NotNull Wolf wolf, boolean angry) {
+        if (angry) {
+            wolf.getDataWatcher().set(Wolf.ANGRY_METADATA(), new IntegerObjExec(1));
+        } else {
+            wolf.getDataWatcher().set(Wolf.ANGRY_METADATA(), new IntegerObjExec(0));
+        }
     }
 
     @Override

@@ -41,7 +41,7 @@ public class EntityPlayer extends EntityHuman {
 
     @NotNull
     public String getName() {
-        return (String) Objects.requireNonNull(laivynpc().getVersion().getMethodExec("Entity:Human:getName").invokeInstance(this));
+        return laivynpc().getVersion().getPlayerName(this);
     }
 
     public @Nullable String getTablistName() {
