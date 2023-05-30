@@ -100,23 +100,12 @@ public class LaivyNPC extends JavaPlugin {
         new Thread(new LaivyNPCUpdater()).start();
 
         // Injection
+        Collection<? extends Player> players = Bukkit.getOnlinePlayers();
         Bukkit.getScheduler().runTaskLater(this, () -> {
-            for (Player player : Bukkit.getOnlinePlayers()) {
+            for (Player player : players) {
                 try {
                     InjectionUtils.injectPlayer(player);
                 } catch (Throwable e) {
-                    if (e instanceof IllegalArgumentException) {
-                        if (e.getMessage().contains("Duplicate handler name")) {
-                            Bukkit.getScheduler().runTaskLater(this, () -> {
-                                try {
-                                    InjectionUtils.injectPlayer(player);
-                                } catch (Throwable e2) {
-                                    throw new RuntimeException("Player's packet_handler injection", e2);
-                                }
-                            }, 100);
-                            return;
-                        }
-                    }
                     throw new RuntimeException("Player's packet_handler injection", e);
                 }
             }

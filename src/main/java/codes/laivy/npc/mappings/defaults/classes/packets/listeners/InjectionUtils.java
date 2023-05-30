@@ -16,6 +16,9 @@ import static codes.laivy.npc.LaivyNPC.laivynpc;
 
 public class InjectionUtils {
 
+    // TODO: 30/05/2023 Enhance this
+    private static final @NotNull Set<UUID> INJECTIONS = new HashSet<>();
+
     private static @NotNull Channel getPlayerChannel(@NotNull Player player) {
         try {
             PlayerConnection conn = EntityPlayer.getEntityPlayer(player).getPlayerConnection();
@@ -32,12 +35,20 @@ public class InjectionUtils {
             channel.eventLoop().submit(() -> {
                 channel.pipeline().remove(player.getUniqueId().toString());
             });
+
+            INJECTIONS.remove(player.getUniqueId());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
     public static void injectPlayer(@NotNull Player player) {
+        if (INJECTIONS.contains(player.getUniqueId())) {
+            return;
+        }
+
+        INJECTIONS.add(player.getUniqueId());
+
         ChannelDuplexHandler channelDuplexHandler = new ChannelDuplexHandler() {
 
             public final Map<NPC, Long> interval = new HashMap<>();
@@ -90,7 +101,12 @@ public class InjectionUtils {
         };
 
         ChannelPipeline pipeline = getPlayerChannel(player).pipeline();
-        pipeline.addBefore("packet_handler", player.getUniqueId().toString(), channelDuplexHandler);
+
+        // TODO: 30/05/2023 Enhance
+        try {
+            pipeline.addBefore("packet_handler", player.getUniqueId().toString(), channelDuplexHandler);
+        } catch (IllegalArgumentException ignore) {
+        }
     }
 
 }

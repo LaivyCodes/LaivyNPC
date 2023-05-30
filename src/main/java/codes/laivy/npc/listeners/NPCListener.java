@@ -12,6 +12,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 import java.util.*;
 
+// TODO: 30/05/2023 Enhance
 public class NPCListener implements Listener {
 
     @EventHandler(priority = EventPriority.LOWEST)
