@@ -44,37 +44,14 @@ public class Translate {
             infos.put(str, new LangInfo(Objects.requireNonNull(packName), messages));
         }
 
-        if (laivynpc().hasMultiplesLanguagesSupport()) {
-//            Language lang = new Language("General Messages", null, laivynpc().getName(), new LinkedHashSet<LanguagePack>() {{
-//                for (Map.Entry<String, LangInfo> info : infos.entrySet()) {
-//                LinkedHashSet<Locale> locales = new LinkedHashSet<>(Collections.singletonList(Locale.valueOf(info.getKey().replace(".json", ""))));
-//                    add(new LanguagePack(locales, info.getValue().getPackName(), null, info.getValue().getMessages()));
-//                }
-//            }});
-//            if (lang.getFile() == null || !lang.getFile().exists()) {
-//                lang.register();
-//            } else {
-//                try {
-//                    Language.createByResourceStream(laivynpc().getName(), new FileInputStream(lang.getFile()));
-//                } catch (FileNotFoundException e) {
-//                    throw new RuntimeException("LvML language loading", e);
-//                }
-//            }
-        } else {
-            messages.putAll(infos.get(DEFAULT_LANGUAGES_FILES[0]).getMessages());
-        }
+        messages.putAll(infos.get(DEFAULT_LANGUAGES_FILES[0]).getMessages());
     }
 
     public static @NotNull String translate(@Nullable OfflinePlayer player, @NotNull String code, @NotNull Object... replaces) {
         String message = null;
 
-        if (laivynpc().hasMultiplesLanguagesSupport()) {
-//            LocaleAPI api = LvMultiplesLanguages.getApi().getLocaleAPI();
-//            message = api.getNullableMessage(laivynpc().getName(), code, (player != null ? api.getLocale(player.getUniqueId()) : null));
-        } else {
-            if (messages.containsKey(code)) {
-                message = messages.get(code);
-            }
+        if (messages.containsKey(code)) {
+            message = messages.get(code);
         }
 
         if (message == null) {

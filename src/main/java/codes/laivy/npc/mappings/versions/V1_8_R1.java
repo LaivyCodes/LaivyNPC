@@ -1743,7 +1743,9 @@ public class V1_8_R1 extends Version {
     @Override
     public void loadEnums() {
         // EnumPlayerInfoAction
-        load(V1_8_R1.class, "PacketPlayOutPlayerInfo:EnumPlayerInfoAction", new EnumPlayerInfoActionEnum(getClassExec("PacketPlayOutPlayerInfo:EnumPlayerInfoAction")));
+        if (!V1_19_R2.class.isAssignableFrom(getClass())) {
+            load(V1_8_R1.class, "PacketPlayOutPlayerInfo:EnumPlayerInfoAction", new EnumPlayerInfoActionEnum(getClassExec("PacketPlayOutPlayerInfo:EnumPlayerInfoAction")));
+        }
         //
 
         // EnumNameTagVisilibityEnum

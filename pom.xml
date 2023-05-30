@@ -83,6 +83,7 @@
                     <artifactSet>
                         <includes>
                             <include>org.jetbrains:annotations</include>
+                            <include>com.google.code.gson:gson</include>
                         </includes>
                     </artifactSet>
                 </configuration>
@@ -98,6 +99,13 @@
                             <outputDirectory>.</outputDirectory>
 
                             <createDependencyReducedPom>false</createDependencyReducedPom>
+
+                            <relocations>
+                                <relocation>
+                                    <pattern>com.google.gson</pattern>
+                                    <shadedPattern>codes.laivy.npc.shaded.gson</shadedPattern>
+                                </relocation>
+                            </relocations>
                         </configuration>
                     </execution>
                 </executions>

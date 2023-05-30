@@ -19,10 +19,6 @@ public class PlayerInfoPacket extends Packet {
     public static class PlayerInfoPacketClass extends PacketClass {
         public PlayerInfoPacketClass(@NotNull String className) {
             super(className);
-
-            if (ReflectionUtils.isCompatible(V1_19_R2.class)) {
-                throw new UnsupportedOperationException("This packet isn't available anymore since 1.19.3+");
-            }
         }
     }
 }

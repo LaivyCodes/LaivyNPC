@@ -42,6 +42,8 @@ import codes.laivy.npc.mappings.defaults.classes.enums.*;
 import codes.laivy.npc.mappings.defaults.classes.gameprofile.GameProfile;
 import codes.laivy.npc.mappings.defaults.classes.gameprofile.Property;
 import codes.laivy.npc.mappings.defaults.classes.gameprofile.PropertyMap;
+import codes.laivy.npc.mappings.defaults.classes.java.BooleanObjExec;
+import codes.laivy.npc.mappings.defaults.classes.java.IntegerObjExec;
 import codes.laivy.npc.mappings.defaults.classes.nbt.NBTBase;
 import codes.laivy.npc.mappings.defaults.classes.nbt.tags.*;
 import codes.laivy.npc.mappings.defaults.classes.others.chat.IChatBaseComponent;
@@ -49,6 +51,9 @@ import codes.laivy.npc.mappings.defaults.classes.others.inventories.InventorySub
 import codes.laivy.npc.mappings.defaults.classes.others.location.*;
 import codes.laivy.npc.mappings.defaults.classes.others.managers.PlayerInteractManager;
 import codes.laivy.npc.mappings.defaults.classes.others.objects.*;
+import codes.laivy.npc.mappings.defaults.classes.others.objects.registry.BuiltInRegistries;
+import codes.laivy.npc.mappings.defaults.classes.others.objects.registry.IRegistry;
+import codes.laivy.npc.mappings.defaults.classes.others.objects.registry.ResourceKey;
 import codes.laivy.npc.mappings.defaults.classes.others.server.CraftServer;
 import codes.laivy.npc.mappings.defaults.classes.others.server.MinecraftServer;
 import codes.laivy.npc.mappings.defaults.classes.packets.*;
@@ -65,8 +70,7 @@ import org.bukkit.Bukkit;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 public class V1_19_R2 extends V1_19_R1 {
 
@@ -74,6 +78,10 @@ public class V1_19_R2 extends V1_19_R1 {
     protected boolean onLoad(@NotNull Class<? extends Version> version, @NotNull String key, @NotNull Executor executor) {
         if (version == V1_19_R1.class) {
             return false;
+        } else if (version == V1_17_R1.class) {
+            if (key.equals("DataWatcher:map")) {
+                return false;
+            }
         } else if (version == V1_8_R1.class) {
             if (executor instanceof EnumExecutor) {
                 if (key.equals("PacketPlayOutPlayerInfo:EnumPlayerInfoAction")) {
@@ -294,6 +302,10 @@ public class V1_19_R2 extends V1_19_R1 {
         load(V1_19_R2.class, "ProfilePublicKey", new ProfilePublicKey.ProfilePublicKeyClass("net.minecraft.world.entity.player.ProfilePublicKey"));
         // Entity cat
         load(V1_19_R2.class, "Cat:Variant", new ClassExecutor("net.minecraft.world.entity.animal.CatVariant"));
+        // Registry
+        load(V1_19_R2.class, "IRegistry", new IRegistry.IRegistryClass("net.minecraft.core.IRegistry"));
+        load(V1_19_R2.class, "ResourceKey", new ResourceKey.ResourceKeyClass("net.minecraft.resources.ResourceKey"));
+        load(V1_19_R2.class, "BuiltInRegistries", new BuiltInRegistries("net.minecraft.core.registries.BuiltInRegistries"));
     }
 
     @Override
@@ -304,36 +316,37 @@ public class V1_19_R2 extends V1_19_R1 {
         load(V1_19_R2.class, "NBTTagCompound:get", new MethodExecutor(getClassExec("NBTBase:NBTTagCompound"), getClassExec("NBTBase"), "c", "Gets a value inside a NBTTagCompound", ClassExecutor.STRING));
         load(V1_19_R2.class, "NBTTagCompound:remove", new MethodExecutor(getClassExec("NBTBase:NBTTagCompound"), ClassExecutor.VOID, "r", "Removes a value from a NBTTagCompound", ClassExecutor.STRING));
         load(V1_19_R2.class, "NBTTagCompound:contains", new MethodExecutor(getClassExec("NBTBase:NBTTagCompound"), ClassExecutor.BOOLEAN, "e", "Check if a NBTTagCompound contains a key", ClassExecutor.STRING));
-        load(V1_19_R2.class, "NBTTagCompound:isEmpty", new MethodExecutor(getClassExec("NBTBase:NBTTagCompound"), ClassExecutor.BOOLEAN, "f", "Check if a NBTTagCompound is empty"));
-        load(V1_19_R2.class, "NBTTagCompound:keySet", new MethodExecutor(getClassExec("NBTBase:NBTTagCompound"), new ClassExecutor(Set.class) {}, "d", "Gets a NBTTagCompound's keys"));
+        load(V1_19_R2.class, "NBTTagCompound:isEmpty", new MethodExecutor(getClassExec("NBTBase:NBTTagCompound"), ClassExecutor.BOOLEAN, "g", "Check if a NBTTagCompound is empty"));
+        load(V1_19_R2.class, "NBTTagCompound:keySet", new MethodExecutor(getClassExec("NBTBase:NBTTagCompound"), new ClassExecutor(Set.class) {}, "e", "Gets a NBTTagCompound's keys"));
         load(V1_19_R2.class, "PlayerConnection:sendPacket", new MethodExecutor(getClassExec("PlayerConnection"), ClassExecutor.VOID, "a", "Sends a packet to a PlayerConnection", getClassExec("Packet")));
 
         // Entity
-        load(V1_19_R2.class, "Entity:Entity:getId", new MethodExecutor(getClassExec("Entity"), ClassExecutor.INT, "af", "Gets the entity id of a Entity"));
-        load(V1_19_R2.class, "Entity:Entity:getDataWatcher", new MethodExecutor(getClassExec("Entity"), getClassExec("DataWatcher"), "aj", "Gets the DataWatcher of a Entity"));
+        load(V1_19_R2.class, "Entity:Entity:getId", new MethodExecutor(getClassExec("Entity"), ClassExecutor.INT, "ah", "Gets the entity id of a Entity"));
+        load(V1_19_R2.class, "Entity:Entity:getDataWatcher", new MethodExecutor(getClassExec("Entity"), getClassExec("DataWatcher"), "al", "Gets the DataWatcher of a Entity"));
         load(V1_19_R2.class, "Entity:Entity:setLocation", new MethodExecutor(getClassExec("Entity"), ClassExecutor.VOID, "a", "Sets the Entity's location", ClassExecutor.DOUBLE, ClassExecutor.DOUBLE, ClassExecutor.DOUBLE, ClassExecutor.FLOAT, ClassExecutor.FLOAT));
-        load(V1_19_R2.class, "Entity:Human:getName", new MethodExecutor(getClassExec("Entity:Human"), getClassExec("IChatBaseComponent"), "Z", "Gets the Entity's name"));
-        load(V1_19_R2.class, "Entity:Entity:getCustomName", new MethodExecutor(getClassExec("Entity"), getClassExec("IChatBaseComponent"), "ab", "Gets the custom name of a Entity"));
+        load(V1_19_R2.class, "Entity:Entity:getCustomName", new MethodExecutor(getClassExec("Entity"), getClassExec("IChatBaseComponent"), "ac", "Gets the custom name of a Entity"));
         load(V1_19_R2.class, "Entity:Entity:setCustomName", new MethodExecutor(getClassExec("Entity"), ClassExecutor.VOID, "b", "Sets the custom name of a Entity", getClassExec("IChatBaseComponent")));
         load(V1_19_R2.class, "Entity:Entity:isCustomNameVisible", new MethodExecutor(getClassExec("Entity"), ClassExecutor.BOOLEAN, "cx", "Check if the Entity's custom name is visible"));
         load(V1_19_R2.class, "Entity:Entity:setCustomNameVisible", new MethodExecutor(getClassExec("Entity"), ClassExecutor.VOID, "n", "Sets the Entity's custom name visibility", ClassExecutor.BOOLEAN));
         load(V1_19_R2.class, "Entity:Entity:EntityData", new MethodExecutor(getClassExec("Entity"), ClassExecutor.BOOLEAN, "h", "Gets the entity zero data byte", ClassExecutor.INT));
         load(V1_19_R2.class, "Entity:Entity:setInvisible", new MethodExecutor(getClassExec("Entity"), ClassExecutor.VOID, "j", "Sets the Entity's visibility mode", ClassExecutor.BOOLEAN));
-        load(V1_19_R2.class, "Entity:EntityPlayer:getProfile", new MethodExecutor(getClassExec("Entity:Human"), getClassExec("GameProfile"), "fI", "Gets the EntityPlayer's GameProfile"));
-        load(V1_19_R2.class, "Entity:isGlowing", new MethodExecutor(getClassExec("Entity"), ClassExecutor.BOOLEAN, "bY", "Gets the glowing state of a Entity"));
+        load(V1_19_R2.class, "Entity:isGlowing", new MethodExecutor(getClassExec("Entity"), ClassExecutor.BOOLEAN, "bZ", "Gets the glowing state of a Entity"));
         load(V1_19_R2.class, "Entity:setGlowing", new MethodExecutor(getClassExec("Entity"), ClassExecutor.VOID, "i", "Sets the glowing state of a Entity", ClassExecutor.BOOLEAN));
+
+        load(V1_19_R2.class, "Entity:Human:getName", new MethodExecutor(getClassExec("Entity:Human"), getClassExec("IChatBaseComponent"), "aa", "Gets the EntityHuman's name"));
+        load(V1_19_R2.class, "Entity:EntityPlayer:getProfile", new MethodExecutor(getClassExec("Entity:Human"), getClassExec("GameProfile"), "fD", "Gets the EntityHuman's GameProfile"));
         // ArmorStand
         load(V1_19_R2.class, "Entity:ArmorStand:setBasePlate", new MethodExecutor(getClassExec("Entity:ArmorStand"), ClassExecutor.VOID, "s", "Sets the base plate of a ArmorStand", ClassExecutor.BOOLEAN));
-        load(V1_19_R2.class, "Entity:ArmorStand:hasBasePlate", new MethodExecutor(getClassExec("Entity:ArmorStand"), ClassExecutor.BOOLEAN, "s", "Checks if ArmorStand has base plate"));
-        load(V1_19_R2.class, "Entity:ArmorStand:setArms", new MethodExecutor(getClassExec("Entity:ArmorStand"), ClassExecutor.VOID, "a", "Sets the arms of a ArmorStand", ClassExecutor.BOOLEAN));
-        load(V1_19_R2.class, "Entity:ArmorStand:hasArms", new MethodExecutor(getClassExec("Entity:ArmorStand"), ClassExecutor.BOOLEAN, "r", "Checks if ArmorStand has arms"));
-        load(V1_19_R2.class, "Entity:ArmorStand:setSmall", new MethodExecutor(getClassExec("Entity:ArmorStand"), ClassExecutor.VOID, "t", "Sets the small state of a ArmorStand", ClassExecutor.BOOLEAN));
-        load(V1_19_R2.class, "Entity:ArmorStand:isSmall", new MethodExecutor(getClassExec("Entity:ArmorStand"), ClassExecutor.BOOLEAN, "q", "Checks if ArmorStand is small"));
+        load(V1_19_R2.class, "Entity:ArmorStand:hasBasePlate", new MethodExecutor(getClassExec("Entity:ArmorStand"), ClassExecutor.BOOLEAN, "r", "Checks if ArmorStand has base plate"));
+        load(V1_19_R2.class, "Entity:ArmorStand:setArms", new MethodExecutor(getClassExec("Entity:ArmorStand"), ClassExecutor.VOID, "r", "Sets the arms of a ArmorStand", ClassExecutor.BOOLEAN));
+        load(V1_19_R2.class, "Entity:ArmorStand:hasArms", new MethodExecutor(getClassExec("Entity:ArmorStand"), ClassExecutor.BOOLEAN, "p", "Checks if ArmorStand has arms"));
+        load(V1_19_R2.class, "Entity:ArmorStand:setSmall", new MethodExecutor(getClassExec("Entity:ArmorStand"), ClassExecutor.VOID, "a", "Sets the small state of a ArmorStand", ClassExecutor.BOOLEAN));
+        load(V1_19_R2.class, "Entity:ArmorStand:isSmall", new MethodExecutor(getClassExec("Entity:ArmorStand"), ClassExecutor.BOOLEAN, "m", "Checks if ArmorStand is small"));
         // Ageable
-        load(V1_19_R2.class, "Entity:Ageable:isBaby", new MethodExecutor(getClassExec("Entity:Ageable"), ClassExecutor.BOOLEAN, "y_", "Checks if a entity is a baby"));
+        load(V1_19_R2.class, "Entity:Ageable:isBaby", new MethodExecutor(getClassExec("Entity:Ageable"), ClassExecutor.BOOLEAN, "x_", "Checks if a entity is a baby"));
         load(V1_19_R2.class, "Entity:Ageable:setAge", new MethodExecutor(getClassExec("Entity:Ageable"), ClassExecutor.VOID, "a_", "Sets the baby state of a entity", ClassExecutor.INT));
         // Scoreboard
-        load(V1_19_R2.class, "Entity:EntityPlayer:getScoreboard", new MethodExecutor(getClassExec("EntityPlayer"), getClassExec("Scoreboard"), "fI", "Gets the Scoreboard from the EntityPlayer"));
+        load(V1_19_R2.class, "Entity:EntityPlayer:getScoreboard", new MethodExecutor(getClassExec("EntityPlayer"), getClassExec("Scoreboard"), "fT", "Gets the Scoreboard from the EntityPlayer"));
         load(V1_19_R2.class, "Scoreboard:getTeam", new MethodExecutor(getClassExec("Scoreboard"), getClassExec("ScoreboardTeam"), "f", "Gets a ScoreboardTeam from a Scoreboard", ClassExecutor.STRING));
         load(V1_19_R2.class, "Scoreboard:addToTeam", new MethodExecutor(getClassExec("Scoreboard"), ClassExecutor.BOOLEAN, "a", "Adds a EntityPlayer to a ScoreboardTeam", ClassExecutor.STRING, getClassExec("ScoreboardTeam")));
         load(V1_19_R2.class, "Scoreboard:createTeam", new MethodExecutor(getClassExec("Scoreboard"), getClassExec("ScoreboardTeam"), "g", "Creates a new team on a Scoreboard", ClassExecutor.STRING));
@@ -347,7 +360,7 @@ public class V1_19_R2 extends V1_19_R1 {
         load(V1_19_R2.class, "ChatSerializer:convertToString", new MethodExecutor(getClassExec("IChatBaseComponent"), ClassExecutor.STRING, "getString", "Converts a IChatBaseComponent to a string"));
 
         load(V1_19_R2.class, "World:getEntityById", new MethodExecutor(getClassExec("World"), getClassExec("Entity"), "a", "Gets a entity by its ID", ClassExecutor.INT));
-        load(V1_19_R2.class, "Block:getData", new MethodExecutor(getClassExec("Block"), getClassExec("IBlockData"), "o", "Gets the data of a block"));
+        load(V1_19_R2.class, "Block:getData", new MethodExecutor(getClassExec("Block"), getClassExec("IBlockData"), "n", "Gets the data of a block"));
         load(V1_19_R2.class, "IBlockData:getBlock", new MethodExecutor(getClassExec("IBlockData"), getClassExec("Block"), "b", "Gets the block of a data"));
         load(V1_19_R2.class, "CraftBlock:getNMSBlock", new MethodExecutor(getClassExec("CraftBlock"), getClassExec("IBlockData"), "getNMS", "Gets the NMS Block from a CraftBlock"));
         load(V1_19_R2.class, "EnumColor:getColorIndex", new MethodExecutor(getClassExec("EnumColor"), ClassExecutor.INT, "a", "Gets the color index of a EnumColor"));
@@ -373,6 +386,8 @@ public class V1_19_R2 extends V1_19_R1 {
 
         load(V1_19_R2.class, "InventorySubcontainer:getItem", new MethodExecutor(getClassExec("InventorySubcontainer"), getClassExec("ItemStack"), "a", "Gets a item from a InventorySubcontainer", ClassExecutor.INT));
         load(V1_19_R2.class, "InventorySubcontainer:setItem", new MethodExecutor(getClassExec("InventorySubcontainer"), ClassExecutor.VOID, "a", "Sets a item of slot at a InventorySubcontainer", ClassExecutor.INT, getClassExec("ItemStack")));
+        // Registry
+        load(V1_19_R2.class, "IRegistry:get", new MethodExecutor(getClassExec("IRegistry"), ClassExecutor.OBJECT, "a", "Gets the object from resource key", getClassExec("ResourceKey")));
     }
 
     @Override
@@ -382,41 +397,41 @@ public class V1_19_R2 extends V1_19_R1 {
         load(V1_19_R2.class, "VillagerProfession:Name", new FieldExecutor(getClassExec("VillagerProfession"), ClassExecutor.STRING, "q", "Gets the name of VillagerProfession"));
 
         load(V1_19_R2.class, "NetworkManager:channel", new FieldExecutor(getClassExec("NetworkManager"), new ClassExecutor(Channel.class), "m", "Gets the Channel of a NetworkManager"));
-        load(V1_19_R2.class, "Entity:loc", new FieldExecutor(getClassExec("Entity"), getClassExec("Vec3D"), "t", "Gets the Vec3D loc of an entity"));
-        load(V1_19_R2.class, "Entity:world", new FieldExecutor(getClassExec("Entity"), getClassExec("World"), "H", "Gets the world of an Entity"));
+        load(V1_19_R2.class, "Entity:loc", new FieldExecutor(getClassExec("Entity"), getClassExec("Vec3D"), "aw", "Gets the Vec3D loc of an entity"));
+        load(V1_19_R2.class, "Entity:world", new FieldExecutor(getClassExec("Entity"), getClassExec("World"), "s", "Gets the world of an Entity"));
         // ArmorStand
-        load(V1_19_R2.class, "Entity:ArmorStand:headPose", new FieldExecutor(getClassExec("Entity:ArmorStand"), getClassExec("Vector3f"), "cb", "Gets the head pose of an ArmorStand"));
-        load(V1_19_R2.class, "Entity:ArmorStand:bodyPose", new FieldExecutor(getClassExec("Entity:ArmorStand"), getClassExec("Vector3f"), "cc", "Gets the body pose of an ArmorStand"));
-        load(V1_19_R2.class, "Entity:ArmorStand:leftArmPose", new FieldExecutor(getClassExec("Entity:ArmorStand"), getClassExec("Vector3f"), "cd", "Gets the left arm pose of an ArmorStand"));
-        load(V1_19_R2.class, "Entity:ArmorStand:rightArmPose", new FieldExecutor(getClassExec("Entity:ArmorStand"), getClassExec("Vector3f"), "ce", "Gets the right arm pose of an ArmorStand"));
-        load(V1_19_R2.class, "Entity:ArmorStand:leftLegPose", new FieldExecutor(getClassExec("Entity:ArmorStand"), getClassExec("Vector3f"), "cf", "Gets the left leg pose of an ArmorStand"));
-        load(V1_19_R2.class, "Entity:ArmorStand:rightLegPose", new FieldExecutor(getClassExec("Entity:ArmorStand"), getClassExec("Vector3f"), "cg", "Gets the right leg pose of an ArmorStand"));
+        load(V1_19_R2.class, "Entity:ArmorStand:headPose", new FieldExecutor(getClassExec("Entity:ArmorStand"), getClassExec("Vector3f"), "cg", "Gets the head pose of an ArmorStand"));
+        load(V1_19_R2.class, "Entity:ArmorStand:bodyPose", new FieldExecutor(getClassExec("Entity:ArmorStand"), getClassExec("Vector3f"), "ch", "Gets the body pose of an ArmorStand"));
+        load(V1_19_R2.class, "Entity:ArmorStand:leftArmPose", new FieldExecutor(getClassExec("Entity:ArmorStand"), getClassExec("Vector3f"), "ci", "Gets the left arm pose of an ArmorStand"));
+        load(V1_19_R2.class, "Entity:ArmorStand:rightArmPose", new FieldExecutor(getClassExec("Entity:ArmorStand"), getClassExec("Vector3f"), "cj", "Gets the right arm pose of an ArmorStand"));
+        load(V1_19_R2.class, "Entity:ArmorStand:leftLegPose", new FieldExecutor(getClassExec("Entity:ArmorStand"), getClassExec("Vector3f"), "ck", "Gets the left leg pose of an ArmorStand"));
+        load(V1_19_R2.class, "Entity:ArmorStand:rightLegPose", new FieldExecutor(getClassExec("Entity:ArmorStand"), getClassExec("Vector3f"), "cl", "Gets the right leg pose of an ArmorStand"));
         // Metadata
-        load(V1_19_R2.class, "Metadata:ItemFrame:Item", new FieldExecutor(getClassExec("Entity:ItemFrame"), getClassExec("DataWatcherObject"), "g", "Gets the ItemFrame's item DataWatcher object"));
-        load(V1_19_R2.class, "Metadata:ItemFrame:Rotation", new FieldExecutor(getClassExec("Entity:ItemFrame"), getClassExec("DataWatcherObject"), "h", "Gets the ItemFrame's rotation DataWatcher object"));
-        load(V1_19_R2.class, "Metadata:Sheep:Shear", new FieldExecutor(getClassExec("Entity:Sheep"), getClassExec("DataWatcherObject"), "bT", "Gets the Sheep's shear DataWatcher object"));
-        load(V1_19_R2.class, "Metadata:Rabbit:Variant", new FieldExecutor(getClassExec("Entity:Rabbit"), getClassExec("DataWatcherObject"), "ca", "Gets the Rabbit's variant DataWatcher object"));
-        load(V1_19_R2.class, "Metadata:Tameable:Values", new FieldExecutor(getClassExec("Entity:Tameable"), getClassExec("DataWatcherObject"), "bS", "Gets the tameable animal's variables DataWatcher object"));
+        load(V1_19_R2.class, "Metadata:ItemFrame:Item", new FieldExecutor(getClassExec("Entity:ItemFrame"), getClassExec("DataWatcherObject"), "ao", "Gets the ItemFrame's item DataWatcher object"));
+        load(V1_19_R2.class, "Metadata:ItemFrame:Rotation", new FieldExecutor(getClassExec("Entity:ItemFrame"), getClassExec("DataWatcherObject"), "ap", "Gets the ItemFrame's rotation DataWatcher object"));
+        load(V1_19_R2.class, "Metadata:Sheep:Shear", new FieldExecutor(getClassExec("Entity:Sheep"), getClassExec("DataWatcherObject"), "bY", "Gets the Sheep's shear DataWatcher object"));
+        load(V1_19_R2.class, "Metadata:Rabbit:Variant", new FieldExecutor(getClassExec("Entity:Rabbit"), getClassExec("DataWatcherObject"), "cf", "Gets the Rabbit's variant DataWatcher object"));
+        load(V1_19_R2.class, "Metadata:Tameable:Values", new FieldExecutor(getClassExec("Entity:Tameable"), getClassExec("DataWatcherObject"), "bX", "Gets the tameable animal's variables DataWatcher object"));
         load(V1_19_R2.class, "Metadata:Item:Item", new FieldExecutor(getClassExec("Entity:Item"), getClassExec("DataWatcherObject"), "c", "Gets the EntityItem's item DataWatcher object"));
         load(V1_19_R2.class, "Metadata:WitherSkull:Charge", new FieldExecutor(getClassExec("Entity:WitherSkull"), getClassExec("DataWatcherObject"), "e", "Gets the Wither skull's charged DataWatcher object"));
-        load(V1_19_R2.class, "Metadata:Enderman:screaming", new FieldExecutor(getClassExec("Entity:Enderman"), getClassExec("DataWatcherObject"), "bU", "Gets the enderman's screaming datawatcher object"));
-        load(V1_19_R2.class, "Metadata:Enderman:carried", new FieldExecutor(getClassExec("Entity:Enderman"), getClassExec("DataWatcherObject"), "bT", "Gets the enderman's carried datawatcher object"));
-        load(V1_19_R2.class, "Metadata:Horse:Chested:Chest", new FieldExecutor(getClassExec("Entity:Horse:Abstract:Chested"), getClassExec("DataWatcherObject"), "bT", "Gets the chested horse's chest datawatcher object"));
-        load(V1_19_R2.class, "Metadata:Slime:Size", new FieldExecutor(getClassExec("Entity:Slime"), getClassExec("DataWatcherObject"), "bS", "Gets the slime's size datawatcher object"));
+        load(V1_19_R2.class, "Metadata:Enderman:screaming", new FieldExecutor(getClassExec("Entity:Enderman"), getClassExec("DataWatcherObject"), "bZ", "Gets the enderman's screaming datawatcher object"));
+        load(V1_19_R2.class, "Metadata:Enderman:carried", new FieldExecutor(getClassExec("Entity:Enderman"), getClassExec("DataWatcherObject"), "bY", "Gets the enderman's carried datawatcher object"));
+        load(V1_19_R2.class, "Metadata:Horse:Chested:Chest", new FieldExecutor(getClassExec("Entity:Horse:Abstract:Chested"), getClassExec("DataWatcherObject"), "bY", "Gets the chested horse's chest datawatcher object"));
+        load(V1_19_R2.class, "Metadata:Slime:Size", new FieldExecutor(getClassExec("Entity:Slime"), getClassExec("DataWatcherObject"), "bX", "Gets the slime's size datawatcher object"));
         load(V1_19_R2.class, "Metadata:Bat:Asleep", new FieldExecutor(getClassExec("Entity:Bat"), getClassExec("DataWatcherObject"), "d", "Gets the bat's asleep datawatcher object"));
         load(V1_19_R2.class, "Metadata:Snowman:Pumpkin", new FieldExecutor(getClassExec("Entity:Snowman"), getClassExec("DataWatcherObject"), "b", "Gets the snowman's pumpkin datawatcher object"));
         load(V1_19_R2.class, "Metadata:IllagerWizard:Spell", new FieldExecutor(getClassExec("Entity:IllagerWizard"), getClassExec("DataWatcherObject"), "e", "Gets the illager wizard's spell datawatcher object"));
-        load(V1_19_R2.class, "Metadata:Parrot:Variant", new FieldExecutor(getClassExec("Entity:Parrot"), getClassExec("DataWatcherObject"), "bZ", "Gets the parrot's variant datawatcher object"));
-        load(V1_19_R2.class, "Metadata:Horse:Variant", new FieldExecutor(getClassExec("Entity:Horse"), getClassExec("DataWatcherObject"), "bT", "Gets the horse variant DataWatcherObject"));
-        load(V1_19_R2.class, "Metadata:Pig:Saddle", new FieldExecutor(getClassExec("Entity:Pig"), getClassExec("DataWatcherObject"), "bS", "Gets the pig saddle DataWatcherObject"));
-        load(V1_19_R2.class, "Metadata:Turtle:Egg", new FieldExecutor(getClassExec("Entity:Turtle"), getClassExec("DataWatcherObject"), "bW", "Gets the turtle's egg DataWatcherObject", false, true));
-        load(V1_19_R2.class, "Metadata:Llama:Variant", new FieldExecutor(getClassExec("Entity:Llama"), getClassExec("DataWatcherObject"), "bY", "Gets the llama's variant DataWatcherObject"));
-        load(V1_19_R2.class, "Metadata:Llama:CarpetColor", new FieldExecutor(getClassExec("Entity:Llama"), getClassExec("DataWatcherObject"), "bX", "Gets the llama's carpet color DataWatcherObject"));
-        load(V1_19_R2.class, "Metadata:PolarBear:Standing", new FieldExecutor(getClassExec("Entity:PolarBear"), getClassExec("DataWatcherObject"), "bS", "Gets the polar bear's standing DataWatcherObject"));
-        load(V1_19_R2.class, "Metadata:Villager:Data", new FieldExecutor(getClassExec("Entity:Villager"), getClassExec("DataWatcherObject"), "bZ", "Gets the villager's data DataWatcherObject"));
-        load(V1_19_R2.class, "Metadata:Cat:Type", new FieldExecutor(getClassExec("Entity:Cat"), getClassExec("DataWatcherObject"), "bZ", "Gets the cat's variant DataWatcherObject"));
-        load(V1_19_R2.class, "Metadata:Wolf:Angry", new FieldExecutor(getClassExec("Entity:Wolf"), getClassExec("DataWatcherObject"), "bY", "Gets the wolf angry DataWatcherObject"));
-        load(V1_19_R2.class, "Metadata:Wolf:CollarColor", new FieldExecutor(getClassExec("Entity:Wolf"), getClassExec("DataWatcherObject"), "bX", "Gets the wolf collar color DataWatcherObject"));
+        load(V1_19_R2.class, "Metadata:Parrot:Variant", new FieldExecutor(getClassExec("Entity:Parrot"), getClassExec("DataWatcherObject"), "ce", "Gets the parrot's variant datawatcher object"));
+        load(V1_19_R2.class, "Metadata:Horse:Variant", new FieldExecutor(getClassExec("Entity:Horse"), getClassExec("DataWatcherObject"), "bY", "Gets the horse variant DataWatcherObject"));
+        load(V1_19_R2.class, "Metadata:Pig:Saddle", new FieldExecutor(getClassExec("Entity:Pig"), getClassExec("DataWatcherObject"), "bX", "Gets the pig saddle DataWatcherObject"));
+        load(V1_19_R2.class, "Metadata:Turtle:Egg", new FieldExecutor(getClassExec("Entity:Turtle"), getClassExec("DataWatcherObject"), "cb", "Gets the turtle's egg DataWatcherObject", false, true));
+        load(V1_19_R2.class, "Metadata:Llama:Variant", new FieldExecutor(getClassExec("Entity:Llama"), getClassExec("DataWatcherObject"), "cd", "Gets the llama's variant DataWatcherObject"));
+        load(V1_19_R2.class, "Metadata:Llama:CarpetColor", new FieldExecutor(getClassExec("Entity:Llama"), getClassExec("DataWatcherObject"), "cc", "Gets the llama's carpet color DataWatcherObject"));
+        load(V1_19_R2.class, "Metadata:PolarBear:Standing", new FieldExecutor(getClassExec("Entity:PolarBear"), getClassExec("DataWatcherObject"), "bX", "Gets the polar bear's standing DataWatcherObject"));
+        load(V1_19_R2.class, "Metadata:Villager:Data", new FieldExecutor(getClassExec("Entity:Villager"), getClassExec("DataWatcherObject"), "ce", "Gets the villager's data DataWatcherObject"));
+        load(V1_19_R2.class, "Metadata:Cat:Type", new FieldExecutor(getClassExec("Entity:Cat"), getClassExec("DataWatcherObject"), "ce", "Gets the cat's variant DataWatcherObject"));
+        load(V1_19_R2.class, "Metadata:Wolf:Angry", new FieldExecutor(getClassExec("Entity:Wolf"), getClassExec("DataWatcherObject"), "cb", "Gets the wolf angry DataWatcherObject"));
+        load(V1_19_R2.class, "Metadata:Wolf:CollarColor", new FieldExecutor(getClassExec("Entity:Wolf"), getClassExec("DataWatcherObject"), "cc", "Gets the wolf collar color DataWatcherObject"));
         load(V1_19_R2.class, "Metadata:TropicalFish:Variant", new FieldExecutor(getClassExec("Entity:TropicalFish"), getClassExec("DataWatcherObject"), "d", "Gets the tropical fish's variant DataWatcherObject"));
         load(V1_19_R2.class, "Metadata:Dolphin:hasFish", new FieldExecutor(getClassExec("Entity:Dolphin"), getClassExec("DataWatcherObject"), "e", "Gets the dolphin's hasFish DataWatcherObject"));
         load(V1_19_R2.class, "Metadata:Phantom:Size", new FieldExecutor(getClassExec("Entity:Phantom"), getClassExec("DataWatcherObject"), "d", "Gets the phantom's size DataWatcherObject"));
@@ -427,7 +442,7 @@ public class V1_19_R2 extends V1_19_R1 {
         load(V1_19_R2.class, "Metadata:PufferFish:PuffState", new FieldExecutor(getClassExec("Entity:PufferFish"), getClassExec("DataWatcherObject"), "e", "Gets the puffer fish's puff state DataWatcherObject"));
         load(V1_19_R2.class, "Metadata:Shulker:Color", new FieldExecutor(getClassExec("Entity:Shulker"), getClassExec("DataWatcherObject"), "d", "Gets the shulker's color DataWatcherObject"));
 
-        load(V1_19_R2.class, "Entity:Horse:Abstract:horseInventory", new FieldExecutor(getClassExec("Entity:Horse:Abstract"), getClassExec("InventorySubcontainer"), "cn", "Gets the horse's inventoryChest"));
+        load(V1_19_R2.class, "Entity:Horse:Abstract:horseInventory", new FieldExecutor(getClassExec("Entity:Horse:Abstract"), getClassExec("InventorySubcontainer"), "cr", "Gets the horse's inventoryChest"));
 
         load(V1_19_R2.class, "VillagerProfession:PROFESSIONS:NONE", new FieldExecutor(getClassExec("VillagerProfession"), getClassExec("VillagerProfession"), "b", "Gets the NONE villager profession"));
         load(V1_19_R2.class, "VillagerProfession:PROFESSIONS:ARMORER", new FieldExecutor(getClassExec("VillagerProfession"), getClassExec("VillagerProfession"), "c", "Gets the ARMORER villager profession"));
@@ -445,17 +460,21 @@ public class V1_19_R2 extends V1_19_R1 {
         load(V1_19_R2.class, "VillagerProfession:PROFESSIONS:TOOLSMITH", new FieldExecutor(getClassExec("VillagerProfession"), getClassExec("VillagerProfession"), "o", "Gets the TOOLSMITH villager profession"));
         load(V1_19_R2.class, "VillagerProfession:PROFESSIONS:WEAPONSMITH", new FieldExecutor(getClassExec("VillagerProfession"), getClassExec("VillagerProfession"), "p", "Gets the WEAPONSMITH villager profession"));
 
-        load(V1_19_R2.class, "Cat:Variant:tabby", new FieldExecutor(getClassExec("Cat:Variant"), getClassExec("Cat:Variant"), getText("Cat:Variant:tabby"), "Gets the tabby cat variant"));
-        load(V1_19_R2.class, "Cat:Variant:black", new FieldExecutor(getClassExec("Cat:Variant"), getClassExec("Cat:Variant"), getText("Cat:Variant:black"), "Gets the black cat variant"));
-        load(V1_19_R2.class, "Cat:Variant:red", new FieldExecutor(getClassExec("Cat:Variant"), getClassExec("Cat:Variant"), getText("Cat:Variant:red"), "Gets the red cat variant"));
-        load(V1_19_R2.class, "Cat:Variant:siamese", new FieldExecutor(getClassExec("Cat:Variant"), getClassExec("Cat:Variant"), getText("Cat:Variant:siamese"), "Gets the siamese cat variant"));
-        load(V1_19_R2.class, "Cat:Variant:british_shorthair", new FieldExecutor(getClassExec("Cat:Variant"), getClassExec("Cat:Variant"), getText("Cat:Variant:british_shorthair"), "Gets the british_shorthair cat variant"));
-        load(V1_19_R2.class, "Cat:Variant:calico", new FieldExecutor(getClassExec("Cat:Variant"), getClassExec("Cat:Variant"), getText("Cat:Variant:calico"), "Gets the calico cat variant"));
-        load(V1_19_R2.class, "Cat:Variant:persian", new FieldExecutor(getClassExec("Cat:Variant"), getClassExec("Cat:Variant"), getText("Cat:Variant:persian"), "Gets the persian cat variant"));
-        load(V1_19_R2.class, "Cat:Variant:ragdoll", new FieldExecutor(getClassExec("Cat:Variant"), getClassExec("Cat:Variant"), getText("Cat:Variant:ragdoll"), "Gets the ragdoll cat variant"));
-        load(V1_19_R2.class, "Cat:Variant:white", new FieldExecutor(getClassExec("Cat:Variant"), getClassExec("Cat:Variant"), getText("Cat:Variant:white"), "Gets the white cat variant"));
-        load(V1_19_R2.class, "Cat:Variant:jellie", new FieldExecutor(getClassExec("Cat:Variant"), getClassExec("Cat:Variant"), getText("Cat:Variant:jellie"), "Gets the jellie cat variant"));
-        load(V1_19_R2.class, "Cat:Variant:all_black", new FieldExecutor(getClassExec("Cat:Variant"), getClassExec("Cat:Variant"), getText("Cat:Variant:all_black"), "Gets the all_black cat variant"));
+        load(V1_19_R2.class, "Cat:Variant:tabby", new FieldExecutor(getClassExec("Cat:Variant"), getClassExec("ResourceKey"), getText("Cat:Variant:tabby"), "Gets the tabby cat variant"));
+        load(V1_19_R2.class, "Cat:Variant:black", new FieldExecutor(getClassExec("Cat:Variant"), getClassExec("ResourceKey"), getText("Cat:Variant:black"), "Gets the black cat variant"));
+        load(V1_19_R2.class, "Cat:Variant:red", new FieldExecutor(getClassExec("Cat:Variant"), getClassExec("ResourceKey"), getText("Cat:Variant:red"), "Gets the red cat variant"));
+        load(V1_19_R2.class, "Cat:Variant:siamese", new FieldExecutor(getClassExec("Cat:Variant"), getClassExec("ResourceKey"), getText("Cat:Variant:siamese"), "Gets the siamese cat variant"));
+        load(V1_19_R2.class, "Cat:Variant:british_shorthair", new FieldExecutor(getClassExec("Cat:Variant"), getClassExec("ResourceKey"), getText("Cat:Variant:british_shorthair"), "Gets the british_shorthair cat variant"));
+        load(V1_19_R2.class, "Cat:Variant:calico", new FieldExecutor(getClassExec("Cat:Variant"), getClassExec("ResourceKey"), getText("Cat:Variant:calico"), "Gets the calico cat variant"));
+        load(V1_19_R2.class, "Cat:Variant:persian", new FieldExecutor(getClassExec("Cat:Variant"), getClassExec("ResourceKey"), getText("Cat:Variant:persian"), "Gets the persian cat variant"));
+        load(V1_19_R2.class, "Cat:Variant:ragdoll", new FieldExecutor(getClassExec("Cat:Variant"), getClassExec("ResourceKey"), getText("Cat:Variant:ragdoll"), "Gets the ragdoll cat variant"));
+        load(V1_19_R2.class, "Cat:Variant:white", new FieldExecutor(getClassExec("Cat:Variant"), getClassExec("ResourceKey"), getText("Cat:Variant:white"), "Gets the white cat variant"));
+        load(V1_19_R2.class, "Cat:Variant:jellie", new FieldExecutor(getClassExec("Cat:Variant"), getClassExec("ResourceKey"), getText("Cat:Variant:jellie"), "Gets the jellie cat variant"));
+        load(V1_19_R2.class, "Cat:Variant:all_black", new FieldExecutor(getClassExec("Cat:Variant"), getClassExec("ResourceKey"), getText("Cat:Variant:all_black"), "Gets the all_black cat variant"));
+
+        load(V1_19_R2.class, "DataWatcher:map", new FieldExecutor(getClassExec("DataWatcher"), new ClassExecutor(Map.class), "e", "Gets the values of the data"));
+
+        load(V1_19_R2.class, "IRegistry:CAT_VARIANT", new FieldExecutor(getClassExec("BuiltInRegistries"), getClassExec("IRegistry"), "ai", "Gets the cat variant registry"));
     }
 
     @Override
@@ -568,6 +587,11 @@ public class V1_19_R2 extends V1_19_R1 {
     }
 
     @Override
+    public void loadEnums() {
+        super.loadEnums();
+    }
+
+    @Override
     public @Nullable PlayerInfoPacket createPlayerInfoPacket(EnumPlayerInfoActionEnum.@NotNull EnumPlayerInfoAction action, @NotNull EntityPlayer player) {
         return null;
     }
@@ -578,7 +602,7 @@ public class V1_19_R2 extends V1_19_R1 {
     }
     @Override
     public void setEntityCatVariant(@NotNull Cat cat, Cat.@NotNull Variant variant) {
-        cat.getDataWatcher().set(Cat.VARIANT_METADATA().getId(), variant.getEnum());
+        cat.getDataWatcher().set(Cat.VARIANT_METADATA().getId(), Objects.requireNonNull(BuiltInRegistries.getCatVariantRegistry().get(new ResourceKey(variant.getEnum()))));
     }
 
     @Override
@@ -606,6 +630,19 @@ public class V1_19_R2 extends V1_19_R1 {
     public @NotNull EntityLivingSpawnPacket createSpawnLivingPacket(@NotNull EntityLiving entity) {
         Object packet = getClassExec("PacketPlayOutSpawnEntity").getConstructor(getClassExec("EntityLiving")).newInstance(entity);
         return new EntitySpawnPacket(packet);
+    }
+
+    public @Nullable Object getResourceKeyValue(@NotNull IRegistry registry, @NotNull ResourceKey key) {
+        return getMethodExec("IRegistry:get").invokeInstance(registry, key);
+    }
+
+    @Override
+    public @NotNull EntityMetadataPacket createMetadataPacket(@NotNull Entity entity, @NotNull DataWatcher dataWatcher, boolean b) {
+        List<Object> list = new LinkedList<>();
+
+
+        Object packet = getClassExec("PacketPlayOutEntityMetadata").getConstructor(ClassExecutor.INT, new ClassExecutor(List.class)).newInstance(new IntegerObjExec(entity.getId()), list);
+        return new EntityMetadataPacket(packet);
     }
 
     @Override

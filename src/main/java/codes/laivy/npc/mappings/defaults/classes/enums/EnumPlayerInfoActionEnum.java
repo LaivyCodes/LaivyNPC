@@ -5,7 +5,6 @@ import codes.laivy.npc.mappings.instances.EnumExecutor;
 import codes.laivy.npc.mappings.defaults.classes.java.EnumObjExec;
 import codes.laivy.npc.mappings.versions.V1_19_R2;
 import codes.laivy.npc.utils.ReflectionUtils;
-import org.bukkit.Bukkit;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -57,9 +56,6 @@ public class EnumPlayerInfoActionEnum extends EnumExecutor {
     public static class EnumPlayerInfoActionClass extends ClassExecutor {
         public EnumPlayerInfoActionClass(@NotNull String className) {
             super(className);
-            if (ReflectionUtils.isCompatible(V1_19_R2.class)) {
-                throw new UnsupportedOperationException("This packet isn't available anymore since 1.19.3+");
-            }
         }
     }
 }
