@@ -12,6 +12,6 @@ public class BuiltInRegistries extends ClassExecutor {
     }
 
     public static @NotNull IRegistry getCatVariantRegistry() {
-        return new IRegistry(laivynpc().getVersion().getFieldExec("IRegistry:CAT_VARIANT"));
+        return new IRegistry(laivynpc().getVersion().getFieldExec("IRegistry:CAT_VARIANT").invokeStatic());
     }
 }

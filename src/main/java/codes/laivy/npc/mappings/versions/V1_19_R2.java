@@ -42,7 +42,6 @@ import codes.laivy.npc.mappings.defaults.classes.enums.*;
 import codes.laivy.npc.mappings.defaults.classes.gameprofile.GameProfile;
 import codes.laivy.npc.mappings.defaults.classes.gameprofile.Property;
 import codes.laivy.npc.mappings.defaults.classes.gameprofile.PropertyMap;
-import codes.laivy.npc.mappings.defaults.classes.java.BooleanObjExec;
 import codes.laivy.npc.mappings.defaults.classes.java.IntegerObjExec;
 import codes.laivy.npc.mappings.defaults.classes.nbt.NBTBase;
 import codes.laivy.npc.mappings.defaults.classes.nbt.tags.*;
@@ -60,10 +59,7 @@ import codes.laivy.npc.mappings.defaults.classes.packets.*;
 import codes.laivy.npc.mappings.defaults.classes.scoreboard.CraftScoreboard;
 import codes.laivy.npc.mappings.defaults.classes.scoreboard.Scoreboard;
 import codes.laivy.npc.mappings.defaults.classes.scoreboard.ScoreboardTeam;
-import codes.laivy.npc.mappings.instances.EnumExecutor;
-import codes.laivy.npc.mappings.instances.Executor;
-import codes.laivy.npc.mappings.instances.FieldExecutor;
-import codes.laivy.npc.mappings.instances.MethodExecutor;
+import codes.laivy.npc.mappings.instances.*;
 import codes.laivy.npc.mappings.instances.classes.ClassExecutor;
 import io.netty.channel.Channel;
 import org.bukkit.Bukkit;
@@ -388,6 +384,8 @@ public class V1_19_R2 extends V1_19_R1 {
         load(V1_19_R2.class, "InventorySubcontainer:setItem", new MethodExecutor(getClassExec("InventorySubcontainer"), ClassExecutor.VOID, "a", "Sets a item of slot at a InventorySubcontainer", ClassExecutor.INT, getClassExec("ItemStack")));
         // Registry
         load(V1_19_R2.class, "IRegistry:get", new MethodExecutor(getClassExec("IRegistry"), ClassExecutor.OBJECT, "a", "Gets the object from resource key", getClassExec("ResourceKey")));
+        // DataWatcher
+        load(V1_19_R2.class, "DataWatcher:getItems", new MethodExecutor(getClassExec("DataWatcher"), new ClassExecutor(List.class), "c", "Gets the items list"));
     }
 
     @Override
@@ -430,8 +428,8 @@ public class V1_19_R2 extends V1_19_R1 {
         load(V1_19_R2.class, "Metadata:PolarBear:Standing", new FieldExecutor(getClassExec("Entity:PolarBear"), getClassExec("DataWatcherObject"), "bX", "Gets the polar bear's standing DataWatcherObject"));
         load(V1_19_R2.class, "Metadata:Villager:Data", new FieldExecutor(getClassExec("Entity:Villager"), getClassExec("DataWatcherObject"), "ce", "Gets the villager's data DataWatcherObject"));
         load(V1_19_R2.class, "Metadata:Cat:Type", new FieldExecutor(getClassExec("Entity:Cat"), getClassExec("DataWatcherObject"), "ce", "Gets the cat's variant DataWatcherObject"));
-        load(V1_19_R2.class, "Metadata:Wolf:Angry", new FieldExecutor(getClassExec("Entity:Wolf"), getClassExec("DataWatcherObject"), "cb", "Gets the wolf angry DataWatcherObject"));
-        load(V1_19_R2.class, "Metadata:Wolf:CollarColor", new FieldExecutor(getClassExec("Entity:Wolf"), getClassExec("DataWatcherObject"), "cc", "Gets the wolf collar color DataWatcherObject"));
+        load(V1_19_R2.class, "Metadata:Wolf:Angry", new FieldExecutor(getClassExec("Entity:Wolf"), getClassExec("DataWatcherObject"), "cd", "Gets the wolf angry DataWatcherObject"));
+        load(V1_19_R2.class, "Metadata:Wolf:CollarColor", new FieldExecutor(getClassExec("Entity:Wolf"), getClassExec("DataWatcherObject"), "cd", "Gets the wolf collar color DataWatcherObject"));
         load(V1_19_R2.class, "Metadata:TropicalFish:Variant", new FieldExecutor(getClassExec("Entity:TropicalFish"), getClassExec("DataWatcherObject"), "d", "Gets the tropical fish's variant DataWatcherObject"));
         load(V1_19_R2.class, "Metadata:Dolphin:hasFish", new FieldExecutor(getClassExec("Entity:Dolphin"), getClassExec("DataWatcherObject"), "e", "Gets the dolphin's hasFish DataWatcherObject"));
         load(V1_19_R2.class, "Metadata:Phantom:Size", new FieldExecutor(getClassExec("Entity:Phantom"), getClassExec("DataWatcherObject"), "d", "Gets the phantom's size DataWatcherObject"));
@@ -483,95 +481,95 @@ public class V1_19_R2 extends V1_19_R1 {
 
         super.getTexts().put("EntityTypes:ARMOR_STAND", "d");
         super.getTexts().put("EntityTypes:BAT", "g");
-        super.getTexts().put("EntityTypes:EGG", "aQ");
+        super.getTexts().put("EntityTypes:EGG", "aR");
         super.getTexts().put("EntityTypes:BLAZE", "i");
         super.getTexts().put("EntityTypes:BOAT", "j");
         super.getTexts().put("EntityTypes:CAT", "l");
-        super.getTexts().put("EntityTypes:CAVE_SPIDER", "m");
-        super.getTexts().put("EntityTypes:CHICKEN", "n");
-        super.getTexts().put("EntityTypes:COD", "o");
-        super.getTexts().put("EntityTypes:COW", "p");
-        super.getTexts().put("EntityTypes:CREEPER", "q");
-        super.getTexts().put("EntityTypes:DONKEY", "s");
-        super.getTexts().put("EntityTypes:DOLPHIN", "r");
-        super.getTexts().put("EntityTypes:DRAGON_FIREBALL", "t");
-        super.getTexts().put("EntityTypes:DROWNED", "u");
-        super.getTexts().put("EntityTypes:ELDER_GUARDIAN", "v");
-        super.getTexts().put("EntityTypes:END_CRYSTAL", "w");
-        super.getTexts().put("EntityTypes:ENDER_DRAGON", "x");
-        super.getTexts().put("EntityTypes:ENDERMAN", "y");
-        super.getTexts().put("EntityTypes:ENDERMITE", "z");
-        super.getTexts().put("EntityTypes:EVOKER_FANGS", "B");
-        super.getTexts().put("EntityTypes:EVOKER", "A");
-        super.getTexts().put("EntityTypes:EYE_OF_ENDER", "D");
-        super.getTexts().put("EntityTypes:FALLING_BLOCK", "E");
-        super.getTexts().put("EntityTypes:FOX", "G");
-        super.getTexts().put("EntityTypes:GHAST", "I");
-        super.getTexts().put("EntityTypes:GIANT", "J");
-        super.getTexts().put("EntityTypes:GUARDIAN", "N");
-        super.getTexts().put("EntityTypes:HORSE", "P");
-        super.getTexts().put("EntityTypes:HUSK", "Q");
-        super.getTexts().put("EntityTypes:ILLUSIONER", "R");
-        super.getTexts().put("EntityTypes:ITEM", "T");
-        super.getTexts().put("EntityTypes:ITEM_FRAME", "U");
-        super.getTexts().put("EntityTypes:FIREBALL", "V");
-        super.getTexts().put("EntityTypes:LEASH_KNOT", "W");
-        super.getTexts().put("EntityTypes:LLAMA", "Y");
-        super.getTexts().put("EntityTypes:LLAMA_SPIT", "Z");
-        super.getTexts().put("EntityTypes:MAGMA_CUBE", "aa");
-        super.getTexts().put("EntityTypes:MINECART", "ac");
-        super.getTexts().put("EntityTypes:CHEST_MINECART", "ad");
-        super.getTexts().put("EntityTypes:COMMAND_BLOCK_MINECART", "ae");
-        super.getTexts().put("EntityTypes:FURNACE_MINECART", "af");
-        super.getTexts().put("EntityTypes:HOPPER_MINECART", "ag");
-        super.getTexts().put("EntityTypes:SPAWNER_MINECART", "ah");
-        super.getTexts().put("EntityTypes:TNT_MINECART", "ai");
-        super.getTexts().put("EntityTypes:MULE", "aj");
-        super.getTexts().put("EntityTypes:MOOSHROOM", "ak");
-        super.getTexts().put("EntityTypes:OCELOT", "al");
-        super.getTexts().put("EntityTypes:PAINTING", "am");
-        super.getTexts().put("EntityTypes:PANDA", "an");
-        super.getTexts().put("EntityTypes:PARROT", "ao");
-        super.getTexts().put("EntityTypes:PIG", "aq");
-        super.getTexts().put("EntityTypes:PUFFERFISH", "aw");
-        super.getTexts().put("EntityTypes:ZOMBIE_PIGMAN", "bm");
-        super.getTexts().put("EntityTypes:POLAR_BEAR", "au");
-        super.getTexts().put("EntityTypes:TNT", "av");
-        super.getTexts().put("EntityTypes:RABBIT", "ax");
-        super.getTexts().put("EntityTypes:SALMON", "az");
-        super.getTexts().put("EntityTypes:SHEEP", "aA");
-        super.getTexts().put("EntityTypes:SHULKER", "aB");
-        super.getTexts().put("EntityTypes:SHULKER_BULLET", "aC");
-        super.getTexts().put("EntityTypes:SILVERFISH", "aD");
-        super.getTexts().put("EntityTypes:SKELETON", "aE");
-        super.getTexts().put("EntityTypes:SKELETON_HORSE", "aF");
-        super.getTexts().put("EntityTypes:SLIME", "aG");
-        super.getTexts().put("EntityTypes:SMALL_FIREBALL", "aH");
-        super.getTexts().put("EntityTypes:SNOW_GOLEM", "aI");
-        super.getTexts().put("EntityTypes:SNOWBALL", "aJ");
-        super.getTexts().put("EntityTypes:SPIDER", "aL");
-        super.getTexts().put("EntityTypes:SQUID", "aM");
-        super.getTexts().put("EntityTypes:STRAY", "aN");
-        super.getTexts().put("EntityTypes:TRADER_LLAMA", "aV");
-        super.getTexts().put("EntityTypes:TROPICAL_FISH", "aW");
-        super.getTexts().put("EntityTypes:TURTLE", "aX");
-        super.getTexts().put("EntityTypes:ENDER_PEARL", "aR");
-        super.getTexts().put("EntityTypes:VEX", "aY");
-        super.getTexts().put("EntityTypes:VILLAGER", "aZ");
-        super.getTexts().put("EntityTypes:IRON_GOLEM", "S");
-        super.getTexts().put("EntityTypes:VINDICATOR", "ba");
-        super.getTexts().put("EntityTypes:PILLAGER", "at");
-        super.getTexts().put("EntityTypes:WANDERING_TRADER", "bb");
-        super.getTexts().put("EntityTypes:WITCH", "bd");
-        super.getTexts().put("EntityTypes:WITHER", "be");
-        super.getTexts().put("EntityTypes:WITHER_SKELETON", "bf");
-        super.getTexts().put("EntityTypes:WITHER_SKULL", "bg");
-        super.getTexts().put("EntityTypes:WOLF", "bh");
-        super.getTexts().put("EntityTypes:ZOMBIE", "bj");
-        super.getTexts().put("EntityTypes:ZOMBIE_HORSE", "bk");
-        super.getTexts().put("EntityTypes:ZOMBIE_VILLAGER", "bl");
-        super.getTexts().put("EntityTypes:PHANTOM", "ap");
-        super.getTexts().put("EntityTypes:RAVAGER", "ay");
+        super.getTexts().put("EntityTypes:CAVE_SPIDER", "n");
+        super.getTexts().put("EntityTypes:CHICKEN", "o");
+        super.getTexts().put("EntityTypes:COD", "p");
+        super.getTexts().put("EntityTypes:COW", "q");
+        super.getTexts().put("EntityTypes:CREEPER", "r");
+        super.getTexts().put("EntityTypes:DONKEY", "t");
+        super.getTexts().put("EntityTypes:DOLPHIN", "s");
+        super.getTexts().put("EntityTypes:DRAGON_FIREBALL", "u");
+        super.getTexts().put("EntityTypes:DROWNED", "v");
+        super.getTexts().put("EntityTypes:ELDER_GUARDIAN", "w");
+        super.getTexts().put("EntityTypes:END_CRYSTAL", "x");
+        super.getTexts().put("EntityTypes:ENDER_DRAGON", "y");
+        super.getTexts().put("EntityTypes:ENDERMAN", "z");
+        super.getTexts().put("EntityTypes:ENDERMITE", "A");
+        super.getTexts().put("EntityTypes:EVOKER_FANGS", "C");
+        super.getTexts().put("EntityTypes:EVOKER", "B");
+        super.getTexts().put("EntityTypes:EYE_OF_ENDER", "E");
+        super.getTexts().put("EntityTypes:FALLING_BLOCK", "F");
+        super.getTexts().put("EntityTypes:FOX", "H");
+        super.getTexts().put("EntityTypes:GHAST", "J");
+        super.getTexts().put("EntityTypes:GIANT", "K");
+        super.getTexts().put("EntityTypes:GUARDIAN", "O");
+        super.getTexts().put("EntityTypes:HORSE", "Q");
+        super.getTexts().put("EntityTypes:HUSK", "R");
+        super.getTexts().put("EntityTypes:ILLUSIONER", "S");
+        super.getTexts().put("EntityTypes:ITEM", "U");
+        super.getTexts().put("EntityTypes:ITEM_FRAME", "V");
+        super.getTexts().put("EntityTypes:FIREBALL", "W");
+        super.getTexts().put("EntityTypes:LEASH_KNOT", "X");
+        super.getTexts().put("EntityTypes:LLAMA", "Z");
+        super.getTexts().put("EntityTypes:LLAMA_SPIT", "aa");
+        super.getTexts().put("EntityTypes:MAGMA_CUBE", "ab");
+        super.getTexts().put("EntityTypes:MINECART", "ad");
+        super.getTexts().put("EntityTypes:CHEST_MINECART", "ae");
+        super.getTexts().put("EntityTypes:COMMAND_BLOCK_MINECART", "af");
+        super.getTexts().put("EntityTypes:FURNACE_MINECART", "ag");
+        super.getTexts().put("EntityTypes:HOPPER_MINECART", "ah");
+        super.getTexts().put("EntityTypes:SPAWNER_MINECART", "ai");
+        super.getTexts().put("EntityTypes:TNT_MINECART", "aj");
+        super.getTexts().put("EntityTypes:MULE", "ak");
+        super.getTexts().put("EntityTypes:MOOSHROOM", "al");
+        super.getTexts().put("EntityTypes:OCELOT", "am");
+        super.getTexts().put("EntityTypes:PAINTING", "an");
+        super.getTexts().put("EntityTypes:PANDA", "ao");
+        super.getTexts().put("EntityTypes:PARROT", "ap");
+        super.getTexts().put("EntityTypes:PIG", "ar");
+        super.getTexts().put("EntityTypes:PUFFERFISH", "ax");
+        super.getTexts().put("EntityTypes:ZOMBIE_PIGMAN", "bn");
+        super.getTexts().put("EntityTypes:POLAR_BEAR", "av");
+        super.getTexts().put("EntityTypes:TNT", "aw");
+        super.getTexts().put("EntityTypes:RABBIT", "ay");
+        super.getTexts().put("EntityTypes:SALMON", "aA");
+        super.getTexts().put("EntityTypes:SHEEP", "aB");
+        super.getTexts().put("EntityTypes:SHULKER", "aC");
+        super.getTexts().put("EntityTypes:SHULKER_BULLET", "aD");
+        super.getTexts().put("EntityTypes:SILVERFISH", "aE");
+        super.getTexts().put("EntityTypes:SKELETON", "aF");
+        super.getTexts().put("EntityTypes:SKELETON_HORSE", "aG");
+        super.getTexts().put("EntityTypes:SLIME", "aH");
+        super.getTexts().put("EntityTypes:SMALL_FIREBALL", "aI");
+        super.getTexts().put("EntityTypes:SNOW_GOLEM", "aJ");
+        super.getTexts().put("EntityTypes:SNOWBALL", "aK");
+        super.getTexts().put("EntityTypes:SPIDER", "aM");
+        super.getTexts().put("EntityTypes:SQUID", "aN");
+        super.getTexts().put("EntityTypes:STRAY", "aO");
+        super.getTexts().put("EntityTypes:TRADER_LLAMA", "aW");
+        super.getTexts().put("EntityTypes:TROPICAL_FISH", "aX");
+        super.getTexts().put("EntityTypes:TURTLE", "aY");
+        super.getTexts().put("EntityTypes:ENDER_PEARL", "aS");
+        super.getTexts().put("EntityTypes:VEX", "aZ");
+        super.getTexts().put("EntityTypes:VILLAGER", "ba");
+        super.getTexts().put("EntityTypes:IRON_GOLEM", "T");
+        super.getTexts().put("EntityTypes:VINDICATOR", "bb");
+        super.getTexts().put("EntityTypes:PILLAGER", "au");
+        super.getTexts().put("EntityTypes:WANDERING_TRADER", "bc");
+        super.getTexts().put("EntityTypes:WITCH", "be");
+        super.getTexts().put("EntityTypes:WITHER", "bf");
+        super.getTexts().put("EntityTypes:WITHER_SKELETON", "bg");
+        super.getTexts().put("EntityTypes:WITHER_SKULL", "bh");
+        super.getTexts().put("EntityTypes:WOLF", "bi");
+        super.getTexts().put("EntityTypes:ZOMBIE", "bk");
+        super.getTexts().put("EntityTypes:ZOMBIE_HORSE", "bl");
+        super.getTexts().put("EntityTypes:ZOMBIE_VILLAGER", "bm");
+        super.getTexts().put("EntityTypes:PHANTOM", "aq");
+        super.getTexts().put("EntityTypes:RAVAGER", "az");
 
         super.getTexts().put("Cat:Variant:tabby", "a");
         super.getTexts().put("Cat:Variant:black", "b");
@@ -598,8 +596,18 @@ public class V1_19_R2 extends V1_19_R1 {
 
     @Override
     public @NotNull Cat.Variant getEntityCatVariant(@NotNull Cat cat) {
-        return Cat.Variant.getByEnum(Objects.requireNonNull(cat.getDataWatcher().get(Cat.VARIANT_METADATA())));
+        Object object = Objects.requireNonNull(cat.getDataWatcher().get(Cat.VARIANT_METADATA()));
+
+        for (Cat.Variant variant : Cat.Variant.values()) {
+            @NotNull Object a = Objects.requireNonNull(BuiltInRegistries.getCatVariantRegistry().get(new ResourceKey(variant.getEnum())));
+            if (a.equals(object)) {
+                return variant;
+            }
+        }
+
+        throw new NullPointerException("Couldn't get this cat variant enum '" + object + "'");
     }
+
     @Override
     public void setEntityCatVariant(@NotNull Cat cat, Cat.@NotNull Variant variant) {
         cat.getDataWatcher().set(Cat.VARIANT_METADATA().getId(), Objects.requireNonNull(BuiltInRegistries.getCatVariantRegistry().get(new ResourceKey(variant.getEnum()))));
@@ -614,21 +622,20 @@ public class V1_19_R2 extends V1_19_R1 {
         EntityPlayer player = new EntityPlayer(getClassExec("EntityPlayer").getConstructor(
                 getClassExec("MinecraftServer"),
                 getClassExec("WorldServer"),
-                getClassExec("GameProfile"),
-                getClassExec("ProfilePublicKey")
+                getClassExec("GameProfile")
         ).newInstance(
                 CraftServer.getCraftServer(Bukkit.getServer()).getServer(),
                 CraftWorld.getCraftWorld(location.getWorld()).getHandle(),
-                profile,
-                null
+                profile
         ));
+
         player.setLocation(location);
         return player;
     }
 
     @Override
     public @NotNull EntityLivingSpawnPacket createSpawnLivingPacket(@NotNull EntityLiving entity) {
-        Object packet = getClassExec("PacketPlayOutSpawnEntity").getConstructor(getClassExec("EntityLiving")).newInstance(entity);
+        Object packet = getClassExec("PacketPlayOutSpawnEntity").getConstructor(getClassExec("Entity")).newInstance(entity);
         return new EntitySpawnPacket(packet);
     }
 
@@ -638,10 +645,16 @@ public class V1_19_R2 extends V1_19_R1 {
 
     @Override
     public @NotNull EntityMetadataPacket createMetadataPacket(@NotNull Entity entity, @NotNull DataWatcher dataWatcher, boolean b) {
-        List<Object> list = new LinkedList<>();
+        //noinspection unchecked
+        List<Object> list = (List<Object>) getMethodExec("DataWatcher:getItems").invokeInstance(dataWatcher);
 
+        Object packet = getClassExec("PacketPlayOutEntityMetadata").getConstructor(ClassExecutor.INT, new ClassExecutor(List.class)).newInstance(new IntegerObjExec(entity.getId()), new ObjectExecutor(list) {
+            @Override
+            public @NotNull ClassExecutor getClassExecutor() {
+                return new ClassExecutor(List.class);
+            }
+        });
 
-        Object packet = getClassExec("PacketPlayOutEntityMetadata").getConstructor(ClassExecutor.INT, new ClassExecutor(List.class)).newInstance(new IntegerObjExec(entity.getId()), list);
         return new EntityMetadataPacket(packet);
     }
 
