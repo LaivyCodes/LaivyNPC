@@ -1,12 +1,13 @@
-package codes.laivy.npc.mappings.defaults.classes.packets;
+package codes.laivy.npc.mappings.defaults.classes.packets.info.legacy;
 
 import codes.laivy.npc.LaivyNPC;
-import codes.laivy.npc.mappings.versions.V1_19_R2;
-import codes.laivy.npc.utils.ReflectionUtils;
+import codes.laivy.npc.mappings.defaults.classes.packets.Packet;
+import codes.laivy.npc.mappings.defaults.classes.packets.info.PlayerInfoUpdatePacket;
+import codes.laivy.npc.mappings.defaults.classes.packets.info.PlayerInfoRemovePacket;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class PlayerInfoPacket extends Packet {
+public class PlayerInfoPacket extends Packet implements PlayerInfoUpdatePacket, PlayerInfoRemovePacket {
     public PlayerInfoPacket(@Nullable Object value) {
         super(value);
     }

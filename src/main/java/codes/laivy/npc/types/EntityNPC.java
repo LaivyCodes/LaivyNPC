@@ -1,6 +1,8 @@
 package codes.laivy.npc.types;
 
 import codes.laivy.npc.mappings.defaults.classes.enums.EnumItemSlotEnum;
+import codes.laivy.npc.mappings.defaults.classes.java.IntegerObjExec;
+import codes.laivy.npc.mappings.defaults.classes.packets.IPacket;
 import codes.laivy.npc.mappings.instances.classes.ClassExecutor;
 import codes.laivy.npc.mappings.instances.MethodExecutor;
 import codes.laivy.npc.mappings.instances.ObjectExecutor;
@@ -10,7 +12,6 @@ import codes.laivy.npc.mappings.defaults.classes.enums.EnumChatFormatEnum;
 import codes.laivy.npc.mappings.defaults.classes.enums.EnumNameTagVisibilityEnum;
 import codes.laivy.npc.mappings.defaults.classes.enums.EnumTeamPushEnum;
 import codes.laivy.npc.mappings.defaults.classes.java.ObjectObjExec;
-import codes.laivy.npc.mappings.defaults.classes.packets.Packet;
 import codes.laivy.npc.mappings.defaults.classes.scoreboard.Scoreboard;
 import codes.laivy.npc.mappings.defaults.classes.scoreboard.ScoreboardTeam;
 import codes.laivy.npc.mappings.versions.V1_9_R1;
@@ -33,7 +34,10 @@ public abstract class EntityNPC extends NPC {
     protected @NotNull Entity entity;
 
     public EntityNPC(@NotNull List<OfflinePlayer> players, @NotNull Entity.EntityType entityType, @NotNull Location location) {
-        super(players, location);
+        this(getNextNpcId(), players, entityType, location);
+    }
+    public EntityNPC(int id, @NotNull List<OfflinePlayer> players, @NotNull Entity.EntityType entityType, @NotNull Location location) {
+        super(id, players, location);
 
         Validation.isTrue(entityType.isEntityLiving() && !(this instanceof EntityLivingNPC), new IllegalArgumentException("This EntityType is a LivingEntity, only Entities can be passed here."));
 
@@ -54,8 +58,8 @@ public abstract class EntityNPC extends NPC {
     }
 
     @Override
-    public @NotNull List<@NotNull Packet> getSpawnPackets(@NotNull Player player) {
-        List<@NotNull Packet> packets = new LinkedList<>();
+    public @NotNull List<IPacket> getSpawnPackets(@NotNull Player player) {
+        List<@NotNull IPacket> packets = new LinkedList<>();
 
         packets.add(laivynpc().getVersion().createSpawnPacket(getEntity()));
         packets.addAll(getMetadataUpdatePackets(player));
@@ -64,13 +68,13 @@ public abstract class EntityNPC extends NPC {
     }
 
     @Override
-    public @NotNull List<@NotNull Packet> getDestroyPackets(@NotNull Player player) {
+    public @NotNull List<IPacket> getDestroyPackets(@NotNull Player player) {
         return new LinkedList<>(laivynpc().getVersion().createDestroyPacket(getEntity()));
     }
 
     @Override
-    public @NotNull List<@NotNull Packet> getMetadataUpdatePackets(@NotNull Player player) {
-        List<@NotNull Packet> packets = new LinkedList<>();
+    public @NotNull List<IPacket> getMetadataUpdatePackets(@NotNull Player player) {
+        List<@NotNull IPacket> packets = new LinkedList<>();
 
         try {
             DataWatcher data = getEntity().getDataWatcher();
@@ -92,8 +96,8 @@ public abstract class EntityNPC extends NPC {
     }
 
     @Override
-    public @NotNull List<Packet> getScoreboardUpdatePackets(@NotNull Player player) {
-        List<Packet> packets = new LinkedList<>();
+    public @NotNull List<IPacket> getScoreboardUpdatePackets(@NotNull Player player) {
+        List<IPacket> packets = new LinkedList<>();
 
         try {
             Scoreboard scoreboard = Scoreboard.getFrom(player);
@@ -138,7 +142,7 @@ public abstract class EntityNPC extends NPC {
     }
 
     @Override
-    public @NotNull List<@NotNull Packet> getEquipmentsUpdatePackets(@NotNull Player player) {
+    public @NotNull List<@NotNull IPacket> getEquipmentsUpdatePackets(@NotNull Player player) {
         if (!getEquipments().isEmpty()) {
             return new LinkedList<>(laivynpc().getVersion().createEquipmentPacket(getEntity(), getEquipments()));
         }
@@ -176,6 +180,11 @@ public abstract class EntityNPC extends NPC {
         try {
             ConfigurationSection entityNpc = map.getConfigurationSection("EntityNPC Configuration");
 
+            int id = NPC.getNextNpcId();
+            if (map.contains("Id")) {
+                id = map.getInt("Id");
+            }
+
             String type = map.getString("Type");
             MemorySection locationMap = (MemorySection) map.get("Location");
 
@@ -201,12 +210,13 @@ public abstract class EntityNPC extends NPC {
                     }
                 }
 
-                if (MethodExecutor.hasMethodWithReturn(aClass, "fastInstance", aClass, List.class, Location.class, Object.class)) {
-                    MethodExecutor method = new MethodExecutor(new ClassExecutor(aClass), new ClassExecutor(NPC.class), "fastInstance", "Gets the fastInstance of a NPC to load it from the configuration", new ClassExecutor(List.class), new ClassExecutor(Location.class), ClassExecutor.OBJECT);
+                if (MethodExecutor.hasMethodWithReturn(aClass, "fastInstance", aClass, int.class, List.class, Location.class, Object.class)) {
+                    MethodExecutor method = new MethodExecutor(new ClassExecutor(aClass), new ClassExecutor(NPC.class), "fastInstance", "Gets the fastInstance of a NPC to load it from the configuration", ClassExecutor.INT, new ClassExecutor(List.class), new ClassExecutor(Location.class), ClassExecutor.OBJECT);
                     method.load();
 
                     EntityNPC npc = Objects.requireNonNull((EntityNPC) method
                             .invokeStatic(
+                                    new IntegerObjExec(id),
                                     new ObjectExecutor(new ArrayList<>()) {
                                         @Override
                                         public @NotNull ClassExecutor getClassExecutor() {

@@ -22,8 +22,8 @@ import static codes.laivy.npc.config.Translate.translate;
 
 public class BlazeNPC extends EntityLivingNPC {
 
-    public static @NotNull BlazeNPC fastInstance(@NotNull List<OfflinePlayer> players, @NotNull Location location, @Nullable Object object) {
-        return new BlazeNPC(players, location);
+    public static @NotNull BlazeNPC fastInstance(int id, @NotNull List<OfflinePlayer> players, @NotNull Location location, @Nullable Object object) {
+        return new BlazeNPC(id, players, location);
     }
 
     public static void debug(@NotNull Location location) {
@@ -38,11 +38,14 @@ public class BlazeNPC extends EntityLivingNPC {
         setCharging(!isCharging());
     }
 
-    protected BlazeNPC(@NotNull List<OfflinePlayer> players, @NotNull Entity.EntityType type, @NotNull Location location) {
-        super(players, type, location);
+    protected BlazeNPC(int id, @NotNull List<OfflinePlayer> players, @NotNull Entity.EntityType type, @NotNull Location location) {
+        super(id, players, type, location);
     }
     public BlazeNPC(@NotNull List<OfflinePlayer> players, @NotNull Location location) {
-        super(players, Entity.EntityType.BLAZE, location);
+        this(NPC.getNextNpcId(), players, location);
+    }
+    public BlazeNPC(int id, @NotNull List<OfflinePlayer> players, @NotNull Location location) {
+        super(id, players, Entity.EntityType.BLAZE, location);
     }
 
     public boolean isCharging() {

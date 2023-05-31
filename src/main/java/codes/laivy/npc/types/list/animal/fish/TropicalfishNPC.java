@@ -1,6 +1,5 @@
 package codes.laivy.npc.types.list.animal.fish;
 
-import codes.laivy.npc.mappings.defaults.classes.entity.Entity;
 import codes.laivy.npc.mappings.defaults.classes.entity.animal.fish.Fish;
 import codes.laivy.npc.mappings.defaults.classes.entity.animal.fish.Tropicalfish;
 import codes.laivy.npc.types.EntityLivingNPC;
@@ -21,8 +20,8 @@ import static codes.laivy.npc.config.Translate.translate;
 
 public class TropicalfishNPC extends FishNPC {
 
-    public static @NotNull TropicalfishNPC fastInstance(@NotNull List<OfflinePlayer> players, @NotNull Location location, @NotNull Object object) {
-        return new TropicalfishNPC(players, location);
+    public static @NotNull TropicalfishNPC fastInstance(int id, @NotNull List<OfflinePlayer> players, @NotNull Location location, @NotNull Object object) {
+        return new TropicalfishNPC(id, players, location);
     }
 
     public static void debug(@NotNull Location location) {
@@ -37,11 +36,14 @@ public class TropicalfishNPC extends FishNPC {
         setVariant(getVariant());
     }
 
-    protected TropicalfishNPC(@NotNull List<OfflinePlayer> players, @NotNull Fish.Type type, @NotNull Location location) {
-        super(players, type, location);
+    protected TropicalfishNPC(int id, @NotNull List<OfflinePlayer> players, @NotNull Fish.Type type, @NotNull Location location) {
+        super(id, players, type, location);
     }
     public TropicalfishNPC(@NotNull List<OfflinePlayer> players, @NotNull Location location) {
-        super(players, Fish.Type.TROPICALFISH, location);
+        this(NPC.getNextNpcId(), players, location);
+    }
+    public TropicalfishNPC(int id, @NotNull List<OfflinePlayer> players, @NotNull Location location) {
+        super(id, players, Fish.Type.TROPICALFISH, location);
     }
 
     public int getVariant() {

@@ -21,8 +21,8 @@ import static codes.laivy.npc.config.Translate.translate;
 
 public class BatNPC extends EntityLivingNPC {
 
-    public static @NotNull BatNPC fastInstance(@NotNull List<OfflinePlayer> players, @NotNull Location location, @Nullable Object object) {
-        return new BatNPC(players, location);
+    public static @NotNull BatNPC fastInstance(int id, @NotNull List<OfflinePlayer> players, @NotNull Location location, @Nullable Object object) {
+        return new BatNPC(id, players, location);
     }
 
     public static void debug(@NotNull Location location) {
@@ -37,11 +37,14 @@ public class BatNPC extends EntityLivingNPC {
         setAsleep(!isAsleep());
     }
 
-    protected BatNPC(@NotNull List<OfflinePlayer> players, @NotNull Entity.EntityType type, @NotNull Location location) {
-        super(players, type, location);
+    protected BatNPC(int id, @NotNull List<OfflinePlayer> players, @NotNull Entity.EntityType type, @NotNull Location location) {
+        super(id, players, type, location);
     }
     public BatNPC(@NotNull List<OfflinePlayer> players, @NotNull Location location) {
-        super(players, Entity.EntityType.BAT, location.clone().add(0, 1, 0));
+        this(NPC.getNextNpcId(), players, location);
+    }
+    public BatNPC(int id, @NotNull List<OfflinePlayer> players, @NotNull Location location) {
+        super(id, players, Entity.EntityType.BAT, location.clone().add(0, 1, 0));
         getHolograms().setDistanceFromNPC(-1.25D);
         setAsleep(false);
     }

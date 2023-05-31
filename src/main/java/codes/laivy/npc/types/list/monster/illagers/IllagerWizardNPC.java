@@ -27,8 +27,8 @@ public abstract class IllagerWizardNPC extends EntityLivingNPC {
         setSpell(getSpell());
     }
 
-    protected IllagerWizardNPC(@NotNull List<OfflinePlayer> players, Entity.@NotNull EntityType entityType, @NotNull Location location) {
-        super(players, entityType, location);
+    protected IllagerWizardNPC(int id, @NotNull List<OfflinePlayer> players, Entity.@NotNull EntityType entityType, @NotNull Location location) {
+        super(id, players, entityType, location);
         if (!ClassUtils.isInstanceOf(entityType.getEntityClass(), IllagerWizard.class)) {
             throw new IllegalArgumentException("The NPC entity type's entity class needs to be an instance of IllagerWizard.");
         }

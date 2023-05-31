@@ -4,6 +4,7 @@ import codes.laivy.npc.mappings.defaults.classes.entity.monster.zombie.Zombie;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.zombie.Zombie.Type;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.zombie.ZombieDrowned;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.zombie.ZombieHusk;
+import codes.laivy.npc.types.NPC;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.jetbrains.annotations.NotNull;
@@ -14,8 +15,8 @@ import java.util.List;
 
 public class ZombieDrownedNPC extends ZombieNPC {
 
-    public static @NotNull ZombieDrownedNPC fastInstance(@NotNull List<OfflinePlayer> players, @NotNull Location location, @Nullable Object object) {
-        return new ZombieDrownedNPC(players, location);
+    public static @NotNull ZombieDrownedNPC fastInstance(int id, @NotNull List<OfflinePlayer> players, @NotNull Location location, @Nullable Object object) {
+        return new ZombieDrownedNPC(id, players, location);
     }
 
     public static void debug(@NotNull Location location) {
@@ -24,11 +25,14 @@ public class ZombieDrownedNPC extends ZombieNPC {
         zombieNPC.destroy();
     }
 
-    protected ZombieDrownedNPC(@NotNull List<OfflinePlayer> players, @NotNull Zombie.Type type, @NotNull Location location) {
-        super(players, type, location);
+    protected ZombieDrownedNPC(int id, @NotNull List<OfflinePlayer> players, @NotNull Zombie.Type type, @NotNull Location location) {
+        super(id, players, type, location);
     }
     public ZombieDrownedNPC(@NotNull List<OfflinePlayer> players, @NotNull Location location) {
-        super(players, Type.DROWNED, location);
+        this(NPC.getNextNpcId(), players, location);
+    }
+    public ZombieDrownedNPC(int id, @NotNull List<OfflinePlayer> players, @NotNull Location location) {
+        super(id, players, Type.DROWNED, location);
     }
 
     public final @NotNull Zombie.Type getType() {

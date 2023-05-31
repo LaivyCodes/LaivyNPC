@@ -3,6 +3,7 @@ package codes.laivy.npc.types.list.animal.horse;
 import codes.laivy.npc.mappings.defaults.classes.entity.animal.horse.AbstractHorse;
 import codes.laivy.npc.mappings.defaults.classes.entity.animal.horse.Horse;
 import codes.laivy.npc.mappings.defaults.classes.entity.animal.horse.HorseSkeleton;
+import codes.laivy.npc.types.NPC;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.jetbrains.annotations.NotNull;
@@ -12,8 +13,8 @@ import java.util.List;
 
 public class HorseSkeletonNPC extends AbstractHorseNPC {
 
-    public static @NotNull HorseSkeletonNPC fastInstance(@NotNull List<OfflinePlayer> players, @NotNull Location location, @NotNull Object object) {
-        return new HorseSkeletonNPC(players, location);
+    public static @NotNull HorseSkeletonNPC fastInstance(int id, @NotNull List<OfflinePlayer> players, @NotNull Location location, @NotNull Object object) {
+        return new HorseSkeletonNPC(id, players, location);
     }
 
     public static void debug(@NotNull Location location) {
@@ -22,11 +23,14 @@ public class HorseSkeletonNPC extends AbstractHorseNPC {
         horse.destroy();
     }
 
-    protected HorseSkeletonNPC(@NotNull List<OfflinePlayer> players, @NotNull AbstractHorse.Type type, @NotNull Location location) {
-        super(players, type, location);
+    protected HorseSkeletonNPC(int id, @NotNull List<OfflinePlayer> players, @NotNull AbstractHorse.Type type, @NotNull Location location) {
+        super(id, players, type, location);
     }
     public HorseSkeletonNPC(@NotNull List<OfflinePlayer> players, @NotNull Location location) {
-        super(players, AbstractHorse.Type.SKELETON, location);
+        this(NPC.getNextNpcId(), players, location);
+    }
+    public HorseSkeletonNPC(int id, @NotNull List<OfflinePlayer> players, @NotNull Location location) {
+        super(id, players, AbstractHorse.Type.SKELETON, location);
     }
 
     public @NotNull Horse.Type getType() {

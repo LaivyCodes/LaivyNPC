@@ -19,8 +19,8 @@ import static codes.laivy.npc.config.Translate.translate;
 
 public class GuardianNPC extends EntityLivingNPC {
 
-    public static @NotNull GuardianNPC fastInstance(@NotNull List<OfflinePlayer> players, @NotNull Location location, @Nullable Object object) {
-        return new GuardianNPC(players, location);
+    public static @NotNull GuardianNPC fastInstance(int id, @NotNull List<OfflinePlayer> players, @NotNull Location location, @Nullable Object object) {
+        return new GuardianNPC(id, players, location);
     }
 
     public static void debug(@NotNull Location location) {
@@ -35,11 +35,14 @@ public class GuardianNPC extends EntityLivingNPC {
         setTarget(getTarget());
     }
 
-    protected GuardianNPC(@NotNull List<OfflinePlayer> players, @NotNull Entity.EntityType type, @NotNull Location location) {
-        super(players, type, location);
+    protected GuardianNPC(int id, @NotNull List<OfflinePlayer> players, @NotNull Entity.EntityType type, @NotNull Location location) {
+        super(id, players, type, location);
     }
     public GuardianNPC(@NotNull List<OfflinePlayer> players, @NotNull Location location) {
-        super(players, Entity.EntityType.GUARDIAN, location);
+        this(NPC.getNextNpcId(), players, location);
+    }
+    public GuardianNPC(int id, @NotNull List<OfflinePlayer> players, @NotNull Location location) {
+        super(id, players, Entity.EntityType.GUARDIAN, location);
     }
 
     public @Nullable Location getTarget() {

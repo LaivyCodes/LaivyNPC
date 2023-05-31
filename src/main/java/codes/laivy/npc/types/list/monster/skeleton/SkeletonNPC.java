@@ -24,8 +24,8 @@ import static codes.laivy.npc.config.Translate.translate;
 
 public class SkeletonNPC extends EntityLivingNPC {
 
-    public static @NotNull SkeletonNPC fastInstance(@NotNull List<OfflinePlayer> players, @NotNull Location location, @Nullable Object object) {
-        return new SkeletonNPC(players, location);
+    public static @NotNull SkeletonNPC fastInstance(int id, @NotNull List<OfflinePlayer> players, @NotNull Location location, @Nullable Object object) {
+        return new SkeletonNPC(id, players, location);
     }
 
     public static void debug(@NotNull Location location) {
@@ -34,11 +34,14 @@ public class SkeletonNPC extends EntityLivingNPC {
         skeletonNPC.destroy();
     }
 
-    protected SkeletonNPC(@NotNull List<OfflinePlayer> players, @NotNull Type type, @NotNull Location location) {
+    protected SkeletonNPC(int id, @NotNull List<OfflinePlayer> players, @NotNull Type type, @NotNull Location location) {
         super(players, type.getEntityType(), location);
     }
     public SkeletonNPC(@NotNull List<OfflinePlayer> players, @NotNull Location location) {
-        this(players, Type.NORMAL, location);
+        this(NPC.getNextNpcId(), players, location);
+    }
+    public SkeletonNPC(int id, @NotNull List<OfflinePlayer> players, @NotNull Location location) {
+        this(id, players, Type.NORMAL, location);
     }
 
     public @NotNull Type getType() {

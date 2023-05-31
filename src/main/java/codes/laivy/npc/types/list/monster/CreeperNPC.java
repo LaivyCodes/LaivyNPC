@@ -21,8 +21,8 @@ import static codes.laivy.npc.config.Translate.translate;
 
 public class CreeperNPC extends EntityLivingNPC {
 
-    public static @NotNull CreeperNPC fastInstance(@NotNull List<OfflinePlayer> players, @NotNull Location location, @Nullable Object object) {
-        return new CreeperNPC(players, location);
+    public static @NotNull CreeperNPC fastInstance(int id, @NotNull List<OfflinePlayer> players, @NotNull Location location, @Nullable Object object) {
+        return new CreeperNPC(id, players, location);
     }
 
     public static void debug(@NotNull Location location) {
@@ -38,11 +38,14 @@ public class CreeperNPC extends EntityLivingNPC {
         setIgnited(!isIgnited());
     }
 
-    protected CreeperNPC(@NotNull List<OfflinePlayer> players, @NotNull Entity.EntityType type, @NotNull Location location) {
-        super(players, type, location);
+    protected CreeperNPC(int id, @NotNull List<OfflinePlayer> players, @NotNull Entity.EntityType type, @NotNull Location location) {
+        super(id, players, type, location);
     }
     public CreeperNPC(@NotNull List<OfflinePlayer> players, @NotNull Location location) {
-        super(players, Entity.EntityType.CREEPER, location);
+        this(NPC.getNextNpcId(), players, location);
+    }
+    public CreeperNPC(int id, @NotNull List<OfflinePlayer> players, @NotNull Location location) {
+        super(id, players, Entity.EntityType.CREEPER, location);
     }
 
     public boolean isPowered() {

@@ -1,5 +1,7 @@
 package codes.laivy.npc.debug;
 
+import codes.laivy.npc.mappings.defaults.classes.packets.info.IPlayerInfoPacket;
+import codes.laivy.npc.mappings.defaults.classes.packets.info.action.IPlayerInfoAction;
 import codes.laivy.npc.mappings.instances.classes.ClassExecutor;
 import codes.laivy.npc.mappings.instances.MethodExecutor;
 import codes.laivy.npc.mappings.instances.ObjectExecutor;
@@ -8,7 +10,6 @@ import codes.laivy.npc.mappings.defaults.classes.entity.player.EntityPlayer;
 import codes.laivy.npc.mappings.defaults.classes.entity.animal.Pig;
 import codes.laivy.npc.mappings.defaults.classes.entity.decoration.ArmorStand;
 import codes.laivy.npc.mappings.defaults.classes.enums.EnumItemSlotEnum;
-import codes.laivy.npc.mappings.defaults.classes.enums.EnumPlayerInfoActionEnum;
 import codes.laivy.npc.mappings.defaults.classes.nbt.tags.*;
 import codes.laivy.npc.mappings.defaults.classes.packets.*;
 import codes.laivy.npc.mappings.defaults.classes.scoreboard.ScoreboardTeam;
@@ -142,10 +143,9 @@ public class Debug {
             EntityPlayer entityPlayer = laivynpc().getVersion().createPlayer(laivynpc().getVersion().createGameProfile(UUID.randomUUID(), "Laivy"), player.getLocation());
 
             message.append("§7Trying to debug PlayerInfoPacket ADD_PLAYER...\n");
-            PlayerInfoPacket playerInfoPacket = laivynpc().getVersion().createPlayerInfoPacket(EnumPlayerInfoActionEnum.ADD_PLAYER(), entityPlayer);
-            if (playerInfoPacket != null) {
-                playerInfoPacket.send(player);
-            }
+            IPlayerInfoPacket playerInfoPacket = laivynpc().getVersion().createPlayerInfoPacket(IPlayerInfoAction.ADD_PLAYER(), entityPlayer);
+            playerInfoPacket.send(player);
+
             message.append("§7Trying to debug EntityNamedSpawnPacket...\n");
             EntityNamedSpawnPacket entityNamedSpawnPacket = laivynpc().getVersion().createSpawnNamedPacket(entityPlayer);
             entityNamedSpawnPacket.send(player);
@@ -163,10 +163,8 @@ public class Debug {
             //
 
             message.append("§7Trying to debug PlayerInfoPacket REMOVE_PLAYER...\n");
-            playerInfoPacket = laivynpc().getVersion().createPlayerInfoPacket(EnumPlayerInfoActionEnum.REMOVE_PLAYER(), entityPlayer);
-            if (playerInfoPacket != null) {
-                playerInfoPacket.send(player);
-            }
+            playerInfoPacket = laivynpc().getVersion().createPlayerInfoPacket(IPlayerInfoAction.REMOVE_PLAYER(), entityPlayer);
+            playerInfoPacket.send(player);
             //
 
             message.append("§7Trying to debug EntityDestroyPacket...\n");

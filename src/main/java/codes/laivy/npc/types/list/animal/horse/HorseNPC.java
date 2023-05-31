@@ -19,8 +19,8 @@ import static codes.laivy.npc.config.Translate.translate;
 
 public class HorseNPC extends AbstractHorseNPC {
 
-    public static @NotNull HorseNPC fastInstance(@NotNull List<OfflinePlayer> players, @NotNull Location location, @NotNull Object object) {
-        return new HorseNPC(players, location);
+    public static @NotNull HorseNPC fastInstance(int id, @NotNull List<OfflinePlayer> players, @NotNull Location location, @NotNull Object object) {
+        return new HorseNPC(id, players, location);
     }
 
     public static void debug(@NotNull Location location) {
@@ -36,11 +36,14 @@ public class HorseNPC extends AbstractHorseNPC {
         setVariant(getVariant());
     }
 
-    protected HorseNPC(@NotNull List<OfflinePlayer> players, @NotNull AbstractHorse.Type type, @NotNull Location location) {
-        super(players, type, location);
+    protected HorseNPC(int id, @NotNull List<OfflinePlayer> players, @NotNull AbstractHorse.Type type, @NotNull Location location) {
+        super(id, players, type, location);
     }
     public HorseNPC(@NotNull List<OfflinePlayer> players, @NotNull Location location) {
-        super(players, AbstractHorse.Type.HORSE, location);
+        this(NPC.getNextNpcId(), players, location);
+    }
+    public HorseNPC(int id, @NotNull List<OfflinePlayer> players, @NotNull Location location) {
+        super(id, players, AbstractHorse.Type.HORSE, location);
     }
 
     public @NotNull HorseArmor getArmor() {

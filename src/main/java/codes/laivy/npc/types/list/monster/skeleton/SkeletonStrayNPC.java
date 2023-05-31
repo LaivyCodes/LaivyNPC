@@ -3,6 +3,7 @@ package codes.laivy.npc.types.list.monster.skeleton;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.skeleton.Skeleton;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.skeleton.Skeleton.Type;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.skeleton.SkeletonStray;
+import codes.laivy.npc.types.NPC;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.jetbrains.annotations.NotNull;
@@ -13,8 +14,8 @@ import java.util.List;
 
 public class SkeletonStrayNPC extends SkeletonNPC {
 
-    public static @NotNull SkeletonStrayNPC fastInstance(@NotNull List<OfflinePlayer> players, @NotNull Location location, @Nullable Object object) {
-        return new SkeletonStrayNPC(players, location);
+    public static @NotNull SkeletonStrayNPC fastInstance(int id, @NotNull List<OfflinePlayer> players, @NotNull Location location, @Nullable Object object) {
+        return new SkeletonStrayNPC(id, players, location);
     }
 
     public static void debug(@NotNull Location location) {
@@ -23,11 +24,14 @@ public class SkeletonStrayNPC extends SkeletonNPC {
         skeletonNPC.destroy();
     }
 
-    protected SkeletonStrayNPC(@NotNull List<OfflinePlayer> players, @NotNull Skeleton.Type type, @NotNull Location location) {
-        super(players, type, location);
+    protected SkeletonStrayNPC(int id, @NotNull List<OfflinePlayer> players, @NotNull Skeleton.Type type, @NotNull Location location) {
+        super(id, players, type, location);
     }
     public SkeletonStrayNPC(@NotNull List<OfflinePlayer> players, @NotNull Location location) {
-        super(players, Type.STRAY, location);
+        this(NPC.getNextNpcId(), players, location);
+    }
+    public SkeletonStrayNPC(int id, @NotNull List<OfflinePlayer> players, @NotNull Location location) {
+        super(id, players, Type.STRAY, location);
     }
 
     public final @NotNull Skeleton.Type getType() {

@@ -21,8 +21,8 @@ import static codes.laivy.npc.config.Translate.translate;
 
 public class GhastNPC extends EntityLivingNPC {
 
-    public static @NotNull GhastNPC fastInstance(@NotNull List<OfflinePlayer> players, @NotNull Location location, @Nullable Object object) {
-        return new GhastNPC(players, location);
+    public static @NotNull GhastNPC fastInstance(int id, @NotNull List<OfflinePlayer> players, @NotNull Location location, @Nullable Object object) {
+        return new GhastNPC(id, players, location);
     }
 
     public static void debug(@NotNull Location location) {
@@ -37,11 +37,14 @@ public class GhastNPC extends EntityLivingNPC {
         setAttacking(!isAttacking());
     }
 
-    protected GhastNPC(@NotNull List<OfflinePlayer> players, @NotNull Entity.EntityType type, @NotNull Location location) {
-        super(players, type, location);
+    protected GhastNPC(int id, @NotNull List<OfflinePlayer> players, @NotNull Entity.EntityType type, @NotNull Location location) {
+        super(id, players, type, location);
     }
     public GhastNPC(@NotNull List<OfflinePlayer> players, @NotNull Location location) {
-        super(players, Entity.EntityType.GHAST, location);
+        this(NPC.getNextNpcId(), players, location);
+    }
+    public GhastNPC(int id, @NotNull List<OfflinePlayer> players, @NotNull Location location) {
+        super(id, players, Entity.EntityType.GHAST, location);
         getHolograms().setDistanceFromNPC(3D);
     }
 

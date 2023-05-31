@@ -23,8 +23,8 @@ import static codes.laivy.npc.config.Translate.translate;
 
 public class EndermanNPC extends EntityLivingNPC {
 
-    public static @NotNull EndermanNPC fastInstance(@NotNull List<OfflinePlayer> players, @NotNull Location location, @Nullable Object object) {
-        return new EndermanNPC(players, location);
+    public static @NotNull EndermanNPC fastInstance(int id, @NotNull List<OfflinePlayer> players, @NotNull Location location, @Nullable Object object) {
+        return new EndermanNPC(id, players, location);
     }
 
     public static void debug(@NotNull Location location) {
@@ -41,11 +41,14 @@ public class EndermanNPC extends EntityLivingNPC {
         setScreaming(!isScreaming());
     }
 
-    protected EndermanNPC(@NotNull List<OfflinePlayer> players, @NotNull Entity.EntityType type, @NotNull Location location) {
-        super(players, type, location);
+    protected EndermanNPC(int id, @NotNull List<OfflinePlayer> players, @NotNull Entity.EntityType type, @NotNull Location location) {
+        super(id, players, type, location);
     }
     public EndermanNPC(@NotNull List<OfflinePlayer> players, @NotNull Location location) {
-        super(players, Entity.EntityType.ENDERMAN, location);
+        this(NPC.getNextNpcId(), players, location);
+    }
+    public EndermanNPC(int id, @NotNull List<OfflinePlayer> players, @NotNull Location location) {
+        super(id, players, Entity.EntityType.ENDERMAN, location);
         getHolograms().setDistanceFromNPC(1D);
     }
 

@@ -10,8 +10,8 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 public abstract class AbstractHorseNPC extends AgeableEntityLivingNPC {
-    protected AbstractHorseNPC(@NotNull List<OfflinePlayer> players, @NotNull AbstractHorse.Type type, @NotNull Location location) {
-        super(players, type.getEntityType(), location);
+    protected AbstractHorseNPC(int id, @NotNull List<OfflinePlayer> players, @NotNull AbstractHorse.Type type, @NotNull Location location) {
+        super(id, players, type.getEntityType(), location);
         if (!type.isCompatible()) {
             throw new IllegalArgumentException("This horse type '" + type.name() + "' is only compatible with '" + type.getSince().getSimpleName() + "' or higher");
         }

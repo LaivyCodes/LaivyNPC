@@ -46,6 +46,7 @@ import codes.laivy.npc.mappings.defaults.classes.others.objects.*;
 import codes.laivy.npc.mappings.defaults.classes.others.server.CraftServer;
 import codes.laivy.npc.mappings.defaults.classes.others.server.MinecraftServer;
 import codes.laivy.npc.mappings.defaults.classes.packets.*;
+import codes.laivy.npc.mappings.defaults.classes.packets.info.legacy.PlayerInfoPacket;
 import codes.laivy.npc.mappings.defaults.classes.scoreboard.CraftScoreboard;
 import codes.laivy.npc.mappings.defaults.classes.scoreboard.Scoreboard;
 import codes.laivy.npc.mappings.defaults.classes.scoreboard.ScoreboardTeam;

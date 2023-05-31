@@ -17,8 +17,8 @@ import static codes.laivy.npc.config.Translate.translate;
 
 public class PolarBearNPC extends AgeableEntityLivingNPC {
 
-    public static @NotNull PolarBearNPC fastInstance(@NotNull List<OfflinePlayer> players, @NotNull Location location, @NotNull Object object) {
-        return new PolarBearNPC(players, location);
+    public static @NotNull PolarBearNPC fastInstance(int id, @NotNull List<OfflinePlayer> players, @NotNull Location location, @NotNull Object object) {
+        return new PolarBearNPC(id, players, location);
     }
 
     public static void debug(@NotNull Location location) {
@@ -27,11 +27,14 @@ public class PolarBearNPC extends AgeableEntityLivingNPC {
         bear.destroy();
     }
 
-    protected PolarBearNPC(@NotNull List<OfflinePlayer> players, @NotNull Entity.EntityType type, @NotNull Location location) {
-        super(players, type, location);
+    protected PolarBearNPC(int id, @NotNull List<OfflinePlayer> players, @NotNull Entity.EntityType type, @NotNull Location location) {
+        super(id, players, type, location);
     }
     public PolarBearNPC(@NotNull List<OfflinePlayer> players, @NotNull Location location) {
-        super(players, Entity.EntityType.POLAR_BEAR, location);
+        this(NPC.getNextNpcId(), players, location);
+    }
+    public PolarBearNPC(int id, @NotNull List<OfflinePlayer> players, @NotNull Location location) {
+        super(id, players, Entity.EntityType.POLAR_BEAR, location);
     }
 
     public boolean isStanding() {

@@ -23,8 +23,8 @@ import static codes.laivy.npc.config.Translate.translate;
 
 public class WolfNPC extends TameableEntityLivingNPC {
 
-    public static @NotNull WolfNPC fastInstance(@NotNull List<OfflinePlayer> players, @NotNull Location location, @Nullable Object object) {
-        return new WolfNPC(players, location);
+    public static @NotNull WolfNPC fastInstance(int id, @NotNull List<OfflinePlayer> players, @NotNull Location location, @Nullable Object object) {
+        return new WolfNPC(id, players, location);
     }
 
     public static void debug(@NotNull Location location) {
@@ -42,11 +42,14 @@ public class WolfNPC extends TameableEntityLivingNPC {
         setAngry(!isAngry());
     }
 
-    protected WolfNPC(@NotNull List<OfflinePlayer> players, @NotNull Entity.EntityType type, @NotNull Location location) {
-        super(players, type, location);
+    protected WolfNPC(int id, @NotNull List<OfflinePlayer> players, @NotNull Entity.EntityType type, @NotNull Location location) {
+        super(id, players, type, location);
     }
     public WolfNPC(@NotNull List<OfflinePlayer> players, @NotNull Location location) {
-        super(players, Entity.EntityType.WOLF, location);
+        this(NPC.getNextNpcId(), players, location);
+    }
+    public WolfNPC(int id, @NotNull List<OfflinePlayer> players, @NotNull Location location) {
+        super(id, players, Entity.EntityType.WOLF, location);
         getHolograms().setDistanceFromNPC(-1.25D);
     }
 

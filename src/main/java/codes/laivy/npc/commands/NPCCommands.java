@@ -146,21 +146,23 @@ public class NPCCommands implements CommandExecutor, Listener {
                             if (type.equalsIgnoreCase("PLAYER")) {
                                 npc = new PlayerNPC(new ArrayList<>(), player.getLocation());
                             } else {
+                                Entity.EntityType entityType;
                                 try {
-                                    Entity.EntityType entityType = Entity.EntityType.valueOf(type);
-                                    if (laivynpc().getVersion().isEntityTypeSupported(entityType)) {
-                                        if (entityType.canFastInstance()) {
-                                            npc = entityType.fastInstance(new ArrayList<>(), player.getLocation());
-                                        } else {
-                                            player.sendMessage(translate(player, "npc.general_command.npc.only_api"));
-                                            return true;
-                                        }
-                                    } else {
-                                        player.sendMessage(translate(player, "npc.general_command.npc.incompatible", entityType.getSince().getSimpleName()));
-                                        return true;
-                                    }
+                                    entityType = Entity.EntityType.valueOf(type);
                                 } catch (IllegalArgumentException ignore) {
                                     player.sendMessage(translate(player, "npc.general_command.npc.unknown_type"));
+                                    return true;
+                                }
+
+                                if (laivynpc().getVersion().isEntityTypeSupported(entityType)) {
+                                    if (entityType.canFastInstance()) {
+                                        npc = entityType.fastInstance(NPC.getNextNpcId(), new ArrayList<>(), player.getLocation());
+                                    } else {
+                                        player.sendMessage(translate(player, "npc.general_command.npc.only_api"));
+                                        return true;
+                                    }
+                                } else {
+                                    player.sendMessage(translate(player, "npc.general_command.npc.incompatible", entityType.getSince().getSimpleName()));
                                     return true;
                                 }
                             }

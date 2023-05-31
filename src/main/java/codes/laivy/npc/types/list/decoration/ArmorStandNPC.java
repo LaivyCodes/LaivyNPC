@@ -20,8 +20,8 @@ import static codes.laivy.npc.config.Translate.translate;
 
 public class ArmorStandNPC extends EntityNPC {
 
-    public static @NotNull ArmorStandNPC fastInstance(@NotNull List<OfflinePlayer> players, @NotNull Location location, @Nullable Object object) {
-        return new ArmorStandNPC(players, location);
+    public static @NotNull ArmorStandNPC fastInstance(int id, @NotNull List<OfflinePlayer> players, @NotNull Location location, @Nullable Object object) {
+        return new ArmorStandNPC(id, players, location);
     }
 
     public static void debug(@NotNull Location location) {
@@ -46,11 +46,14 @@ public class ArmorStandNPC extends EntityNPC {
         setRightLegPose(getRightLegPose());
     }
 
-    protected ArmorStandNPC(@NotNull List<OfflinePlayer> players, @NotNull Entity.EntityType type, @NotNull Location location) {
-        super(players, type, location);
+    protected ArmorStandNPC(int id, @NotNull List<OfflinePlayer> players, @NotNull Entity.EntityType type, @NotNull Location location) {
+        super(id, players, type, location);
     }
     public ArmorStandNPC(@NotNull List<OfflinePlayer> players, @NotNull Location location) {
-        super(players, Entity.EntityType.ARMOR_STAND, location);
+        this(NPC.getNextNpcId(), players, location);
+    }
+    public ArmorStandNPC(int id, @NotNull List<OfflinePlayer> players, @NotNull Location location) {
+        super(id, players, Entity.EntityType.ARMOR_STAND, location);
     }
 
     @Override

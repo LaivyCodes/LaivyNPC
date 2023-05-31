@@ -21,8 +21,8 @@ import static codes.laivy.npc.config.Translate.translate;
 
 public class SlimeNPC extends EntityLivingNPC {
 
-    public static @NotNull SlimeNPC fastInstance(@NotNull List<OfflinePlayer> players, @NotNull Location location, @Nullable Object object) {
-        return new SlimeNPC(players, location);
+    public static @NotNull SlimeNPC fastInstance(int id, @NotNull List<OfflinePlayer> players, @NotNull Location location, @Nullable Object object) {
+        return new SlimeNPC(id, players, location);
     }
 
     public static void debug(@NotNull Location location) {
@@ -37,11 +37,14 @@ public class SlimeNPC extends EntityLivingNPC {
         setSize(getSize());
     }
 
-    protected SlimeNPC(@NotNull List<OfflinePlayer> players, @NotNull Entity.EntityType type, @NotNull Location location) {
-        super(players, type, location);
+    protected SlimeNPC(int id, @NotNull List<OfflinePlayer> players, @NotNull Entity.EntityType type, @NotNull Location location) {
+        super(id, players, type, location);
     }
     public SlimeNPC(@NotNull List<OfflinePlayer> players, @NotNull Location location) {
-        super(players, Entity.EntityType.SLIME, location);
+        this(NPC.getNextNpcId(), players, location);
+    }
+    public SlimeNPC(int id, @NotNull List<OfflinePlayer> players, @NotNull Location location) {
+        super(id, players, Entity.EntityType.SLIME, location);
     }
 
     public int getSize() {

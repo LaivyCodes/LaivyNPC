@@ -20,8 +20,8 @@ import static codes.laivy.npc.config.Translate.translate;
 
 public class PufferfishNPC extends FishNPC {
 
-    public static @NotNull PufferfishNPC fastInstance(@NotNull List<OfflinePlayer> players, @NotNull Location location, @NotNull Object object) {
-        return new PufferfishNPC(players, location);
+    public static @NotNull PufferfishNPC fastInstance(int id, @NotNull List<OfflinePlayer> players, @NotNull Location location, @NotNull Object object) {
+        return new PufferfishNPC(id, players, location);
     }
 
     public static void debug(@NotNull Location location) {
@@ -36,11 +36,14 @@ public class PufferfishNPC extends FishNPC {
         setPuffState(getPuffState());
     }
 
-    protected PufferfishNPC(@NotNull List<OfflinePlayer> players, @NotNull Fish.Type type, @NotNull Location location) {
-        super(players, type, location);
+    protected PufferfishNPC(int id, @NotNull List<OfflinePlayer> players, @NotNull Fish.Type type, @NotNull Location location) {
+        super(id, players, type, location);
     }
     public PufferfishNPC(@NotNull List<OfflinePlayer> players, @NotNull Location location) {
-        super(players, Fish.Type.PUFFERFISH, location);
+        this(NPC.getNextNpcId(), players, location);
+    }
+    public PufferfishNPC(int id, @NotNull List<OfflinePlayer> players, @NotNull Location location) {
+        super(id, players, Fish.Type.PUFFERFISH, location);
     }
 
     public int getPuffState() {

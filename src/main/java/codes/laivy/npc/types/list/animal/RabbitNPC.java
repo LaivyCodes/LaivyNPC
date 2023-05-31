@@ -21,8 +21,8 @@ import static codes.laivy.npc.config.Translate.translate;
 
 public class RabbitNPC extends AgeableEntityLivingNPC {
 
-    public static @NotNull RabbitNPC fastInstance(@NotNull List<OfflinePlayer> players, @NotNull Location location, @Nullable Object object) {
-        return new RabbitNPC(players, location);
+    public static @NotNull RabbitNPC fastInstance(int id, @NotNull List<OfflinePlayer> players, @NotNull Location location, @Nullable Object object) {
+        return new RabbitNPC(id, players, location);
     }
 
     public static void debug(@NotNull Location location) {
@@ -39,11 +39,14 @@ public class RabbitNPC extends AgeableEntityLivingNPC {
         } setVariant(getVariant());
     }
 
-    protected RabbitNPC(@NotNull List<OfflinePlayer> players, @NotNull Entity.EntityType type, @NotNull Location location) {
-        super(players, type, location);
+    protected RabbitNPC(int id, @NotNull List<OfflinePlayer> players, @NotNull Entity.EntityType type, @NotNull Location location) {
+        super(id, players, type, location);
     }
     public RabbitNPC(@NotNull List<OfflinePlayer> players, @NotNull Location location) {
-        super(players, Entity.EntityType.RABBIT, location);
+        this(NPC.getNextNpcId(), players, location);
+    }
+    public RabbitNPC(int id, @NotNull List<OfflinePlayer> players, @NotNull Location location) {
+        super(id, players, Entity.EntityType.RABBIT, location);
     }
 
     public @NotNull Rabbit.Variant getVariant() {

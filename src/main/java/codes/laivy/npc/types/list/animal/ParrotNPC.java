@@ -21,8 +21,8 @@ import static codes.laivy.npc.config.Translate.translate;
 
 public class ParrotNPC extends TameableEntityLivingNPC {
 
-    public static @NotNull ParrotNPC fastInstance(@NotNull List<OfflinePlayer> players, @NotNull Location location, @Nullable Object object) {
-        return new ParrotNPC(players, location);
+    public static @NotNull ParrotNPC fastInstance(int id, @NotNull List<OfflinePlayer> players, @NotNull Location location, @Nullable Object object) {
+        return new ParrotNPC(id, players, location);
     }
 
     public static void debug(@NotNull Location location) {
@@ -37,11 +37,14 @@ public class ParrotNPC extends TameableEntityLivingNPC {
         setVariant(getVariant());
     }
 
-    protected ParrotNPC(@NotNull List<OfflinePlayer> players, @NotNull Entity.EntityType type, @NotNull Location location) {
-        super(players, type, location);
+    protected ParrotNPC(int id, @NotNull List<OfflinePlayer> players, @NotNull Entity.EntityType type, @NotNull Location location) {
+        super(id, players, type, location);
     }
     public ParrotNPC(@NotNull List<OfflinePlayer> players, @NotNull Location location) {
-        super(players, Entity.EntityType.PARROT, location);
+        this(NPC.getNextNpcId(), players, location);
+    }
+    public ParrotNPC(int id, @NotNull List<OfflinePlayer> players, @NotNull Location location) {
+        super(id, players, Entity.EntityType.PARROT, location);
         getHolograms().setDistanceFromNPC(-1.25D);
     }
 

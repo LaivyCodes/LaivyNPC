@@ -27,8 +27,8 @@ import static codes.laivy.npc.config.Translate.translate;
 
 public class ShulkerNPC extends EntityLivingNPC {
 
-    public static @NotNull ShulkerNPC fastInstance(@NotNull List<OfflinePlayer> players, @NotNull Location location, @Nullable Object object) {
-        return new ShulkerNPC(players, location);
+    public static @NotNull ShulkerNPC fastInstance(int id, @NotNull List<OfflinePlayer> players, @NotNull Location location, @Nullable Object object) {
+        return new ShulkerNPC(id, players, location);
     }
 
     public static void debug(@NotNull Location location) {
@@ -47,11 +47,14 @@ public class ShulkerNPC extends EntityLivingNPC {
         }
     }
 
-    protected ShulkerNPC(@NotNull List<OfflinePlayer> players, @NotNull Entity.EntityType type, @NotNull Location location) {
-        super(players, type, location);
+    protected ShulkerNPC(int id, @NotNull List<OfflinePlayer> players, @NotNull Entity.EntityType type, @NotNull Location location) {
+        super(id, players, type, location);
     }
     public ShulkerNPC(@NotNull List<OfflinePlayer> players, @NotNull Location location) {
-        super(players, Entity.EntityType.SHULKER, location);
+        this(NPC.getNextNpcId(), players, location);
+    }
+    public ShulkerNPC(int id, @NotNull List<OfflinePlayer> players, @NotNull Location location) {
+        super(id, players, Entity.EntityType.SHULKER, location);
     }
 
     public int getPeek() {

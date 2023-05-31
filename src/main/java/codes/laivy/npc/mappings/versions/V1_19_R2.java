@@ -56,6 +56,11 @@ import codes.laivy.npc.mappings.defaults.classes.others.objects.registry.Resourc
 import codes.laivy.npc.mappings.defaults.classes.others.server.CraftServer;
 import codes.laivy.npc.mappings.defaults.classes.others.server.MinecraftServer;
 import codes.laivy.npc.mappings.defaults.classes.packets.*;
+import codes.laivy.npc.mappings.defaults.classes.packets.info.action.IPlayerInfoAction;
+import codes.laivy.npc.mappings.defaults.classes.packets.info.IPlayerInfoPacket;
+import codes.laivy.npc.mappings.defaults.classes.packets.info.refactored.PlayerInfoAction;
+import codes.laivy.npc.mappings.defaults.classes.packets.info.refactored.PlayerInfoRemovePacketProvider;
+import codes.laivy.npc.mappings.defaults.classes.packets.info.refactored.PlayerInfoUpdatePacketProvider;
 import codes.laivy.npc.mappings.defaults.classes.scoreboard.CraftScoreboard;
 import codes.laivy.npc.mappings.defaults.classes.scoreboard.Scoreboard;
 import codes.laivy.npc.mappings.defaults.classes.scoreboard.ScoreboardTeam;
@@ -128,6 +133,11 @@ public class V1_19_R2 extends V1_19_R1 {
         load(V1_19_R2.class, "PacketPlayInUseEntity", new EntityUseInPacket.EntityUseInPacketClass("net.minecraft.network.protocol.game.PacketPlayInUseEntity"));
         load(V1_19_R2.class, "PacketPlayInUseEntity:EnumEntityUseAction", new EntityUseInPacket.ActionEnum.ActionClass("net.minecraft.network.protocol.game.PacketPlayInUseEntity$b"));
         load(V1_19_R2.class, "PacketPlayInUseEntity:EnumEntityUseAction:Real", new ClassExecutor("net.minecraft.network.protocol.game.PacketPlayInUseEntity$EnumEntityUseAction"));
+
+        load(V1_19_R2.class, "PlayerInfo:Action", new PlayerInfoAction.PlayerInfoActionClass("net.minecraft.network.protocol.game.ClientboundPlayerInfoUpdatePacket$a"));
+
+        load(V1_19_R2.class, "ClientboundPlayerInfoUpdatePacket", new PlayerInfoUpdatePacketProvider.PlayerInfoUpdatePacketProviderClass("net.minecraft.network.protocol.game.ClientboundPlayerInfoUpdatePacket"));
+        load(V1_19_R2.class, "ClientboundPlayerInfoRemovePacket", new PlayerInfoRemovePacketProvider.PlayerInfoRemovePacketProviderClass("net.minecraft.network.protocol.game.ClientboundPlayerInfoRemovePacket"));
         //
 
         // Server
@@ -582,16 +592,13 @@ public class V1_19_R2 extends V1_19_R1 {
         super.getTexts().put("Cat:Variant:white", "i");
         super.getTexts().put("Cat:Variant:jellie", "j");
         super.getTexts().put("Cat:Variant:all_black", "k");
-    }
+ }
 
     @Override
     public void loadEnums() {
         super.loadEnums();
-    }
 
-    @Override
-    public @Nullable PlayerInfoPacket createPlayerInfoPacket(EnumPlayerInfoActionEnum.@NotNull EnumPlayerInfoAction action, @NotNull EntityPlayer player) {
-        return null;
+        load(V1_19_R2.class, "PlayerInfo:Action", new PlayerInfoAction(getClassExec("PlayerInfo:Action")));
     }
 
     @Override
@@ -631,6 +638,36 @@ public class V1_19_R2 extends V1_19_R1 {
 
         player.setLocation(location);
         return player;
+    }
+
+    @Override
+    public @NotNull IPlayerInfoPacket createPlayerInfoPacket(@NotNull IPlayerInfoAction action, @NotNull EntityPlayer player) {
+        IPlayerInfoPacket packet;
+        if (action.equals(IPlayerInfoAction.ADD_PLAYER()) || action.equals(IPlayerInfoAction.UPDATE_DISPLAY_NAME())) {
+            Object object = getClassExec("ClientboundPlayerInfoUpdatePacket").getConstructor(getEnumExec("PlayerInfo:Action"), getClassExec("EntityPlayer")).newInstance(new PlayerInfoAction.PlayerInfoActionEnum((Enum<?>) Objects.requireNonNull(action.getValue())), player);
+            packet = new PlayerInfoUpdatePacketProvider(object);
+        } else if (action.equals(IPlayerInfoAction.REMOVE_PLAYER())) {
+            List<UUID> uuids = new ArrayList<>();
+            uuids.add(player.getProfile().getUniqueId());
+
+            Object object = getClassExec("ClientboundPlayerInfoRemovePacket").getConstructor(new ClassExecutor(List.class)).newInstance(new ObjectExecutor(uuids) {
+                @Override
+                public @NotNull ClassExecutor getClassExecutor() {
+                    return new ClassExecutor(List.class);
+                }
+            });
+
+            packet = new PlayerInfoRemovePacketProvider(object);
+        } else {
+            throw new UnsupportedOperationException("Unknown action '" + action.getValue() + "'");
+        }
+
+        return packet;
+    }
+
+    @Override
+    public @NotNull IPlayerInfoAction getPlayerInfoAction(@NotNull Object object) {
+        return new PlayerInfoAction.PlayerInfoActionEnum((Enum<?>) object);
     }
 
     @Override

@@ -26,8 +26,8 @@ import static codes.laivy.npc.config.Translate.translate;
 
 public class ZombieVillagerNPC extends ZombieNPC {
 
-    public static @NotNull ZombieVillagerNPC fastInstance(@NotNull List<OfflinePlayer> players, @NotNull Location location, @Nullable Object object) {
-        return new ZombieVillagerNPC(players, location);
+    public static @NotNull ZombieVillagerNPC fastInstance(int id, @NotNull List<OfflinePlayer> players, @NotNull Location location, @Nullable Object object) {
+        return new ZombieVillagerNPC(id, players, location);
     }
 
     public static void debug(@NotNull Location location) {
@@ -44,11 +44,14 @@ public class ZombieVillagerNPC extends ZombieNPC {
         }
     }
 
-    protected ZombieVillagerNPC(@NotNull List<OfflinePlayer> players, @NotNull Zombie.Type type, @NotNull Location location) {
-        super(players, type, location);
+    protected ZombieVillagerNPC(int id, @NotNull List<OfflinePlayer> players, @NotNull Zombie.Type type, @NotNull Location location) {
+        super(id, players, type, location);
     }
     public ZombieVillagerNPC(@NotNull List<OfflinePlayer> players, @NotNull Location location) {
-        super(players, Type.VILLAGER, location);
+        this(NPC.getNextNpcId(), players, location);
+    }
+    public ZombieVillagerNPC(int id, @NotNull List<OfflinePlayer> players, @NotNull Location location) {
+        super(id, players, Type.VILLAGER, location);
     }
 
     // 1.14+ ONLY!!

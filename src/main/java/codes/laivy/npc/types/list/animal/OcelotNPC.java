@@ -21,8 +21,8 @@ import static codes.laivy.npc.config.Translate.translate;
 
 public class OcelotNPC extends TameableEntityLivingNPC {
 
-    public static @NotNull OcelotNPC fastInstance(@NotNull List<OfflinePlayer> players, @NotNull Location location, @Nullable Object object) {
-        return new OcelotNPC(players, location);
+    public static @NotNull OcelotNPC fastInstance(int id, @NotNull List<OfflinePlayer> players, @NotNull Location location, @Nullable Object object) {
+        return new OcelotNPC(id, players, location);
     }
 
     public static void debug(@NotNull Location location) {
@@ -31,11 +31,14 @@ public class OcelotNPC extends TameableEntityLivingNPC {
         ocelotNPC.destroy();
     }
 
-    protected OcelotNPC(@NotNull List<OfflinePlayer> players, @NotNull Entity.EntityType type, @NotNull Location location) {
-        super(players, type, location);
+    protected OcelotNPC(int id, @NotNull List<OfflinePlayer> players, @NotNull Entity.EntityType type, @NotNull Location location) {
+        super(id, players, type, location);
     }
     public OcelotNPC(@NotNull List<OfflinePlayer> players, @NotNull Location location) {
-        super(players, Entity.EntityType.OCELOT, location);
+        this(NPC.getNextNpcId(), players, location);
+    }
+    public OcelotNPC(int id, @NotNull List<OfflinePlayer> players, @NotNull Location location) {
+        super(id, players, Entity.EntityType.OCELOT, location);
         getHolograms().setDistanceFromNPC(-1.25D);
     }
 

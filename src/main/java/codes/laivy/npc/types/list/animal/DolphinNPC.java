@@ -22,8 +22,8 @@ import static codes.laivy.npc.config.Translate.translate;
 
 public class DolphinNPC extends EntityLivingNPC {
 
-    public static @NotNull DolphinNPC fastInstance(@NotNull List<OfflinePlayer> players, @NotNull Location location, @Nullable Object object) {
-        return new DolphinNPC(players, location);
+    public static @NotNull DolphinNPC fastInstance(int id, @NotNull List<OfflinePlayer> players, @NotNull Location location, @Nullable Object object) {
+        return new DolphinNPC(id, players, location);
     }
 
     public static void debug(@NotNull Location location) {
@@ -38,11 +38,14 @@ public class DolphinNPC extends EntityLivingNPC {
         setFish(!hasFish());
     }
 
-    protected DolphinNPC(@NotNull List<OfflinePlayer> players, @NotNull Entity.EntityType type, @NotNull Location location) {
-        super(players, type, location);
+    protected DolphinNPC(int id, @NotNull List<OfflinePlayer> players, @NotNull Entity.EntityType type, @NotNull Location location) {
+        super(id, players, type, location);
     }
     public DolphinNPC(@NotNull List<OfflinePlayer> players, @NotNull Location location) {
-        super(players, Entity.EntityType.DOLPHIN, location);
+        this(NPC.getNextNpcId(), players, location);
+    }
+    public DolphinNPC(int id, @NotNull List<OfflinePlayer> players, @NotNull Location location) {
+        super(id, players, Entity.EntityType.DOLPHIN, location);
     }
 
     public boolean hasFish() {

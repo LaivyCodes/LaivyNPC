@@ -23,8 +23,8 @@ import static codes.laivy.npc.config.Translate.translate;
 
 public class SheepNPC extends AgeableEntityLivingNPC {
 
-    public static @NotNull SheepNPC fastInstance(@NotNull List<OfflinePlayer> players, @NotNull Location location, @Nullable Object object) {
-        return new SheepNPC(players, location);
+    public static @NotNull SheepNPC fastInstance(int id, @NotNull List<OfflinePlayer> players, @NotNull Location location, @Nullable Object object) {
+        return new SheepNPC(id, players, location);
     }
 
     public static void debug(@NotNull Location location) {
@@ -42,11 +42,14 @@ public class SheepNPC extends AgeableEntityLivingNPC {
         setSheared(!isSheared());
     }
 
-    protected SheepNPC(@NotNull List<OfflinePlayer> players, @NotNull Entity.EntityType type, @NotNull Location location) {
-        super(players, type, location);
+    protected SheepNPC(int id, @NotNull List<OfflinePlayer> players, @NotNull Entity.EntityType type, @NotNull Location location) {
+        super(id, players, type, location);
     }
     public SheepNPC(@NotNull List<OfflinePlayer> players, @NotNull Location location) {
-        super(players, Entity.EntityType.SHEEP, location);
+        this(NPC.getNextNpcId(), players, location);
+    }
+    public SheepNPC(int id, @NotNull List<OfflinePlayer> players, @NotNull Location location) {
+        super(id, players, Entity.EntityType.SHEEP, location);
     }
 
     public @NotNull EnumColorEnum.EnumColor getColor() {

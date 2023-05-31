@@ -3,6 +3,7 @@ package codes.laivy.npc.types.list.monster.zombie;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.zombie.Zombie;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.zombie.Zombie.Type;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.zombie.ZombieHusk;
+import codes.laivy.npc.types.NPC;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.jetbrains.annotations.NotNull;
@@ -13,8 +14,8 @@ import java.util.List;
 
 public class ZombieHuskNPC extends ZombieNPC {
 
-    public static @NotNull ZombieHuskNPC fastInstance(@NotNull List<OfflinePlayer> players, @NotNull Location location, @Nullable Object object) {
-        return new ZombieHuskNPC(players, location);
+    public static @NotNull ZombieHuskNPC fastInstance(int id, @NotNull List<OfflinePlayer> players, @NotNull Location location, @Nullable Object object) {
+        return new ZombieHuskNPC(id, players, location);
     }
 
     public static void debug(@NotNull Location location) {
@@ -23,11 +24,14 @@ public class ZombieHuskNPC extends ZombieNPC {
         zombieNPC.destroy();
     }
 
-    protected ZombieHuskNPC(@NotNull List<OfflinePlayer> players, @NotNull Zombie.Type type, @NotNull Location location) {
-        super(players, type, location);
+    protected ZombieHuskNPC(int id, @NotNull List<OfflinePlayer> players, @NotNull Zombie.Type type, @NotNull Location location) {
+        super(id, players, type, location);
     }
     public ZombieHuskNPC(@NotNull List<OfflinePlayer> players, @NotNull Location location) {
-        super(players, Type.HUSK, location);
+        this(NPC.getNextNpcId(), players, location);
+    }
+    public ZombieHuskNPC(int id, @NotNull List<OfflinePlayer> players, @NotNull Location location) {
+        super(id, players, Type.HUSK, location);
     }
 
     public final @NotNull Zombie.Type getType() {

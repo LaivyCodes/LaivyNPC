@@ -21,8 +21,8 @@ import static codes.laivy.npc.config.Translate.translate;
 
 public class PhantomNPC extends EntityLivingNPC {
 
-    public static @NotNull PhantomNPC fastInstance(@NotNull List<OfflinePlayer> players, @NotNull Location location, @Nullable Object object) {
-        return new PhantomNPC(players, location);
+    public static @NotNull PhantomNPC fastInstance(int id, @NotNull List<OfflinePlayer> players, @NotNull Location location, @Nullable Object object) {
+        return new PhantomNPC(id, players, location);
     }
 
     public static void debug(@NotNull Location location) {
@@ -37,11 +37,14 @@ public class PhantomNPC extends EntityLivingNPC {
         setSize(getSize());
     }
 
-    protected PhantomNPC(@NotNull List<OfflinePlayer> players, @NotNull Entity.EntityType type, @NotNull Location location) {
-        super(players, type, location);
+    protected PhantomNPC(int id, @NotNull List<OfflinePlayer> players, @NotNull Entity.EntityType type, @NotNull Location location) {
+        super(id, players, type, location);
     }
     public PhantomNPC(@NotNull List<OfflinePlayer> players, @NotNull Location location) {
-        super(players, Entity.EntityType.PHANTOM, location);
+        this(NPC.getNextNpcId(), players, location);
+    }
+    public PhantomNPC(int id, @NotNull List<OfflinePlayer> players, @NotNull Location location) {
+        super(id, players, Entity.EntityType.PHANTOM, location);
     }
 
     public int getSize() {

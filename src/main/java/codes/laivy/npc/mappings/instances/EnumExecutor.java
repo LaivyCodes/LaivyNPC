@@ -34,7 +34,18 @@ public class EnumExecutor extends ClassExecutor {
         if (getEnums().containsKey(name)) {
             return getEnums().get(name);
         } else {
-            throw new IllegalArgumentException("Couldn't find a enum with that name '" + name + "'");
+            StringBuilder available = new StringBuilder();
+
+            int row = 0;
+            for (String enumName : getEnums().keySet()) {
+                if (row > 0) {
+                    available.append(", ");
+                }
+                available.append(enumName);
+                row++;
+            }
+
+            throw new IllegalArgumentException("Couldn't find a enum with that name '" + name + "', the available enums are: '" + available + "'");
         }
     }
 

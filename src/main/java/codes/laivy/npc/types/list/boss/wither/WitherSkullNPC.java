@@ -22,8 +22,8 @@ import static codes.laivy.npc.config.Translate.translate;
 
 public class WitherSkullNPC extends EntityNPC {
 
-    public static @NotNull WitherSkullNPC fastInstance(@NotNull List<OfflinePlayer> players, @NotNull Location location, @Nullable Object object) {
-        return new WitherSkullNPC(players, location);
+    public static @NotNull WitherSkullNPC fastInstance(int id, @NotNull List<OfflinePlayer> players, @NotNull Location location, @Nullable Object object) {
+        return new WitherSkullNPC(id, players, location);
     }
 
     public static void debug(@NotNull Location location) {
@@ -38,11 +38,14 @@ public class WitherSkullNPC extends EntityNPC {
         setCharged(!isCharged());
     }
 
-    protected WitherSkullNPC(@NotNull List<OfflinePlayer> players, @NotNull Entity.EntityType type, @NotNull Location location) {
-        super(players, type, location);
+    protected WitherSkullNPC(int id, @NotNull List<OfflinePlayer> players, @NotNull Entity.EntityType type, @NotNull Location location) {
+        super(id, players, type, location);
     }
     public WitherSkullNPC(@NotNull List<OfflinePlayer> players, @NotNull Location location) {
-        super(players, Entity.EntityType.WITHER_SKULL, location);
+        this(NPC.getNextNpcId(), players, location);
+    }
+    public WitherSkullNPC(int id, @NotNull List<OfflinePlayer> players, @NotNull Location location) {
+        super(id, players, Entity.EntityType.WITHER_SKULL, location);
         getHolograms().setDistanceFromNPC(-1.25D);
     }
 

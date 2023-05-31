@@ -9,9 +9,11 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Objects;
+
 import static codes.laivy.npc.LaivyNPC.laivynpc;
 
-public abstract class Packet extends ObjectExecutor {
+public abstract class Packet extends ObjectExecutor implements IPacket {
     public Packet(@Nullable Object value) {
         super(value);
     }
@@ -34,6 +36,11 @@ public abstract class Packet extends ObjectExecutor {
         }
 
         LaivyNPC.laivynpc().getVersion().sendPacket(this, connections);
+    }
+
+    @Override
+    public @NotNull Object getPacket() {
+        return Objects.requireNonNull(getValue());
     }
 
     public static class PacketClass extends ClassExecutor {

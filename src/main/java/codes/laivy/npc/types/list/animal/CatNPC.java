@@ -21,8 +21,8 @@ import static codes.laivy.npc.config.Translate.translate;
 
 public class CatNPC extends TameableEntityLivingNPC {
 
-    public static @NotNull CatNPC fastInstance(@NotNull List<OfflinePlayer> players, @NotNull Location location, @Nullable Object object) {
-        return new CatNPC(players, location);
+    public static @NotNull CatNPC fastInstance(int id, @NotNull List<OfflinePlayer> players, @NotNull Location location, @Nullable Object object) {
+        return new CatNPC(id, players, location);
     }
 
     public static void debug(@NotNull Location location) {
@@ -37,11 +37,14 @@ public class CatNPC extends TameableEntityLivingNPC {
         setVariant(getVariant());
     }
 
-    protected CatNPC(@NotNull List<OfflinePlayer> players, @NotNull Entity.EntityType type, @NotNull Location location) {
-        super(players, type, location);
+    protected CatNPC(int id, @NotNull List<OfflinePlayer> players, @NotNull Entity.EntityType type, @NotNull Location location) {
+        super(id, players, type, location);
     }
     public CatNPC(@NotNull List<OfflinePlayer> players, @NotNull Location location) {
-        super(players, Entity.EntityType.CAT, location);
+        this(NPC.getNextNpcId(), players, location);
+    }
+    public CatNPC(int id, @NotNull List<OfflinePlayer> players, @NotNull Location location) {
+        super(id, players, Entity.EntityType.CAT, location);
         getHolograms().setDistanceFromNPC(-1.25D);
     }
 

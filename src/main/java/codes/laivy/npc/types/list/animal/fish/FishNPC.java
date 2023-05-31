@@ -9,8 +9,8 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 public abstract class FishNPC extends EntityLivingNPC {
-    protected FishNPC(@NotNull List<OfflinePlayer> players, @NotNull Fish.Type type, @NotNull Location location) {
-        super(players, type.getEntityType(), location);
+    protected FishNPC(int id, @NotNull List<OfflinePlayer> players, @NotNull Fish.Type type, @NotNull Location location) {
+        super(id, players, type.getEntityType(), location);
     }
 
     public @NotNull Fish.Type getType() {

@@ -3,6 +3,7 @@ package codes.laivy.npc.types.list.animal;
 import codes.laivy.npc.mappings.defaults.classes.entity.Entity;
 import codes.laivy.npc.mappings.defaults.classes.entity.animal.Cow;
 import codes.laivy.npc.types.AgeableEntityLivingNPC;
+import codes.laivy.npc.types.NPC;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.jetbrains.annotations.NotNull;
@@ -13,8 +14,8 @@ import java.util.List;
 
 public class CowNPC extends AgeableEntityLivingNPC {
 
-    public static @NotNull CowNPC fastInstance(@NotNull List<OfflinePlayer> players, @NotNull Location location, @Nullable Object object) {
-        return new CowNPC(players, location);
+    public static @NotNull CowNPC fastInstance(int id, @NotNull List<OfflinePlayer> players, @NotNull Location location, @Nullable Object object) {
+        return new CowNPC(id, players, location);
     }
 
     public static void debug(@NotNull Location location) {
@@ -23,11 +24,14 @@ public class CowNPC extends AgeableEntityLivingNPC {
         cow.destroy();
     }
 
-    protected CowNPC(@NotNull List<OfflinePlayer> players, @NotNull Entity.EntityType type, @NotNull Location location) {
-        super(players, type, location);
+    protected CowNPC(int id, @NotNull List<OfflinePlayer> players, @NotNull Entity.EntityType type, @NotNull Location location) {
+        super(id, players, type, location);
     }
     public CowNPC(@NotNull List<OfflinePlayer> players, @NotNull Location location) {
-        super(players, Entity.EntityType.COW, location);
+        this(NPC.getNextNpcId(), players, location);
+    }
+    public CowNPC(int id, @NotNull List<OfflinePlayer> players, @NotNull Location location) {
+        super(id, players, Entity.EntityType.COW, location);
     }
 
     @Override

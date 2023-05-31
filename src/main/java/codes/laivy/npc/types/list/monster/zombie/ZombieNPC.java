@@ -23,8 +23,8 @@ import static codes.laivy.npc.config.Translate.translate;
 
 public class ZombieNPC extends EntityLivingNPC {
 
-    public static @NotNull ZombieNPC fastInstance(@NotNull List<OfflinePlayer> players, @NotNull Location location, @Nullable Object object) {
-        return new ZombieNPC(players, location);
+    public static @NotNull ZombieNPC fastInstance(int id, @NotNull List<OfflinePlayer> players, @NotNull Location location, @Nullable Object object) {
+        return new ZombieNPC(id, players, location);
     }
 
     public static void debug(@NotNull Location location) {
@@ -33,11 +33,14 @@ public class ZombieNPC extends EntityLivingNPC {
         zombieNPC.destroy();
     }
 
-    protected ZombieNPC(@NotNull List<OfflinePlayer> players, @NotNull Type type, @NotNull Location location) {
+    protected ZombieNPC(int id, @NotNull List<OfflinePlayer> players, @NotNull Type type, @NotNull Location location) {
         super(players, type.getEntityType(), location);
     }
     public ZombieNPC(@NotNull List<OfflinePlayer> players, @NotNull Location location) {
-        this(players, Type.NORMAL, location);
+        this(NPC.getNextNpcId(), players, location);
+    }
+    public ZombieNPC(int id, @NotNull List<OfflinePlayer> players, @NotNull Location location) {
+        this(id, players, Type.NORMAL, location);
     }
 
     public boolean isVillager() {

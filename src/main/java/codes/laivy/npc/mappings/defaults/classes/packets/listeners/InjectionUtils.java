@@ -102,11 +102,8 @@ public class InjectionUtils {
 
         ChannelPipeline pipeline = getPlayerChannel(player).pipeline();
 
-        // TODO: 30/05/2023 Enhance
-        try {
-            pipeline.addBefore("packet_handler", player.getUniqueId().toString(), channelDuplexHandler);
-        } catch (IllegalArgumentException ignore) {
-        }
+        pipeline.remove(player.getUniqueId().toString());
+        pipeline.addBefore("packet_handler", player.getUniqueId().toString(), channelDuplexHandler);
     }
 
 }

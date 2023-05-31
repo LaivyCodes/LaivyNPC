@@ -6,6 +6,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
+import java.util.UUID;
 
 import static codes.laivy.npc.LaivyNPC.laivynpc;
 
@@ -21,6 +22,9 @@ public class GameProfile extends ObjectExecutor {
 
     public @NotNull String getName() {
         return (String) Objects.requireNonNull(laivynpc().getVersion().getMethodExec("GameProfile:getName").invokeInstance(this));
+    }
+    public @NotNull UUID getUniqueId() {
+        return (UUID) Objects.requireNonNull(laivynpc().getVersion().getFieldExec("GameProfile:id").invokeInstance(this));
     }
 
     @Override

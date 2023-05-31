@@ -23,8 +23,8 @@ import static codes.laivy.npc.config.Translate.translate;
 
 public class ItemNPC extends EntityNPC {
 
-    public static @NotNull ItemNPC fastInstance(@NotNull List<OfflinePlayer> players, @NotNull Location location, @Nullable Object object) {
-        return new ItemNPC(players, location);
+    public static @NotNull ItemNPC fastInstance(int id, @NotNull List<OfflinePlayer> players, @NotNull Location location, @Nullable Object object) {
+        return new ItemNPC(id, players, location);
     }
 
     public static void debug(@NotNull Location location) {
@@ -33,11 +33,14 @@ public class ItemNPC extends EntityNPC {
         itemNPC.destroy();
     }
 
-    protected ItemNPC(@NotNull List<OfflinePlayer> players, @NotNull Entity.EntityType type, @NotNull Location location) {
-        super(players, type, location);
+    protected ItemNPC(int id, @NotNull List<OfflinePlayer> players, @NotNull Entity.EntityType type, @NotNull Location location) {
+        super(id, players, type, location);
     }
     public ItemNPC(@NotNull List<OfflinePlayer> players, @NotNull Location location) {
-        super(players, Entity.EntityType.ITEM, location);
+        this(NPC.getNextNpcId(), players, location);
+    }
+    public ItemNPC(int id, @NotNull List<OfflinePlayer> players, @NotNull Location location) {
+        super(id, players, Entity.EntityType.ITEM, location);
     }
 
     public @NotNull ItemStack getItemStack() {

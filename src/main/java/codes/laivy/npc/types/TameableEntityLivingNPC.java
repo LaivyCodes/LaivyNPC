@@ -3,7 +3,6 @@ package codes.laivy.npc.types;
 import codes.laivy.npc.mappings.defaults.classes.entity.Entity;
 import codes.laivy.npc.mappings.defaults.classes.entity.TameableEntityLiving;
 import codes.laivy.npc.types.commands.NPCConfiguration;
-import codes.laivy.npc.types.list.monster.SpiderNPC;
 import codes.laivy.npc.utils.Validation;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
@@ -28,7 +27,10 @@ public abstract class TameableEntityLivingNPC extends EntityLivingNPC {
     }
 
     public TameableEntityLivingNPC(@NotNull List<OfflinePlayer> players, @NotNull Entity.EntityType entityType, @NotNull Location location) {
-        super(players, entityType, location);
+        this(NPC.getNextNpcId(), players, entityType, location);
+    }
+    public TameableEntityLivingNPC(int id, @NotNull List<OfflinePlayer> players, @NotNull Entity.EntityType entityType, @NotNull Location location) {
+        super(id, players, entityType, location);
         Validation.isTrue(!entityType.isAgeableEntityLiving(), new IllegalArgumentException("This EntityType isn't a AgeableLivingEntity."));
     }
 

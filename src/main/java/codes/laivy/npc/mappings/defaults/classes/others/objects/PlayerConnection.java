@@ -1,5 +1,6 @@
 package codes.laivy.npc.mappings.defaults.classes.others.objects;
 
+import codes.laivy.npc.mappings.defaults.classes.packets.IPacket;
 import codes.laivy.npc.mappings.instances.classes.ClassExecutor;
 import codes.laivy.npc.mappings.instances.ObjectExecutor;
 import codes.laivy.npc.mappings.defaults.classes.packets.Packet;
@@ -20,8 +21,8 @@ public class PlayerConnection extends ObjectExecutor {
         return (PlayerConnectionClass) laivynpc().getVersion().getClassExec("PlayerConnection");
     }
 
-    public void sendPacket(@NotNull Packet... packets) {
-        for (Packet packet : packets) {
+    public void sendPacket(@NotNull IPacket... packets) {
+        for (IPacket packet : packets) {
             laivynpc().getVersion().sendPacket(packet, this);
         }
     }

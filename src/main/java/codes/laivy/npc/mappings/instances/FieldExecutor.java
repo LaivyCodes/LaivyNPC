@@ -104,7 +104,7 @@ public class FieldExecutor implements Executor {
         if (object != null) {
             this.set(instance, object.getValue());
         } else {
-            this.set(instance, null);
+            this.set(instance, (Object) null);
         }
     }
     public void set(@NotNull ObjectExecutor instance, @Nullable Object value) {

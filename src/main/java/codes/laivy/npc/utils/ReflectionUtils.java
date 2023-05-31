@@ -2,6 +2,7 @@ package codes.laivy.npc.utils;
 
 import codes.laivy.npc.mappings.Version;
 import codes.laivy.npc.mappings.defaults.classes.others.objects.PlayerConnection;
+import codes.laivy.npc.mappings.defaults.classes.packets.IPacket;
 import codes.laivy.npc.mappings.defaults.classes.packets.Packet;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -51,10 +52,10 @@ public class ReflectionUtils {
         }
     }
 
-    public static void sendPacketToPlayer(@NotNull Collection<@NotNull Packet> packets, @NotNull Player... players) {
+    public static void sendPacketToPlayer(@NotNull Collection<@NotNull IPacket> packets, @NotNull Player... players) {
         for (Player player : players) {
             PlayerConnection conn = getEntityPlayer(player).getPlayerConnection();
-            for (Packet packet : packets) {
+            for (IPacket packet : packets) {
                 conn.sendPacket(packet);
             }
         }

@@ -6,13 +6,13 @@ import codes.laivy.npc.mappings.defaults.classes.entity.EntityHuman;
 import codes.laivy.npc.mappings.defaults.classes.entity.EntityLiving;
 import codes.laivy.npc.mappings.defaults.classes.entity.player.EntityPlayer;
 import codes.laivy.npc.mappings.defaults.classes.enums.EnumItemSlotEnum;
-import codes.laivy.npc.mappings.defaults.classes.enums.EnumPlayerInfoActionEnum;
 import codes.laivy.npc.mappings.defaults.classes.others.objects.PlayerConnection;
 import codes.laivy.npc.mappings.defaults.classes.packets.*;
+import codes.laivy.npc.mappings.defaults.classes.packets.info.IPlayerInfoPacket;
+import codes.laivy.npc.mappings.defaults.classes.packets.info.action.IPlayerInfoAction;
 import codes.laivy.npc.mappings.defaults.classes.scoreboard.ScoreboardTeam;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
 import java.util.Set;
@@ -21,10 +21,12 @@ public interface VersionPacket {
 
     /**
      * Sends a packet to a list of PlayerConnections
-     * @param packet the packet that will be send
+     * @param packet the packet that will be sent
      * @param connections the connections
      */
-    void sendPacket(@NotNull Packet packet, @NotNull PlayerConnection... connections);
+    void sendPacket(@NotNull IPacket packet, @NotNull PlayerConnection... connections);
+
+    @NotNull IPlayerInfoAction getPlayerInfoAction(@NotNull Object object);
 
     @NotNull EntitySpawnPacket createSpawnPacket(@NotNull Entity entity);
     @NotNull EntityLivingSpawnPacket createSpawnLivingPacket(@NotNull EntityLiving entity);
@@ -32,7 +34,7 @@ public interface VersionPacket {
 
     @NotNull Set<EntityDestroyPacket> createDestroyPacket(@NotNull Entity... entity);
     @NotNull EntityMetadataPacket createMetadataPacket(@NotNull Entity entity, @NotNull DataWatcher dataWatcher, boolean b);
-    @Nullable PlayerInfoPacket createPlayerInfoPacket(@Nullable EnumPlayerInfoActionEnum.EnumPlayerInfoAction action, @NotNull EntityPlayer player);
+    @NotNull IPlayerInfoPacket createPlayerInfoPacket(@NotNull IPlayerInfoAction action, @NotNull EntityPlayer player);
     @NotNull ScoreboardTeamPacket createScoreboardTeamPacket(@NotNull ScoreboardTeam team, boolean b);
     @NotNull Set<EntityEquipmentPacket> createEquipmentPacket(@NotNull Entity entity, @NotNull Map<EnumItemSlotEnum.@NotNull EnumItemSlot, @NotNull ItemStack> items);
 

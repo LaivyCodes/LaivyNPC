@@ -24,8 +24,8 @@ import static codes.laivy.npc.config.Translate.translate;
 
 public class LlamaNPC extends AbstractChestedHorseNPC {
 
-    public static @NotNull LlamaNPC fastInstance(@NotNull List<OfflinePlayer> players, @NotNull Location location, @NotNull Object object) {
-        return new LlamaNPC(players, location);
+    public static @NotNull LlamaNPC fastInstance(int id, @NotNull List<OfflinePlayer> players, @NotNull Location location, @NotNull Object object) {
+        return new LlamaNPC(id, players, location);
     }
 
     public static void debug(@NotNull Location location) {
@@ -41,11 +41,14 @@ public class LlamaNPC extends AbstractChestedHorseNPC {
         setCarpetColor(getCarpetColor());
     }
 
-    protected LlamaNPC(@NotNull List<OfflinePlayer> players, @NotNull AbstractHorse.Type type, @NotNull Location location) {
-        super(players, type, location);
+    protected LlamaNPC(int id, @NotNull List<OfflinePlayer> players, @NotNull AbstractHorse.Type type, @NotNull Location location) {
+        super(id, players, type, location);
     }
     public LlamaNPC(@NotNull List<OfflinePlayer> players, @NotNull Location location) {
-        super(players, AbstractHorse.Type.LLAMA, location);
+        this(NPC.getNextNpcId(), players, location);
+    }
+    public LlamaNPC(int id, @NotNull List<OfflinePlayer> players, @NotNull Location location) {
+        super(id, players, AbstractHorse.Type.LLAMA, location);
     }
 
     public @NotNull Llama.Variant getVariant() {

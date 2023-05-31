@@ -20,8 +20,8 @@ import static codes.laivy.npc.config.Translate.translate;
 
 public class ItemFrameNPC extends EntityNPC {
 
-    public static @NotNull ItemFrameNPC fastInstance(@NotNull List<OfflinePlayer> players, @NotNull Location location, @Nullable Object object) {
-        return new ItemFrameNPC(players, location);
+    public static @NotNull ItemFrameNPC fastInstance(int id, @NotNull List<OfflinePlayer> players, @NotNull Location location, @Nullable Object object) {
+        return new ItemFrameNPC(id, players, location);
     }
 
     public static void debug(@NotNull Location location) {
@@ -37,11 +37,14 @@ public class ItemFrameNPC extends EntityNPC {
         setRotation(getRotation());
     }
 
-    protected ItemFrameNPC(@NotNull List<OfflinePlayer> players, @NotNull Entity.EntityType type, @NotNull Location location) {
-        super(players, type, location);
+    protected ItemFrameNPC(int id, @NotNull List<OfflinePlayer> players, @NotNull Entity.EntityType type, @NotNull Location location) {
+        super(id, players, type, location);
     }
     public ItemFrameNPC(@NotNull List<OfflinePlayer> players, @NotNull Location location) {
-        super(players, Entity.EntityType.ITEM_FRAME, location);
+        this(NPC.getNextNpcId(), players, location);
+    }
+    public ItemFrameNPC(int id, @NotNull List<OfflinePlayer> players, @NotNull Location location) {
+        super(id, players, Entity.EntityType.ITEM_FRAME, location);
         getHolograms().setDistanceFromNPC(-1.25D);
     }
 

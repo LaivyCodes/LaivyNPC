@@ -22,8 +22,8 @@ import static codes.laivy.npc.config.Translate.translate;
 
 public class CaveSpiderNPC extends SpiderNPC {
 
-    public static @NotNull CaveSpiderNPC fastInstance(@NotNull List<OfflinePlayer> players, @NotNull Location location, @Nullable Object object) {
-        return new CaveSpiderNPC(players, location);
+    public static @NotNull CaveSpiderNPC fastInstance(int id, @NotNull List<OfflinePlayer> players, @NotNull Location location, @Nullable Object object) {
+        return new CaveSpiderNPC(id, players, location);
     }
 
     public static void debug(@NotNull Location location) {
@@ -32,11 +32,14 @@ public class CaveSpiderNPC extends SpiderNPC {
         caveSpiderNPC.destroy();
     }
 
-    protected CaveSpiderNPC(@NotNull List<OfflinePlayer> players, @NotNull Entity.EntityType type, @NotNull Location location) {
-        super(players, type, location);
+    protected CaveSpiderNPC(int id, @NotNull List<OfflinePlayer> players, @NotNull Entity.EntityType type, @NotNull Location location) {
+        super(id, players, type, location);
     }
     public CaveSpiderNPC(@NotNull List<OfflinePlayer> players, @NotNull Location location) {
-        super(players, Entity.EntityType.CAVE_SPIDER, location);
+        this(NPC.getNextNpcId(), players, location);
+    }
+    public CaveSpiderNPC(int id, @NotNull List<OfflinePlayer> players, @NotNull Location location) {
+        super(id, players, Entity.EntityType.CAVE_SPIDER, location);
     }
 
 }

@@ -8,7 +8,8 @@ import codes.laivy.npc.mappings.defaults.classes.gameprofile.GameProfile;
 import codes.laivy.npc.mappings.defaults.classes.gameprofile.Property;
 import codes.laivy.npc.mappings.defaults.classes.gameprofile.PropertyMap;
 import codes.laivy.npc.mappings.defaults.classes.others.objects.PlayerConnection;
-import codes.laivy.npc.mappings.defaults.classes.packets.Packet;
+import codes.laivy.npc.mappings.defaults.classes.packets.IPacket;
+import codes.laivy.npc.mappings.defaults.classes.packets.info.action.IPlayerInfoAction;
 import codes.laivy.npc.mappings.defaults.classes.scoreboard.Scoreboard;
 import codes.laivy.npc.mappings.defaults.classes.scoreboard.ScoreboardTeam;
 import codes.laivy.npc.mappings.versions.V1_16_R3;
@@ -68,10 +69,14 @@ public class PlayerNPC extends NPC {
     }
 
     public PlayerNPC(@NotNull List<OfflinePlayer> players, @NotNull Location location) {
-        this(players, UUID.randomUUID(), location);
+        this(NPC.getNextNpcId(), players, UUID.randomUUID(), location);
     }
+
     public PlayerNPC(@NotNull List<OfflinePlayer> players, @Nullable UUID uniqueId, @NotNull Location npcLocation) {
-        super(players, npcLocation);
+        this(NPC.getNextNpcId(), players, uniqueId, npcLocation);
+    }
+    public PlayerNPC(int id, @NotNull List<OfflinePlayer> players, @Nullable UUID uniqueId, @NotNull Location npcLocation) {
+        super(id, players, npcLocation);
         if (ReflectionUtils.isCompatible(V1_16_R3.class) && !Bukkit.isPrimaryThread()) {
             throw new UnsupportedOperationException("The player NPC couldn't be created async at 1.16.5+");
         }
@@ -188,7 +193,7 @@ public class PlayerNPC extends NPC {
             return;
         }
 
-        Set<Packet> packetList = new LinkedHashSet<>();
+        Set<IPacket> packetList = new LinkedHashSet<>();
 
         if (scoreboard) packetList.addAll(getScoreboardUpdatePackets(player));
         if (equipments) packetList.addAll(getEquipmentsUpdatePackets(player));
@@ -198,7 +203,7 @@ public class PlayerNPC extends NPC {
         if (movement) packetList.addAll(getMovementUpdatePackets());
 
         PlayerConnection conn = EntityPlayer.getEntityPlayer(player).getPlayerConnection();
-        for (Packet packet : packetList) {
+        for (IPacket packet : packetList) {
             conn.sendPacket(packet);
         }
     }
@@ -248,38 +253,32 @@ public class PlayerNPC extends NPC {
     }
 
     @NotNull
-    private List<Packet> removeFromTablist() {
-        List<Packet> packets = new LinkedList<>();
+    private List<IPacket> removeFromTablist() {
+        List<IPacket> packets = new LinkedList<>();
 
         if (!isShowOnTablist()) {
-            Packet packet = laivynpc().getVersion().createPlayerInfoPacket(EnumPlayerInfoActionEnum.REMOVE_PLAYER(), getEntity());
-            if (packet != null) {
-                packets.add(packet);
-            }
+            IPacket packet = laivynpc().getVersion().createPlayerInfoPacket(IPlayerInfoAction.REMOVE_PLAYER(), getEntity());
+            packets.add(packet);
         }
 
         return packets;
     }
 
     @Override
-    public @NotNull List<Packet> getSpawnPackets(@NotNull Player player) {
-        List<@NotNull Packet> packets = new LinkedList<>();
+    public @NotNull List<IPacket> getSpawnPackets(@NotNull Player player) {
+        List<@NotNull IPacket> packets = new LinkedList<>();
 
         if (!getSpawnedPlayers().contains(player.getUniqueId())) {
             // Update add player packet
-            Packet packet = laivynpc().getVersion().createPlayerInfoPacket(EnumPlayerInfoActionEnum.ADD_PLAYER(), getEntity());
-            if (packet != null) {
-                packets.add(packet);
-            }
+            IPacket packet = laivynpc().getVersion().createPlayerInfoPacket(IPlayerInfoAction.ADD_PLAYER(), getEntity());
+            packets.add(packet);
             // Named spawn
             packets.add(laivynpc().getVersion().createSpawnNamedPacket(getEntity()));
         }
 
         // Update displayName packet
-        Packet packet = laivynpc().getVersion().createPlayerInfoPacket(EnumPlayerInfoActionEnum.UPDATE_DISPLAY_NAME(), getEntity());
-        if (packet != null) {
-            packets.add(packet);
-        }
+        IPacket packet = laivynpc().getVersion().createPlayerInfoPacket(IPlayerInfoAction.UPDATE_DISPLAY_NAME(), getEntity());
+        packets.add(packet);
         //
 
         // TODO: 26/12/2022 1.14 poses
@@ -292,21 +291,19 @@ public class PlayerNPC extends NPC {
         return packets;
     }
     @Override
-    public @NotNull List<Packet> getDestroyPackets(@NotNull Player player) {
-        List<@NotNull Packet> packets = new LinkedList<>();
+    public @NotNull List<IPacket> getDestroyPackets(@NotNull Player player) {
+        List<@NotNull IPacket> packets = new LinkedList<>();
 
-        Packet packet = laivynpc().getVersion().createPlayerInfoPacket(EnumPlayerInfoActionEnum.REMOVE_PLAYER(), getEntity());
-        if (packet != null) {
-            packets.add(packet);
-        }
+        IPacket packet = laivynpc().getVersion().createPlayerInfoPacket(IPlayerInfoAction.REMOVE_PLAYER(), getEntity());
+        packets.add(packet);
 
         packets.addAll(laivynpc().getVersion().createDestroyPacket(getEntity()));
         return packets;
     }
 
     @Override
-    public @NotNull List<Packet> getMetadataUpdatePackets(@NotNull Player player) {
-        List<Packet> packets = new LinkedList<>();
+    public @NotNull List<IPacket> getMetadataUpdatePackets(@NotNull Player player) {
+        List<IPacket> packets = new LinkedList<>();
 
         try {
             DataWatcher watcher = getEntity().getDataWatcher();
@@ -355,8 +352,8 @@ public class PlayerNPC extends NPC {
         return packets;
     }
     @Override
-    public @NotNull List<Packet> getScoreboardUpdatePackets(@NotNull Player player) {
-        List<Packet> packets = new LinkedList<>();
+    public @NotNull List<IPacket> getScoreboardUpdatePackets(@NotNull Player player) {
+        List<IPacket> packets = new LinkedList<>();
 
         try {
             Scoreboard scoreboard = Scoreboard.getFrom(player);
@@ -409,7 +406,7 @@ public class PlayerNPC extends NPC {
         return packets;
     }
     @Override
-    public @NotNull List<@NotNull Packet> getEquipmentsUpdatePackets(@NotNull Player player) {
+    public @NotNull List<@NotNull IPacket> getEquipmentsUpdatePackets(@NotNull Player player) {
         if (!getEquipments().isEmpty()) {
             return new LinkedList<>(laivynpc().getVersion().createEquipmentPacket(getEntity(), getEquipments()));
         }
@@ -673,6 +670,11 @@ public class PlayerNPC extends NPC {
             ConfigurationSection playerNpc = map.getConfigurationSection("PlayerNPC Configuration");
             MemorySection locationMap = (MemorySection) map.get("Location");
 
+            int id = NPC.getNextNpcId();
+            if (map.contains("Id")) {
+                id = map.getInt("Id");
+            }
+
             World world = Bukkit.getWorld((String) locationMap.get("world"));
             double x = (double) locationMap.get("x");
             double y = (double) locationMap.get("y");
@@ -686,7 +688,7 @@ public class PlayerNPC extends NPC {
                     uuid = UUID.fromString(playerNpc.getString("UUID"));
                 }
 
-                PlayerNPC npc = new PlayerNPC(new ArrayList<>(), uuid, location);
+                PlayerNPC npc = new PlayerNPC(id, new ArrayList<>(), uuid, location);
                 npc.setCanSpawn(true);
                 npc.load(map);
                 return npc;

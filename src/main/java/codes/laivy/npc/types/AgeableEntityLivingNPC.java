@@ -26,7 +26,10 @@ public abstract class AgeableEntityLivingNPC extends EntityLivingNPC {
     }
 
     public AgeableEntityLivingNPC(@NotNull List<OfflinePlayer> players, @NotNull Entity.EntityType entityType, @NotNull Location location) {
-        super(players, entityType, location);
+        this(NPC.getNextNpcId(), players, entityType, location);
+    }
+    public AgeableEntityLivingNPC(int id, @NotNull List<OfflinePlayer> players, @NotNull Entity.EntityType entityType, @NotNull Location location) {
+        super(id, players, entityType, location);
         Validation.isTrue(!entityType.isAgeableEntityLiving(), new IllegalArgumentException("This EntityType isn't a AgeableLivingEntity."));
     }
 

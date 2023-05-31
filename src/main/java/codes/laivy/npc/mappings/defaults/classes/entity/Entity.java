@@ -295,7 +295,7 @@ public class Entity extends ObjectExecutor {
             }
             return false;
         }
-        public @NotNull NPC fastInstance(@NotNull List<@NotNull OfflinePlayer> player, @NotNull Location location) {
+        public @NotNull NPC fastInstance(int id, @NotNull List<@NotNull OfflinePlayer> players, @NotNull Location location) {
             if (canFastInstance()) {
                 try {
                     Method method = null;
@@ -305,7 +305,7 @@ public class Entity extends ObjectExecutor {
                         }
                     }
 
-                    return (NPC) Objects.requireNonNull(method).invoke(null, player, location, this.getData());
+                    return (NPC) Objects.requireNonNull(method).invoke(null, id, players, location, this.getData());
                 } catch (IllegalAccessException | InvocationTargetException e) {
                     throw new RuntimeException(e.getCause().getMessage(), e);
                 }

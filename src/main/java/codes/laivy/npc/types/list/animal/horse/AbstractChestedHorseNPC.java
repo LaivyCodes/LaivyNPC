@@ -24,8 +24,8 @@ public abstract class AbstractChestedHorseNPC extends AbstractHorseNPC {
         setChest(!hasChest());
     }
 
-    protected AbstractChestedHorseNPC(@NotNull List<OfflinePlayer> players, @NotNull AbstractHorse.Type type, @NotNull Location location) {
-        super(players, type, location);
+    protected AbstractChestedHorseNPC(int id, @NotNull List<OfflinePlayer> players, @NotNull AbstractHorse.Type type, @NotNull Location location) {
+        super(id, players, type, location);
     }
 
     public boolean hasChest() {

@@ -3,6 +3,7 @@ package codes.laivy.npc.types.list.monster;
 import codes.laivy.npc.mappings.defaults.classes.entity.Entity;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.Silverfish;
 import codes.laivy.npc.types.EntityLivingNPC;
+import codes.laivy.npc.types.NPC;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.jetbrains.annotations.NotNull;
@@ -13,8 +14,8 @@ import java.util.List;
 
 public class SilverfishNPC extends EntityLivingNPC {
 
-    public static @NotNull SilverfishNPC fastInstance(@NotNull List<OfflinePlayer> players, @NotNull Location location, @Nullable Object object) {
-        return new SilverfishNPC(players, location);
+    public static @NotNull SilverfishNPC fastInstance(int id, @NotNull List<OfflinePlayer> players, @NotNull Location location, @Nullable Object object) {
+        return new SilverfishNPC(id, players, location);
     }
 
     public static void debug(@NotNull Location location) {
@@ -23,11 +24,14 @@ public class SilverfishNPC extends EntityLivingNPC {
         silverfishNPC.destroy();
     }
 
-    protected SilverfishNPC(@NotNull List<OfflinePlayer> players, @NotNull Entity.EntityType type, @NotNull Location location) {
-        super(players, type, location);
+    protected SilverfishNPC(int id, @NotNull List<OfflinePlayer> players, @NotNull Entity.EntityType type, @NotNull Location location) {
+        super(id, players, type, location);
     }
     public SilverfishNPC(@NotNull List<OfflinePlayer> players, @NotNull Location location) {
-        super(players, Entity.EntityType.SILVERFISH, location);
+        this(NPC.getNextNpcId(), players, location);
+    }
+    public SilverfishNPC(int id, @NotNull List<OfflinePlayer> players, @NotNull Location location) {
+        super(id, players, Entity.EntityType.SILVERFISH, location);
     }
 
     @Override

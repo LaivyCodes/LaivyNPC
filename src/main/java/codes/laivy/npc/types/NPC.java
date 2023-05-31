@@ -2,6 +2,7 @@ package codes.laivy.npc.types;
 
 import codes.laivy.npc.developers.events.NPCDestroyEvent;
 import codes.laivy.npc.mappings.defaults.classes.others.objects.PlayerConnection;
+import codes.laivy.npc.mappings.defaults.classes.packets.IPacket;
 import codes.laivy.npc.mappings.instances.classes.ClassExecutor;
 import codes.laivy.npc.mappings.instances.MethodExecutor;
 import codes.laivy.npc.mappings.instances.ObjectExecutor;
@@ -12,7 +13,6 @@ import codes.laivy.npc.mappings.defaults.classes.enums.EntityPose;
 import codes.laivy.npc.mappings.defaults.classes.enums.EnumChatFormatEnum;
 import codes.laivy.npc.mappings.defaults.classes.enums.EnumChatFormatEnum.EnumChatFormat;
 import codes.laivy.npc.mappings.defaults.classes.enums.EnumItemSlotEnum;
-import codes.laivy.npc.mappings.defaults.classes.packets.Packet;
 import codes.laivy.npc.mappings.versions.V1_9_R1;
 import codes.laivy.npc.types.clicks.CommandClickAction;
 import codes.laivy.npc.types.clicks.ServerRedirectClickAction;
@@ -121,18 +121,23 @@ public abstract class NPC {
 
     // ---/-/--- //
 
-    private static int IDS_MODIFIER = 0;
-
     public static final @NotNull Set<@NotNull NPC> PUBLIC_NPCS = new HashSet<>();
     public static final @NotNull Map<@NotNull UUID, @NotNull Set<NPC>> ALL_NPCS = new HashMap<>();
-    public static final @NotNull Map<@NotNull Integer, @NotNull NPC> NPCS_ID = new HashMap<>();
+    public static final @NotNull TreeMap<@NotNull Integer, @NotNull NPC> NPCS_ID = new TreeMap<>(Comparator.naturalOrder());
+
+    public static int getNextNpcId() {
+        if (!NPCS_ID.isEmpty()) {
+            return NPCS_ID.lastKey() + 1;
+        }
+        return 0;
+    }
 
     // ---/-/--- //
 
     private final @NotNull Set<@Nullable UUID> players;
     private boolean publicView;
 
-    private final int id;
+    private int id;
 
     protected @NotNull Set<@NotNull UUID> visiblePlayers = new HashSet<>();
 
@@ -157,21 +162,21 @@ public abstract class NPC {
     private boolean saveable = true;
 
     // Packets
-    public abstract @NotNull List<@NotNull Packet> getSpawnPackets(@NotNull Player player);
-    public abstract @NotNull List<@NotNull Packet> getDestroyPackets(@NotNull Player player);
+    public abstract @NotNull List<IPacket> getSpawnPackets(@NotNull Player player);
+    public abstract @NotNull List<IPacket> getDestroyPackets(@NotNull Player player);
 
-    public abstract @NotNull List<@NotNull Packet> getMetadataUpdatePackets(@NotNull Player player);
-    public abstract @NotNull List<@NotNull Packet> getScoreboardUpdatePackets(@NotNull Player player);
-    public abstract @NotNull List<@NotNull Packet> getEquipmentsUpdatePackets(@NotNull Player player);
+    public abstract @NotNull List<IPacket> getMetadataUpdatePackets(@NotNull Player player);
+    public abstract @NotNull List<@NotNull IPacket> getScoreboardUpdatePackets(@NotNull Player player);
+    public abstract @NotNull List<@NotNull IPacket> getEquipmentsUpdatePackets(@NotNull Player player);
 
-    public @NotNull List<Packet> getLocationUpdatePackets() {
+    public @NotNull List<IPacket> getLocationUpdatePackets() {
         return Collections.singletonList(laivynpc().getVersion().createTeleportPacket(getEntity()));
     }
-    public @NotNull List<Packet> getHologramsUpdatePackets(Player player) {
+    public @NotNull List<IPacket> getHologramsUpdatePackets(Player player) {
         return new LinkedList<>(getHolograms().getHologramSpawnPackets(player));
     }
-    public @NotNull List<Packet> getMovementUpdatePackets() {
-        return new LinkedList<Packet>() {{
+    public @NotNull List<IPacket> getMovementUpdatePackets() {
+        return new LinkedList<IPacket>() {{
             add(laivynpc().getVersion().createHeadRotationPacket(getEntity(), (int) getLocation().getYaw()));
             add(laivynpc().getVersion().createLookPacket(getEntity(), getLocation().getYaw(), getLocation().getPitch()));
         }};
@@ -199,7 +204,7 @@ public abstract class NPC {
     private @Nullable NPCHeadRotation headRotation;
     //
 
-    public NPC(@NotNull List<OfflinePlayer> players, @NotNull Location location) {
+    public NPC(int id, @NotNull List<OfflinePlayer> players, @NotNull Location location) {
         Set<UUID> uuids = new HashSet<>();
 
         if (players.size() > 0) {
@@ -220,9 +225,8 @@ public abstract class NPC {
         this.players = uuids;
         this.location = location.clone();
 
-        this.id = IDS_MODIFIER;
+        this.id = id;
         NPCS_ID.put(this.id, this);
-        IDS_MODIFIER++;
 
         for (OfflinePlayer player : getPlayersInstances()) {
             ALL_NPCS.putIfAbsent(player.getUniqueId(), new HashSet<>());
@@ -670,7 +674,7 @@ public abstract class NPC {
             return;
         }
 
-        Set<Packet> packetList = new LinkedHashSet<>();
+        Set<IPacket> packetList = new LinkedHashSet<>();
 
         if (scoreboard) packetList.addAll(getScoreboardUpdatePackets(player));
         if (equipments) packetList.addAll(getEquipmentsUpdatePackets(player));
@@ -680,7 +684,7 @@ public abstract class NPC {
         if (movement) packetList.addAll(getMovementUpdatePackets());
 
         PlayerConnection conn = EntityPlayer.getEntityPlayer(player).getPlayerConnection();
-        for (Packet packet : packetList) {
+        for (IPacket packet : packetList) {
             conn.sendPacket(packet);
         }
     }
@@ -1267,6 +1271,8 @@ public abstract class NPC {
         Map<String, Object> equipments = new LinkedHashMap<>();
         Map<String, Object> interact = new LinkedHashMap<>();
 
+        map.put("Id", getId());
+
         try {
             location.put("world", getLocation().getWorld().getName());
             location.put("x", getLocation().getX());
@@ -1398,7 +1404,6 @@ public abstract class NPC {
 
             map.put("Equipments", equipments);
 
-            // TODO: 24/12/2022 1.14 poses
 //            if (ReflectionUtils.isCompatible(V1_14_R1.class)) {
 //                map.put("Pose", getPose().name());
 //            }
@@ -1436,6 +1441,13 @@ public abstract class NPC {
     }
 
     public void load(@NotNull ConfigurationSection map) {
+        int id = NPC.getNextNpcId();
+        if (map.contains("Id")) {
+            id = map.getInt("Id");
+        }
+
+        this.id = id;
+
         try {
             MemorySection locationMap = (MemorySection) map.get("Location");
 
@@ -1600,7 +1612,7 @@ public abstract class NPC {
             setHeadRotation((float) headRotation.getDouble("Yaw"), (float) headRotation.getDouble("Pitch"));
         } catch (Exception e) {
             e.printStackTrace();
-            laivynpc().log("§cNão foi possível carregar a movimentação da cabeça do NPC '" + getId() + "'!");
+            laivynpc().log("§cCouldn't load head rotation of npc '" + getId() + "'!");
         }
         // Head Rotation
         //

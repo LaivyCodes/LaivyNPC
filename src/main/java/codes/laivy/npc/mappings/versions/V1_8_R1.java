@@ -10,6 +10,10 @@ import codes.laivy.npc.mappings.defaults.classes.entity.monster.skeleton.Skeleto
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.zombie.ZombieVillager;
 import codes.laivy.npc.mappings.defaults.classes.entity.player.EntityPlayer;
 import codes.laivy.npc.mappings.defaults.classes.entity.vehicle.Boat;
+import codes.laivy.npc.mappings.defaults.classes.packets.info.action.IPlayerInfoAction;
+import codes.laivy.npc.mappings.defaults.classes.packets.info.legacy.PlayerInfoActionLegacy;
+import codes.laivy.npc.mappings.defaults.classes.packets.info.IPlayerInfoPacket;
+import codes.laivy.npc.mappings.defaults.classes.packets.info.legacy.PlayerInfoPacket;
 import codes.laivy.npc.mappings.instances.*;
 import codes.laivy.npc.mappings.instances.classes.ClassConstructor;
 import codes.laivy.npc.mappings.instances.classes.ClassExecutor;
@@ -1218,10 +1222,15 @@ public class V1_8_R1 extends Version {
     }
 
     @Override
-    public void sendPacket(@NotNull Packet packet, @NotNull PlayerConnection... connections) {
+    public void sendPacket(@NotNull IPacket packet, @NotNull PlayerConnection... connections) {
         for (PlayerConnection connection : connections) {
-            getMethodExec("PlayerConnection:sendPacket").invokeInstance(connection, packet);
+            getMethodExec("PlayerConnection:sendPacket").invokeInstance(connection, new ObjectObjExec(packet.getPacket()));
         }
+    }
+
+    @Override
+    public @NotNull IPlayerInfoAction getPlayerInfoAction(@NotNull Object object) {
+        return new PlayerInfoActionLegacy((Enum<?>) object);
     }
 
     @Override
@@ -1265,7 +1274,7 @@ public class V1_8_R1 extends Version {
     }
 
     @Override
-    public @NotNull PlayerInfoPacket createPlayerInfoPacket(@NotNull EnumPlayerInfoActionEnum.EnumPlayerInfoAction action, @NotNull EntityPlayer player) {
+    public @NotNull IPlayerInfoPacket createPlayerInfoPacket(@NotNull IPlayerInfoAction action, @NotNull EntityPlayer player) {
         try {
             Object packet = getClassExec("PacketPlayOutPlayerInfo").getConstructor(getEnumExec("PacketPlayOutPlayerInfo:EnumPlayerInfoAction"), getClassExec("EntityPlayer", true)).getConstructor().newInstance(action.getValue(), player.getValueAsArray());
             return new PlayerInfoPacket(packet);
@@ -1708,6 +1717,7 @@ public class V1_8_R1 extends Version {
         // Player
         load(V1_8_R1.class, "EntityPlayer:playerConnection", new FieldExecutor(getClassExec("EntityPlayer"), getClassExec("PlayerConnection"), "playerConnection", "Gets the PlayerConnection from the player"));
         load(V1_8_R1.class, "EntityPlayer:listName", new FieldExecutor(getClassExec("EntityPlayer"), getClassExec("IChatBaseComponent"), "listName", "Gets the entity player's tablist name"));
+        load(V1_8_R1.class, "GameProfile:id", new FieldExecutor(getClassExec("GameProfile"), new ClassExecutor(UUID.class), "id", "Gets the UUID from GameProfile"));
         //
 
         // NetworkManager

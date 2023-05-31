@@ -25,8 +25,8 @@ import static codes.laivy.npc.config.Translate.translate;
 
 public class VillagerNPC extends EntityLivingNPC {
 
-    public static @NotNull VillagerNPC fastInstance(@NotNull List<OfflinePlayer> players, @NotNull Location location, @Nullable Object object) {
-        return new VillagerNPC(players, location);
+    public static @NotNull VillagerNPC fastInstance(int id, @NotNull List<OfflinePlayer> players, @NotNull Location location, @Nullable Object object) {
+        return new VillagerNPC(id, players, location);
     }
 
     public static void debug(@NotNull Location location) {
@@ -44,11 +44,14 @@ public class VillagerNPC extends EntityLivingNPC {
         }
     }
 
-    protected VillagerNPC(@NotNull List<OfflinePlayer> players, @NotNull Entity.EntityType type, @NotNull Location location) {
-        super(players, type, location);
+    protected VillagerNPC(int id, @NotNull List<OfflinePlayer> players, @NotNull Entity.EntityType type, @NotNull Location location) {
+        super(id, players, type, location);
     }
     public VillagerNPC(@NotNull List<OfflinePlayer> players, @NotNull Location location) {
-        super(players, Entity.EntityType.VILLAGER, location);
+        this(NPC.getNextNpcId(), players, location);
+    }
+    public VillagerNPC(int id, @NotNull List<OfflinePlayer> players, @NotNull Location location) {
+        super(id, players, Entity.EntityType.VILLAGER, location);
     }
 
     public @NotNull VillagerProfession getProfession() {

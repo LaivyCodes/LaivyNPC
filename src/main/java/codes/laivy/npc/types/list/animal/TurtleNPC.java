@@ -21,8 +21,8 @@ import static codes.laivy.npc.config.Translate.translate;
 
 public class TurtleNPC extends AgeableEntityLivingNPC {
 
-    public static @NotNull TurtleNPC fastInstance(@NotNull List<OfflinePlayer> players, @NotNull Location location, @Nullable Object object) {
-        return new TurtleNPC(players, location);
+    public static @NotNull TurtleNPC fastInstance(int id, @NotNull List<OfflinePlayer> players, @NotNull Location location, @Nullable Object object) {
+        return new TurtleNPC(id, players, location);
     }
 
     public static void debug(@NotNull Location location) {
@@ -37,11 +37,14 @@ public class TurtleNPC extends AgeableEntityLivingNPC {
         setEgg(!hasEgg());
     }
 
-    protected TurtleNPC(@NotNull List<OfflinePlayer> players, @NotNull Entity.EntityType type, @NotNull Location location) {
-        super(players, type, location);
+    protected TurtleNPC(int id, @NotNull List<OfflinePlayer> players, @NotNull Entity.EntityType type, @NotNull Location location) {
+        super(id, players, type, location);
     }
     public TurtleNPC(@NotNull List<OfflinePlayer> players, @NotNull Location location) {
-        super(players, Entity.EntityType.TURTLE, location);
+        this(NPC.getNextNpcId(), players, location);
+    }
+    public TurtleNPC(int id, @NotNull List<OfflinePlayer> players, @NotNull Location location) {
+        super(id, players, Entity.EntityType.TURTLE, location);
     }
 
     public boolean hasEgg() {

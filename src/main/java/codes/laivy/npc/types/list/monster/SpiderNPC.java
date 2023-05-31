@@ -21,8 +21,8 @@ import static codes.laivy.npc.config.Translate.translate;
 
 public class SpiderNPC extends EntityLivingNPC {
 
-    public static @NotNull SpiderNPC fastInstance(@NotNull List<OfflinePlayer> players, @NotNull Location location, @Nullable Object object) {
-        return new SpiderNPC(players, location);
+    public static @NotNull SpiderNPC fastInstance(int id, @NotNull List<OfflinePlayer> players, @NotNull Location location, @Nullable Object object) {
+        return new SpiderNPC(id, players, location);
     }
 
     public static void debug(@NotNull Location location) {
@@ -37,11 +37,14 @@ public class SpiderNPC extends EntityLivingNPC {
         setClimbing(!isClimbing());
     }
 
-    protected SpiderNPC(@NotNull List<OfflinePlayer> players, @NotNull Entity.EntityType type, @NotNull Location location) {
-        super(players, type, location);
+    protected SpiderNPC(int id, @NotNull List<OfflinePlayer> players, @NotNull Entity.EntityType type, @NotNull Location location) {
+        super(id, players, type, location);
     }
     public SpiderNPC(@NotNull List<OfflinePlayer> players, @NotNull Location location) {
-        super(players, Entity.EntityType.SPIDER, location);
+        this(NPC.getNextNpcId(), players, location);
+    }
+    public SpiderNPC(int id, @NotNull List<OfflinePlayer> players, @NotNull Location location) {
+        super(id, players, Entity.EntityType.SPIDER, location);
     }
 
     public boolean isClimbing() {
