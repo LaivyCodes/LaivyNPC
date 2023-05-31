@@ -589,6 +589,8 @@ public class V1_19_R3 extends V1_19_R2 {
     @Override
     public void loadEnums() {
         super.loadEnums();
+
+        load(V1_19_R3.class, "PlayerInfo:Action", new PlayerInfoAction(getClassExec("PlayerInfo:Action")));
     }
 
     @Override
