@@ -102,7 +102,10 @@ public class InjectionUtils {
 
         ChannelPipeline pipeline = getPlayerChannel(player).pipeline();
 
-        pipeline.remove(player.getUniqueId().toString());
+        if (pipeline.names().contains(player.getUniqueId().toString())) {
+            pipeline.remove(player.getUniqueId().toString());
+        }
+
         pipeline.addBefore("packet_handler", player.getUniqueId().toString(), channelDuplexHandler);
     }
 

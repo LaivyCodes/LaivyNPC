@@ -55,6 +55,9 @@ import codes.laivy.npc.mappings.defaults.classes.others.objects.registry.Resourc
 import codes.laivy.npc.mappings.defaults.classes.others.server.CraftServer;
 import codes.laivy.npc.mappings.defaults.classes.others.server.MinecraftServer;
 import codes.laivy.npc.mappings.defaults.classes.packets.*;
+import codes.laivy.npc.mappings.defaults.classes.packets.info.refactored.PlayerInfoAction;
+import codes.laivy.npc.mappings.defaults.classes.packets.info.refactored.PlayerInfoRemovePacketProvider;
+import codes.laivy.npc.mappings.defaults.classes.packets.info.refactored.PlayerInfoUpdatePacketProvider;
 import codes.laivy.npc.mappings.defaults.classes.scoreboard.CraftScoreboard;
 import codes.laivy.npc.mappings.defaults.classes.scoreboard.Scoreboard;
 import codes.laivy.npc.mappings.defaults.classes.scoreboard.ScoreboardTeam;
@@ -120,6 +123,11 @@ public class V1_19_R3 extends V1_19_R2 {
         load(V1_19_R3.class, "PacketPlayInUseEntity", new EntityUseInPacket.EntityUseInPacketClass("net.minecraft.network.protocol.game.PacketPlayInUseEntity"));
         load(V1_19_R3.class, "PacketPlayInUseEntity:EnumEntityUseAction", new EntityUseInPacket.ActionEnum.ActionClass("net.minecraft.network.protocol.game.PacketPlayInUseEntity$b"));
         load(V1_19_R3.class, "PacketPlayInUseEntity:EnumEntityUseAction:Real", new ClassExecutor("net.minecraft.network.protocol.game.PacketPlayInUseEntity$EnumEntityUseAction"));
+
+        load(V1_19_R3.class, "PlayerInfo:Action", new PlayerInfoAction.PlayerInfoActionClass("net.minecraft.network.protocol.game.ClientboundPlayerInfoUpdatePacket$a"));
+
+        load(V1_19_R3.class, "ClientboundPlayerInfoUpdatePacket", new PlayerInfoUpdatePacketProvider.PlayerInfoUpdatePacketProviderClass("net.minecraft.network.protocol.game.ClientboundPlayerInfoUpdatePacket"));
+        load(V1_19_R3.class, "ClientboundPlayerInfoRemovePacket", new PlayerInfoRemovePacketProvider.PlayerInfoRemovePacketProviderClass("net.minecraft.network.protocol.game.ClientboundPlayerInfoRemovePacket"));
         //
 
         // Server
