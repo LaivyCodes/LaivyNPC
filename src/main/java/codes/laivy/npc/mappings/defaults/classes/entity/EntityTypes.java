@@ -8,13 +8,15 @@ import codes.laivy.npc.utils.ReflectionUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.lang.reflect.Field;
+
 import static codes.laivy.npc.LaivyNPC.laivynpc;
 
 public class EntityTypes extends ObjectExecutor {
 
     static {
         if (!ReflectionUtils.isCompatible(V1_14_R1.class)) {
-            throw new UnsupportedOperationException("This class is only available on 1.14+");
+            throw new UnsupportedOperationException("This class is only available since 1.14+");
         }
     }
 
@@ -205,10 +207,23 @@ public class EntityTypes extends ObjectExecutor {
     }
 
     private static @NotNull EntityTypes a(@NotNull String name) {
-        FieldExecutor executor = new FieldExecutor(laivynpc().getVersion().getClassExec("EntityTypes"), laivynpc().getVersion().getClassExec("EntityTypes"), name, "Gets the '" + name + "' entity type");
-        executor.load();
+        try {
+            FieldExecutor executor = new FieldExecutor(laivynpc().getVersion().getClassExec("EntityTypes"), laivynpc().getVersion().getClassExec("EntityTypes"), name, "Gets the '" + name + "' entity type");
+            executor.load();
 
-        return new EntityTypes(executor.invokeStatic());
+            return new EntityTypes(executor.invokeStatic());
+        } catch (Exception e) {
+            StringBuilder builder = new StringBuilder();
+
+            int row = 0;
+            for (Field field : laivynpc().getVersion().getClassExec("EntityTypes").getReflectionClass().getDeclaredFields()) {
+                if (row > 0) builder.append(", ");
+                builder.append(field.getName());
+                row++;
+            }
+
+            throw new RuntimeException("Available fields: '" + builder + "'", e);
+        }
     }
 
     public EntityTypes(@Nullable Object value) {

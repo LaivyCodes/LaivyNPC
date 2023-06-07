@@ -387,6 +387,104 @@ public class V1_16_R1 extends V1_15_R1 {
     }
 
     @Override
+    public void loadTexts() {
+        super.loadTexts();
+
+
+        super.getTexts().put("EntityTypes:ARMOR_STAND", "ARMOR_STAND");
+        super.getTexts().put("EntityTypes:BAT", "BAT");
+        super.getTexts().put("EntityTypes:EGG", "EGG");
+        super.getTexts().put("EntityTypes:BLAZE", "BLAZE");
+        super.getTexts().put("EntityTypes:BOAT", "BOAT");
+        super.getTexts().put("EntityTypes:CAT", "CAT");
+        super.getTexts().put("EntityTypes:CAVE_SPIDER", "CAVE_SPIDER");
+        super.getTexts().put("EntityTypes:CHICKEN", "CHICKEN");
+        super.getTexts().put("EntityTypes:COD", "COD");
+        super.getTexts().put("EntityTypes:COW", "COW");
+        super.getTexts().put("EntityTypes:CREEPER", "CREEPER");
+        super.getTexts().put("EntityTypes:DONKEY", "DONKEY");
+        super.getTexts().put("EntityTypes:DOLPHIN", "DOLPHIN");
+        super.getTexts().put("EntityTypes:DRAGON_FIREBALL", "DRAGON_FIREBALL");
+        super.getTexts().put("EntityTypes:DROWNED", "DROWNED");
+        super.getTexts().put("EntityTypes:ELDER_GUARDIAN", "ELDER_GUARDIAN");
+        super.getTexts().put("EntityTypes:END_CRYSTAL", "END_CRYSTAL");
+        super.getTexts().put("EntityTypes:ENDER_DRAGON", "ENDER_DRAGON");
+        super.getTexts().put("EntityTypes:ENDERMAN", "ENDERMAN");
+        super.getTexts().put("EntityTypes:ENDERMITE", "ENDERMITE");
+        super.getTexts().put("EntityTypes:EVOKER_FANGS", "EVOKER_FANGS");
+        super.getTexts().put("EntityTypes:EVOKER", "EVOKER");
+        super.getTexts().put("EntityTypes:EYE_OF_ENDER", "EYE_OF_ENDER");
+        super.getTexts().put("EntityTypes:FALLING_BLOCK", "FALLING_BLOCK");
+        super.getTexts().put("EntityTypes:FOX", "FOX");
+        super.getTexts().put("EntityTypes:GHAST", "GHAST");
+        super.getTexts().put("EntityTypes:GIANT", "GIANT");
+        super.getTexts().put("EntityTypes:GUARDIAN", "GUARDIAN");
+        super.getTexts().put("EntityTypes:HORSE", "HORSE");
+        super.getTexts().put("EntityTypes:HUSK", "HUSK");
+        super.getTexts().put("EntityTypes:ILLUSIONER", "ILLUSIONER");
+        super.getTexts().put("EntityTypes:ITEM", "ITEM");
+        super.getTexts().put("EntityTypes:ITEM_FRAME", "ITEM_FRAME");
+        super.getTexts().put("EntityTypes:FIREBALL", "FIREBALL");
+        super.getTexts().put("EntityTypes:LEASH_KNOT", "LEASH_KNOT");
+        super.getTexts().put("EntityTypes:LLAMA", "LLAMA");
+        super.getTexts().put("EntityTypes:LLAMA_SPIT", "LLAMA_SPIT");
+        super.getTexts().put("EntityTypes:MAGMA_CUBE", "MAGMA_CUBE");
+        super.getTexts().put("EntityTypes:MINECART", "MINECART");
+        super.getTexts().put("EntityTypes:CHEST_MINECART", "CHEST_MINECART");
+        super.getTexts().put("EntityTypes:COMMAND_BLOCK_MINECART", "COMMAND_BLOCK_MINECART");
+        super.getTexts().put("EntityTypes:FURNACE_MINECART", "FURNACE_MINECART");
+        super.getTexts().put("EntityTypes:HOPPER_MINECART", "HOPPER_MINECART");
+        super.getTexts().put("EntityTypes:SPAWNER_MINECART", "SPAWNER_MINECART");
+        super.getTexts().put("EntityTypes:TNT_MINECART", "TNT_MINECART");
+        super.getTexts().put("EntityTypes:MULE", "MULE");
+        super.getTexts().put("EntityTypes:MOOSHROOM", "MOOSHROOM");
+        super.getTexts().put("EntityTypes:OCELOT", "OCELOT");
+        super.getTexts().put("EntityTypes:PAINTING", "PAINTING");
+        super.getTexts().put("EntityTypes:PANDA", "PANDA");
+        super.getTexts().put("EntityTypes:PARROT", "PARROT");
+        super.getTexts().put("EntityTypes:PIG", "PIG");
+        super.getTexts().put("EntityTypes:PUFFERFISH", "PUFFERFISH");
+        super.getTexts().put("EntityTypes:ZOMBIE_PIGMAN", "ZOMBIFIED_PIGLIN");
+        super.getTexts().put("EntityTypes:POLAR_BEAR", "POLAR_BEAR");
+        super.getTexts().put("EntityTypes:TNT", "TNT");
+        super.getTexts().put("EntityTypes:RABBIT", "RABBIT");
+        super.getTexts().put("EntityTypes:SALMON", "SALMON");
+        super.getTexts().put("EntityTypes:SHEEP", "SHEEP");
+        super.getTexts().put("EntityTypes:SHULKER", "SHULKER");
+        super.getTexts().put("EntityTypes:SHULKER_BULLET", "SHULKER_BULLET");
+        super.getTexts().put("EntityTypes:SILVERFISH", "SILVERFISH");
+        super.getTexts().put("EntityTypes:SKELETON", "SKELETON");
+        super.getTexts().put("EntityTypes:SKELETON_HORSE", "SKELETON_HORSE");
+        super.getTexts().put("EntityTypes:SLIME", "SLIME");
+        super.getTexts().put("EntityTypes:SMALL_FIREBALL", "SMALL_FIREBALL");
+        super.getTexts().put("EntityTypes:SNOW_GOLEM", "SNOW_GOLEM");
+        super.getTexts().put("EntityTypes:SNOWBALL", "SNOWBALL");
+        super.getTexts().put("EntityTypes:SPIDER", "SPIDER");
+        super.getTexts().put("EntityTypes:SQUID", "SQUID");
+        super.getTexts().put("EntityTypes:STRAY", "STRAY");
+        super.getTexts().put("EntityTypes:TRADER_LLAMA", "TRADER_LLAMA");
+        super.getTexts().put("EntityTypes:TROPICAL_FISH", "TROPICAL_FISH");
+        super.getTexts().put("EntityTypes:TURTLE", "TURTLE");
+        super.getTexts().put("EntityTypes:ENDER_PEARL", "ENDER_PEARL");
+        super.getTexts().put("EntityTypes:VEX", "VEX");
+        super.getTexts().put("EntityTypes:VILLAGER", "VILLAGER");
+        super.getTexts().put("EntityTypes:IRON_GOLEM", "IRON_GOLEM");
+        super.getTexts().put("EntityTypes:VINDICATOR", "VINDICATOR");
+        super.getTexts().put("EntityTypes:PILLAGER", "PILLAGER");
+        super.getTexts().put("EntityTypes:WANDERING_TRADER", "WANDERING_TRADER");
+        super.getTexts().put("EntityTypes:WITCH", "WITCH");
+        super.getTexts().put("EntityTypes:WITHER", "WITHER");
+        super.getTexts().put("EntityTypes:WITHER_SKELETON", "WITHER_SKELETON");
+        super.getTexts().put("EntityTypes:WITHER_SKULL", "WITHER_SKULL");
+        super.getTexts().put("EntityTypes:WOLF", "WOLF");
+        super.getTexts().put("EntityTypes:ZOMBIE", "ZOMBIE");
+        super.getTexts().put("EntityTypes:ZOMBIE_HORSE", "ZOMBIE_HORSE");
+        super.getTexts().put("EntityTypes:ZOMBIE_VILLAGER", "ZOMBIE_VILLAGER");
+        super.getTexts().put("EntityTypes:PHANTOM", "PHANTOM");
+        super.getTexts().put("EntityTypes:RAVAGER", "RAVAGER");
+    }
+
+    @Override
     public @NotNull String getName() {
         return "v1_16_R1";
     }
