@@ -170,6 +170,8 @@ public class NPCCommands implements CommandExecutor, Listener {
 
                             npc.getHolograms().setLine(0, new NPCHologramText(fName, npc));
                             npc.spawn();
+
+                            SELECTED_NPCS.put(player.getUniqueId(), npc);
                         } else {
                             player.sendMessage("§cUse /laivynpc create (type) (name)");
                         }
