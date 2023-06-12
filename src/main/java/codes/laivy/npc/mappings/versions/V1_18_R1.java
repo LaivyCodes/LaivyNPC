@@ -936,6 +936,8 @@ public class V1_18_R1 extends V1_17_R1 {
 
         super.getTexts().put("Metadata:Human:leftShoulderEntity", "bS");
         super.getTexts().put("Metadata:Human:rightShoulderEntity", "bT");
+
+        super.getTexts().put("Entity:getUniqueId:field", "ak");
     }
 
     @Override

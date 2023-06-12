@@ -1808,7 +1808,7 @@ public class V1_8_R1 extends Version {
         super.getTexts().put("ScoreboardTeam:EnumTeamPush:NEVER", "NEVER");
         super.getTexts().put("ScoreboardTeam:EnumTeamPush:ALWAYS", "ALWAYS");
 
-        super.getTexts().put("Entity:getUniqueId:field", "aj");
+        super.getTexts().put("Entity:getUniqueId:field", "uniqueID");
     }
 
     @Override
