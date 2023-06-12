@@ -27,10 +27,7 @@ import codes.laivy.npc.mappings.defaults.classes.entity.monster.illagers.Vindica
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.skeleton.Skeleton;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.skeleton.SkeletonStray;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.skeleton.SkeletonWither;
-import codes.laivy.npc.mappings.defaults.classes.entity.monster.zombie.Zombie;
-import codes.laivy.npc.mappings.defaults.classes.entity.monster.zombie.ZombieDrowned;
-import codes.laivy.npc.mappings.defaults.classes.entity.monster.zombie.ZombieHusk;
-import codes.laivy.npc.mappings.defaults.classes.entity.monster.zombie.ZombieVillager;
+import codes.laivy.npc.mappings.defaults.classes.entity.monster.zombie.*;
 import codes.laivy.npc.mappings.defaults.classes.entity.npc.Villager;
 import codes.laivy.npc.mappings.defaults.classes.entity.player.EntityPlayer;
 import codes.laivy.npc.mappings.defaults.classes.entity.vehicle.Boat;
@@ -144,7 +141,7 @@ public class V1_13_R2 extends V1_13_R1 {
         // Entity
         load(V1_13_R2.class, "Entity", new Entity.EntityClass("net.minecraft.server.v1_13_R2.Entity"));
         load(V1_13_R2.class, "EntityLiving", new EntityLiving.EntityLivingClass("net.minecraft.server.v1_13_R2.EntityLiving"));
-        load(V1_13_R2.class, "Entity:Human", new Entity.EntityClass("net.minecraft.server.v1_13_R2.EntityHuman"));
+        load(V1_13_R2.class, "Entity:Human", new EntityHuman.EntityHumanClass("net.minecraft.server.v1_13_R2.EntityHuman"));
         load(V1_13_R2.class, "CraftPlayer", new CraftPlayer.CraftPlayerClass("org.bukkit.craftbukkit.v1_13_R2.entity.CraftPlayer"));
         load(V1_13_R2.class, "EntityPlayer", new EntityPlayer.EntityPlayerClass("net.minecraft.server.v1_13_R2.EntityPlayer"));
 
@@ -189,6 +186,8 @@ public class V1_13_R2 extends V1_13_R1 {
 
         load(V1_13_R2.class, "Entity:Ageable", new AgeableEntityLiving.AgeableEntityLivingClass("net.minecraft.server.v1_13_R2.EntityAgeable"));
         load(V1_13_R2.class, "Entity:Tameable", new TameableEntityLiving.TameableEntityLivingClass("net.minecraft.server.v1_13_R2.EntityTameableAnimal"));
+
+        load(V1_13_R2.class, "Entity:Zombie:Giant", new ZombieGiant.ZombieGiantClass("net.minecraft.server.v1_13_R2.EntityGiantZombie"));
         // EntityPlayer
         load(V1_13_R2.class, "GameProfile", new GameProfile.GameProfileClass("com.mojang.authlib.GameProfile"));
         load(V1_13_R2.class, "PropertyMap", new PropertyMap.PropertyMapClass("com.mojang.authlib.properties.PropertyMap"));
@@ -223,6 +222,8 @@ public class V1_13_R2 extends V1_13_R1 {
         load(V1_13_R2.class, "EnumColor", new EnumColorEnum.EnumColorClass("net.minecraft.server.v1_13_R2.EnumColor"));
         load(V1_13_R2.class, "EnumItemSlot", new EnumItemSlotEnum.EnumItemSlotClass("net.minecraft.server.v1_13_R2.EnumItemSlot"));
         load(V1_13_R2.class, "EnumDirection", new EnumDirectionEnum.EnumDirectionClass("net.minecraft.server.v1_13_R2.EnumDirection"));
+
+        load(V1_13_R2.class, "MojangsonParser", new ClassExecutor("net.minecraft.server.v1_13_R2.MojangsonParser"));
         //
 
         // Chat

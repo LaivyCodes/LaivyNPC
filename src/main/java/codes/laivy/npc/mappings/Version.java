@@ -17,6 +17,7 @@ import codes.laivy.npc.mappings.defaults.classes.entity.monster.illagers.Illager
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.zombie.ZombieVillager;
 import codes.laivy.npc.mappings.defaults.classes.enums.EnumSpellEnum;
 import codes.laivy.npc.mappings.defaults.classes.enums.HorseArmor;
+import codes.laivy.npc.mappings.defaults.classes.nbt.tags.NBTTagCompound;
 import codes.laivy.npc.mappings.defaults.classes.others.location.CraftBlock;
 import codes.laivy.npc.mappings.defaults.classes.others.location.Vector3f;
 import codes.laivy.npc.mappings.defaults.classes.others.objects.Block;
@@ -210,13 +211,18 @@ public abstract class Version implements VersionCompound, VersionPacket, Version
         if (location.getWorld() == null) {
             throw new NullPointerException("This location's world is null!");
         }
+
         Entity entity = getEntityInstance(type, location);
         if (entity == null) {
             throw new IllegalArgumentException("Cannot get this entity type '" + type.name() + "' for this version!");
         }
+
         entity.setLocation(location);
+
         return entity;
     }
+
+    public abstract @NotNull NBTTagCompound getEntityData(@NotNull Entity entity, @NotNull NBTTagCompound compound);
 
     protected abstract @Nullable Entity getEntityInstance(@NotNull Entity.EntityType type, @NotNull Location location);
     public abstract @NotNull FallingBlock createFallingBlockEntity(@NotNull Location location, @NotNull Material material);

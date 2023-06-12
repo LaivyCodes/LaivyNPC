@@ -8,9 +8,10 @@ import codes.laivy.npc.mappings.defaults.classes.entity.animal.fish.Tropicalfish
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.illagers.Evoker;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.illagers.Illusioner;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.illagers.Vindicator;
-import codes.laivy.npc.mappings.defaults.classes.entity.monster.zombie.ZombieDrowned;
+import codes.laivy.npc.mappings.defaults.classes.entity.monster.zombie.*;
 import codes.laivy.npc.mappings.defaults.classes.entity.player.EntityPlayer;
 import codes.laivy.npc.mappings.defaults.classes.entity.vehicle.Boat;
+import codes.laivy.npc.mappings.defaults.classes.nbt.tags.NBTTagCompound;
 import codes.laivy.npc.mappings.instances.classes.ClassExecutor;
 import codes.laivy.npc.mappings.instances.ObjectExecutor;
 import codes.laivy.npc.mappings.defaults.classes.datawatcher.DataWatcher;
@@ -31,9 +32,6 @@ import codes.laivy.npc.mappings.defaults.classes.entity.monster.*;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.skeleton.Skeleton;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.skeleton.SkeletonStray;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.skeleton.SkeletonWither;
-import codes.laivy.npc.mappings.defaults.classes.entity.monster.zombie.Zombie;
-import codes.laivy.npc.mappings.defaults.classes.entity.monster.zombie.ZombieHusk;
-import codes.laivy.npc.mappings.defaults.classes.entity.monster.zombie.ZombieVillager;
 import codes.laivy.npc.mappings.defaults.classes.entity.npc.Villager;
 import codes.laivy.npc.mappings.defaults.classes.enums.EntityPose;
 import codes.laivy.npc.mappings.defaults.classes.java.BooleanObjExec;
@@ -65,10 +63,7 @@ import codes.laivy.npc.types.list.monster.illagers.VindicatorNPC;
 import codes.laivy.npc.types.list.monster.skeleton.SkeletonNPC;
 import codes.laivy.npc.types.list.monster.skeleton.SkeletonStrayNPC;
 import codes.laivy.npc.types.list.monster.skeleton.SkeletonWitherNPC;
-import codes.laivy.npc.types.list.monster.zombie.ZombieDrownedNPC;
-import codes.laivy.npc.types.list.monster.zombie.ZombieHuskNPC;
-import codes.laivy.npc.types.list.monster.zombie.ZombieNPC;
-import codes.laivy.npc.types.list.monster.zombie.ZombieVillagerNPC;
+import codes.laivy.npc.types.list.monster.zombie.*;
 import codes.laivy.npc.types.list.npc.VillagerNPC;
 import codes.laivy.npc.types.list.vehicle.BoatNPC;
 import codes.laivy.npc.utils.ClassUtils;
@@ -102,6 +97,10 @@ public class Entity extends ObjectExecutor {
     public DataWatcher getDataWatcher() {
         Object dataWatcher = laivynpc().getVersion().getMethodExec("Entity:Entity:getDataWatcher").invokeInstance(this);
         return new DataWatcher(dataWatcher);
+    }
+
+    public @NotNull NBTTagCompound save(@NotNull NBTTagCompound compound) {
+        return laivynpc().getVersion().getEntityData(this, compound);
     }
 
     public @Nullable String getCustomName() {
@@ -253,6 +252,8 @@ public class Entity extends ObjectExecutor {
 
         BOAT(Boat.class, BoatNPC.class, V1_8_R1.class),
         CAVE_SPIDER(CaveSpider.class, CaveSpiderNPC.class, V1_8_R1.class),
+
+        GIANT(ZombieGiant.class, ZombieGiantNPC.class, V1_8_R1.class),
         ;
 
         private final @NotNull Class<? extends Entity> entityClass;

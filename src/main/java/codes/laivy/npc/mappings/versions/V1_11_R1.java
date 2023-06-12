@@ -4,6 +4,7 @@ import codes.laivy.npc.mappings.Version;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.illagers.Evoker;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.illagers.IllagerWizard;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.illagers.Vindicator;
+import codes.laivy.npc.mappings.defaults.classes.entity.monster.zombie.ZombieGiant;
 import codes.laivy.npc.mappings.defaults.classes.entity.player.EntityPlayer;
 import codes.laivy.npc.mappings.defaults.classes.entity.vehicle.Boat;
 import codes.laivy.npc.mappings.defaults.classes.java.BooleanObjExec;
@@ -392,7 +393,7 @@ public class V1_11_R1 extends V1_10_R1 {
         // Entity
         load(V1_11_R1.class, "Entity", new Entity.EntityClass("net.minecraft.server.v1_11_R1.Entity"));
         load(V1_11_R1.class, "EntityLiving", new EntityLiving.EntityLivingClass("net.minecraft.server.v1_11_R1.EntityLiving"));
-        load(V1_11_R1.class, "Entity:Human", new Entity.EntityClass("net.minecraft.server.v1_11_R1.EntityHuman"));
+        load(V1_11_R1.class, "Entity:Human", new EntityHuman.EntityHumanClass("net.minecraft.server.v1_11_R1.EntityHuman"));
         load(V1_11_R1.class, "CraftPlayer", new CraftPlayer.CraftPlayerClass("org.bukkit.craftbukkit.v1_11_R1.entity.CraftPlayer"));
         load(V1_11_R1.class, "EntityPlayer", new EntityPlayer.EntityPlayerClass("net.minecraft.server.v1_11_R1.EntityPlayer"));
 
@@ -437,6 +438,8 @@ public class V1_11_R1 extends V1_10_R1 {
 
         load(V1_11_R1.class, "Entity:Ageable", new AgeableEntityLiving.AgeableEntityLivingClass("net.minecraft.server.v1_11_R1.EntityAgeable"));
         load(V1_11_R1.class, "Entity:Tameable", new TameableEntityLiving.TameableEntityLivingClass("net.minecraft.server.v1_11_R1.EntityTameableAnimal"));
+
+        load(V1_11_R1.class, "Entity:Zombie:Giant", new ZombieGiant.ZombieGiantClass("net.minecraft.server.v1_11_R1.EntityGiantZombie"));
         // EntityPlayer
         load(V1_11_R1.class, "GameProfile", new GameProfile.GameProfileClass("com.mojang.authlib.GameProfile"));
         load(V1_11_R1.class, "PropertyMap", new PropertyMap.PropertyMapClass("com.mojang.authlib.properties.PropertyMap"));

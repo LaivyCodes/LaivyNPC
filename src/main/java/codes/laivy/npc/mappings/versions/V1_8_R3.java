@@ -2,6 +2,7 @@ package codes.laivy.npc.mappings.versions;
 
 import codes.laivy.npc.mappings.Version;
 import codes.laivy.npc.mappings.defaults.classes.entity.animal.horse.AbstractHorse;
+import codes.laivy.npc.mappings.defaults.classes.entity.monster.zombie.ZombieGiant;
 import codes.laivy.npc.mappings.defaults.classes.entity.player.EntityPlayer;
 import codes.laivy.npc.mappings.defaults.classes.entity.vehicle.Boat;
 import codes.laivy.npc.mappings.defaults.classes.packets.info.legacy.PlayerInfoPacket;
@@ -114,7 +115,7 @@ public class V1_8_R3 extends V1_8_R2 {
         // Entity
         load(V1_8_R3.class, "Entity", new Entity.EntityClass("net.minecraft.server.v1_8_R3.Entity"));
         load(V1_8_R3.class, "EntityLiving", new EntityLiving.EntityLivingClass("net.minecraft.server.v1_8_R3.EntityLiving"));
-        load(V1_8_R3.class, "Entity:Human", new Entity.EntityClass("net.minecraft.server.v1_8_R3.EntityHuman"));
+        load(V1_8_R3.class, "Entity:Human", new EntityHuman.EntityHumanClass("net.minecraft.server.v1_8_R3.EntityHuman"));
         load(V1_8_R3.class, "CraftPlayer", new CraftPlayer.CraftPlayerClass("org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer"));
         load(V1_8_R3.class, "EntityPlayer", new EntityPlayer.EntityPlayerClass("net.minecraft.server.v1_8_R3.EntityPlayer"));
 
@@ -157,6 +158,8 @@ public class V1_8_R3 extends V1_8_R2 {
 
         load(V1_8_R3.class, "Entity:Ageable", new AgeableEntityLiving.AgeableEntityLivingClass("net.minecraft.server.v1_8_R3.EntityAgeable"));
         load(V1_8_R3.class, "Entity:Tameable", new TameableEntityLiving.TameableEntityLivingClass("net.minecraft.server.v1_8_R3.EntityTameableAnimal"));
+
+        load(V1_8_R3.class, "Entity:Zombie:Giant", new ZombieGiant.ZombieGiantClass("net.minecraft.server.v1_8_R3.EntityGiantZombie"));
         // EntityPlayer
         load(V1_8_R3.class, "GameProfile", new GameProfile.GameProfileClass("com.mojang.authlib.GameProfile"));
         load(V1_8_R3.class, "PropertyMap", new PropertyMap.PropertyMapClass("com.mojang.authlib.properties.PropertyMap"));

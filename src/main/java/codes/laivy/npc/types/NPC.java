@@ -42,10 +42,7 @@ import codes.laivy.npc.types.list.monster.illagers.VindicatorNPC;
 import codes.laivy.npc.types.list.monster.skeleton.SkeletonNPC;
 import codes.laivy.npc.types.list.monster.skeleton.SkeletonStrayNPC;
 import codes.laivy.npc.types.list.monster.skeleton.SkeletonWitherNPC;
-import codes.laivy.npc.types.list.monster.zombie.ZombieDrownedNPC;
-import codes.laivy.npc.types.list.monster.zombie.ZombieHuskNPC;
-import codes.laivy.npc.types.list.monster.zombie.ZombieNPC;
-import codes.laivy.npc.types.list.monster.zombie.ZombieVillagerNPC;
+import codes.laivy.npc.types.list.monster.zombie.*;
 import codes.laivy.npc.types.list.npc.VillagerNPC;
 import codes.laivy.npc.types.list.vehicle.BoatNPC;
 import codes.laivy.npc.types.player.PlayerNPC;
@@ -831,6 +828,7 @@ public abstract class NPC {
     public static @NotNull NPCConfiguration LOCATION_CHANGE_CONFIG = new NPCConfiguration("location", "/laivynpc config location") {
         @Override
         public void execute(@NotNull NPC npc, @NotNull Player sender, @NotNull String[] args) {
+            // TODO: 09/06/2023 Different worlds check
             npc.setLocation(sender.getLocation(), true);
             sender.sendMessage(translate(sender, "npc.commands.location"));
         }
@@ -1205,6 +1203,8 @@ public abstract class NPC {
         put("Turtle", TurtleNPC.class);
         put("Cat", CatNPC.class);
         put("Boat", BoatNPC.class);
+        put("Cave Spider", CaveSpiderNPC.class);
+        put("Zombie Giant", ZombieGiantNPC.class);
     }};
 
     @SuppressWarnings("unchecked")

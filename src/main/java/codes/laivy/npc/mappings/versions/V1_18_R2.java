@@ -27,10 +27,7 @@ import codes.laivy.npc.mappings.defaults.classes.entity.monster.illagers.Vindica
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.skeleton.Skeleton;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.skeleton.SkeletonStray;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.skeleton.SkeletonWither;
-import codes.laivy.npc.mappings.defaults.classes.entity.monster.zombie.Zombie;
-import codes.laivy.npc.mappings.defaults.classes.entity.monster.zombie.ZombieDrowned;
-import codes.laivy.npc.mappings.defaults.classes.entity.monster.zombie.ZombieHusk;
-import codes.laivy.npc.mappings.defaults.classes.entity.monster.zombie.ZombieVillager;
+import codes.laivy.npc.mappings.defaults.classes.entity.monster.zombie.*;
 import codes.laivy.npc.mappings.defaults.classes.entity.npc.Villager;
 import codes.laivy.npc.mappings.defaults.classes.entity.npc.objs.VillagerData;
 import codes.laivy.npc.mappings.defaults.classes.entity.npc.objs.VillagerProfessionExec;
@@ -135,7 +132,7 @@ public class V1_18_R2 extends V1_18_R1 {
 
         load(V1_18_R2.class, "Entity", new Entity.EntityClass("net.minecraft.world.entity.Entity"));
         load(V1_18_R2.class, "EntityLiving", new EntityLiving.EntityLivingClass("net.minecraft.world.entity.EntityLiving"));
-        load(V1_18_R2.class, "Entity:Human", new Entity.EntityClass("net.minecraft.world.entity.player.EntityHuman"));
+        load(V1_18_R2.class, "Entity:Human", new EntityHuman.EntityHumanClass("net.minecraft.world.entity.player.EntityHuman"));
         load(V1_18_R2.class, "CraftPlayer", new CraftPlayer.CraftPlayerClass("org.bukkit.craftbukkit.v1_18_R2.entity.CraftPlayer"));
         load(V1_18_R2.class, "EntityPlayer", new EntityPlayer.EntityPlayerClass("net.minecraft.server.level.EntityPlayer"));
 
@@ -180,6 +177,8 @@ public class V1_18_R2 extends V1_18_R1 {
 
         load(V1_18_R2.class, "Entity:Ageable", new AgeableEntityLiving.AgeableEntityLivingClass("net.minecraft.world.entity.EntityAgeable"));
         load(V1_18_R2.class, "Entity:Tameable", new TameableEntityLiving.TameableEntityLivingClass("net.minecraft.world.entity.EntityTameableAnimal"));
+
+        load(V1_18_R2.class, "Entity:Zombie:Giant", new ZombieGiant.ZombieGiantClass("net.minecraft.world.entity.monster.EntityGiantZombie"));
         // EntityPlayer
         load(V1_18_R2.class, "GameProfile", new GameProfile.GameProfileClass("com.mojang.authlib.GameProfile"));
         load(V1_18_R2.class, "PropertyMap", new PropertyMap.PropertyMapClass("com.mojang.authlib.properties.PropertyMap"));
@@ -214,6 +213,8 @@ public class V1_18_R2 extends V1_18_R1 {
         load(V1_18_R2.class, "EnumColor", new EnumColorEnum.EnumColorClass("net.minecraft.world.item.EnumColor"));
         load(V1_18_R2.class, "EnumItemSlot", new EnumItemSlotEnum.EnumItemSlotClass("net.minecraft.world.entity.EnumItemSlot"));
         load(V1_18_R2.class, "EnumDirection", new EnumDirectionEnum.EnumDirectionClass("net.minecraft.core.EnumDirection"));
+
+        load(V1_18_R2.class, "MojangsonParser", new ClassExecutor("net.minecraft.nbt.MojangsonParser"));
         //
 
         // Chat
@@ -420,6 +421,14 @@ public class V1_18_R2 extends V1_18_R1 {
         load(V1_18_R2.class, "Metadata:Shulker:Color", new FieldExecutor(getClassExec("Entity:Shulker"), getClassExec("DataWatcherObject"), "d", "Gets the shulker's color DataWatcherObject"));
 
         load(V1_18_R2.class, "Entity:Horse:Abstract:horseInventory", new FieldExecutor(getClassExec("Entity:Horse:Abstract"), getClassExec("InventorySubcontainer"), "cg", "Gets the horse's inventoryChest"));
+    }
+
+    @Override
+    public void loadTexts() {
+        super.loadTexts();
+
+        super.getTexts().put("Metadata:Human:leftShoulderEntity", "bR");
+        super.getTexts().put("Metadata:Human:rightShoulderEntity", "bS");
     }
 
     @Override

@@ -27,10 +27,7 @@ import codes.laivy.npc.mappings.defaults.classes.entity.monster.illagers.Vindica
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.skeleton.Skeleton;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.skeleton.SkeletonStray;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.skeleton.SkeletonWither;
-import codes.laivy.npc.mappings.defaults.classes.entity.monster.zombie.Zombie;
-import codes.laivy.npc.mappings.defaults.classes.entity.monster.zombie.ZombieDrowned;
-import codes.laivy.npc.mappings.defaults.classes.entity.monster.zombie.ZombieHusk;
-import codes.laivy.npc.mappings.defaults.classes.entity.monster.zombie.ZombieVillager;
+import codes.laivy.npc.mappings.defaults.classes.entity.monster.zombie.*;
 import codes.laivy.npc.mappings.defaults.classes.entity.npc.Villager;
 import codes.laivy.npc.mappings.defaults.classes.entity.npc.objs.VillagerData;
 import codes.laivy.npc.mappings.defaults.classes.entity.npc.objs.VillagerProfessionExec;
@@ -130,6 +127,9 @@ public class V1_16_R1 extends V1_15_R1 {
                 if (key.equals("Entity:setGlowing")) {
                     load(V1_16_R1.class, key, new MethodExecutor(getClassExec("Entity"), ClassExecutor.VOID, "i", "Sets the glowing state of a Entity", ClassExecutor.BOOLEAN));
                     return false;
+                } else if (key.equals("Entity:save")) {
+                    load(V1_16_R1.class, key, new MethodExecutor(getClassExec("Entity"), ClassExecutor.BOOLEAN, "a_", "Retrieves the tag compound of the entity", getClassExec("NBTBase:NBTTagCompound")));
+                    return false;
                 }
             }
         } else if (version == V1_8_R1.class) {
@@ -223,7 +223,7 @@ public class V1_16_R1 extends V1_15_R1 {
 
         load(V1_16_R1.class, "Entity", new Entity.EntityClass("net.minecraft.server.v1_16_R1.Entity"));
         load(V1_16_R1.class, "EntityLiving", new EntityLiving.EntityLivingClass("net.minecraft.server.v1_16_R1.EntityLiving"));
-        load(V1_16_R1.class, "Entity:Human", new Entity.EntityClass("net.minecraft.server.v1_16_R1.EntityHuman"));
+        load(V1_16_R1.class, "Entity:Human", new EntityHuman.EntityHumanClass("net.minecraft.server.v1_16_R1.EntityHuman"));
         load(V1_16_R1.class, "CraftPlayer", new CraftPlayer.CraftPlayerClass("org.bukkit.craftbukkit.v1_16_R1.entity.CraftPlayer"));
         load(V1_16_R1.class, "EntityPlayer", new EntityPlayer.EntityPlayerClass("net.minecraft.server.v1_16_R1.EntityPlayer"));
 
@@ -268,6 +268,8 @@ public class V1_16_R1 extends V1_15_R1 {
 
         load(V1_16_R1.class, "Entity:Ageable", new AgeableEntityLiving.AgeableEntityLivingClass("net.minecraft.server.v1_16_R1.EntityAgeable"));
         load(V1_16_R1.class, "Entity:Tameable", new TameableEntityLiving.TameableEntityLivingClass("net.minecraft.server.v1_16_R1.EntityTameableAnimal"));
+
+        load(V1_16_R1.class, "Entity:Zombie:Giant", new ZombieGiant.ZombieGiantClass("net.minecraft.server.v1_16_R1.EntityGiantZombie"));
         // EntityPlayer
         load(V1_16_R1.class, "GameProfile", new GameProfile.GameProfileClass("com.mojang.authlib.GameProfile"));
         load(V1_16_R1.class, "PropertyMap", new PropertyMap.PropertyMapClass("com.mojang.authlib.properties.PropertyMap"));
@@ -302,6 +304,8 @@ public class V1_16_R1 extends V1_15_R1 {
         load(V1_16_R1.class, "EnumColor", new EnumColorEnum.EnumColorClass("net.minecraft.server.v1_16_R1.EnumColor"));
         load(V1_16_R1.class, "EnumItemSlot", new EnumItemSlotEnum.EnumItemSlotClass("net.minecraft.server.v1_16_R1.EnumItemSlot"));
         load(V1_16_R1.class, "EnumDirection", new EnumDirectionEnum.EnumDirectionClass("net.minecraft.server.v1_16_R1.EnumDirection"));
+
+        load(V1_16_R1.class, "MojangsonParser", new ClassExecutor("net.minecraft.server.v1_16_R1.MojangsonParser"));
         //
 
         // Chat
@@ -389,7 +393,6 @@ public class V1_16_R1 extends V1_15_R1 {
     @Override
     public void loadTexts() {
         super.loadTexts();
-
 
         super.getTexts().put("EntityTypes:ARMOR_STAND", "ARMOR_STAND");
         super.getTexts().put("EntityTypes:BAT", "BAT");
@@ -482,6 +485,9 @@ public class V1_16_R1 extends V1_15_R1 {
         super.getTexts().put("EntityTypes:ZOMBIE_VILLAGER", "ZOMBIE_VILLAGER");
         super.getTexts().put("EntityTypes:PHANTOM", "PHANTOM");
         super.getTexts().put("EntityTypes:RAVAGER", "RAVAGER");
+
+        super.getTexts().put("Metadata:Human:leftShoulderEntity", "br");
+        super.getTexts().put("Metadata:Human:rightShoulderEntity", "bs");
     }
 
     @Override

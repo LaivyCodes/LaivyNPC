@@ -3,6 +3,7 @@ package codes.laivy.npc.commands;
 import codes.laivy.npc.debug.Debug;
 import codes.laivy.npc.debug.DebugLog;
 import codes.laivy.npc.developers.events.NPCClickEvent;
+import codes.laivy.npc.developers.events.NPCDestroyEvent;
 import codes.laivy.npc.developers.events.NPCSelectEvent;
 import codes.laivy.npc.mappings.defaults.classes.entity.Entity;
 import codes.laivy.npc.types.NPC;
@@ -36,7 +37,7 @@ public class NPCCommands implements CommandExecutor, Listener {
     }
 
     @EventHandler(priority = EventPriority.LOW, ignoreCancelled = true)
-    private void interact(NPCClickEvent e) {
+    private void interact(@NotNull NPCClickEvent e) {
         if (SELECTED_NPCS.containsKey(e.getPlayer().getUniqueId()) && SELECTED_NPCS.get(e.getPlayer().getUniqueId()) == e.getNPC()) {
             return;
         }
@@ -47,6 +48,15 @@ public class NPCCommands implements CommandExecutor, Listener {
                 e.setCancelled(true);
             }
         }
+    }
+
+    @EventHandler(priority = EventPriority.LOW)
+    private void npcDestroy(@NotNull NPCDestroyEvent e) {
+        new HashMap<>(SELECTED_NPCS).forEach((u, n) -> {
+            if (n.equals(e.getNPC())) {
+                SELECTED_NPCS.remove(u);
+            }
+        });
     }
 
     public static boolean selectNPC(@NotNull Player player, @NotNull NPC npc) {

@@ -13,7 +13,7 @@ import static codes.laivy.npc.LaivyNPC.laivynpc;
 public class NBTTagCompound extends NBTBase {
 
     public NBTTagCompound() {
-        this((Object) null);
+        this(laivynpc().getVersion().getClassExec("NBTBase:NBTTagCompound").getConstructor().newInstance());
     }
     public NBTTagCompound(@NotNull NBTTagCompound compound) {
         this(compound.getValue());
@@ -24,7 +24,7 @@ public class NBTTagCompound extends NBTBase {
      * Construct a LaivyNPC NBTTagCompound from an NMS NBTTagCompound
      * @param value a NMS NBTTagCompound
      */
-    protected NBTTagCompound(@Nullable Object value) {
+    public NBTTagCompound(@Nullable Object value) {
         super(value);
     }
 

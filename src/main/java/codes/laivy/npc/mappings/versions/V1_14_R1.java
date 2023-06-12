@@ -27,10 +27,7 @@ import codes.laivy.npc.mappings.defaults.classes.entity.monster.illagers.Vindica
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.skeleton.Skeleton;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.skeleton.SkeletonStray;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.skeleton.SkeletonWither;
-import codes.laivy.npc.mappings.defaults.classes.entity.monster.zombie.Zombie;
-import codes.laivy.npc.mappings.defaults.classes.entity.monster.zombie.ZombieDrowned;
-import codes.laivy.npc.mappings.defaults.classes.entity.monster.zombie.ZombieHusk;
-import codes.laivy.npc.mappings.defaults.classes.entity.monster.zombie.ZombieVillager;
+import codes.laivy.npc.mappings.defaults.classes.entity.monster.zombie.*;
 import codes.laivy.npc.mappings.defaults.classes.entity.npc.Villager;
 import codes.laivy.npc.mappings.defaults.classes.entity.npc.objs.VillagerData;
 import codes.laivy.npc.mappings.defaults.classes.entity.npc.VillagerProfession;
@@ -188,7 +185,7 @@ public class V1_14_R1 extends V1_13_R2 {
     }
 
     @Override
-    public @Nullable Entity getEntityInstance(Entity.@NotNull EntityType type, org.bukkit.@NotNull Location location) {
+    public @Nullable Entity getEntityInstance(Entity.@NotNull EntityType type, @NotNull org.bukkit.Location location) {
         Entity entity;
         Object object;
 
@@ -377,6 +374,9 @@ public class V1_14_R1 extends V1_13_R2 {
         } else if (type == Entity.EntityType.CAVE_SPIDER) {
             object = getClassExec("Entity:CaveSpider").getConstructor(getClassExec("EntityTypes"), getClassExec("World")).newInstance(EntityTypes.CAVE_SPIDER, world);
             entity = new CaveSpider(object);
+        } else if (type == Entity.EntityType.GIANT) {
+            object = getClassExec("Entity:Zombie:Giant").getConstructor(getClassExec("EntityTypes"), getClassExec("World")).newInstance(EntityTypes.GIANT, world);
+            entity = new ZombieGiant(object);
         } else {
             throw new IllegalArgumentException("Couldn't get this entity type '" + type.name() + "' instance");
         }
@@ -669,7 +669,7 @@ public class V1_14_R1 extends V1_13_R2 {
 
         load(V1_14_R1.class, "Entity", new Entity.EntityClass("net.minecraft.server.v1_14_R1.Entity"));
         load(V1_14_R1.class, "EntityLiving", new EntityLiving.EntityLivingClass("net.minecraft.server.v1_14_R1.EntityLiving"));
-        load(V1_14_R1.class, "Entity:Human", new Entity.EntityClass("net.minecraft.server.v1_14_R1.EntityHuman"));
+        load(V1_14_R1.class, "Entity:Human", new EntityHuman.EntityHumanClass("net.minecraft.server.v1_14_R1.EntityHuman"));
         load(V1_14_R1.class, "CraftPlayer", new CraftPlayer.CraftPlayerClass("org.bukkit.craftbukkit.v1_14_R1.entity.CraftPlayer"));
         load(V1_14_R1.class, "EntityPlayer", new EntityPlayer.EntityPlayerClass("net.minecraft.server.v1_14_R1.EntityPlayer"));
 
@@ -714,6 +714,8 @@ public class V1_14_R1 extends V1_13_R2 {
 
         load(V1_14_R1.class, "Entity:Ageable", new AgeableEntityLiving.AgeableEntityLivingClass("net.minecraft.server.v1_14_R1.EntityAgeable"));
         load(V1_14_R1.class, "Entity:Tameable", new TameableEntityLiving.TameableEntityLivingClass("net.minecraft.server.v1_14_R1.EntityTameableAnimal"));
+
+        load(V1_14_R1.class, "Entity:Zombie:Giant", new ZombieGiant.ZombieGiantClass("net.minecraft.server.v1_14_R1.EntityGiantZombie"));
         // EntityPlayer
         load(V1_14_R1.class, "GameProfile", new GameProfile.GameProfileClass("com.mojang.authlib.GameProfile"));
         load(V1_14_R1.class, "PropertyMap", new PropertyMap.PropertyMapClass("com.mojang.authlib.properties.PropertyMap"));
@@ -748,6 +750,8 @@ public class V1_14_R1 extends V1_13_R2 {
         load(V1_14_R1.class, "EnumColor", new EnumColorEnum.EnumColorClass("net.minecraft.server.v1_14_R1.EnumColor"));
         load(V1_14_R1.class, "EnumItemSlot", new EnumItemSlotEnum.EnumItemSlotClass("net.minecraft.server.v1_14_R1.EnumItemSlot"));
         load(V1_14_R1.class, "EnumDirection", new EnumDirectionEnum.EnumDirectionClass("net.minecraft.server.v1_14_R1.EnumDirection"));
+
+        load(V1_14_R1.class, "MojangsonParser", new ClassExecutor("net.minecraft.server.v1_14_R1.MojangsonParser"));
         //
 
         // Chat
@@ -972,6 +976,9 @@ public class V1_14_R1 extends V1_13_R2 {
         super.getTexts().put("EntityTypes:ZOMBIE_VILLAGER", "ZOMBIE_VILLAGER");
         super.getTexts().put("EntityTypes:PHANTOM", "PHANTOM");
         super.getTexts().put("EntityTypes:RAVAGER", "RAVAGER");
+
+        super.getTexts().put("Metadata:Human:leftShoulderEntity", "bv");
+        super.getTexts().put("Metadata:Human:rightShoulderEntity", "bw");
     }
 
     @Override

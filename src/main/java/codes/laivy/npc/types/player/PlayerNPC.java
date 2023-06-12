@@ -2,16 +2,20 @@ package codes.laivy.npc.types.player;
 
 import codes.laivy.npc.exceptions.NPCIllegalSkinException;
 import codes.laivy.npc.mappings.defaults.classes.datawatcher.DataWatcher;
+import codes.laivy.npc.mappings.defaults.classes.entity.Entity;
+import codes.laivy.npc.mappings.defaults.classes.entity.animal.Parrot;
 import codes.laivy.npc.mappings.defaults.classes.entity.player.EntityPlayer;
 import codes.laivy.npc.mappings.defaults.classes.enums.*;
 import codes.laivy.npc.mappings.defaults.classes.gameprofile.GameProfile;
 import codes.laivy.npc.mappings.defaults.classes.gameprofile.Property;
 import codes.laivy.npc.mappings.defaults.classes.gameprofile.PropertyMap;
+import codes.laivy.npc.mappings.defaults.classes.nbt.tags.NBTTagCompound;
 import codes.laivy.npc.mappings.defaults.classes.others.objects.PlayerConnection;
 import codes.laivy.npc.mappings.defaults.classes.packets.IPacket;
 import codes.laivy.npc.mappings.defaults.classes.packets.info.action.IPlayerInfoAction;
 import codes.laivy.npc.mappings.defaults.classes.scoreboard.Scoreboard;
 import codes.laivy.npc.mappings.defaults.classes.scoreboard.ScoreboardTeam;
+import codes.laivy.npc.mappings.versions.V1_12_R1;
 import codes.laivy.npc.mappings.versions.V1_16_R3;
 import codes.laivy.npc.mappings.versions.V1_9_R1;
 import codes.laivy.npc.types.NPC;
@@ -65,6 +69,18 @@ public class PlayerNPC extends NPC {
         super.debug();
         setSkin("ItsLaivy");
         setTablistName("ItsLaivy");
+
+        if (ReflectionUtils.isCompatible(V1_12_R1.class)) {
+            Parrot parrot1 = (Parrot) laivynpc().getVersion().createEntity(Entity.EntityType.PARROT, getLocation());
+            Parrot parrot2 = (Parrot) laivynpc().getVersion().createEntity(Entity.EntityType.PARROT, getLocation());
+
+            parrot1.setVariant(Parrot.Variant.RED);
+            parrot2.setVariant(Parrot.Variant.GRAY);
+
+            setEntityShoulder(Shoulder.LEFT, parrot1);
+            setEntityShoulder(Shoulder.RIGHT, parrot2);
+        }
+
         setShowOnTablist(true);
     }
 
@@ -89,6 +105,21 @@ public class PlayerNPC extends NPC {
         player = getNewEntity();
     }
 
+    public @Nullable NBTTagCompound getEntityShoulder(@NotNull Shoulder shoulder) {
+        return getEntity().getEntityShoulder(shoulder);
+    }
+    public void setEntityShoulder(@NotNull Shoulder shoulder, @Nullable NBTTagCompound entity) {
+        getEntity().setEntityShoulder(shoulder, entity);
+        sendUpdatePackets(getSpawnedPlayers(), false, false, true, false, false, false);
+    }
+    public void setEntityShoulder(@NotNull Shoulder shoulder, @Nullable Entity entity) {
+        if (entity != null) {
+            this.setEntityShoulder(shoulder, entity.save(new NBTTagCompound()));
+        } else {
+            this.setEntityShoulder(shoulder, (NBTTagCompound) null);
+        }
+    }
+
     protected @NotNull EntityPlayer getNewEntity() {
         EntityPlayer player = laivynpc().getVersion().createPlayer(laivynpc().getVersion().createGameProfile(getUniqueId(), generateRandomName()), getLocation());
         if (isShowOnTablist()) {
@@ -99,6 +130,7 @@ public class PlayerNPC extends NPC {
     @ApiStatus.Internal
     @ApiStatus.Experimental
     protected @NotNull String generateRandomName() {
+        // TODO: 09/06/2023 Change this
         return String.valueOf(hashCode());
     }
 
@@ -149,14 +181,6 @@ public class PlayerNPC extends NPC {
     public void reCreate() {
         hide();
         player = getNewEntity();
-    }
-
-    @Override
-    public void respawn() {
-        if (canSpawn()) {
-            hide();
-            spawn();
-        }
     }
 
     // TODO: 17/02/2023 Recreate whole spawn system
@@ -244,6 +268,10 @@ public class PlayerNPC extends NPC {
         list.add(SKIN_CONFIG);
         list.add(TABLIST_CONFIG);
 
+        if (ReflectionUtils.isCompatible(V1_12_R1.class)) {
+            list.add(PARROT_CONFIG);
+        }
+
         return list;
     }
 
@@ -330,19 +358,6 @@ public class PlayerNPC extends NPC {
             if (parts.hasHat()) b = (byte) (b | 0x40);
             //
 
-            // TODO: 26/12/2022 1.14 Parrots
-//            // PARROTS
-//            for (ParrotShoulder.ShoulderPosition position : ParrotShoulder.ShoulderPosition.values()) {
-//                @NotNull Map<ParrotShoulder.ShoulderPosition, ParrotShoulder> map = controller.getNPC().getParrotShoulderMap();
-//
-//                if (map.containsKey(position)) {
-//                    dataWatcherController.setByIndex(position.getShoulderPosition(), map.get(position).getParrotData());
-//                } else {
-//                    dataWatcherController.setByIndex(position.getShoulderPosition(), ReflectionUtils.construct(ReflectionUtils.getVersion().NBTTagCompound));
-//                }
-//            }
-//            // PARROTS
-
             watcher.set((int) laivynpc().getVersion().getObject("Metadata:Player:SkinParts"), b);
             packets.add(laivynpc().getVersion().createMetadataPacket(getEntity(), watcher, true));
         } catch (Throwable e) {
@@ -383,16 +398,6 @@ public class PlayerNPC extends NPC {
                 team.setCollision(isCollidable() ? EnumTeamPushEnum.ALWAYS() : EnumTeamPushEnum.NEVER());
             }
             //
-
-//          TODO: 17/02/2023 REMOVE THIS
-//          Not necessary anymore.
-//            // TabList name
-//            if (isShowOnTablist()) {
-//                if (getTablistName() != null) {
-//                    team.setPrefix(getTablistName());
-//                }
-//            }
-//            // TabList name
 
             scoreboard.addToTeam(team, getEntity());
 
@@ -441,6 +446,68 @@ public class PlayerNPC extends NPC {
     };
 
     @NotNull
+    public static NPCConfiguration PARROT_CONFIG = new NPCConfiguration("parrot", "/laivynpc config parrot (right/left) (variant)") {
+        @Override
+        public void execute(@NotNull NPC npc, @NotNull Player sender, @NotNull String[] args) {
+            PlayerNPC playerNPC = (PlayerNPC) npc;
+
+            if (!ReflectionUtils.isCompatible(V1_12_R1.class)) {
+                throw new IllegalStateException("This command is only available since 1.12!");
+            }
+
+            if (args.length >= 1) {
+                Shoulder position;
+                try {
+                    position = Shoulder.valueOf(args[0].toUpperCase());
+                } catch (IllegalArgumentException ignore) {
+                    StringBuilder builder = new StringBuilder();
+                    int row = 0;
+                    for (Shoulder shoulder : Shoulder.values()) {
+                        if (row != 0) builder.append("§7, ");
+                        builder.append("§f").append(shoulder.name());
+                        row++;
+                    }
+
+                    sender.sendMessage("§cUse " + getSyntax());
+                    sender.sendMessage(translate(sender, "npc.commands.general.available_options", builder));
+                    return;
+                }
+
+                if (args.length > 1) {
+                    Parrot.Variant variant;
+                    try {
+                        variant = Parrot.Variant.valueOf(args[1].toUpperCase());
+                    } catch (IllegalArgumentException ignore) {
+                        StringBuilder builder = new StringBuilder();
+                        int row = 0;
+                        for (Parrot.Variant variantE : Parrot.Variant.values()) {
+                            if (row != 0) builder.append("§7, ");
+                            builder.append("§f").append(variantE.name());
+                            row++;
+                        }
+
+                        sender.sendMessage("§cUse " + getSyntax());
+                        sender.sendMessage(translate(sender, "npc.commands.general.available_options", builder));
+                        return;
+                    }
+
+                    Parrot parrot = (Parrot) laivynpc().getVersion().createEntity(Entity.EntityType.PARROT, playerNPC.getLocation());
+                    parrot.setVariant(variant);
+                    parrot.setLocation(npc.getLocation());
+
+                    playerNPC.setEntityShoulder(position, parrot);
+                } else {
+                    playerNPC.setEntityShoulder(position, (Entity) null);
+                }
+
+                sender.sendMessage(translate(sender, "npc.commands.general.flag_changed"));
+            } else {
+                sender.sendMessage("§cUse " + getSyntax());
+            }
+        }
+    };
+
+    @NotNull
     public static NPCConfiguration TABLIST_CONFIG = new NPCConfiguration("tablist", "/laivynpc config tablist (name)") {
         @Override
         public void execute(@NotNull NPC npc, @NotNull Player sender, @NotNull String[] args) {
@@ -466,47 +533,6 @@ public class PlayerNPC extends NPC {
         }
     };
 
-    // TODO: 26/12/2022 1.14 Parrots
-//    @NotNull
-//    public static NPCConfiguration PARROT_CONFIG = new NPCConfiguration("parrot", "/laivynpc config parrot (right/left) (variant)") {
-//        @Override
-//        public void execute(@NotNull NPC npc, @NotNull Player sender, @NotNull String[] args) {
-//            PlayerNPC playerNPC = (PlayerNPC) npc;
-//
-//            if (args.length > 1) {
-//                ParrotShoulder.ShoulderPosition position = null;
-//                if (args[0].equalsIgnoreCase("right")) {
-//                    position = ParrotShoulder.ShoulderPosition.RIGHT_SHOULDER;
-//                } else if (args[0].equalsIgnoreCase("left")) {
-//                    position = ParrotShoulder.ShoulderPosition.LEFT_SHOULDER;
-//                }
-//
-//                if (position != null) {
-//                    if (args[1].equalsIgnoreCase(translate("REMOVE"))) {
-//                        playerNPC.setParrotShoulder(position, null);
-//                        sender.sendMessage(translate("NPC_PLAYER:PARROT_REMOVED"));
-//                        return;
-//                    } else {
-//                        try {
-//                            ParrotShoulder.ParrotShoulderVariant variant = ParrotShoulder.ParrotShoulderVariant.valueOf(args[1].toUpperCase());
-//                            playerNPC.setParrotShoulder(position, new ParrotShoulder(variant, playerNPC));
-//                            sender.sendMessage(translate("NPC_PLAYER:PARROT_ADDED"));
-//                            return;
-//                        } catch (IllegalArgumentException ignore) {}
-//                    }
-//                }
-//            }
-//
-//            // Erro de sintaxe
-//            StringBuilder parrots = new StringBuilder("§6" + translate("REMOVE").toUpperCase() + "§c, ");
-//            for (ParrotShoulder.ParrotShoulderVariant variant : ParrotShoulder.ParrotShoulderVariant.values()) {
-//                parrots.append("§c, §6").append(variant.name());
-//            }
-//
-//            sender.sendMessage("§cUse /laivynpc config parrot (right/left) (variant)");
-//            sender.sendMessage("§c" + translate("NPC_VARIANT:AVAILABLE_VARIANTS") + ": " + parrots);
-//        }
-//    };
     //
     // Defaults
     //
@@ -573,21 +599,23 @@ public class PlayerNPC extends NPC {
             laivynpc().log("§cCouldn't load the skin of the PlayerNPC '" + getId() + "'!");
         }
 
-        // TODO: 26/12/2022 1.14 Poses
-//        try {
-//            if (map.contains("Parrot Shoulder")) {
-//                ConfigurationSection parrotsSec = map.getConfigurationSection("Parrot Shoulder");
-//
-//                for (Map.Entry<String, Object> parrots : parrotsSec.getValues(false).entrySet()) {
-//                    //noinspection unchecked
-//                    ParrotShoulder parrot = ParrotShoulder.deserialize((Map<String, Object>) parrots.getValue(), this);
-//                    getParrotShoulderMap().put(ParrotShoulder.ShoulderPosition.valueOf(parrots.getKey()), parrot);
-//                }
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            laivynpc().log("§cNão foi possível carregar os papagaios do PlayerNPC '" + getId() + "'!");
-//        }
+        try {
+            if (ReflectionUtils.isCompatible(V1_12_R1.class)) {
+                V1_12_R1 version = (V1_12_R1) laivynpc().getVersion();
+
+                if (map.contains("Entity Shoulder")) {
+                    ConfigurationSection parrotsSec = map.getConfigurationSection("Entity Shoulder");
+
+                    for (Map.Entry<String, Object> parrots : parrotsSec.getValues(false).entrySet()) {
+                        NBTTagCompound entity = version.stringToCompound((String) parrots.getValue());
+                        getEntity().setEntityShoulder(Shoulder.valueOf(parrots.getKey()), entity);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            laivynpc().log("§cCouldn't load shoulders entities from PlayerNPC '" + getId() + "'!");
+        }
 
         try {
             respawn();
@@ -646,20 +674,26 @@ public class PlayerNPC extends NPC {
             laivynpc().log("§cCouldn't save the skin of the PlayerNPC '" + getId() + "'!");
         }
 
-        // TODO: 26/12/2022 1.14 Parrots
-//        try {
-//            if (ReflectionUtils.getVersion().versionCode >= 12) {
-//                playerNPC.put("Parrot Shoulder", parrotMap);
-//                for (ParrotShoulder.ShoulderPosition position : ParrotShoulder.ShoulderPosition.values()) {
-//                    if (getParrotShoulderMap().containsKey(position)) {
-//                        parrotMap.put(position.name(), getParrotShoulderMap().get(position).serialize());
-//                    }
-//                }
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            laivynpc().log("§cCouldn't save the parrots of the PlayerNPC '" + getId() + "'!");
-//        }
+        try {
+            if (ReflectionUtils.isCompatible(V1_12_R1.class)) {
+                @Nullable NBTTagCompound left = getEntityShoulder(Shoulder.LEFT);
+                @Nullable NBTTagCompound right = getEntityShoulder(Shoulder.RIGHT);
+
+                if (left != null || right != null) {
+                    playerNPC.put("Entity Shoulder", parrotMap);
+
+                    if (left != null) {
+                        parrotMap.put(Shoulder.LEFT.name(), left.getValue().toString());
+                    }
+                    if (right != null) {
+                        parrotMap.put(Shoulder.RIGHT.name(), right.getValue().toString());
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            laivynpc().log("§cCouldn't save the shoulders entities from the PlayerNPC '" + getId() + "'!");
+        }
 
         return map;
     }

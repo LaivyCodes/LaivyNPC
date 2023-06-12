@@ -27,6 +27,7 @@ import codes.laivy.npc.mappings.defaults.classes.entity.monster.skeleton.Skeleto
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.skeleton.SkeletonStray;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.skeleton.SkeletonWither;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.zombie.Zombie;
+import codes.laivy.npc.mappings.defaults.classes.entity.monster.zombie.ZombieGiant;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.zombie.ZombieHusk;
 import codes.laivy.npc.mappings.defaults.classes.entity.monster.zombie.ZombieVillager;
 import codes.laivy.npc.mappings.defaults.classes.entity.npc.Villager;
@@ -37,6 +38,7 @@ import codes.laivy.npc.mappings.defaults.classes.gameprofile.GameProfile;
 import codes.laivy.npc.mappings.defaults.classes.gameprofile.Property;
 import codes.laivy.npc.mappings.defaults.classes.gameprofile.PropertyMap;
 import codes.laivy.npc.mappings.defaults.classes.java.IntegerObjExec;
+import codes.laivy.npc.mappings.defaults.classes.java.StringObjExec;
 import codes.laivy.npc.mappings.defaults.classes.nbt.NBTBase;
 import codes.laivy.npc.mappings.defaults.classes.nbt.tags.*;
 import codes.laivy.npc.mappings.defaults.classes.others.chat.IChatBaseComponent;
@@ -55,6 +57,8 @@ import codes.laivy.npc.mappings.instances.Executor;
 import codes.laivy.npc.mappings.instances.FieldExecutor;
 import codes.laivy.npc.mappings.instances.MethodExecutor;
 import codes.laivy.npc.mappings.instances.classes.ClassExecutor;
+import codes.laivy.npc.types.player.Shoulder;
+import org.bukkit.Bukkit;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -215,7 +219,7 @@ public class V1_12_R1 extends V1_11_R1 {
         // Entity
         load(V1_12_R1.class, "Entity", new Entity.EntityClass("net.minecraft.server.v1_12_R1.Entity"));
         load(V1_12_R1.class, "EntityLiving", new EntityLiving.EntityLivingClass("net.minecraft.server.v1_12_R1.EntityLiving"));
-        load(V1_12_R1.class, "Entity:Human", new Entity.EntityClass("net.minecraft.server.v1_12_R1.EntityHuman"));
+        load(V1_12_R1.class, "Entity:Human", new EntityHuman.EntityHumanClass("net.minecraft.server.v1_12_R1.EntityHuman"));
         load(V1_12_R1.class, "CraftPlayer", new CraftPlayer.CraftPlayerClass("org.bukkit.craftbukkit.v1_12_R1.entity.CraftPlayer"));
         load(V1_12_R1.class, "EntityPlayer", new EntityPlayer.EntityPlayerClass("net.minecraft.server.v1_12_R1.EntityPlayer"));
 
@@ -260,6 +264,8 @@ public class V1_12_R1 extends V1_11_R1 {
 
         load(V1_12_R1.class, "Entity:Ageable", new AgeableEntityLiving.AgeableEntityLivingClass("net.minecraft.server.v1_12_R1.EntityAgeable"));
         load(V1_12_R1.class, "Entity:Tameable", new TameableEntityLiving.TameableEntityLivingClass("net.minecraft.server.v1_12_R1.EntityTameableAnimal"));
+
+        load(V1_12_R1.class, "Entity:Zombie:Giant", new ZombieGiant.ZombieGiantClass("net.minecraft.server.v1_12_R1.EntityGiantZombie"));
         // EntityPlayer
         load(V1_12_R1.class, "GameProfile", new GameProfile.GameProfileClass("com.mojang.authlib.GameProfile"));
         load(V1_12_R1.class, "PropertyMap", new PropertyMap.PropertyMapClass("com.mojang.authlib.properties.PropertyMap"));
@@ -294,6 +300,7 @@ public class V1_12_R1 extends V1_11_R1 {
         load(V1_12_R1.class, "EnumColor", new EnumColorEnum.EnumColorClass("net.minecraft.server.v1_12_R1.EnumColor"));
         load(V1_12_R1.class, "EnumItemSlot", new EnumItemSlotEnum.EnumItemSlotClass("net.minecraft.server.v1_12_R1.EnumItemSlot"));
         load(V1_12_R1.class, "EnumDirection", new EnumDirectionEnum.EnumDirectionClass("net.minecraft.server.v1_12_R1.EnumDirection"));
+        load(V1_12_R1.class, "MojangsonParser", new ClassExecutor("net.minecraft.server.v1_12_R1.MojangsonParser"));
         //
 
         // Chat
@@ -358,6 +365,8 @@ public class V1_12_R1 extends V1_11_R1 {
 
         load(V1_12_R1.class, "Entity:Parrot:setVariant", new MethodExecutor(getClassExec("Entity:Parrot"), ClassExecutor.VOID, "setVariant", "Sets the variant of a parrot", ClassExecutor.INT));
         load(V1_12_R1.class, "Entity:Parrot:getVariant", new MethodExecutor(getClassExec("Entity:Parrot"), ClassExecutor.INT, "getVariant", "Gets the variant of a parrot"));
+
+        load(V1_12_R1.class, "MojangsonParser:parse", new MethodExecutor(getClassExec("MojangsonParser"), getClassExec("NBTBase:NBTTagCompound"), "parse", "Converts a string into a NBTTagCompound", ClassExecutor.STRING));
     }
 
     @Override
@@ -365,6 +374,56 @@ public class V1_12_R1 extends V1_11_R1 {
         super.loadEnums();
 
         load(V1_12_R1.class, "Entity:IllagerWizard:Spell", new EnumSpellEnum(getClassExec("Entity:IllagerWizard:Spell")));
+    }
+
+    public @NotNull NBTTagCompound stringToCompound(@NotNull String string) {
+        return new NBTTagCompound(getMethodExec("MojangsonParser:parse").invokeStatic(new StringObjExec(string)));
+    }
+
+    @Override
+    public void loadFields() {
+        super.loadFields();
+
+        load(V1_12_R1.class, "Metadata:Human:leftShoulderEntity", new FieldExecutor(getClassExec("Entity:Human"), getClassExec("DataWatcherObject"), getText("Metadata:Human:leftShoulderEntity"), "Gets the left shoulder entity data watcher object from the human"));
+        load(V1_12_R1.class, "Metadata:Human:rightShoulderEntity", new FieldExecutor(getClassExec("Entity:Human"), getClassExec("DataWatcherObject"), getText("Metadata:Human:rightShoulderEntity"), "Gets the right shoulder entity data watcher object from the human"));
+    }
+
+    public @Nullable NBTTagCompound getEntityShoulder(@NotNull EntityHuman human, @NotNull Shoulder shoulder) {
+        DataWatcherObject object;
+        if (shoulder == Shoulder.LEFT) {
+            object = new DataWatcherObject(getFieldExec("Metadata:Human:leftShoulderEntity").invokeStatic());
+        } else if (shoulder == Shoulder.RIGHT) {
+            object = new DataWatcherObject(getFieldExec("Metadata:Human:rightShoulderEntity").invokeStatic());
+        } else {
+            throw new NullPointerException("Unknown shoulder position '" + shoulder.name() + "'");
+        }
+
+        @NotNull Object dw = Objects.requireNonNull(human.getDataWatcher().get(object));
+        return (dw.toString().equals("{}") ? null : new NBTTagCompound(dw));
+    }
+    public void setEntityShoulder(@NotNull EntityHuman human, @NotNull Shoulder shoulder, @Nullable NBTTagCompound entity) {
+        DataWatcherObject object;
+        if (shoulder == Shoulder.LEFT) {
+            object = new DataWatcherObject(getFieldExec("Metadata:Human:leftShoulderEntity").invokeStatic());
+        } else if (shoulder == Shoulder.RIGHT) {
+            object = new DataWatcherObject(getFieldExec("Metadata:Human:rightShoulderEntity").invokeStatic());
+        } else {
+            throw new NullPointerException("Unknown shoulder position '" + shoulder.name() + "'");
+        }
+
+        if (entity == null) {
+            entity = new NBTTagCompound();
+        }
+
+        human.getDataWatcher().set(object, entity);
+    }
+
+    @Override
+    public void loadTexts() {
+        super.loadTexts();
+
+        getTexts().put("Metadata:Human:leftShoulderEntity", "bt");
+        getTexts().put("Metadata:Human:rightShoulderEntity", "bu");
     }
 
     @Override
