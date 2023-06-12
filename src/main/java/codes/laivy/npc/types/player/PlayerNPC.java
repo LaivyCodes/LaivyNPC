@@ -9,7 +9,6 @@ import codes.laivy.npc.mappings.defaults.classes.enums.*;
 import codes.laivy.npc.mappings.defaults.classes.gameprofile.GameProfile;
 import codes.laivy.npc.mappings.defaults.classes.gameprofile.Property;
 import codes.laivy.npc.mappings.defaults.classes.gameprofile.PropertyMap;
-import codes.laivy.npc.mappings.defaults.classes.nbt.tags.NBTTagCompound;
 import codes.laivy.npc.mappings.defaults.classes.others.objects.PlayerConnection;
 import codes.laivy.npc.mappings.defaults.classes.packets.IPacket;
 import codes.laivy.npc.mappings.defaults.classes.packets.info.action.IPlayerInfoAction;
@@ -105,19 +104,12 @@ public class PlayerNPC extends NPC {
         player = getNewEntity();
     }
 
-    public @Nullable NBTTagCompound getEntityShoulder(@NotNull Shoulder shoulder) {
+    public @Nullable Parrot.Variant getEntityShoulder(@NotNull Shoulder shoulder) {
         return getEntity().getEntityShoulder(shoulder);
     }
-    public void setEntityShoulder(@NotNull Shoulder shoulder, @Nullable NBTTagCompound entity) {
+    public void setEntityShoulder(@NotNull Shoulder shoulder, @Nullable Parrot entity) {
         getEntity().setEntityShoulder(shoulder, entity);
         sendUpdatePackets(getSpawnedPlayers(), false, false, true, false, false, false);
-    }
-    public void setEntityShoulder(@NotNull Shoulder shoulder, @Nullable Entity entity) {
-        if (entity != null) {
-            this.setEntityShoulder(shoulder, entity.save(new NBTTagCompound()));
-        } else {
-            this.setEntityShoulder(shoulder, (NBTTagCompound) null);
-        }
     }
 
     protected @NotNull EntityPlayer getNewEntity() {
@@ -504,7 +496,7 @@ public class PlayerNPC extends NPC {
 
                     playerNPC.setEntityShoulder(position, parrot);
                 } else {
-                    playerNPC.setEntityShoulder(position, (Entity) null);
+                    playerNPC.setEntityShoulder(position, null);
                 }
 
                 sender.sendMessage(translate(sender, "npc.commands.general.flag_changed"));
@@ -610,12 +602,23 @@ public class PlayerNPC extends NPC {
             if (ReflectionUtils.isCompatible(V1_12_R1.class)) {
                 V1_12_R1 version = (V1_12_R1) laivynpc().getVersion();
 
-                if (map.contains("Entity Shoulder")) {
-                    ConfigurationSection parrotsSec = map.getConfigurationSection("Entity Shoulder");
+                if (playerNpc.contains("Entity Shoulder")) {
+                    ConfigurationSection parrotsSec = playerNpc.getConfigurationSection("Entity Shoulder");
 
                     for (Map.Entry<String, Object> parrots : parrotsSec.getValues(false).entrySet()) {
-                        NBTTagCompound entity = version.stringToCompound((String) parrots.getValue());
-                        getEntity().setEntityShoulder(Shoulder.valueOf(parrots.getKey()), entity);
+                        String variantStr = (String) parrots.getValue();
+                        Parrot.Variant variant = Parrot.Variant.valueOf(variantStr);
+
+                        // Create parrot
+                        @NotNull Parrot parrot = (Parrot) version.createEntity(Entity.EntityType.PARROT, getLocation());
+                        parrot.setVariant(variant);
+                        parrot.setLocation(getLocation());
+                        // Define parrot
+                        System.out.println("Sent: '" + parrots.getKey() + "', '" + parrot.getVariant() + "'");
+
+                        Bukkit.getScheduler().runTaskLater(laivynpc(), () -> {
+                            setEntityShoulder(Shoulder.valueOf(parrots.getKey()), parrot);
+                        }, 50);
                     }
                 }
             }
@@ -683,17 +686,16 @@ public class PlayerNPC extends NPC {
 
         try {
             if (ReflectionUtils.isCompatible(V1_12_R1.class)) {
-                @Nullable NBTTagCompound left = getEntityShoulder(Shoulder.LEFT);
-                @Nullable NBTTagCompound right = getEntityShoulder(Shoulder.RIGHT);
+                Parrot.@Nullable Variant left = getEntityShoulder(Shoulder.LEFT);
+                Parrot.@Nullable Variant right = getEntityShoulder(Shoulder.RIGHT);
 
                 if (left != null || right != null) {
                     playerNPC.put("Entity Shoulder", parrotMap);
-
                     if (left != null) {
-                        parrotMap.put(Shoulder.LEFT.name(), left.getValue().toString());
+                        parrotMap.put(Shoulder.LEFT.name(), left.name());
                     }
                     if (right != null) {
-                        parrotMap.put(Shoulder.RIGHT.name(), right.getValue().toString());
+                        parrotMap.put(Shoulder.RIGHT.name(), right.name());
                     }
                 }
             }

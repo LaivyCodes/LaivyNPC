@@ -388,7 +388,7 @@ public class V1_12_R1 extends V1_11_R1 {
         load(V1_12_R1.class, "Metadata:Human:rightShoulderEntity", new FieldExecutor(getClassExec("Entity:Human"), getClassExec("DataWatcherObject"), getText("Metadata:Human:rightShoulderEntity"), "Gets the right shoulder entity data watcher object from the human"));
     }
 
-    public @Nullable NBTTagCompound getEntityShoulder(@NotNull EntityHuman human, @NotNull Shoulder shoulder) {
+    public @Nullable Parrot.Variant getEntityShoulder(@NotNull EntityHuman human, @NotNull Shoulder shoulder) {
         DataWatcherObject object;
         if (shoulder == Shoulder.LEFT) {
             object = new DataWatcherObject(getFieldExec("Metadata:Human:leftShoulderEntity").invokeStatic());
@@ -399,9 +399,15 @@ public class V1_12_R1 extends V1_11_R1 {
         }
 
         @NotNull Object dw = Objects.requireNonNull(human.getDataWatcher().get(object));
-        return (dw.toString().equals("{}") ? null : new NBTTagCompound(dw));
+
+        if (!dw.toString().equals("{}")) {
+            NBTTagCompound compound = new NBTTagCompound(dw);
+            NBTTagInt tagInt = (NBTTagInt) compound.get("Variant");
+            return Parrot.Variant.getByData(Integer.parseInt(Objects.requireNonNull(tagInt.getValue()).toString()));
+        }
+        return null;
     }
-    public void setEntityShoulder(@NotNull EntityHuman human, @NotNull Shoulder shoulder, @Nullable NBTTagCompound entity) {
+    public void setEntityShoulder(@NotNull EntityHuman human, @NotNull Shoulder shoulder, @Nullable Parrot entity) {
         DataWatcherObject object;
         if (shoulder == Shoulder.LEFT) {
             object = new DataWatcherObject(getFieldExec("Metadata:Human:leftShoulderEntity").invokeStatic());
@@ -411,11 +417,14 @@ public class V1_12_R1 extends V1_11_R1 {
             throw new NullPointerException("Unknown shoulder position '" + shoulder.name() + "'");
         }
 
+        NBTTagCompound data;
         if (entity == null) {
-            entity = new NBTTagCompound();
+            data = new NBTTagCompound();
+        } else {
+            data = entity.save(new NBTTagCompound());
         }
 
-        human.getDataWatcher().set(object, entity);
+        human.getDataWatcher().set(object, data);
     }
 
     @Override

@@ -1,6 +1,6 @@
 package codes.laivy.npc.mappings.defaults.classes.entity;
 
-import codes.laivy.npc.mappings.defaults.classes.nbt.tags.NBTTagCompound;
+import codes.laivy.npc.mappings.defaults.classes.entity.animal.Parrot;
 import codes.laivy.npc.mappings.versions.V1_12_R1;
 import codes.laivy.npc.types.player.Shoulder;
 import codes.laivy.npc.utils.ReflectionUtils;
@@ -14,17 +14,18 @@ public class EntityHuman extends EntityLiving {
         super(value);
     }
 
-    public @Nullable NBTTagCompound getEntityShoulder(@NotNull Shoulder shoulder) {
+    public @Nullable Parrot.Variant getEntityShoulder(@NotNull Shoulder shoulder) {
         if (!ReflectionUtils.isCompatible(V1_12_R1.class)) {
             throw new NullPointerException("Shoulder entities are only available since 1.12+");
         }
         V1_12_R1 version = (V1_12_R1) laivynpc().getVersion();
         return version.getEntityShoulder(this, shoulder);
     }
-    public void setEntityShoulder(@NotNull Shoulder shoulder, @Nullable NBTTagCompound entity) {
+    public void setEntityShoulder(@NotNull Shoulder shoulder, @Nullable Parrot entity) {
         if (!ReflectionUtils.isCompatible(V1_12_R1.class)) {
             throw new NullPointerException("Shoulder entities are only available since 1.12+");
         }
+
         V1_12_R1 version = (V1_12_R1) laivynpc().getVersion();
         version.setEntityShoulder(this, shoulder, entity);
     }
