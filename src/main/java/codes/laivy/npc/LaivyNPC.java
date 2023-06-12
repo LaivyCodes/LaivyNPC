@@ -5,6 +5,7 @@ import codes.laivy.npc.listeners.InjectionListener;
 import codes.laivy.npc.listeners.NPCListener;
 import codes.laivy.npc.mappings.Version;
 import codes.laivy.npc.mappings.defaults.classes.packets.listeners.InjectionUtils;
+import codes.laivy.npc.metrics.LaivyNpcMetrics;
 import codes.laivy.npc.metrics.Metrics;
 import codes.laivy.npc.types.NPC;
 import codes.laivy.npc.utils.LaivyNPCUpdater;
@@ -19,6 +20,7 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.util.*;
+import java.util.concurrent.Callable;
 
 import static codes.laivy.npc.config.Translate.translate;
 
@@ -30,10 +32,6 @@ public class LaivyNPC extends JavaPlugin {
 
     public static @NotNull LaivyNPC laivynpc() {
         return getPlugin(LaivyNPC.class);
-    }
-
-    public boolean hasMultiplesLanguagesSupport() {
-        return Bukkit.getPluginManager().isPluginEnabled("LvMultiplesLanguages");
     }
 
     private final @NotNull File databaseFile;
@@ -96,7 +94,6 @@ public class LaivyNPC extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new InjectionListener(), this);
         Bukkit.getPluginManager().registerEvents(new NPCListener(), this);
 
-        new Metrics(this, 17155);
         new Thread(new LaivyNPCUpdater()).start();
 
         // Injection
@@ -126,6 +123,8 @@ public class LaivyNPC extends JavaPlugin {
         //
 
         successfullyLoaded = true;
+
+        new LaivyNpcMetrics(this);
     }
 
     @Override

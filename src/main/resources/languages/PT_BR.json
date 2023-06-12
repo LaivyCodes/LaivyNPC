@@ -5,7 +5,7 @@
   "plugin.incompatible": "§cO plug-in não é compatível com sua versão \"%s\" ainda. Desativando o plugin...",
   "plugin.trying_load": "§7Tentando carregar a versão '%s'...",
 
-  "updater.new_version_available": "&cUma nova versão do &6LaivyNPC &cestá disponível para download.\n&cLink: &6https://discord.gg/AJZSr757x2\n&cNova versão: &6%s&c, Sua versão: &6%s&c.",
+  "updater.new_version_available": "§cUma nova versão do §6LaivyNPC §cestá disponível para download.\n§cLink: §6https://discord.gg/AJZSr757x2\n§cNova versão: §6%s§c, Sua versão: §6%s§c.",
   "updater.cannot_search_updates": "§cNão é possível buscar por atualizações.",
 
   "npc.general_command.unavailable_select": " §8- §cO NPC '§4%s§c' não pode ser selecionado.",

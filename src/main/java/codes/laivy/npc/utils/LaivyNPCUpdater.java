@@ -55,7 +55,8 @@ public class LaivyNPCUpdater implements Runnable {
                     updateAvailable = releases.get(0);
                 }
             }
-        } catch (Exception ignore) {
+        } catch (Exception e) {
+            e.printStackTrace();
             laivynpc().log(translate(null, "updater.cannot_search_updates"));
             error = true;
         }
