@@ -18,6 +18,7 @@ public class Translate {
 
     private static final @NotNull String[] DEFAULT_LANGUAGES_FILES = new String[] {
             "EN_US.json",
+            "PT_BR.json",
             "RU_RU.json"
     };
 
