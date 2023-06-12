@@ -5,7 +5,7 @@
   "plugin.incompatible": "§cПлагин не совместим с вашей версией '%s'. Отключение плагина...",
   "plugin.trying_load": "§7Попытка загрузки версии '%s'...",
 
-  "updater.new_version_available": "§cДоступна новая версия §6LaivyNPC§c для загрузки.\n§cСсылка: §6https://discord.gg/AJZSr757x2\n§cНовая версия: §6%s§c, Ваша версия: §6%s§c.",
+  "updater.new_version_available": "§cДоступна новая версия §6LaivyNPC§c для загрузки.\n§cСсылка: §6https://github.com/ItsLaivy/LaivyNPC/releases/tag/%s\n§cНовая версия: §6%s§c, Ваша версия: §6%s§c.",
   "updater.cannot_search_updates": "§cНе удалось найти обновления.",
 
   "npc.general_command.unavailable_select": " §8- §cNPC '§4%s§c' нельзя выбрать.",
