@@ -242,6 +242,7 @@ public abstract class Version implements VersionCompound, VersionPacket, Version
     // ENTITY
     public abstract @Nullable String getEntityCustomName(@NotNull Entity entity);
     public abstract void setEntityCustomName(@NotNull Entity entity, @Nullable String customName);
+    public abstract @NotNull UUID getEntityUuid(@NotNull Entity entity);
 
     public abstract boolean isEntityInvisible(@NotNull Entity entity);
     public abstract void setEntityInvisible(@NotNull Entity entity, boolean invisible);

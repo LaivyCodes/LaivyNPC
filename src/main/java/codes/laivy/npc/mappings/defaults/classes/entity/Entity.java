@@ -78,6 +78,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 
 import static codes.laivy.npc.LaivyNPC.laivynpc;
 
@@ -97,6 +98,10 @@ public class Entity extends ObjectExecutor {
     public DataWatcher getDataWatcher() {
         Object dataWatcher = laivynpc().getVersion().getMethodExec("Entity:Entity:getDataWatcher").invokeInstance(this);
         return new DataWatcher(dataWatcher);
+    }
+
+    public @NotNull UUID getUniqueId() {
+        return laivynpc().getVersion().getEntityUuid(this);
     }
 
     public @NotNull NBTTagCompound save(@NotNull NBTTagCompound compound) {

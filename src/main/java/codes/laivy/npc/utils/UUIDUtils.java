@@ -3,18 +3,21 @@ package codes.laivy.npc.utils;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
+import org.jetbrains.annotations.ApiStatus;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.UUID;
 
 public class UUIDUtils {
 
-    public static UUID genRandomUUID() {
+    @ApiStatus.Internal
+    public static @NotNull UUID getRandomUniqueId() {
         UUID finalUUID = null;
 
         int row = 0;
         w:
         while (finalUUID == null) {
-            if (row > 5) {
+            if (row > 30) {
                 throw new IllegalStateException("Couldn't generate a random UUID");
             }
             row++;

@@ -35,7 +35,6 @@ import codes.laivy.npc.mappings.defaults.classes.enums.*;
 import codes.laivy.npc.mappings.defaults.classes.gameprofile.GameProfile;
 import codes.laivy.npc.mappings.defaults.classes.gameprofile.Property;
 import codes.laivy.npc.mappings.defaults.classes.gameprofile.PropertyMap;
-import codes.laivy.npc.mappings.defaults.classes.java.StringObjExec;
 import codes.laivy.npc.mappings.defaults.classes.nbt.NBTBase;
 import codes.laivy.npc.mappings.defaults.classes.nbt.tags.*;
 import codes.laivy.npc.mappings.defaults.classes.others.chat.IChatBaseComponent;
@@ -55,8 +54,6 @@ import codes.laivy.npc.mappings.instances.FieldExecutor;
 import codes.laivy.npc.mappings.instances.classes.ClassExecutor;
 import org.jetbrains.annotations.NotNull;
 
-import static codes.laivy.npc.LaivyNPC.laivynpc;
-
 public class V1_13_R2 extends V1_13_R1 {
 
     @Override
@@ -73,21 +70,6 @@ public class V1_13_R2 extends V1_13_R1 {
         }
 
         return super.onLoad(version, key, executor);
-    }
-
-    @Override
-    public void setPrefix(@NotNull ScoreboardTeam team, @NotNull String prefix) {
-        laivynpc().getVersion().getMethodExec("ScoreboardTeam:setPrefix").invokeInstance(team, IChatBaseComponent.convert(prefix));
-    }
-
-    @Override
-    public boolean addToTeam(@NotNull Scoreboard scoreboard, @NotNull ScoreboardTeam team, @NotNull Entity entity) {
-        String name;
-        if (entity instanceof EntityPlayer) name = ((EntityPlayer) entity).getName();
-        else name = String.valueOf(entity.getId());
-
-        //noinspection DataFlowIssue
-        return (boolean) getMethodExec("Scoreboard:addToTeam").invokeInstance(scoreboard, new StringObjExec(name), team);
     }
 
     @Override

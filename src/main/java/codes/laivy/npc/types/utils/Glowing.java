@@ -5,16 +5,17 @@ import codes.laivy.npc.mappings.defaults.classes.enums.EnumChatFormatEnum.EnumCh
 import codes.laivy.npc.mappings.defaults.classes.java.EnumObjExec;
 import codes.laivy.npc.types.NPC;
 import org.bukkit.Bukkit;
-import org.bukkit.scheduler.BukkitTask;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.Range;
 
+import java.util.Objects;
 import java.util.Random;
 
 import static codes.laivy.npc.LaivyNPC.laivynpc;
 
-public class GlowingStatus {
+public class Glowing {
 
     private final @NotNull NPC npc;
 
@@ -23,7 +24,7 @@ public class GlowingStatus {
 
     private @Nullable Rainbow rainbow;
 
-    public GlowingStatus(@NotNull NPC npc, @NotNull EnumChatFormat color, boolean active) {
+    public Glowing(@NotNull NPC npc, @NotNull EnumChatFormat color, boolean active) {
         this.npc = npc;
         this.color = color;
         this.active = active;
@@ -38,12 +39,19 @@ public class GlowingStatus {
     }
     public void setRainbow(@Nullable Rainbow rainbow) {
         if (this.rainbow != null && this.rainbow.task != null) {
-            this.rainbow.task.cancel();
+            Bukkit.getScheduler().cancelTask(this.rainbow.task);
         }
         if (rainbow != null) {
-            rainbow.task = Bukkit.getScheduler().runTaskTimer(laivynpc(), () -> {
-                setColor(rainbow.getColors()[new Random().nextInt(rainbow.getColors().length)]);
-            }, rainbow.getUpdateTime(), rainbow.getUpdateTime());
+            rainbow.task = new BukkitRunnable() {
+                @Override
+                public void run() {
+                    if (!Objects.equals(npc.getGlowing(), Glowing.this)) {
+                        this.cancel();
+                    } else {
+                        setColor(rainbow.getColors()[new Random().nextInt(rainbow.getColors().length)]);
+                    }
+                }
+            }.runTaskTimer(laivynpc(), rainbow.getUpdateTime(), rainbow.getUpdateTime()).getTaskId();
         }
 
         this.rainbow = rainbow;
@@ -69,13 +77,14 @@ public class GlowingStatus {
 
     public static class Rainbow {
 
-        protected @Nullable BukkitTask task;
+        protected @Nullable Integer task;
         protected final @Range(from = 1, to = 100) int updateTime;
         protected @NotNull EnumChatFormat[] colors;
 
         public Rainbow(int updateTime) {
             EnumChatFormatEnum enumClass = EnumChatFormatEnum.getInstance();
             EnumChatFormat[] colors = new EnumChatFormat[enumClass.values().length];
+            // TODO: 12/06/2023 Only colors, not strikethrough, underline, ect...
 
             int row = 0;
             for (EnumObjExec obj : enumClass.values()) {
@@ -95,7 +104,7 @@ public class GlowingStatus {
             return updateTime;
         }
 
-        public @Nullable BukkitTask getTask() {
+        public @Nullable Integer getTask() {
             return task;
         }
 

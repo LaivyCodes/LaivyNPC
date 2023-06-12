@@ -3,6 +3,7 @@ package codes.laivy.npc.mappings.defaults.classes.enums;
 import codes.laivy.npc.mappings.instances.classes.ClassExecutor;
 import codes.laivy.npc.mappings.instances.EnumExecutor;
 import codes.laivy.npc.mappings.defaults.classes.java.EnumObjExec;
+import org.bukkit.ChatColor;
 import org.jetbrains.annotations.NotNull;
 
 import static codes.laivy.npc.LaivyNPC.laivynpc;
@@ -60,6 +61,43 @@ public class EnumChatFormatEnum extends EnumExecutor {
     }
     public static @NotNull EnumChatFormat WHITE() {
         return new EnumChatFormat(getInstance().getEnums().get("WHITE").getValue());
+    }
+
+    public static @NotNull EnumChatFormat from(@NotNull ChatColor color) {
+        switch (color) {
+            case BLACK:
+                return BLACK();
+            case DARK_BLUE:
+                return DARK_BLUE();
+            case DARK_GREEN:
+                return DARK_GREEN();
+            case DARK_AQUA:
+                return DARK_AQUA();
+            case DARK_RED:
+                return DARK_RED();
+            case DARK_PURPLE:
+                return DARK_PURPLE();
+            case GOLD:
+                return GOLD();
+            case GRAY:
+                return GRAY();
+            case DARK_GRAY:
+                return DARK_GRAY();
+            case BLUE:
+                return BLUE();
+            case GREEN:
+                return GREEN();
+            case AQUA:
+                return AQUA();
+            case RED:
+                return RED();
+            case LIGHT_PURPLE:
+                return LIGHT_PURPLE();
+            case YELLOW:
+                return YELLOW();
+            default:
+                return WHITE();
+        }
     }
 
     public EnumChatFormatEnum(@NotNull ClassExecutor classExecutor) {

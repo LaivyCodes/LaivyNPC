@@ -41,7 +41,7 @@ import static codes.laivy.npc.config.Translate.translate;
 
 public class PlayerNPC extends NPC {
 
-    private @NotNull PlayerNPCSkin skin = PlayerNPCSkin.DEFAULT_SKIN;
+    private @NotNull Skin skin = Skin.DEFAULT_SKIN;
     private final @NotNull UUID uniqueId;
 
     protected @NotNull EntityPlayer player;
@@ -97,7 +97,7 @@ public class PlayerNPC extends NPC {
             throw new UnsupportedOperationException("The player NPC couldn't be created async at 1.16.5+");
         }
 
-        if (uniqueId == null) this.uniqueId = UUIDUtils.genRandomUUID();
+        if (uniqueId == null) this.uniqueId = UUIDUtils.getRandomUniqueId();
         else this.uniqueId = uniqueId;
 
         getHolograms().setDistanceFromNPC(-0.25D);
@@ -134,19 +134,19 @@ public class PlayerNPC extends NPC {
         return String.valueOf(hashCode());
     }
 
-    public @NotNull PlayerNPCSkin getSkin() {
+    public @NotNull Skin getSkin() {
         return skin;
     }
     public void setSkin(@NotNull String name) {
         new Thread(() -> {
             try {
                 String[] strings = SkinUtils.getSkinFromName(name);
-                setSkin(new PlayerNPCSkin(strings[0], strings[1], name));
+                setSkin(new Skin(strings[0], strings[1], name));
             } catch (NPCIllegalSkinException ignore) {
             }
         }).start();
     }
-    public void setSkin(@NotNull PlayerNPCSkin skin) {
+    public void setSkin(@NotNull Skin skin) {
         this.skin = skin;
 
         Bukkit.getScheduler().runTask(laivynpc(), () -> {
@@ -336,19 +336,27 @@ public class PlayerNPC extends NPC {
         try {
             DataWatcher watcher = getEntity().getDataWatcher();
 
-            // Fire
+            boolean isGlowing = false;
+            if (getGlowing() != null) {
+                isGlowing = getGlowing().isActive();
+            }
+
+            // Fire and Glowing
             //noinspection DataFlowIssue
             byte b = (byte) watcher.get(0);
 
-            if (isOnFire()) b = (byte) (b | 1);
-            else b = (byte) (b & (~(1)));
+            if (isGlowing) b = (byte) (b | 0x40);
+            else b = (byte) (b & ~(0x40));
+
+            if (isOnFire()) b = (byte) (b | 0x01);
+            else b = (byte) (b & ~(0x01));
+
+            watcher.set(0, b);
             //
 
             // Skin Parts
-            watcher.set(0, b);
-
             b = 0;
-            PlayerNPCSkin.Parts parts = getSkin().getParts();
+            Skin.Parts parts = getSkin().getParts();
             if (parts.hasCape()) b = (byte) (b | 0x1);
             if (parts.hasJacket()) b = (byte) (b | 0x2);
             if (parts.hasLeftSleeve()) b = (byte) (b | 0x4);
@@ -358,6 +366,7 @@ public class PlayerNPC extends NPC {
             if (parts.hasHat()) b = (byte) (b | 0x40);
             //
 
+            // TODO: 12/06/2023 DataWatcherObject
             watcher.set((int) laivynpc().getVersion().getObject("Metadata:Player:SkinParts"), b);
             packets.add(laivynpc().getVersion().createMetadataPacket(getEntity(), watcher, true));
         } catch (Throwable e) {
@@ -402,8 +411,6 @@ public class PlayerNPC extends NPC {
             scoreboard.addToTeam(team, getEntity());
 
             packets.add(laivynpc().getVersion().createScoreboardTeamPacket(team, true));
-            packets.add(laivynpc().getVersion().createScoreboardTeamPacket(team, false));
-            packets.addAll(getEquipmentsUpdatePackets(player));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -580,10 +587,10 @@ public class PlayerNPC extends NPC {
                 } else {
                     String texture = skin.getString("Texture");
                     String signature = skin.getString("Signature");
-                    setSkin(new PlayerNPCSkin(texture, signature, null));
+                    setSkin(new Skin(texture, signature, null));
                 }
 
-                PlayerNPCSkin skinInstance = getSkin();
+                Skin skinInstance = getSkin();
                 skinInstance.getParts().setCape(parts.getBoolean("hasCape"));
                 skinInstance.getParts().setHat(parts.getBoolean("hasHat"));
                 skinInstance.getParts().setJacket(parts.getBoolean("hasJacket"));
@@ -648,11 +655,11 @@ public class PlayerNPC extends NPC {
         }
 
         try {
-            PlayerNPCSkin.Parts parts = getSkin().getParts();
-            if (getSkin() != PlayerNPCSkin.DEFAULT_SKIN) {
+            Skin.Parts parts = getSkin().getParts();
+            if (getSkin() != Skin.DEFAULT_SKIN) {
                 playerNPC.put("Skin", skin);
 
-                PlayerNPCSkin cSkin = getSkin();
+                Skin cSkin = getSkin();
                 if (cSkin.getNickname() != null) {
                     skin.put("Nickname", cSkin.getNickname());
                 } else {
@@ -717,7 +724,7 @@ public class PlayerNPC extends NPC {
             if (world != null) {
                 Location location = new Location(world, x, y, z);
 
-                UUID uuid = UUIDUtils.genRandomUUID();
+                UUID uuid = UUIDUtils.getRandomUniqueId();
                 if (!playerNpc.getString("UUID").equals("")) {
                     uuid = UUID.fromString(playerNpc.getString("UUID"));
                 }
@@ -734,5 +741,4 @@ public class PlayerNPC extends NPC {
         }
     }
     //
-
 }

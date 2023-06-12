@@ -588,6 +588,8 @@ public class V1_19_R3 extends V1_19_R2 {
 
         super.getTexts().put("Metadata:Human:leftShoulderEntity", "bL");
         super.getTexts().put("Metadata:Human:rightShoulderEntity", "bM");
+
+        super.getTexts().put("Entity:getUniqueId:field", "ax");
     }
 
     @Override

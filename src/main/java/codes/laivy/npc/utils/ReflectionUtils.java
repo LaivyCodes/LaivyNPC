@@ -1,6 +1,7 @@
 package codes.laivy.npc.utils;
 
 import codes.laivy.npc.mappings.Version;
+import codes.laivy.npc.mappings.defaults.classes.entity.Entity;
 import codes.laivy.npc.mappings.defaults.classes.others.objects.PlayerConnection;
 import codes.laivy.npc.mappings.defaults.classes.packets.IPacket;
 import codes.laivy.npc.mappings.defaults.classes.packets.Packet;
@@ -8,6 +9,8 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.*;
 
 import static codes.laivy.npc.LaivyNPC.laivynpc;

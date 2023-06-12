@@ -1,6 +1,9 @@
 package codes.laivy.npc.types;
 
 import codes.laivy.npc.developers.events.NPCDestroyEvent;
+import codes.laivy.npc.mappings.defaults.classes.enums.EnumColorEnum;
+import codes.laivy.npc.mappings.defaults.classes.java.EnumObjExec;
+import codes.laivy.npc.mappings.defaults.classes.java.IntegerObjExec;
 import codes.laivy.npc.mappings.defaults.classes.others.objects.PlayerConnection;
 import codes.laivy.npc.mappings.defaults.classes.packets.IPacket;
 import codes.laivy.npc.mappings.instances.classes.ClassExecutor;
@@ -46,7 +49,7 @@ import codes.laivy.npc.types.list.monster.zombie.*;
 import codes.laivy.npc.types.list.npc.VillagerNPC;
 import codes.laivy.npc.types.list.vehicle.BoatNPC;
 import codes.laivy.npc.types.player.PlayerNPC;
-import codes.laivy.npc.types.utils.GlowingStatus;
+import codes.laivy.npc.types.utils.Glowing;
 import codes.laivy.npc.types.utils.NPCHeadRotation;
 import codes.laivy.npc.types.utils.NPCHologramText;
 import codes.laivy.npc.types.workers.NPCHolograms;
@@ -186,7 +189,7 @@ public abstract class NPC {
     //
 
     // Glowing status
-    protected @Nullable GlowingStatus glowing;
+    protected @Nullable Glowing glowing;
     //
 
     // Holograms
@@ -259,16 +262,18 @@ public abstract class NPC {
         //
     }
 
-    public @Nullable GlowingStatus getGlowing() {
+    public @Nullable Glowing getGlowing() {
         return glowing;
     }
 
-    public void setGlowing(@Nullable GlowingStatus glowing) {
+    public void setGlowing(@Nullable Glowing glowing) {
         if (glowing != null && glowing.getNPC() != this) {
-            throw new IllegalArgumentException("This GlowingStatus's NPC isn't this NPC.");
+            throw new IllegalArgumentException("This Glowing' NPC isn't this NPC.");
         }
 
         this.glowing = glowing;
+        getEntity().setGlowing(glowing != null);
+
         sendUpdatePackets(getSpawnedPlayers(), true, false, true, false, false, false);
     }
 
@@ -278,6 +283,7 @@ public abstract class NPC {
 
     public void setCollidable(boolean collidable) {
         this.collidable = collidable;
+        sendUpdatePackets(getSpawnedPlayers(), true, false, true, false, false, false);
     }
 
     /**
@@ -314,7 +320,7 @@ public abstract class NPC {
         setItem(EnumItemSlotEnum.EnumItemSlot.MAINHAND, new ItemStack(Material.DIAMOND_SWORD));
         if (ReflectionUtils.isCompatible(V1_9_R1.class)) {
             setItem(EnumItemSlotEnum.EnumItemSlot.OFFHAND, new ItemStack(Material.DIAMOND_PICKAXE));
-            setGlowing(new GlowingStatus(this, EnumChatFormatEnum.WHITE(), true) {{
+            setGlowing(new Glowing(this, EnumChatFormatEnum.WHITE(), true) {{
                setRainbow(new Rainbow(1));
             }});
         }
@@ -649,6 +655,11 @@ public abstract class NPC {
             add(INVISIBLE_CONFIG);
             add(HOLO_HEIGHT_CONFIG);
             add(DISPLAY_NAME_CONFIG);
+
+            if (ReflectionUtils.isCompatible(V1_9_R1.class)) {
+                add(GLOWING_CONFIG);
+                add(COLLISION_CONFIG);
+            }
 
             // TODO: 24/12/2022 1.14 poses
 //            if (ReflectionUtils.isCompatible(V1_14_R1.class)) {
@@ -1132,6 +1143,69 @@ public abstract class NPC {
         }
     };
 
+    public static @NotNull NPCConfiguration GLOWING_CONFIG = new NPCConfiguration("glowing", "/laivynpc config glowing (color)") {
+        @Override
+        public void execute(@NotNull NPC npc, @NotNull Player sender, @NotNull String[] args) {
+            String removeCode = translate(sender, "npc.commands.rainbow.ticks.remove_code");
+            String rainbowCode = translate(sender, "npc.commands.rainbow.ticks.rainbow_code");
+
+            if (args.length > 0) {
+
+                args[0] = args[0].toLowerCase();
+                try {
+                    ChatColor color = ChatColor.valueOf(args[0].toUpperCase());
+                    npc.setGlowing(new Glowing(npc, EnumChatFormatEnum.from(color), true));
+                    sender.sendMessage(translate(sender, "npc.commands.general.flag_changed"));
+                } catch (IllegalArgumentException ignore) {
+                    if (args[0].equalsIgnoreCase(rainbowCode)) {
+                        if (args.length > 1) {
+                            try {
+                                int ticks = Integer.parseInt(args[1]);
+                                if (ticks < 1) {
+                                    sender.sendMessage(translate(sender, "npc.commands.rainbow.ticks.less_than_one"));
+                                    return;
+                                }
+
+                                npc.setGlowing(new Glowing(npc, EnumChatFormatEnum.WHITE(), true) {{
+                                    setRainbow(new Rainbow(ticks));
+                                }});
+                            } catch (NumberFormatException ignore2) {
+                                sender.sendMessage(translate(sender, "npc.commands.rainbow.ticks.illegal"));
+                                return;
+                            }
+                        } else {
+                            npc.setGlowing(new Glowing(npc, EnumChatFormatEnum.WHITE(), true) {{
+                                setRainbow(new Rainbow(5));
+                            }});
+                        }
+
+                        sender.sendMessage(translate(sender, "npc.commands.general.flag_changed"));
+                    } else if (args[0].equalsIgnoreCase(removeCode)) {
+                        npc.setGlowing(null);
+                        sender.sendMessage(translate(sender, "npc.commands.general.flag_changed"));
+                    } else {
+                        StringBuilder colors = new StringBuilder("§4" + removeCode.toUpperCase() + "§f, §6" + rainbowCode.toUpperCase());
+                        for (@NotNull EnumObjExec color : laivynpc().getVersion().getEnumExec("EnumChatFormat").values()) {
+                            colors.append("§0, §e").append(color.name());
+                        }
+                        sender.sendMessage(translate(sender, "npc.commands.general.available_options", colors));
+                    }
+                }
+            } else {
+                sender.sendMessage("§cUse " + getSyntax());
+                sender.sendMessage(translate(sender, "npc.commands.general.correct_usage", removeCode, rainbowCode));
+            }
+        }
+    };
+
+    public static NPCConfiguration COLLISION_CONFIG = new NPCConfiguration("collision", "/laivynpc config collision") {
+        @Override
+        public void execute(@NotNull NPC npc, @NotNull Player sender, @NotNull String[] args) {
+            npc.setCollidable(!npc.isCollidable());
+            sender.sendMessage(translate(sender, "npc.commands.general.flag_changed"));
+        }
+    };
+
     //
     // Defaults
     //
@@ -1512,20 +1586,32 @@ public abstract class NPC {
                     EnumChatFormatEnum enumClass = EnumChatFormatEnum.getInstance();
                     if (glow.contains("Rainbow")) {
                         int interval = glow.getInt("Interval (ticks)");
-                        EnumChatFormat[] colors = new EnumChatFormat[glow.getList("Rainbow Colors").size()];
 
-                        int row = 0;
-                        for (Object color : glow.getList("Rainbow Colors")) {
-                            colors[row] = new EnumChatFormat(EnumChatFormatEnum.getInstance().valueOf(color.toString()).getValue());
-                            row++;
+                        EnumChatFormat[] colors;
+                        if (glow.contains("Rainbow Colors")) {
+                            colors = new EnumChatFormat[glow.getList("Rainbow Colors").size()];
+
+                            int row = 0;
+                            for (Object color : glow.getList("Rainbow Colors")) {
+                                colors[row] = new EnumChatFormat(EnumChatFormatEnum.getInstance().valueOf(color.toString()).getValue());
+                                row++;
+                            }
+                        } else {
+                            colors = new EnumChatFormat[EnumChatFormatEnum.getInstance().values().length];
+
+                            int row = 0;
+                            for (EnumObjExec enumObjExec : EnumChatFormatEnum.getInstance().values()) {
+                                colors[row] = new EnumChatFormat(enumObjExec.getValue());
+                                row++;
+                            }
                         }
 
-                        setGlowing(new GlowingStatus(this, EnumChatFormatEnum.WHITE(), enabled) {{
+                        setGlowing(new Glowing(this, EnumChatFormatEnum.WHITE(), enabled) {{
                             setRainbow(new Rainbow(interval, colors));
                         }});
                     } else {
                         EnumChatFormat color = new EnumChatFormat(enumClass.valueOf(glow.getString("Color").toUpperCase()).getValue());
-                        setGlowing(new GlowingStatus(this, color, enabled));
+                        setGlowing(new Glowing(this, color, enabled));
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

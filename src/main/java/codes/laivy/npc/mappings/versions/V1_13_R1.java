@@ -56,6 +56,7 @@ import codes.laivy.npc.mappings.instances.Executor;
 import codes.laivy.npc.mappings.instances.FieldExecutor;
 import codes.laivy.npc.mappings.instances.MethodExecutor;
 import codes.laivy.npc.mappings.instances.classes.ClassExecutor;
+import codes.laivy.npc.utils.ReflectionUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -167,7 +168,7 @@ public class V1_13_R1 extends V1_12_R1 {
     public boolean addToTeam(@NotNull Scoreboard scoreboard, @NotNull ScoreboardTeam team, @NotNull Entity entity) {
         String name;
         if (entity instanceof EntityPlayer) name = ((EntityPlayer) entity).getName();
-        else name = String.valueOf(entity.getId());
+        else name = entity.getUniqueId().toString();
 
         //noinspection DataFlowIssue
         return (boolean) getMethodExec("Scoreboard:addToTeam").invokeInstance(scoreboard, new StringObjExec(name), team);

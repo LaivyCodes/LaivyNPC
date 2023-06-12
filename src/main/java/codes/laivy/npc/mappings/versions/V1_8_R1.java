@@ -560,6 +560,11 @@ public class V1_8_R1 extends Version {
     }
 
     @Override
+    public @NotNull UUID getEntityUuid(@NotNull Entity entity) {
+        return (UUID) getFieldExec("Entity:getUniqueId").invokeInstance(entity);
+    }
+
+    @Override
     public boolean isEntityInvisible(@NotNull Entity entity) {
         //noinspection DataFlowIssue
         return (boolean) laivynpc().getVersion().getMethodExec("Entity:Entity:isInvisible").invokeInstance(entity);
@@ -1723,14 +1728,12 @@ public class V1_8_R1 extends Version {
     public void loadFields() {
         // NBT
         load(V1_8_R1.class, "NBTTagList:list", new FieldExecutor(getClassExec("NBTBase:NBTTagList"), new ClassExecutor(List.class) {}, "list", "Gets the list of a NBTTagList"));
-        //
-
+        // Entity
+        load(V1_8_R1.class, "Entity:getUniqueId", new FieldExecutor(getClassExec("Entity"), new ClassExecutor(UUID.class), getText("Entity:getUniqueId:field"), "Gets the UUID from Entity"));
         // Player
         load(V1_8_R1.class, "EntityPlayer:playerConnection", new FieldExecutor(getClassExec("EntityPlayer"), getClassExec("PlayerConnection"), "playerConnection", "Gets the PlayerConnection from the player"));
         load(V1_8_R1.class, "EntityPlayer:listName", new FieldExecutor(getClassExec("EntityPlayer"), getClassExec("IChatBaseComponent"), "listName", "Gets the entity player's tablist name"));
         load(V1_8_R1.class, "GameProfile:id", new FieldExecutor(getClassExec("GameProfile"), new ClassExecutor(UUID.class), "id", "Gets the UUID from GameProfile"));
-        //
-
         // NetworkManager
         load(V1_8_R1.class, "NetworkManager:channel", new FieldExecutor(getClassExec("NetworkManager"), new ClassExecutor(Channel.class) {}, "i", "Gets the channel of the player"));
         //
@@ -1804,6 +1807,8 @@ public class V1_8_R1 extends Version {
         // EnumTeamPush
         super.getTexts().put("ScoreboardTeam:EnumTeamPush:NEVER", "NEVER");
         super.getTexts().put("ScoreboardTeam:EnumTeamPush:ALWAYS", "ALWAYS");
+
+        super.getTexts().put("Entity:getUniqueId:field", "aj");
     }
 
     @Override

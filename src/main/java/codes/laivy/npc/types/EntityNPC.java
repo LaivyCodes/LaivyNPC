@@ -3,6 +3,7 @@ package codes.laivy.npc.types;
 import codes.laivy.npc.mappings.defaults.classes.enums.EnumItemSlotEnum;
 import codes.laivy.npc.mappings.defaults.classes.java.IntegerObjExec;
 import codes.laivy.npc.mappings.defaults.classes.packets.IPacket;
+import codes.laivy.npc.mappings.defaults.classes.packets.ScoreboardTeamPacket;
 import codes.laivy.npc.mappings.instances.classes.ClassExecutor;
 import codes.laivy.npc.mappings.instances.MethodExecutor;
 import codes.laivy.npc.mappings.instances.ObjectExecutor;
@@ -24,6 +25,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
+import java.lang.reflect.Method;
 import java.util.*;
 
 import static codes.laivy.npc.LaivyNPC.laivynpc;
@@ -77,17 +79,28 @@ public abstract class EntityNPC extends NPC {
         List<@NotNull IPacket> packets = new LinkedList<>();
 
         try {
-            DataWatcher data = getEntity().getDataWatcher();
+            DataWatcher watcher = getEntity().getDataWatcher();
 
+            boolean isGlowing = false;
+            if (getGlowing() != null) {
+                isGlowing = getGlowing().isActive();
+            }
+
+            // Fire and Glowing
             //noinspection DataFlowIssue
-            byte b = (byte) data.get(0);
+            byte b = (byte) watcher.get(0);
 
-            if (isOnFire()) b = (byte) (b | 1);
-            else b = (byte) (b & (~(1)));
+            if (isGlowing) b = (byte) (b | 0x40);
+            else b = (byte) (b & ~(0x40));
 
-            data.set(0, b);
+            if (isOnFire()) b = (byte) (b | 0x01);
+            else b = (byte) (b & ~(0x01));
+            watcher.set(0, b);
+            //
 
-            packets.add(laivynpc().getVersion().createMetadataPacket(getEntity(), data, true));
+            watcher.set(0, b);
+
+            packets.add(laivynpc().getVersion().createMetadataPacket(getEntity(), watcher, true));
         } catch (Throwable e) {
             throw new RuntimeException(e);
         }
@@ -112,7 +125,7 @@ public abstract class EntityNPC extends NPC {
             if (color == null) color = EnumChatFormatEnum.WHITE();
             //
 
-            String teamName = getEntity().getId() + "";
+            String teamName = String.valueOf(getEntity().getId());
             ScoreboardTeam team = scoreboard.getTeam(teamName);
             if (team == null) {
                 team = laivynpc().getVersion().createScoreboardTeam(scoreboard, teamName);
@@ -132,8 +145,24 @@ public abstract class EntityNPC extends NPC {
             scoreboard.addToTeam(team, getEntity());
 
             packets.add(laivynpc().getVersion().createScoreboardTeamPacket(team, true));
-            packets.add(laivynpc().getVersion().createScoreboardTeamPacket(team, false));
-            packets.addAll(getEquipmentsUpdatePackets(player));
+
+            // TODO: 12/06/2023 Debug
+//            ClassExecutor executor = laivynpc().getVersion().getClassExec("PacketPlayOutScoreboardTeam");
+//            ClassExecutor enumClassExecutor = new ClassExecutor("net.minecraft.network.protocol.game.PacketPlayOutScoreboardTeam$a") {{
+//                load();
+//            }};
+//
+//            Method method = executor.getReflectionClass().getDeclaredMethod(
+//                    "a",
+//                    team.getClassExecutor().getReflectionClass(),
+//                    ClassExecutor.STRING.getReflectionClass(),
+//                    enumClassExecutor.getReflectionClass()
+//            );
+//            Object e = enumClassExecutor.getDeclaredField("a").get(null);
+//
+//            ScoreboardTeamPacket p = new ScoreboardTeamPacket(method.invoke(null, team.getValue(), getEntity().getUniqueId().toString(), e));
+//            packets.add(p);
+            //
         } catch (Throwable e) {
             throw new RuntimeException(e);
         }

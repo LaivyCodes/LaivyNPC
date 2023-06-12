@@ -17,6 +17,7 @@ import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -28,9 +29,10 @@ import java.util.*;
 import static codes.laivy.npc.LaivyNPC.laivynpc;
 import static codes.laivy.npc.config.Translate.translate;
 
-public class NPCCommands implements CommandExecutor, Listener {
+public class NPCCommands implements CommandExecutor, TabCompleter, Listener {
 
     private static final @NotNull Map<@NotNull UUID, @NotNull NPC> SELECTED_NPCS = new HashMap<>();
+
 
     public NPCCommands() {
         Bukkit.getPluginManager().registerEvents(this, laivynpc());
@@ -314,5 +316,11 @@ public class NPCCommands implements CommandExecutor, Listener {
             }
         }
         return true;
+    }
+
+    @Override
+    public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
+        return new ArrayList<>();
+        // TODO: 12/06/2023
     }
 }

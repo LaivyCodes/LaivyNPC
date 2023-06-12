@@ -142,6 +142,12 @@
   "npc.commands.general.flag_changed": " §8- §7Flag changed!",
   "npc.commands.general.available_options": "§7The available options are: %s",
 
+  "npc.commands.rainbow.ticks.less_than_one": "§cThe ticks number cannot be lower than 1.",
+  "npc.commands.rainbow.ticks.illegal": "§cThis number isn't valid.",
+  "npc.commands.rainbow.ticks.remove_code": "remove",
+  "npc.commands.rainbow.ticks.rainbow_code": "rainbow",
+  "npc.commands.general.correct_usage": "§8Tip: §7You can use §f%s §7to remove the color or §f%s §7to use the rainbow color",
+
   "npc.player.skin.changed": "§8 - §7Skin successfully changed to §f%s§7.",
   "npc.player.tablist.changed": "§8 - §7Now the NPC's tablist name is §f\"%s\"§7.",
   "npc.player.tablist.removed": "§8 - §cNPC's name successfully removed from tablist",
