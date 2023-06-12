@@ -1,0 +1,157 @@
+{
+  "info:pack_name": "Pacote Português (Brazil)",
+
+  "plugin.compatible": "§aO plug-in é compatível com sua versão \"%s\". Vamos lá! :)",
+  "plugin.incompatible": "§cO plug-in não é compatível com sua versão \"%s\" ainda. Desativando o plugin...",
+  "plugin.trying_load": "§7Tentando carregar a versão '%s'...",
+
+  "updater.new_version_available": "&cUma nova versão do &6LaivyNPC &cestá disponível para download.\n&cLink: &6https://discord.gg/AJZSr757x2\n&cNova versão: &6%s&c, Sua versão: &6%s&c.",
+  "updater.cannot_search_updates": "§cNão é possível buscar por atualizações.",
+
+  "npc.general_command.unavailable_select": " §8- §cO NPC '§4%s§c' não pode ser selecionado.",
+  "npc.general_command.selected": " §8- §7NPC '§f%s§7' selecionado.",
+
+  "npc.general_command.no_permission": "§cVocê não tem permissão para fazer isso!",
+
+  "npc.general_command.details.version": "Versão",
+  "npc.general_command.details.website": "Site",
+  "npc.general_command.details.authors": "Autores",
+
+  "npc.general_command.version.new_available": "§cUma nova versão está disponível (§6/laivynpc update§a)",
+  "npc.general_command.version.you_are_updated": "§aVocê está atualizado :)",
+  "npc.general_command.version.cannot_search": "§cNão é possível buscar por novas atualizações",
+
+  "npc.general_command.permissions": "Permissões",
+  "npc.general_command.permissions.default_users": "padrão para todos",
+  "npc.general_command.permissions.default_operators": "padrão para operadores",
+  "npc.general_command.permissions.command": "acesso ao \"/laivynpc\"",
+  "npc.general_command.permissions.create": "criar NPCs",
+  "npc.general_command.permissions.delete": "deletar NPCs",
+  "npc.general_command.permissions.select": "selecionar NPCs",
+  "npc.general_command.permissions.config": "configurar NPCs (/laivynpc config)",
+
+  "npc.general_command.how_to.select": "§8 - §aPara selecionar um NPC e edita-lo, segure um graveto na mão e clique com o direito nele (§6laivynpc.npc.select§a) ou use §6/laivynpc select (id)§a.",
+  "npc.general_command.how_to.config": "§8 - §aPara configurar um NPC (§6laivynpc.npc.config§a) use §6/laivynpc config (config)§a, para ver todas as listas de configurações use §6/laivynpc config§a.",
+
+  "npc.general_command.npc.tip.see_id": "§cPara ver todos os NPCs disponíveis (e seus IDs) use §6/laivynpc list§c.",
+
+  "npc.general_command.npc.deleted": "§8 - §7NPC '§f%s§7' destruído com sucesso",
+  "npc.general_command.npc.id_not_found": "§cNão foi possível encontrar um NPC com esse ID",
+  "npc.general_command.npc.only_api": "§cEsse tipo de NPC não pode ser gerado por comandos, apenas pela API.",
+  "npc.general_command.npc.incompatible": "§cEsse tipo de NPC não está disponível nessa versão. (Disponível a partir da %s)",
+  "npc.general_command.npc.unknown_type": "§cNão foi possível encontrar esse tipo de NPC. Use §6/laivynpc types §cpara ver todos os tipos disponíveis",
+
+  "npc.commands.snowman.version": "§cA abóbora do snowman está disponível apenas a partir da 1.9+",
+
+  "npc.general_command.npc.details.available": "§8- §7Tipos §aVerdes §7 estão disponíveis nessa versão.\n§8- §7Tipos §6Laranjas §7não estão disponíveis nessa versão.\n§8- §7Tipos §cVermelhos §7não podem ser gerados com comandos (Apenas pela API)",
+  "npc.general_command.npc.details.available_list": "§7Tipos de NPC: ",
+
+  "npc.general_command.npc.config.info.select": "seleciona um NPC",
+  "npc.general_command.npc.config.info.update": "atualiza o plug-in",
+  "npc.general_command.npc.config.info.debug": "depura o plug-in",
+  "npc.general_command.npc.config.info.list": "lista de NPCs",
+  "npc.general_command.npc.config.info.delete": "deleta um NPC",
+  "npc.general_command.npc.config.info.create": "cria um NPC",
+  "npc.general_command.npc.config.info.types": "tipos de NPCs",
+  "npc.general_command.npc.config.info.help": "ajudas básicos do NPCs",
+
+  "npc.general_command.npc.config.configurations": "Configurações do NPC:",
+  "npc.general_command.npc.config.unknown_config": "§cNão foi possível encontrar essa configuração! Use §6/laivynpc §cpara ver todas as configurações disponíveis",
+  "npc.general_command.npc.config.select_first": "§cVocê precisa selecionar um NPC primeiro para alterar suas configurações!",
+
+  "npc.general_command.npc.details.created": "§7NPCs ativos: ",
+
+  "npc.general_command.only_players": "§cApenas players podem executar esse comando!",
+
+  "npc.commands.spawn.allowed": " §8- §aAgora o NPC está spawnando :)",
+  "npc.commands.spawn.disallowed": " §8- §cAgora o NPC não está mais spawnando :(",
+  "npc.commands.location": " §8- §7NPC movido com sucesso.",
+
+  "npc.commands.items": " §8- §7Modo de troca de itens ativada\n\n §8- §7Execute um §6Click direito §7no NPC para adicionar\n §8- §7Exeucte um §6Clique direito + Shift §7no NPC para adicionar na mão principal\n §8- §7Execute um §6Clique esquerdo §7no NPC para adicionar na mão secundária\n §8- §7Clique com as §cmãos vazias §7para limpar todos os itens.\n\n§cPara sair do modo de edição de itens, digite o comando novamente.\n",
+  "npc.commands.items.left": " §8- §cVocê saiu do modo de edição de itens.",
+  "npc.commands.items.cleared": " §8- §cVocê limpou todos os itens do NPC",
+  "npc.commands.items.offhand_incompatible": " §8- §cEssa versão não suporta equipamentos na mão secundária.",
+
+  "npc.commands.click.removed": "§8 - §7As ações de clique foram removidas",
+  "npc.commands.click.changed": "§8 - §7Ação de clique adicionada com sucesso",
+
+  "npc.commands.click.command.types": "§cOs tipos disponíveis de clique são",
+  "npc.commands.click.command.warning": "§8Aviso: Não coloque \"/\" no começo do comando. O plug-in fará isso por você.",
+
+  "npc.commands.respawn": " §8- §7NPC respawnado com sucesso.",
+  "npc.commands.destroy": " §8- §cNPC destruído com sucesso.",
+
+  "npc.commands.fire.allowed": " §8- §7O fogo do NPC agora está §aativado§7.",
+  "npc.commands.fire.disallowed": " §8- §7O estado de fogo do NPC agora está §cdesativado§7.",
+
+  "npc.commands.distance.range": " §8- §7A distância de visualização precisa ser maior que 2 e menor ou igual a 64.",
+  "npc.commands.distance": " §8- §7A distância de visualização agora está em §f%s blocos§7.",
+
+  "npc.commands.head_rotation.names.none": "nenhum",
+  "npc.commands.head_rotation.names.none.description": "nenhuma rotação",
+
+  "npc.commands.head_rotation.names.nearest_player": "nearest_player",
+  "npc.commands.head_rotation.names.nearest_player.description": "Segue o jogador mais próximo",
+  "npc.commands.head_rotation.names.nearest_monster": "nearest_monster",
+  "npc.commands.head_rotation.names.nearest_monster.description": "Segue o monstro mais próximo",
+  "npc.commands.head_rotation.names.nearest_animal": "nearest_animal",
+  "npc.commands.head_rotation.names.nearest_animal.description": "Segue o animal mais próximo",
+  "npc.commands.head_rotation.names.nearest_entity": "nearest_entity",
+  "npc.commands.head_rotation.names.nearest_entity.description": "Segue a entidade mais próximo",
+  "npc.commands.head_rotation.names.nearest_living_entity": "nearest_living_entity",
+  "npc.commands.head_rotation.names.nearest_living_entity.description": "Segue a entidade viva mais próxima",
+  "npc.commands.head_rotation.changed": " §8- §7Movimentação da cabeça do NPC alterada com sucesso",
+  "npc.commands.head_rotation.available": "§cAs movimentações de cabeça disponíveis são:",
+
+  "npc.commands.pose.changed": " §8- §7Pose do NPC alterada para §f%s§7.",
+  "npc.commands.pose.sleeping.error.view_distance": "§8 - §cA distância de visão do NPC deve ser menor ou igual a 16 para assumir a pose de dormir.",
+  "npc.commands.pose.available": "§cAs poses disponíveis são: §f%s",
+
+  "npc.commands.hologram.line_range": " §8- §cA linha deve estar entre 1 e 999",
+  "npc.commands.hologram.line_changed": " §8- §7Linha §f%s §7alterada com sucesso",
+  "npc.commands.hologram.line_removed": " §8- §7Linha §cremovida §7com sucesso",
+  "npc.commands.hologram.leave_blank_to_remove": "Deixe o texto em branco para remover a linha",
+  "npc.commands.hologram.available_opacities": "As opacidades disponíveis são",
+
+  "npc.commands.item_frame.item.holding": "§cVocê precisa segurar o item em sua mão principal!",
+  "npc.commands.enderman.carried.block": "§cO tipo do item precisa ser um bloco!",
+
+  "npc.commands.baby.changed": " §8- §7O estado de bebê do NPC foi alternado",
+
+  "npc.commands.guardian.laser.set": " §8- §7O laser foi definido",
+  "npc.commands.guardian.laser.removed": " §8- §cO laser foi removido",
+  "npc.commands.guardian.laser.head_rotation": " §8- §cVocê precisa remover a rotação da cabeça primeiro, use '/laivynpc config head none'",
+
+  "npc.commands.invisible.changed": " §8- §7O estado de invisibilidade do NPC foi alternado",
+
+  "npc.commands.holo_height.changed": " §8- §7A distância do holograma do NPC foi alterada para §f%s blocos§7.",
+
+  "npc.commands.pig.saddle.disallowed": " §8- §7A sela do NPC foi §cremovida§7.",
+  "npc.commands.pig.saddle.allowed": " §8- §7A sela do NPC foi §apermitida§7.",
+
+  "npc.commands.armor_stand.poses.changed": " §8- §7A pose §f%s §7do suporte de armadura foi alterada.",
+  "npc.commands.armor_stand.poses.invalid_number": "§cVocê não inseriu números válidos em X, Y ou Z.",
+  "npc.commands.armor_stand.poses.invalid_pose": "§cEssa pose '§6%s§c' §cnão é válida",
+  "npc.commands.armor_stand.poses.available_parts": "As partes disponíveis são:",
+
+  "npc.commands.armor_stand.size.changed": " §8- §7O estado de tamanho pequeno do suporte de armadura foi alterado.",
+  "npc.commands.armor_stand.base.changed": " §8- §7A placa de base do suporte de armadura foi alterada.",
+  "npc.commands.armor_stand.arms.changed": " §8- §7Os braços do suporte de armadura foram alterados.",
+
+  "npc.commands.general.flag_changed": " §8- §7Flag alterada!",
+  "npc.commands.general.available_options": "§7As opções disponíveis são: %s",
+
+  "npc.commands.rainbow.ticks.less_than_one": "§cO número de ticks não pode ser menor que 1.",
+  "npc.commands.rainbow.ticks.illegal": "§cEsse número não é válido.",
+  "npc.commands.rainbow.ticks.remove_code": "remover",
+  "npc.commands.rainbow.ticks.rainbow_code": "arco-íris",
+  "npc.commands.general.correct_usage": "§8Dica: §7Você pode usar §f%s §7para remover a cor ou §f%s §7para usar a cor arco-íris",
+
+  "npc.player.skin.changed": "§8 - §7Skin alterada com sucesso para §f%s§7.",
+  "npc.player.tablist.changed": "§8 - §7Agora, o nome da lista de guias do NPC é §f%s§7.",
+  "npc.player.tablist.removed": "§8 - §cNome do NPC removido com sucesso da lista de guias",
+
+  "npc.cannot_save": "§cNão foi possível salvar o NPC com o ID '%s' (%s)",
+  "npc.cannot_load": "§cNão foi possível carregar o NPC com o ID '%s'",
+  "npc.data_not_saved": "§cNPCs não foram salvos devido a um erro"
+}

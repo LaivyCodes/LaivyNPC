@@ -13,10 +13,12 @@ import java.util.*;
 
 import static codes.laivy.npc.LaivyNPC.laivynpc;
 
+// TODO: 12/06/2023 Enhance this and enable LvMultiplesLanguages support
 public class Translate {
 
     private static final @NotNull String[] DEFAULT_LANGUAGES_FILES = new String[] {
-            "EN_US.json"
+            "EN_US.json",
+            "RU_RU.json"
     };
 
     private static final @NotNull Map<@NotNull String, @NotNull String> messages = new HashMap<>();

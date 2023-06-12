@@ -141,26 +141,17 @@ public class LaivyNPC extends JavaPlugin {
             }
 
             YamlConfiguration config = YamlConfiguration.loadConfiguration(getDatabaseFile());
-            config.set("npcs", null);
-            int amount = 0;
-            boolean error = false;
             for (NPC npc : NPC.PUBLIC_NPCS) {
                 if (npc.isSaveable()) {
                     try {
-                        config.set("npcs." + amount, npc.serialize());
+                        config.set("npcs." + npc.getId(), npc.serialize());
                     } catch (Exception e) {
-                        error = true;
                         e.printStackTrace();
                         log(translate(null, "npc.cannot_save", npc.getId(), npc.getClass().getSimpleName()));
                     }
-                    amount++;
                 }
             }
-            if (!error) {
-                config.save(getDatabaseFile());
-            } else {
-                log(translate(null, "npc.data_not_saved"));
-            }
+            config.save(getDatabaseFile());
         } catch (Throwable e) {
             throw new RuntimeException(e);
         }

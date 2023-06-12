@@ -270,7 +270,7 @@ public class NPCCommands implements CommandExecutor, TabCompleter, Listener {
                                 player.sendMessage(translate(player, "npc.general_command.npc.config.select_first"));
                             }
                         } else {
-                            player.sendMessage(translate(player, "npc.general_command.npc.config.configs_list"));
+                            player.performCommand("laivynpc");
                         }
                     }
                 } else if (args[0].equalsIgnoreCase("debug")) {

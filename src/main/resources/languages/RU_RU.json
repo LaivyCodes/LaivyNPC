@@ -1,0 +1,157 @@
+{
+  "info:pack_name": "Русский Пак",
+
+  "plugin.compatible": "§aПлагин совместим с вашей версией '%s'. Поехали! :)",
+  "plugin.incompatible": "§cПлагин не совместим с вашей версией '%s'. Отключение плагина...",
+  "plugin.trying_load": "§7Попытка загрузки версии '%s'...",
+
+  "updater.new_version_available": "&cДоступна новая версия &6LaivyNPC&c для загрузки.\n&cСсылка: &6https://discord.gg/AJZSr757x2\n&cНовая версия: &6%s&c, Ваша версия: &6%s&c.",
+  "updater.cannot_search_updates": "§cНе удалось найти обновления.",
+
+  "npc.general_command.unavailable_select": " §8- §cNPC '§4%s§c' нельзя выбрать.",
+  "npc.general_command.selected": " §8- §7Выбран NPC '§f%s§7'.",
+
+  "npc.general_command.no_permission": "§cУ вас нет разрешения на выполнение этого действия!",
+
+  "npc.general_command.details.version": "Версия",
+  "npc.general_command.details.website": "Веб-сайт",
+  "npc.general_command.details.authors": "Авторы",
+
+  "npc.general_command.version.new_available": "§cДоступна новая версия (§6/laivynpc update§a)",
+  "npc.general_command.version.you_are_updated": "§aУ вас установлена последняя версия :)",
+  "npc.general_command.version.cannot_search": "§cНе удалось найти новые обновления",
+
+  "npc.general_command.permissions": "Разрешения",
+  "npc.general_command.permissions.default_users": "по умолчанию для всех",
+  "npc.general_command.permissions.default_operators": "по умолчанию для операторов",
+  "npc.general_command.permissions.command": "доступ к команде '/laivynpc'",
+  "npc.general_command.permissions.create": "создание NPC",
+  "npc.general_command.permissions.delete": "удаление NPC",
+  "npc.general_command.permissions.select": "выбор NPC",
+  "npc.general_command.permissions.config": "настройка NPC (/laivynpc config)",
+
+  "npc.general_command.how_to.select": "§8 - §aДля выбора NPC и его редактирования возьмите в руку палку и щелкните правой кнопкой мыши на нем (§6laivynpc.npc.select§a) или используйте §6/laivynpc select (id)§a.",
+  "npc.general_command.how_to.config": "§8 - §aДля настройки NPC (§6laivynpc.npc.config§a) используйте §6/laivynpc config (config)§a, чтобы увидеть все списки настроек используйте §6/laivynpc config§a.",
+
+  "npc.general_command.npc.tip.see_id": "§cЧтобы увидеть все доступные NPC (и их идентификаторы), используйте §6/laivynpc list§c.",
+
+  "npc.general_command.npc.deleted": "§8 - §7NPC '§f%s§7' успешно удален",
+  "npc.general_command.npc.id_not_found": "§cНе удалось найти NPC с этим идентификатором",
+  "npc.general_command.npc.only_api": "§cЭтот тип NPC нельзя создать с помощью команды, только через API.",
+  "npc.general_command.npc.incompatible": "§cЭтот тип NPC недоступен в этой версии. (Доступно с версии %s)",
+  "npc.general_command.npc.unknown_type": "§cНе удалось найти этот тип NPC. Используйте §6/laivynpc types §cдля просмотра всех доступных типов",
+
+  "npc.commands.snowman.version": "§cТыква снеговика доступна только начиная с версии 1.9+",
+
+  "npc.general_command.npc.details.available": "§8- §7Зеленые§a типы доступны в этой версии.\n§8- §7Оранжевые§a типы недоступны в этой версии.\n§8- §7Красные§a типы нельзя создать с помощью команды (только через API)",
+  "npc.general_command.npc.details.available_list": "§7Типы NPC: ",
+
+  "npc.general_command.npc.config.info.select": "выбрать NPC",
+  "npc.general_command.npc.config.info.update": "обновить плагин",
+  "npc.general_command.npc.config.info.debug": "отладить плагин",
+  "npc.general_command.npc.config.info.list": "список NPC",
+  "npc.general_command.npc.config.info.delete": "удалить NPC",
+  "npc.general_command.npc.config.info.create": "создать NPC",
+  "npc.general_command.npc.config.info.types": "типы NPC",
+  "npc.general_command.npc.config.info.help": "базовая помощь NPC",
+
+  "npc.general_command.npc.config.configurations": "Настройки NPC:",
+  "npc.general_command.npc.config.unknown_config": "§cНе удалось найти эту настройку! Используйте §6/laivynpc §cдля просмотра всех доступных настроек",
+  "npc.general_command.npc.config.select_first": "§cСначала вам нужно выбрать NPC, чтобы изменить его настройки!",
+
+  "npc.general_command.npc.details.created": "§7Активные NPC: ",
+
+  "npc.general_command.only_players": "§cТолько игроки могут использовать эту команду!",
+
+  "npc.commands.spawn.allowed": " §8- §aNPC теперь появляется :)",
+  "npc.commands.spawn.disallowed": " §8- §cNPC больше не появляется :(",
+  "npc.commands.location": " §8- §7NPC успешно перемещен.",
+
+  "npc.commands.items": " §8- §7Режим обмена предметами включен\n\n §8- §7Щелкните правой кнопкой мыши на NPC, чтобы добавить предмет\n §8- §7Щелкните правой кнопкой мыши + Shift на NPC, чтобы добавить предмет в основную руку\n §8- §7Щелкните левой кнопкой мыши на NPC, чтобы добавить предмет во вторую руку\n §8- §7Щелкните с пустыми руками, чтобы очистить все предметы.\n\n§cЧтобы выйти из режима редактирования предметов, введите команду еще раз.\n",
+  "npc.commands.items.left": " §8- §cВы вышли из режима редактирования предметов.",
+  "npc.commands.items.cleared": " §8- §cВы очистили все предметы NPC",
+  "npc.commands.items.offhand_incompatible": " §8- §cВ этой версии не поддерживается предмет во второй руке.",
+
+  "npc.commands.click.removed": "§8 - §7Действия при клике удалены",
+  "npc.commands.click.changed": "§8 - §7Действие при клике успешно добавлено",
+
+  "npc.commands.click.command.types": "§cДоступные типы действий при клике:",
+  "npc.commands.click.command.warning": "§8Внимание: Не ставьте '/' в начале команды. Плагин сделает это за вас.",
+
+  "npc.commands.respawn": " §8- §7NPC успешно возродился.",
+  "npc.commands.destroy": " §8- §cNPC успешно уничтожен.",
+
+  "npc.commands.fire.allowed": " §8- §7Горение NPC теперь §aвключено§7.",
+  "npc.commands.fire.disallowed": " §8- §7Горение NPC теперь §cвыключено§7.",
+
+  "npc.commands.distance.range": " §8- §7Расстояние просмотра должно быть больше 2 и меньше или равно 64.",
+  "npc.commands.distance": " §8- §7Расстояние просмотра теперь составляет §f%s блоков§7.",
+
+  "npc.commands.head_rotation.names.none": "нет",
+  "npc.commands.head_rotation.names.none.description": "нет вращения",
+
+  "npc.commands.head_rotation.names.nearest_player": "nearest_player",
+  "npc.commands.head_rotation.names.nearest_player.description": "Следует за ближайшим игроком",
+  "npc.commands.head_rotation.names.nearest_monster": "nearest_monster",
+  "npc.commands.head_rotation.names.nearest_monster.description": "Следует за ближайшим монстром",
+  "npc.commands.head_rotation.names.nearest_animal": "nearest_animal",
+  "npc.commands.head_rotation.names.nearest_animal.description": "Следует за ближайшим животным",
+  "npc.commands.head_rotation.names.nearest_entity": "nearest_entity",
+  "npc.commands.head_rotation.names.nearest_entity.description": "Следует за ближайшей сущностью",
+  "npc.commands.head_rotation.names.nearest_living_entity": "nearest_living_entity",
+  "npc.commands.head_rotation.names.nearest_living_entity.description": "Следует за ближайшей живой сущностью",
+  "npc.commands.head_rotation.changed": " §8- §7Поворот головы NPC успешно изменен",
+  "npc.commands.head_rotation.available": "§cДоступные варианты поворота головы:",
+
+  "npc.commands.pose.changed": " §8- §7Поза NPC изменена на §f%s§7.",
+  "npc.commands.pose.sleeping.error.view_distance": "§8 - §cДистанция обзора NPC должна быть меньше или равна 16, чтобы принять позу сна.",
+  "npc.commands.pose.available": "§cДоступные позы: §f%s",
+
+  "npc.commands.hologram.line_range": " §8- §cНомер строки должен быть от 1 до 999",
+  "npc.commands.hologram.line_changed": " §8- §7Строка §f%s §7успешно изменена",
+  "npc.commands.hologram.line_removed": " §8- §7Строка §cудалена§7 успешно",
+  "npc.commands.hologram.leave_blank_to_remove": "Оставьте поле пустым, чтобы удалить строку",
+  "npc.commands.hologram.available_opacities": "Доступные уровни прозрачности:",
+
+  "npc.commands.item_frame.item.holding": "§cВы должны держать предмет в основной руке!",
+  "npc.commands.enderman.carried.block": "§cТип предмета должен быть блоком!",
+
+  "npc.commands.baby.changed": " §8- §7Состояние ребенка NPC изменено",
+
+  "npc.commands.guardian.laser.set": " §8- §7Лазер установлен",
+  "npc.commands.guardian.laser.removed": " §8- §cЛазер удален",
+  "npc.commands.guardian.laser.head_rotation": " §8- §cСначала вам нужно удалить поворот головы, используйте '/laivynpc config head none'",
+
+  "npc.commands.invisible.changed": " §8- §7Состояние невидимости NPC изменено",
+
+  "npc.commands.holo_height.changed": " §8- §7Высота голограммы NPC изменена на §f%s блоков§7.",
+
+  "npc.commands.pig.saddle.disallowed": " §8- §7Седло NPC §cудалено§7.",
+  "npc.commands.pig.saddle.allowed": " §8- §7Седло NPC §aразрешено§7.",
+
+  "npc.commands.armor_stand.poses.changed": " §8- §7Поза §f%s §7стойки с броней изменена.",
+  "npc.commands.armor_stand.poses.invalid_number": "§cВы ввели неправильные числа в X, Y или Z.",
+  "npc.commands.armor_stand.poses.invalid_pose": "§cЭта поза '§6%s§c' §cнедопустима",
+  "npc.commands.armor_stand.poses.available_parts": "Доступные части:",
+
+  "npc.commands.armor_stand.size.changed": " §8- §7Состояние малого размера стойки с броней изменено.",
+  "npc.commands.armor_stand.base.changed": " §8- §7Базовая табличка стойки с броней изменена.",
+  "npc.commands.armor_stand.arms.changed": " §8- §7Руки стойки с броней изменены.",
+
+  "npc.commands.general.flag_changed": " §8- §7Флаг изменен!",
+  "npc.commands.general.available_options": "§7Доступные опции: %s",
+
+  "npc.commands.rainbow.ticks.less_than_one": "§cКоличество тактов не может быть меньше 1.",
+  "npc.commands.rainbow.ticks.illegal": "§cНедопустимое число.",
+  "npc.commands.rainbow.ticks.remove_code": "удалить",
+  "npc.commands.rainbow.ticks.rainbow_code": "радуга",
+  "npc.commands.general.correct_usage": "§8Подсказка: §7Вы можете использовать §f%s §7для удаления цвета или §f%s §7для использования радужного цвета",
+
+  "npc.player.skin.changed": "§8 - §7Кожа успешно изменена на §f%s§7.",
+  "npc.player.tablist.changed": "§8 - §7Теперь имя вкладки списка NPC - §f%s§7.",
+  "npc.player.tablist.removed": "§8 - §cИмя NPC успешно удалено из списка вкладок",
+
+  "npc.cannot_save": "§cНе удалось сохранить NPC с идентификатором '%s' (%s)",
+  "npc.cannot_load": "§cНе удалось загрузить NPC с идентификатором '%s'",
+  "npc.data_not_saved": "§cNPC не сохранены из-за ошибки"
+}
