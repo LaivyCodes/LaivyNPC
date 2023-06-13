@@ -614,8 +614,6 @@ public class PlayerNPC extends NPC {
                         parrot.setVariant(variant);
                         parrot.setLocation(getLocation());
                         // Define parrot
-                        System.out.println("Sent: '" + parrots.getKey() + "', '" + parrot.getVariant() + "'");
-
                         Bukkit.getScheduler().runTaskLater(laivynpc(), () -> {
                             setEntityShoulder(Shoulder.valueOf(parrots.getKey()), parrot);
                         }, 50);
