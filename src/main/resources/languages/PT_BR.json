@@ -138,6 +138,9 @@
   "npc.commands.armor_stand.base.changed": " §8- §7A placa de base do suporte de armadura foi alterada.",
   "npc.commands.armor_stand.arms.changed": " §8- §7Os braços do suporte de armadura foram alterados.",
 
+  "npc.commands.general.flag_changed.activated": " §8- §7Essa flag agora está §aativada§7!",
+  "npc.commands.general.flag_changed.deactivated": " §8- §7Essa flag agora está §cdesativada§7!",
+
   "npc.commands.general.flag_changed": " §8- §7Flag alterada!",
   "npc.commands.general.available_options": "§7As opções disponíveis são: %s",
 

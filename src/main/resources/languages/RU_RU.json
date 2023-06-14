@@ -138,6 +138,9 @@
   "npc.commands.armor_stand.base.changed": " §8- §7Базовая табличка стойки с броней изменена.",
   "npc.commands.armor_stand.arms.changed": " §8- §7Руки стойки с броней изменены.",
 
+  "npc.commands.general.flag_changed.activated": " §8- §7This flag is now §aactivated§7!",
+  "npc.commands.general.flag_changed.deactivated": " §8- §7This flag is now §cdeactivated§7!",
+
   "npc.commands.general.flag_changed": " §8- §7Флаг изменен!",
   "npc.commands.general.available_options": "§7Доступные опции: %s",
 

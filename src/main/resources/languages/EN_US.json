@@ -138,6 +138,9 @@
   "npc.commands.armor_stand.base.changed": " §8- §7The base plate of the armor stand has been changed.",
   "npc.commands.armor_stand.arms.changed": " §8- §7The arms of the armor stand has been changed.",
 
+  "npc.commands.general.flag_changed.activated": " §8- §7This flag is now §aactivated§7!",
+  "npc.commands.general.flag_changed.deactivated": " §8- §7This flag is now §cdeactivated§7!",
+
   "npc.commands.general.flag_changed": " §8- §7Flag changed!",
   "npc.commands.general.available_options": "§7The available options are: %s",
 

@@ -1,9 +1,8 @@
 package codes.laivy.npc.types;
 
+import codes.laivy.npc.developers.events.NPCCreateEvent;
 import codes.laivy.npc.developers.events.NPCDestroyEvent;
-import codes.laivy.npc.mappings.defaults.classes.enums.EnumColorEnum;
 import codes.laivy.npc.mappings.defaults.classes.java.EnumObjExec;
-import codes.laivy.npc.mappings.defaults.classes.java.IntegerObjExec;
 import codes.laivy.npc.mappings.defaults.classes.others.objects.PlayerConnection;
 import codes.laivy.npc.mappings.defaults.classes.packets.IPacket;
 import codes.laivy.npc.mappings.instances.classes.ClassExecutor;
@@ -16,6 +15,7 @@ import codes.laivy.npc.mappings.defaults.classes.enums.EntityPose;
 import codes.laivy.npc.mappings.defaults.classes.enums.EnumChatFormatEnum;
 import codes.laivy.npc.mappings.defaults.classes.enums.EnumChatFormatEnum.EnumChatFormat;
 import codes.laivy.npc.mappings.defaults.classes.enums.EnumItemSlotEnum;
+import codes.laivy.npc.mappings.versions.V1_14_R1;
 import codes.laivy.npc.mappings.versions.V1_9_R1;
 import codes.laivy.npc.types.clicks.CommandClickAction;
 import codes.laivy.npc.types.clicks.ServerRedirectClickAction;
@@ -115,8 +115,11 @@ public abstract class NPC {
             return new HashMap<>();
         }
     }
-    public static final @NotNull ClickAction BLANK_ACTION = (clickedPlayer, type) -> {
-        // Blank Action
+    public static final @NotNull ClickAction BLANK_ACTION = new ClickAction() {
+        @Override
+        public void run(@NotNull Player clickedPlayer, ClickType type) {
+            // Blank action
+        }
     };
 
     // ---/-/--- //
@@ -136,6 +139,7 @@ public abstract class NPC {
 
     private final @NotNull Set<@Nullable UUID> players;
     private boolean publicView;
+    private boolean chunkLoader = false;
 
     private int id;
 
@@ -226,6 +230,18 @@ public abstract class NPC {
         this.location = location.clone();
 
         this.id = id;
+
+        // TODO: 14/06/2023 Improve this
+        // Create Event
+        NPCCreateEvent event = new NPCCreateEvent(!Bukkit.isPrimaryThread(), this);
+        Bukkit.getPluginManager().callEvent(event);
+
+        if (event.isCancelled()) {
+            PUBLIC_NPCS.remove(this);
+            return;
+        }
+        // Create Event
+
         NPCS_ID.put(this.id, this);
 
         for (OfflinePlayer player : getPlayersInstances()) {
@@ -297,7 +313,7 @@ public abstract class NPC {
     }
 
     /**
-     * @return true if the NPC is saved on the config on the plugin disable
+     * @return true if the NPC is saved on the config on the plugin disabling
      */
     public boolean isSaveable() {
         return saveable;
@@ -419,6 +435,18 @@ public abstract class NPC {
         this.setLocation(location, true);
     }
     public void setLocation(@NotNull Location location, boolean update) {
+        if (ReflectionUtils.isCompatible(V1_14_R1.class)) {
+            @NotNull Chunk chunk = location.getChunk();
+
+            try {
+                // TODO: 14/06/2023 Improve chunk loading
+                Method method = chunk.getClass().getMethod("setForceLoaded", boolean.class);
+                method.invoke(chunk, isChunkLoader());
+            } catch (Throwable e) {
+                throw new RuntimeException(e);
+            }
+        }
+
         this.location = location;
         getEntity().setLocation(location);
         sendUpdatePackets(getVisiblePlayers(), false, false, false, update, update, update);
@@ -655,6 +683,7 @@ public abstract class NPC {
             add(INVISIBLE_CONFIG);
             add(HOLO_HEIGHT_CONFIG);
             add(DISPLAY_NAME_CONFIG);
+            add(CHUNK_LOADER_CONFIG);
 
             if (ReflectionUtils.isCompatible(V1_9_R1.class)) {
                 add(GLOWING_CONFIG);
@@ -697,6 +726,16 @@ public abstract class NPC {
         }
     }
     //
+
+    @ApiStatus.Experimental
+    public void setChunkLoader(boolean chunkLoader) {
+        this.chunkLoader = chunkLoader;
+    }
+
+    @ApiStatus.Experimental
+    public boolean isChunkLoader() {
+        return chunkLoader;
+    }
 
     // Poses
     public void setPose(@NotNull EntityPose pose) {
@@ -1143,6 +1182,23 @@ public abstract class NPC {
         }
     };
 
+    public static @NotNull NPCConfiguration CHUNK_LOADER_CONFIG = new NPCConfiguration("chunk-loader", "/laivynpc config chunk-loader") {
+        @Override
+        public void execute(@NotNull NPC npc, @NotNull Player sender, @NotNull String[] args) {
+            npc.setChunkLoader(!npc.isChunkLoader());
+
+            if (ReflectionUtils.isCompatible(V1_14_R1.class)) {
+                npc.setLocation(npc.getLocation());
+            }
+
+            if (npc.isChunkLoader()) {
+                sender.sendMessage(translate(sender, "npc.commands.general.flag_changed.activated"));
+            } else {
+                sender.sendMessage(translate(sender, "npc.commands.general.flag_changed.deactivated"));
+            }
+        }
+    };
+
     public static @NotNull NPCConfiguration GLOWING_CONFIG = new NPCConfiguration("glowing", "/laivynpc config glowing (color)") {
         @Override
         public void execute(@NotNull NPC npc, @NotNull Player sender, @NotNull String[] args) {
@@ -1425,7 +1481,9 @@ public abstract class NPC {
         // Appearance
         try {
             map.put("Appearance", appearence);
+
             appearence.put("Fire", isOnFire());
+            appearence.put("Chunk loader", isChunkLoader());
 
             Map<String, Object> glow = new LinkedHashMap<>();
             if (getGlowing() != null) {
@@ -1577,6 +1635,8 @@ public abstract class NPC {
         try {
             ConfigurationSection appearence = map.getConfigurationSection("Appearance");
 
+            boolean chunkLoader = appearence.getBoolean("Chunk loader", false);
+
             if (appearence.contains("Glow")) {
                 try {
                     ConfigurationSection glow = appearence.getConfigurationSection("Glow");
@@ -1619,6 +1679,7 @@ public abstract class NPC {
                 }
             }
 
+            setChunkLoader(chunkLoader);
             setOnFire(appearence.getBoolean("Fire"));
         } catch (Exception e) {
             e.printStackTrace();
@@ -1679,7 +1740,7 @@ public abstract class NPC {
         //
 
         // Poses
-        // TODO: 24/12/2022 1.14 poses
+        //  TODO: 24/12/2022 1.14 poses
 //        if (ReflectionUtils.isCompatible(V1_14_R1.class)) {
 //            try {
 //                EntityPose pose = EntityPose.valueOf(map.getString("Pose"));
