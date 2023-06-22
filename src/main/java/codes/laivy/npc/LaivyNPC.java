@@ -127,6 +127,10 @@ public class LaivyNPC extends JavaPlugin {
         new LaivyNpcMetrics(this);
     }
 
+    public final void disable(boolean save) {
+
+    }
+
     @Override
     public void onDisable() {
         try {
@@ -154,6 +158,11 @@ public class LaivyNPC extends JavaPlugin {
         } catch (Throwable e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public void reload() {
+        onDisable();
+        onEnable();
     }
 
     @NotNull

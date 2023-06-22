@@ -49,6 +49,7 @@
   "npc.general_command.npc.config.info.select": "selects a NPC",
   "npc.general_command.npc.config.info.update": "update the plugin",
   "npc.general_command.npc.config.info.debug": "debug the plugin",
+  "npc.general_command.npc.config.info.reload": "reload the plugin",
   "npc.general_command.npc.config.info.list": "NPCs list",
   "npc.general_command.npc.config.info.delete": "deletes a NPC",
   "npc.general_command.npc.config.info.create": "creates a NPC",
@@ -108,7 +109,7 @@
   "npc.commands.pose.sleeping.error.view_distance": "§8 - §cThe NPC's view distance must be less than or equal to 16 to start the sleeping pose.",
   "npc.commands.pose.available": "§cThe available poses are: §f%s",
 
-  "npc.commands.hologram.line_range": " §8- §cThe line must be between 1~999",
+  "npc.commands.hologram.line_range": " §8- §cThe line must be between 0~999",
   "npc.commands.hologram.line_changed": " §8- §7Line §f%s §7changed successfully",
   "npc.commands.hologram.line_removed": " §8- §7Line §cremoved §7successfully",
   "npc.commands.hologram.leave_blank_to_remove": "Leave the text blank to remove the line",
@@ -138,6 +139,9 @@
   "npc.commands.armor_stand.size.changed": " §8- §7The small state of the armor stand has been changed.",
   "npc.commands.armor_stand.base.changed": " §8- §7The base plate of the armor stand has been changed.",
   "npc.commands.armor_stand.arms.changed": " §8- §7The arms of the armor stand has been changed.",
+
+  "npc.general_command.reloading": " §8- §7Reloading...",
+  "npc.general_command.reloaded": " §8- §7Plug-in configuration and data reloaded.",
 
   "npc.commands.general.flag_changed.activated": " §8- §7This flag is now §aactivated§7!",
   "npc.commands.general.flag_changed.deactivated": " §8- §7This flag is now §cdeactivated§7!",

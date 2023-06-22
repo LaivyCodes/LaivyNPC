@@ -49,6 +49,7 @@
   "npc.general_command.npc.config.info.select": "seleciona um NPC",
   "npc.general_command.npc.config.info.update": "atualiza o plug-in",
   "npc.general_command.npc.config.info.debug": "depura o plug-in",
+  "npc.general_command.npc.config.info.reload": "recarrega o plug-in",
   "npc.general_command.npc.config.info.list": "lista de NPCs",
   "npc.general_command.npc.config.info.delete": "deleta um NPC",
   "npc.general_command.npc.config.info.create": "cria um NPC",
@@ -108,7 +109,7 @@
   "npc.commands.pose.sleeping.error.view_distance": "§8 - §cA distância de visão do NPC deve ser menor ou igual a 16 para assumir a pose de dormir.",
   "npc.commands.pose.available": "§cAs poses disponíveis são: §f%s",
 
-  "npc.commands.hologram.line_range": " §8- §cA linha deve estar entre 1 e 999",
+  "npc.commands.hologram.line_range": " §8- §cA linha deve estar entre 0 e 999",
   "npc.commands.hologram.line_changed": " §8- §7Linha §f%s §7alterada com sucesso",
   "npc.commands.hologram.line_removed": " §8- §7Linha §cremovida §7com sucesso",
   "npc.commands.hologram.leave_blank_to_remove": "Deixe o texto em branco para remover a linha",
@@ -141,6 +142,9 @@
 
   "npc.commands.general.flag_changed.activated": " §8- §7Essa flag agora está §aativada§7!",
   "npc.commands.general.flag_changed.deactivated": " §8- §7Essa flag agora está §cdesativada§7!",
+
+  "npc.general_command.reloading": " §8- §7Recarregando...",
+  "npc.general_command.reloaded": " §8- §7Configuração e data do plug-in recarregado com sucesso.",
 
   "npc.commands.general.flag_changed": " §8- §7Flag alterada!",
   "npc.commands.general.available_options": "§7As opções disponíveis são: %s",

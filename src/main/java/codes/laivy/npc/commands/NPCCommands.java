@@ -283,6 +283,10 @@ public class NPCCommands implements CommandExecutor, TabCompleter, Listener {
                             Bukkit.broadcastMessage(log.getMessage());
                         }
                     }
+                } else if (args[0].equalsIgnoreCase("reload")) {
+                    sender.sendMessage(translate(null, "npc.general_command.reloading"));
+                    laivynpc().reload();
+                    sender.sendMessage(translate(null, "npc.general_command.reloaded"));
                 } else {
                     sender.sendMessage("§cWrong arguments!");
                 }
@@ -295,6 +299,7 @@ public class NPCCommands implements CommandExecutor, TabCompleter, Listener {
                 sender.sendMessage("§6/laivynpc list §7- §b" + translate(player, "npc.general_command.npc.config.info.list"));
                 sender.sendMessage("§6/laivynpc update §7- §b" + translate(player, "npc.general_command.npc.config.info.update"));
                 sender.sendMessage("§6/laivynpc debug §7- §b" + translate(player, "npc.general_command.npc.config.info.debug"));
+                sender.sendMessage("§6/laivynpc reload §7- §b" + translate(player, "npc.general_command.npc.config.info.reload"));
                 sender.sendMessage("");
                 sender.sendMessage("§6/laivynpc select (id) §7- §b" + translate(player, "npc.general_command.npc.config.info.select"));
                 sender.sendMessage("§8/ ----------=-------=---------- /");

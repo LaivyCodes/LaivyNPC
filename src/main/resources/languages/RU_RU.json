@@ -49,6 +49,7 @@
   "npc.general_command.npc.config.info.select": "выбрать NPC",
   "npc.general_command.npc.config.info.update": "обновить плагин",
   "npc.general_command.npc.config.info.debug": "отладить плагин",
+  "npc.general_command.npc.config.info.reload": "reload the plugin",
   "npc.general_command.npc.config.info.list": "список NPC",
   "npc.general_command.npc.config.info.delete": "удалить NPC",
   "npc.general_command.npc.config.info.create": "создать NPC",
@@ -108,7 +109,7 @@
   "npc.commands.pose.sleeping.error.view_distance": "§8 - §cДистанция обзора NPC должна быть меньше или равна 16, чтобы принять позу сна.",
   "npc.commands.pose.available": "§cДоступные позы: §f%s",
 
-  "npc.commands.hologram.line_range": " §8- §cНомер строки должен быть от 1 до 999",
+  "npc.commands.hologram.line_range": " §8- §cНомер строки должен быть от 0 до 999",
   "npc.commands.hologram.line_changed": " §8- §7Строка §f%s §7успешно изменена",
   "npc.commands.hologram.line_removed": " §8- §7Строка §cудалена§7 успешно",
   "npc.commands.hologram.leave_blank_to_remove": "Оставьте поле пустым, чтобы удалить строку",
@@ -138,6 +139,9 @@
   "npc.commands.armor_stand.size.changed": " §8- §7Состояние малого размера стойки с броней изменено.",
   "npc.commands.armor_stand.base.changed": " §8- §7Базовая табличка стойки с броней изменена.",
   "npc.commands.armor_stand.arms.changed": " §8- §7Руки стойки с броней изменены.",
+
+  "npc.general_command.reloading": " §8- §7Reloading...",
+  "npc.general_command.reloaded": " §8- §7Plug-in configuration and data reloaded.",
 
   "npc.commands.general.flag_changed.activated": " §8- §7This flag is now §aactivated§7!",
   "npc.commands.general.flag_changed.deactivated": " §8- §7This flag is now §cdeactivated§7!",
