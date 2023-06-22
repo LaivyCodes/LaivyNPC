@@ -4,7 +4,10 @@ main: codes.laivy.npc.LaivyNPC
 author: "ItsLaivy (@itslaivy)"
 api-version: 1.13
 
+load: POSTWORLD
+
 softdepend:
+  - Multiverse-Core
   - LvMultiplesLanguages
   - Skript
 

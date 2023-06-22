@@ -35,12 +35,13 @@ public class ItemNPC extends EntityNPC {
 
     protected ItemNPC(int id, @NotNull List<OfflinePlayer> players, @NotNull Entity.EntityType type, @NotNull Location location) {
         super(id, players, type, location);
+        setItemStack(new ItemStack(Material.STICK));
     }
     public ItemNPC(@NotNull List<OfflinePlayer> players, @NotNull Location location) {
         this(NPC.getNextNpcId(), players, location);
     }
     public ItemNPC(int id, @NotNull List<OfflinePlayer> players, @NotNull Location location) {
-        super(id, players, Entity.EntityType.ITEM, location);
+        this(id, players, Entity.EntityType.ITEM, location);
     }
 
     public @NotNull ItemStack getItemStack() {
