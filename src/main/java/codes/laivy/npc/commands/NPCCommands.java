@@ -274,7 +274,9 @@ public class NPCCommands implements CommandExecutor, TabCompleter, Listener {
                         }
                     }
                 } else if (args[0].equalsIgnoreCase("debug")) {
-                    if (!(sender instanceof Player)) {
+                    if (!sender.hasPermission("laivynpc.admin.debug")) {
+                        sender.sendMessage(translate(player, "npc.general_command.no_permission"));
+                    } else if (!(sender instanceof Player)) {
                         sender.sendMessage(translate(null, "npc.general_command.only_players"));
                     } else {
                         Debug debug = new Debug(player);
@@ -284,9 +286,13 @@ public class NPCCommands implements CommandExecutor, TabCompleter, Listener {
                         }
                     }
                 } else if (args[0].equalsIgnoreCase("reload")) {
-                    sender.sendMessage(translate(null, "npc.general_command.reloading"));
-                    laivynpc().reload();
-                    sender.sendMessage(translate(null, "npc.general_command.reloaded"));
+                    if (!sender.hasPermission("laivynpc.admin.reload")) {
+                        sender.sendMessage(translate(player, "npc.general_command.no_permission"));
+                    } else {
+                        sender.sendMessage(translate(null, "npc.general_command.reloading"));
+                        laivynpc().reload();
+                        sender.sendMessage(translate(null, "npc.general_command.reloaded"));
+                    }
                 } else {
                     sender.sendMessage("§cWrong arguments!");
                 }

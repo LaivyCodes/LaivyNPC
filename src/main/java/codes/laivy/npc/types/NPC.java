@@ -888,7 +888,6 @@ public abstract class NPC {
     public static @NotNull NPCConfiguration CLICK_COMMAND_CONFIG = new NPCConfiguration("click-command", "/laivynpc config click-command") {
         @Override
         public void execute(@NotNull NPC npc, @NotNull Player sender, @NotNull String[] args) {
-            NPC.ClickAction old = npc.getClickAction();
             if (args.length >= 1) {
                 StringBuilder fullCommand = null;
                 if (args.length >= 3) {
@@ -925,7 +924,6 @@ public abstract class NPC {
                     }
 
                     CommandClickAction action = new CommandClickAction(executor, new HashMap<>());
-                    if (old instanceof CommandClickAction) action = (CommandClickAction) old;
 
                     for (ClickType type : types) {
                         action.getCommands().put(type, fullCommand.toString());
