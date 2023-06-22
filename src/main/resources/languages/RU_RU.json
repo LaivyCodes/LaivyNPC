@@ -76,6 +76,7 @@
   "npc.commands.click.changed": "§8 - §7Действие при клике успешно добавлено",
 
   "npc.commands.click.command.types": "§cДоступные типы действий при клике:",
+  "npc.commands.click.command.executors": "§cThe available executors type are",
   "npc.commands.click.command.warning": "§8Внимание: Не ставьте '/' в начале команды. Плагин сделает это за вас.",
 
   "npc.commands.respawn": " §8- §7NPC успешно возродился.",

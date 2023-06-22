@@ -116,6 +116,9 @@ public class NPCHolograms {
                         stand.setLocation(new Location(l.getWorld(), l.getX(), l.getY() + actualHeight, l.getZ(), 0F, 0F));
                         stand.setInvisible(true);
 
+                        stand.setCustomNameVisible(true);
+                        stand.setCustomName(text.getText().replace("%player%", player.getName()));
+
                         packets.add(laivynpc().getVersion().createSpawnPacket(stand));
                         packets.add(laivynpc().getVersion().createMetadataPacket(stand, stand.getDataWatcher(), true));
                     }

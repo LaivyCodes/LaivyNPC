@@ -76,6 +76,7 @@
   "npc.commands.click.changed": "§8 - §7Ação de clique adicionada com sucesso",
 
   "npc.commands.click.command.types": "§cOs tipos disponíveis de clique são",
+  "npc.commands.click.command.executors": "§cOs tipos de cliques disponíveis são",
   "npc.commands.click.command.warning": "§8Aviso: Não coloque \"/\" no começo do comando. O plug-in fará isso por você.",
 
   "npc.commands.respawn": " §8- §7NPC respawnado com sucesso.",

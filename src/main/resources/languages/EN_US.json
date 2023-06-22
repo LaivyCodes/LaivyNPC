@@ -76,6 +76,7 @@
   "npc.commands.click.changed": "§8 - §7Action changed successfully!",
 
   "npc.commands.click.command.types": "§cThe available clicks type are",
+  "npc.commands.click.command.executors": "§cThe available executors type are",
   "npc.commands.click.command.warning": "§8Warning: Do not put \"/\" at the start of the command. The plug-in already does it for you.",
 
   "npc.commands.respawn": " §8- §7NPC Successfully respawned.",

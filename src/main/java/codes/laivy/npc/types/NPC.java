@@ -680,6 +680,7 @@ public abstract class NPC {
             add(CLICK_SERVER_REDIRECT_CONFIG);
             add(HEAD_MOVEMENT_CONFIG);
             add(HOLOGRAMS_CONFIG);
+            add(RENAME_CONFIG);
             add(INVISIBLE_CONFIG);
             add(HOLO_HEIGHT_CONFIG);
             add(DISPLAY_NAME_CONFIG);
@@ -890,9 +891,9 @@ public abstract class NPC {
             NPC.ClickAction old = npc.getClickAction();
             if (args.length >= 1) {
                 StringBuilder fullCommand = null;
-                if (args.length >= 2) {
-                    fullCommand = new StringBuilder(args[1]);
-                    for (int row = 2; row < args.length; row++) {
+                if (args.length >= 3) {
+                    fullCommand = new StringBuilder(args[2]);
+                    for (int row = 3; row < args.length; row++) {
                         fullCommand.append(" ").append(args[row]);
                     }
                 }
@@ -915,7 +916,15 @@ public abstract class NPC {
                     npc.setClickAction(NPC.BLANK_ACTION);
                     sender.sendMessage(translate(sender, "npc.commands.click.removed"));
                 } else {
-                    CommandClickAction action = new CommandClickAction(new HashMap<>());
+                    CommandClickAction.Executor executor;
+                    try {
+                        executor = CommandClickAction.Executor.valueOf(args[1].toUpperCase());
+                    } catch (IllegalArgumentException ignore) {
+                        sender.performCommand("laivynpc config click-command");
+                        return;
+                    }
+
+                    CommandClickAction action = new CommandClickAction(executor, new HashMap<>());
                     if (old instanceof CommandClickAction) action = (CommandClickAction) old;
 
                     for (ClickType type : types) {
@@ -934,8 +943,17 @@ public abstract class NPC {
                 types.append("§c, §6").append(type);
             }
 
-            sender.sendMessage("§cUse /laivynpc config click-command (type) (command)");
+            StringBuilder executors = new StringBuilder();
+            int row = 0;
+            for (CommandClickAction.Executor executor : CommandClickAction.Executor.values()) {
+                if (row > 0) executors.append("§c, ");
+                executors.append("§6").append(executor.name());
+                row++;
+            }
+
+            sender.sendMessage("§cUse " + getSyntax() + " (type) (executor) (command)");
             sender.sendMessage(translate(sender, "npc.commands.click.command.types") + ": " + types);
+            sender.sendMessage(translate(sender, "npc.commands.click.command.executors") + ": " + executors);
             sender.sendMessage(translate(sender, "npc.commands.click.command.warning"));
         }
     };
@@ -1259,6 +1277,27 @@ public abstract class NPC {
         public void execute(@NotNull NPC npc, @NotNull Player sender, @NotNull String[] args) {
             npc.setCollidable(!npc.isCollidable());
             sender.sendMessage(translate(sender, "npc.commands.general.flag_changed"));
+        }
+    };
+
+    @NotNull
+    public static NPCConfiguration RENAME_CONFIG = new NPCConfiguration("rename", "/laivynpc config rename (name)") {
+        @Override
+        public void execute(@NotNull NPC npc, @NotNull Player sender, @NotNull String[] args) {
+            if (args.length > 0) {
+                StringBuilder textBuilder = new StringBuilder(args[0]);
+                for (int row = 1; row < args.length; row++) {
+                    textBuilder.append(" ").append(args[row]);
+                }
+
+                String text = ChatColor.translateAlternateColorCodes('&', textBuilder.toString());
+
+                npc.getHolograms().setLine(0, new NPCHologramText(text, NPCHologramText.TextOpacity.LOWEST, npc));
+                sender.sendMessage(translate(sender, "npc.commands.hologram.line_changed", 0));
+            } else {
+                npc.getHolograms().setLine(0, null);
+                sender.sendMessage(translate(sender, "npc.commands.hologram.line_removed"));
+            }
         }
     };
 

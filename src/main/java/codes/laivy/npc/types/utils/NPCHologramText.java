@@ -30,8 +30,6 @@ public class NPCHologramText {
             for (int row = 0; row < getOpacity().getSize(); row++) {
                 ArmorStand stand = (ArmorStand) LaivyNPC.laivynpc().getVersion().createEntity(Entity.EntityType.ARMOR_STAND, npc.getLocation());
                 stand.setInvisible(true);
-                stand.setCustomNameVisible(true);
-                stand.setCustomName(text);
 
                 getArmorStands().add(stand);
             }
