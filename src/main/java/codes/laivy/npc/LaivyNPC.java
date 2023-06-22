@@ -6,7 +6,6 @@ import codes.laivy.npc.listeners.NPCListener;
 import codes.laivy.npc.mappings.Version;
 import codes.laivy.npc.mappings.defaults.classes.packets.listeners.InjectionUtils;
 import codes.laivy.npc.metrics.LaivyNpcMetrics;
-import codes.laivy.npc.metrics.Metrics;
 import codes.laivy.npc.types.NPC;
 import codes.laivy.npc.utils.LaivyNPCUpdater;
 import codes.laivy.npc.utils.ReflectionUtils;
@@ -127,21 +126,17 @@ public class LaivyNPC extends JavaPlugin {
         new LaivyNpcMetrics(this);
     }
 
-    public final void disable(boolean save) {
+    public final void disable(boolean save) throws IOException {
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            InjectionUtils.removePlayer(player);
+        }
+        if (!successfullyLoaded) return;
 
-    }
+        for (Map.Entry<@NotNull Integer, @NotNull NPC> map : NPC.NPCS_ID.entrySet()) {
+            map.getValue().despawn();
+        }
 
-    @Override
-    public void onDisable() {
-        try {
-            for (Player player : Bukkit.getOnlinePlayers()) {
-                InjectionUtils.removePlayer(player);
-            }
-            if (!successfullyLoaded) return;
-
-            for (Map.Entry<@NotNull Integer, @NotNull NPC> map : NPC.NPCS_ID.entrySet()) {
-                map.getValue().despawn();
-            }
+        if (save) {
 
             YamlConfiguration config = YamlConfiguration.loadConfiguration(getDatabaseFile());
             for (NPC npc : NPC.PUBLIC_NPCS) {
@@ -155,14 +150,25 @@ public class LaivyNPC extends JavaPlugin {
                 }
             }
             config.save(getDatabaseFile());
+        }
+    }
+
+    @Override
+    public void onDisable() {
+        try {
+            disable(true);
         } catch (Throwable e) {
             throw new RuntimeException(e);
         }
     }
 
     public void reload() {
-        onDisable();
-        onEnable();
+        try {
+            disable(false);
+            onEnable();
+        } catch (Throwable e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @NotNull
