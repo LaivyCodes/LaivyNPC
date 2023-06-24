@@ -74,6 +74,7 @@
   "npc.commands.items.offhand_incompatible": " §8- §cThis version doesn't supports offhand equipments.",
 
   "npc.commands.click.removed": "§8 - §7The click actions has been removed",
+  "npc.commands.click.unknown": "§8 - §cThis command doesn't exists!",
   "npc.commands.click.changed": "§8 - §7Action changed successfully!",
 
   "npc.commands.click.command.types": "§cThe available clicks type are",
@@ -139,6 +140,8 @@
   "npc.commands.armor_stand.size.changed": " §8- §7The small state of the armor stand has been changed.",
   "npc.commands.armor_stand.base.changed": " §8- §7The base plate of the armor stand has been changed.",
   "npc.commands.armor_stand.arms.changed": " §8- §7The arms of the armor stand has been changed.",
+
+  "npc.commands.deluxemenus.main.unknown": " §8- §cThe menu §4%s §cdoesn't exists.",
 
   "npc.general_command.reloading": " §8- §7Reloading...",
   "npc.general_command.reloaded": " §8- §7Plug-in configuration and data reloaded.",

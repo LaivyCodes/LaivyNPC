@@ -19,6 +19,7 @@ import codes.laivy.npc.mappings.versions.V1_14_R1;
 import codes.laivy.npc.mappings.versions.V1_9_R1;
 import codes.laivy.npc.types.clicks.CommandClickAction;
 import codes.laivy.npc.types.clicks.ServerRedirectClickAction;
+import codes.laivy.npc.types.commands.DeluxeMenusConfiguration;
 import codes.laivy.npc.types.commands.NPCConfiguration;
 import codes.laivy.npc.types.commands.NPCItemsEditorConfiguration;
 import codes.laivy.npc.types.list.ambient.BatNPC;
@@ -59,6 +60,7 @@ import org.bukkit.*;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.MemorySection;
 import org.bukkit.entity.Player;
+import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
@@ -691,6 +693,10 @@ public abstract class NPC {
                 add(COLLISION_CONFIG);
             }
 
+            if (Bukkit.getPluginManager().getPlugin("DeluxeMenus") != null) {
+                add(DELUXEMENUS_MENU);
+            }
+
             // TODO: 24/12/2022 1.14 poses
 //            if (ReflectionUtils.isCompatible(V1_14_R1.class)) {
 //                add(NPC_POSE_CONFIG);
@@ -891,12 +897,31 @@ public abstract class NPC {
             if (args.length >= 1) {
                 StringBuilder fullCommand = null;
                 if (args.length >= 3) {
+                    // TODO: 23/06/2023 Command not available
+//                    boolean commandExists = false;
+//                    if (Bukkit.getPluginCommand(args[2]) != null) {
+//                        commandExists = true;
+//                    } else f1: for (String[] aliases : Bukkit.getCommandAliases().values()) {
+//                        for (String alias : aliases) {
+//                            if (alias.equalsIgnoreCase(args[2])) {
+//                                commandExists = true;
+//                                break f1;
+//                            }
+//                        }
+//                    }
+//
+//                    if (!commandExists) {
+//                        sender.sendMessage(translate(sender, "npc.commands.click.unknown"));
+//                        return;
+//                    }
+
                     fullCommand = new StringBuilder(args[2]);
                     for (int row = 3; row < args.length; row++) {
                         fullCommand.append(" ").append(args[row]);
                     }
                 }
 
+                // TODO: 23/06/2023 Add multiples types (RIGHTCLICK AND LEFTCLICK as example)
                 ClickType[] types;
                 try {
                     types = new ClickType[] {
@@ -923,13 +948,17 @@ public abstract class NPC {
                         return;
                     }
 
-                    CommandClickAction action = new CommandClickAction(executor, new HashMap<>());
-
-                    for (ClickType type : types) {
-                        action.getCommands().put(type, fullCommand.toString());
+                    Map<ClickType, String> map = new LinkedHashMap<>();
+                    if (npc.getClickAction() instanceof CommandClickAction) {
+                        CommandClickAction old = (CommandClickAction) npc.getClickAction();
+                        map.putAll(old.getCommands());
                     }
 
-                    npc.setClickAction(action);
+                    for (ClickType type : types) {
+                        map.put(type, fullCommand.toString());
+                    }
+
+                    npc.setClickAction(new CommandClickAction(executor, map));
                     sender.sendMessage(translate(sender, "npc.commands.click.changed"));
                 }
 
@@ -1277,6 +1306,8 @@ public abstract class NPC {
             sender.sendMessage(translate(sender, "npc.commands.general.flag_changed"));
         }
     };
+
+    public static @NotNull NPCConfiguration DELUXEMENUS_MENU = new DeluxeMenusConfiguration();
 
     @NotNull
     public static NPCConfiguration RENAME_CONFIG = new NPCConfiguration("rename", "/laivynpc config rename (name)") {

@@ -74,6 +74,7 @@
   "npc.commands.items.offhand_incompatible": " §8- §cВ этой версии не поддерживается предмет во второй руке.",
 
   "npc.commands.click.removed": "§8 - §7Действия при клике удалены",
+  "npc.commands.click.unknown": "§8 - §cThis command doesn't exists!",
   "npc.commands.click.changed": "§8 - §7Действие при клике успешно добавлено",
 
   "npc.commands.click.command.types": "§cДоступные типы действий при клике:",

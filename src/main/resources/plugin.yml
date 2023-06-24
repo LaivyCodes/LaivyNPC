@@ -10,6 +10,7 @@ softdepend:
   - Multiverse-Core
   - LvMultiplesLanguages
   - Skript
+  - DeluxeMenus
 
 website: "https://github.com/ItsLaivy/LaivyNPC"
 

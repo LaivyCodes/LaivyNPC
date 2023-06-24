@@ -74,6 +74,7 @@
   "npc.commands.items.offhand_incompatible": " §8- §cEssa versão não suporta equipamentos na mão secundária.",
 
   "npc.commands.click.removed": "§8 - §7As ações de clique foram removidas",
+  "npc.commands.click.unknown": "§8 - §cEsse comando não existe!",
   "npc.commands.click.changed": "§8 - §7Ação de clique adicionada com sucesso",
 
   "npc.commands.click.command.types": "§cOs tipos disponíveis de clique são",
