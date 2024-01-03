@@ -1,7 +1,7 @@
-package codes.laivy.npc.api;
+package com.laivynpc.core.api;
 
-import codes.laivy.npc.modules.Module;
-import codes.laivy.npc.utils.Version;
+import com.laivynpc.core.modules.Module;
+import com.laivynpc.core.utils.Version;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

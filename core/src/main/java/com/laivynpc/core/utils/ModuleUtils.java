@@ -1,7 +1,7 @@
-package codes.laivy.npc.utils;
+package com.laivynpc.core.utils;
 
-import codes.laivy.npc.LaivyNPC;
-import codes.laivy.npc.modules.Module;
+import com.laivynpc.core.LaivyNPC;
+import com.laivynpc.core.modules.Module;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;

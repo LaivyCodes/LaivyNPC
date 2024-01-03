@@ -1,4 +1,4 @@
-package codes.laivy.npc.utils;
+package com.laivynpc.core.utils;
 
 import org.jetbrains.annotations.NotNull;
 

@@ -1,11 +1,11 @@
-package codes.laivy.npc.api.provider;
+package com.laivynpc.core.api.provider;
 
-import codes.laivy.npc.LaivyNPC;
-import codes.laivy.npc.api.NpcApi;
-import codes.laivy.npc.modules.Module;
-import codes.laivy.npc.utils.ModuleUtils;
-import codes.laivy.npc.utils.ReflectionUtils;
-import codes.laivy.npc.utils.Version;
+import com.laivynpc.core.LaivyNPC;
+import com.laivynpc.core.api.NpcApi;
+import com.laivynpc.core.modules.Module;
+import com.laivynpc.core.utils.ModuleUtils;
+import com.laivynpc.core.utils.ReflectionUtils;
+import com.laivynpc.core.utils.Version;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;

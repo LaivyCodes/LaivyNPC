@@ -1,14 +1,12 @@
 name: "LaivyNPC"
 version: ${project.version}
-main: codes.laivy.npc.LaivyNPC
+main: com.laivynpc.core.LaivyNPC
 author: "ItsLaivy (@itslaivy)"
 api-version: 1.13
 
 load: POSTWORLD
 
-softdepend:
-
-website: "https://github.com/ItsLaivy/LaivyNPC"
+website: "https://www.spigotmc.org/resources/110246/"
 
 commands:
   laivynpc:

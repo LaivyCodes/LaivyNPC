@@ -1,7 +1,7 @@
-package codes.laivy.npc;
+package com.laivynpc.core;
 
-import codes.laivy.npc.api.NpcApi;
-import codes.laivy.npc.api.provider.NpcApiProvider;
+import com.laivynpc.core.api.NpcApi;
+import com.laivynpc.core.api.provider.NpcApiProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.UnknownNullability;
