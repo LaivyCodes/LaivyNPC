@@ -82,7 +82,7 @@ public class NpcApiProvider implements NpcApi {
         }
 
         if (this.module == null) {
-            // TODO: Download from Metadotis servers a new compatible version
+            // TODO: Download from LaivyNPC servers a new compatible version
             throw new IllegalStateException("Incompatible version!");
         }
     }
