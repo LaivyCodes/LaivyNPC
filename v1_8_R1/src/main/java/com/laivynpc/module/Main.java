@@ -1,15 +1,20 @@
 package com.laivynpc.module;
 
+import com.laivynpc.core.modules.Entity;
 import com.laivynpc.core.modules.Module;
+import com.laivynpc.core.modules.entities.DroppedItem;
 import com.laivynpc.core.utils.Version;
+import org.bukkit.Location;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.EntityType;
+import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Objects;
 
-public class Main implements Module {
+public final class Main implements Module {
 
     public static void main(String[] args) {
     }
@@ -38,6 +43,16 @@ public class Main implements Module {
         @NotNull String[] version = configuration.getString("version").split("\\.");
 
         return Version.of(configuration.getString("vendor"), Integer.parseInt(version[0]), Integer.parseInt(version[1]));
+    }
+
+    @Override
+    public @NotNull EntityType getEntiyType(@NotNull Object object) {
+        return null;
+    }
+
+    @Override
+    public @NotNull Entity create(@NotNull Location location, @NotNull EntityType type) {
+        return EntityCreator.create(location, type);
     }
 
 }
